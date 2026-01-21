@@ -1,0 +1,30 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanujdargan/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/tanujdargan/portfolio/issues"
+  },
+  "homepage": "https://github.com/tanujdargan/portfolio#readme",
+  "dependencies": {
+    "@types/three": "^0.182.0",
+    "three": "^0.182.0",
+    "three-stdlib": "^2.36.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0"
+  }
+}

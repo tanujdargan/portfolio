@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:slowroads.io)",
+      "Bash(npm init:*)",
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:bruno-simon.com)",
+      "Bash(npm install:*)",
+      "Bash(cat:*)",
+      "Bash(npx vite)",
+      "Bash(npx vite build)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd procedural flight simulator project\n\nFeatures:\n- Three.js WebGL rendering with post-processing\n- Procedural terrain generation with height-based texturing\n- Infinite chunk-based world system\n- Realistic airplane physics and controls\n- Multiple camera modes \\(chase, cockpit, cinematic, free\\)\n- Dynamic sky system with day/night cycle\n- Volumetric cloud system\n- Particle effects \\(engine trails, contrails\\)\n- Responsive UI with glass morphism design\nEOF\n\\)\")"
+    ]
+  }
+}
