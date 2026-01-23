@@ -1,0 +1,86 @@
+.skills {
+  background: var(--bg-secondary);
+}
+
+/* GitHub Stats */
+.github-stats {
+  margin-bottom: 60px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  justify-items: center;
+}
+
+.stat-card {
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.stat-card img {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+/* Tech Cloud */
+.tech-cloud {
+  text-align: center;
+}
+
+.tech-cloud-title {
+  font-size: 20px;
+  margin-bottom: 32px;
+  color: var(--text-secondary);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tech-tag {
+  padding: 10px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+@media (max-width: 968px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card img {
+    max-width: 100%;
+  }
+}
