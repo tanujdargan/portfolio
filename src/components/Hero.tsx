@@ -29,7 +29,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Hi, I'm <span className="gradient-text">Tanuj Dargan</span>
+            Hi, I'm <span className="gradient-text">Tanuj</span>
           </motion.h1>
 
           <motion.p
@@ -38,7 +38,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            AI Developer & Researcher
+            I'm a 3rd Year Computer Science student at the University of Victoria
           </motion.p>
 
           <motion.p
@@ -47,9 +47,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Computer Science student at the University of Victoria building
-            autonomous AI systems, high-performance inference pipelines, and
-            winning hackathons along the way.
+            Building autonomous AI systems, high-performance inference pipelines,
+            and winning hackathons along the way.
           </motion.p>
 
           <motion.div

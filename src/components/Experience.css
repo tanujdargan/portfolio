@@ -57,6 +57,7 @@
   padding: 28px;
   margin-bottom: 24px;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .experience-content:hover {
@@ -112,6 +113,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 12px;
 }
 
 .exp-tag {
@@ -121,6 +123,188 @@
   font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
+}
+
+.click-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.experience-content:hover .click-hint {
+  opacity: 1;
+  color: var(--accent-light);
+}
+
+/* Modal Overlay */
+.experience-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Modal */
+.experience-modal {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 0;
+}
+
+.modal-left {
+  padding: 40px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-right {
+  padding: 40px;
+  background: var(--bg-tertiary);
+  border-radius: 0 24px 24px 0;
+}
+
+.modal-header {
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.modal-company {
+  font-size: 18px;
+  color: var(--accent-light);
+  font-weight: 500;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.modal-period,
+.modal-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.modal-description {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-tag {
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Modal Right Side - Links */
+.modal-links-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.modal-link:hover {
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.modal-link span {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.modal-link .link-arrow {
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+.modal-link:hover .link-arrow {
+  transform: translateX(4px);
+  color: var(--accent-light);
 }
 
 @media (max-width: 768px) {
@@ -146,5 +330,29 @@
 
   .experience-content {
     margin-left: 0;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+  }
+
+  .modal-right {
+    border-radius: 0 0 24px 24px;
+    padding: 30px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+  }
+
+  .modal-meta {
+    flex-direction: column;
+    gap: 12px;
   }
 }
