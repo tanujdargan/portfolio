@@ -3,21 +3,55 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import './Skills.css'
 
-const technologies = [
-  // Languages
-  'Python', 'Java', 'C', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3',
-  // Web & Frameworks
-  'React', 'Next.js', 'Node.js', 'Three.js', 'Django',
-  // Databases & Backend
-  'Firebase', 'MongoDB',
-  // ML & Data
-  'TensorFlow', 'PyTorch', 'Kaggle',
-  // DevOps & Tools
-  'Docker', 'Git', 'VS Code',
-  // Hardware & IoT
-  'Arduino', 'Raspberry Pi',
-  // Design & Creative
-  'Figma', 'Canva', 'Blender', 'Webflow'
+const skillCategories = [
+  {
+    title: 'Languages',
+    skills: ['Python', 'Java', 'C', 'JavaScript', 'TypeScript', 'Rust', 'YAML']
+  },
+  {
+    title: 'Frontend',
+    skills: ['React', 'Next.js', 'Three.js', 'Tailwind CSS', 'Webflow']
+  },
+  {
+    title: 'Backend',
+    skills: ['Node.js', 'Django', 'FastAPI', 'Express.js']
+  },
+  {
+    title: 'Databases',
+    skills: ['MongoDB', 'Firebase', 'PostgreSQL', 'Redis', 'Supabase']
+  },
+  {
+    title: 'AI/ML',
+    skills: ['TensorFlow', 'PyTorch', 'scikit-learn', 'Hugging Face', 'Pandas', 'NumPy', 'OpenCV']
+  },
+  {
+    title: 'LLM/Inference',
+    skills: ['LangChain', 'LangGraph', 'vLLM', 'Ollama', 'LoRA', 'OpenAI API']
+  },
+  {
+    title: 'MLOps',
+    skills: ['Kaggle', 'Jupyter', 'Weights & Biases', 'MLflow', 'CUDA']
+  },
+  {
+    title: 'Cloud',
+    skills: ['GCP', 'AWS', 'Vercel', 'Cloudflare']
+  },
+  {
+    title: 'DevOps/Infra',
+    skills: ['Docker', 'Kubernetes', 'Proxmox', 'Terraform', 'Ansible', 'GitHub Actions', 'Nix', 'ZFS', 'UniFi']
+  },
+  {
+    title: 'Monitoring',
+    skills: ['Grafana', 'Prometheus', 'Nginx', 'Traefik']
+  },
+  {
+    title: 'Design',
+    skills: ['Figma', 'Canva', 'Blender']
+  },
+  {
+    title: 'Tools',
+    skills: ['Git', 'VS Code', 'Postman', 'Linux']
+  }
 ]
 
 export default function Skills() {
@@ -91,24 +125,34 @@ export default function Skills() {
         </motion.div>
 
         <motion.div
-          className="tech-cloud"
+          className="tech-categories"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <h3 className="tech-cloud-title">Technologies & Tools</h3>
-          <div className="tech-tags">
-            {technologies.map((tech, index) => (
-              <motion.span
-                key={tech}
-                className="tech-tag"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.3, delay: 0.7 + index * 0.02 }}
-                whileHover={{ scale: 1.1, y: -4 }}
+          <div className="categories-grid">
+            {skillCategories.map((category, catIndex) => (
+              <motion.div
+                key={category.title}
+                className="skill-category"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.6 + catIndex * 0.05 }}
               >
-                {tech}
-              </motion.span>
+                <h4 className="category-title">{category.title}</h4>
+                <div className="category-tags">
+                  {category.skills.map((skill) => (
+                    <motion.span
+                      key={skill}
+                      className="tech-tag"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
