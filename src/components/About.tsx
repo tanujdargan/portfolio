@@ -56,7 +56,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p>
-              I'm a Computer Science student at the <strong>University of Victoria</strong> (graduating 2027),
+              I'm a Computer Science student at the <strong>University of Victoria</strong> (April 2027 grad),
               recipient of the International Undergraduate Scholarship. My journey spans from building
               autonomous medical AI systems to contributing to satellite mission control software.
             </p>
