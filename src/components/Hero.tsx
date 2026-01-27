@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react'
 import './Hero.css'
 
 const socialLinks = [
@@ -67,12 +67,14 @@ export default function Hero() {
               <ArrowDown size={18} />
             </motion.a>
             <motion.a
-              href="#contact"
+              href="/resume.pdf"
+              download
               className="btn btn-secondary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get In Touch
+              Download Resume
+              <Download size={18} />
             </motion.a>
           </motion.div>
 
@@ -108,14 +110,15 @@ export default function Hero() {
         >
           <div className="hero-image-wrapper">
             <div className="hero-image-bg" />
-            <div className="hero-image-content">
-              <div className="code-block">
-                <div className="code-header">
-                  <span className="dot red" />
-                  <span className="dot yellow" />
-                  <span className="dot green" />
-                </div>
-                <pre className="code-content">
+            <div className="rgb-border-card">
+              <div className="hero-image-content">
+                <div className="code-block">
+                  <div className="code-header">
+                    <span className="dot red" />
+                    <span className="dot yellow" />
+                    <span className="dot green" />
+                  </div>
+                  <pre className="code-content">
 {`const tanuj = {
   role: "AI Developer & Researcher",
   education: "UVic CS '27",
@@ -126,7 +129,8 @@ export default function Hero() {
   ],
   currentlyBuilding: "Medical AI @ Pear Care"
 };`}
-                </pre>
+                  </pre>
+                </div>
               </div>
             </div>
           </div>

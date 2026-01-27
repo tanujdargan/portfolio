@@ -68,7 +68,7 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
         >
           <span className="section-label">Skills</span>
-          <h2 className="section-title">Technical Arsenal</h2>
+          <h2 className="section-title">What I Work With</h2>
           <p className="section-description">
             From low-level systems to high-level AI agents - a full-stack toolkit for building at scale.
           </p>
