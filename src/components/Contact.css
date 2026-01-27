@@ -162,6 +162,28 @@ a.contact-card-value:hover {
   color: var(--accent);
 }
 
+.form-info {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-light);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.form-mailto-btn {
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+}
+
+.form-mailto-btn:hover {
+  color: var(--accent);
+}
+
 .submit-btn {
   width: 100%;
   justify-content: center;

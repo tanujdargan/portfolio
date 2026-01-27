@@ -28,7 +28,7 @@ export default function Contact() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitResult, setSubmitResult] = useState<'success' | 'error' | ''>('')
+  const [submitResult, setSubmitResult] = useState<'success' | 'error' | 'no-key' | ''>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,50 +37,45 @@ export default function Contact() {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
     if (!accessKey) {
-      setSubmitResult('error')
+      // No API key configured - show mailto fallback
+      setSubmitResult('no-key')
       setIsSubmitting(false)
       return
     }
 
-    const payload = {
-      access_key: accessKey,
-      name: formState.name,
-      email: formState.email,
-      message: formState.message
-    }
-
-    const maxRetries = 3
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
-      try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          subject: `Portfolio Contact: ${formState.name}`,
         })
-        const data = await response.json()
+      })
+      const data = await response.json()
 
-        if (data.success) {
-          setSubmitResult('success')
-          setFormState({ name: '', email: '', message: '' })
-          setIsSubmitting(false)
-          return
-        } else {
-          setSubmitResult('error')
-          setIsSubmitting(false)
-          return
-        }
-      } catch {
-        if (attempt < maxRetries - 1) {
-          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
-          continue
-        }
+      if (data.success) {
+        setSubmitResult('success')
+        setFormState({ name: '', email: '', message: '' })
+      } else {
         setSubmitResult('error')
       }
+    } catch {
+      setSubmitResult('error')
     }
     setIsSubmitting(false)
+  }
+
+  const mailtoFallback = () => {
+    const subject = encodeURIComponent(`Portfolio Contact from ${formState.name}`)
+    const body = encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`)
+    window.location.href = `mailto:tanujd@uvic.ca?subject=${subject}&body=${body}`
   }
 
   return (
@@ -205,6 +200,14 @@ export default function Contact() {
               <p className="form-status form-error">
                 Something went wrong. Please try again or{' '}
                 <a href="mailto:tanujd@uvic.ca" className="form-error-link">email me directly</a>.
+              </p>
+            )}
+            {submitResult === 'no-key' && (
+              <p className="form-status form-info">
+                Form service is not configured yet.{' '}
+                <button type="button" className="form-mailto-btn" onClick={mailtoFallback}>
+                  Click here to send via email instead
+                </button>
               </p>
             )}
 

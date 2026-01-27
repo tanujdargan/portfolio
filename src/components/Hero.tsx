@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
 import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react'
 import './Hero.css'
 
@@ -8,7 +9,55 @@ const socialLinks = [
   { icon: Mail, href: 'mailto:tanujd@uvic.ca', label: 'Email' },
 ]
 
+const terminalLines = [
+  { text: 'const tanuj = {', delay: 0 },
+  { text: '  role: "AI Developer & Researcher",', delay: 400 },
+  { text: '  education: "UVic CS \'27",', delay: 800 },
+  { text: '  focus: [', delay: 1200 },
+  { text: '    "Autonomous AI Agents",', delay: 1500 },
+  { text: '    "High-Performance ML",', delay: 1800 },
+  { text: '    "Full-Stack Development"', delay: 2100 },
+  { text: '  ],', delay: 2400 },
+  { text: '  currentlyBuilding: "Medical AI @ Pear Care"', delay: 2700 },
+  { text: '};', delay: 3100 },
+]
+
+function TypingLine({ text, delay }: { text: string; delay: number }) {
+  const [displayed, setDisplayed] = useState('')
+  const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    const startTimer = setTimeout(() => setStarted(true), delay)
+    return () => clearTimeout(startTimer)
+  }, [delay])
+
+  useEffect(() => {
+    if (!started) return
+    let i = 0
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        setDisplayed(text.substring(0, i + 1))
+        i++
+      } else {
+        clearInterval(interval)
+      }
+    }, 30)
+    return () => clearInterval(interval)
+  }, [started, text])
+
+  if (!started) return null
+
+  return (
+    <div className="terminal-line">
+      {displayed}
+      {displayed.length < text.length && <span className="terminal-cursor">|</span>}
+    </div>
+  )
+}
+
 export default function Hero() {
+  const terminalRef = useRef<HTMLDivElement>(null)
+
   return (
     <section className="hero">
       <div className="container hero-container">
@@ -110,26 +159,24 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="hero-image-wrapper">
-            <div className="rgb-border-card">
-              <div className="hero-image-content">
-                <div className="code-block">
-                  <div className="code-header">
+            {/* Shine Border */}
+            <div className="shine-border-wrapper">
+              <div className="shine-border" />
+              {/* Terminal */}
+              <div className="terminal" ref={terminalRef}>
+                <div className="terminal-header">
+                  <div className="terminal-dots">
                     <span className="dot red" />
                     <span className="dot yellow" />
                     <span className="dot green" />
                   </div>
-                  <pre className="code-content">
-{`const tanuj = {
-  role: "AI Developer & Researcher",
-  education: "UVic CS '27",
-  focus: [
-    "Autonomous AI Agents",
-    "High-Performance ML",
-    "Full-Stack Development"
-  ],
-  currentlyBuilding: "Medical AI @ Pear Care"
-};`}
-                  </pre>
+                  <span className="terminal-title">tanuj.ts</span>
+                  <div className="terminal-dots-spacer" />
+                </div>
+                <div className="terminal-body">
+                  {terminalLines.map((line, i) => (
+                    <TypingLine key={i} text={line.text} delay={line.delay} />
+                  ))}
                 </div>
               </div>
             </div>

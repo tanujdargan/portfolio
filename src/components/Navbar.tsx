@@ -37,7 +37,7 @@ export default function Navbar() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="logo-text">TD</span>
+          <span className="logo-text">Tanuj Dargan</span>
         </motion.a>
 
         <div className="nav-links">

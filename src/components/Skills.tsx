@@ -3,10 +3,9 @@ import { useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import './Skills.css'
 
-const CACHE_DURATION_MS = 24 * 60 * 60 * 1000 // 24 hours
+const CACHE_DURATION_MS = 6 * 60 * 60 * 1000 // 6 hours
 
 function getCacheKey(url: string): string {
-  // Simple hash of the URL for localStorage key
   let hash = 0
   for (let i = 0; i < url.length; i++) {
     hash = ((hash << 5) - hash + url.charCodeAt(i)) | 0
@@ -14,22 +13,14 @@ function getCacheKey(url: string): string {
   return `gh-stats-${Math.abs(hash)}`
 }
 
-function CachedStatImage({ url, alt }: { url: string; alt: string }) {
-  const [src, setSrc] = useState<string>(() => {
-    try {
-      const cached = localStorage.getItem(getCacheKey(url))
-      if (cached) {
-        const { data, timestamp } = JSON.parse(cached)
-        if (Date.now() - timestamp < CACHE_DURATION_MS) return data
-      }
-    } catch { /* ignore */ }
-    return url
-  })
+function GitHubStatImage({ url, alt }: { url: string; alt: string }) {
+  const [src, setSrc] = useState<string | null>(null)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const key = getCacheKey(url)
 
-    // Check cache
+    // Check cache first
     try {
       const cached = localStorage.getItem(key)
       if (cached) {
@@ -41,7 +32,7 @@ function CachedStatImage({ url, alt }: { url: string; alt: string }) {
       }
     } catch { /* ignore */ }
 
-    // Fetch SVG and cache as data URL
+    // Fetch SVG and convert to data URL for caching
     let cancelled = false
     fetch(url)
       .then(res => {
@@ -57,14 +48,26 @@ function CachedStatImage({ url, alt }: { url: string; alt: string }) {
         setSrc(dataUrl)
       })
       .catch(() => {
-        if (!cancelled) setSrc(url) // fallback to direct URL
+        if (!cancelled) {
+          // Fallback: use direct URL as img src (no CORS needed for <img>)
+          setSrc(url)
+          setError(true)
+        }
       })
 
     return () => { cancelled = true }
   }, [url])
 
-  return <img src={src} alt={alt} loading="lazy" />
+  if (!src && !error) {
+    return <div className="stat-placeholder">Loading...</div>
+  }
+
+  return <img src={src || url} alt={alt} loading="lazy" />
 }
+
+const GITHUB_STATS_URL = 'https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117'
+const GITHUB_STREAK_URL = 'https://streak-stats.demolab.com/?user=tanujdargan&theme=midnight-purple&background=0d1117'
+const GITHUB_LANGS_URL = 'https://github-readme-stats.vercel.app/api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117'
 
 const skillCategories = [
   {
@@ -152,10 +155,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <CachedStatImage
-                url="/api/github-stats?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117"
-                alt="GitHub Stats"
-              />
+              <GitHubStatImage url={GITHUB_STATS_URL} alt="GitHub Stats" />
             </motion.a>
             <motion.a
               href="https://github.com/tanujdargan"
@@ -164,10 +164,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <CachedStatImage
-                url="/api/github-streak?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117"
-                alt="GitHub Streak"
-              />
+              <GitHubStatImage url={GITHUB_STREAK_URL} alt="GitHub Streak" />
             </motion.a>
             <motion.a
               href="https://github.com/tanujdargan"
@@ -176,10 +173,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <CachedStatImage
-                url="/api/github-stats/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117"
-                alt="Top Languages"
-              />
+              <GitHubStatImage url={GITHUB_LANGS_URL} alt="Top Languages" />
             </motion.a>
           </div>
         </motion.div>
