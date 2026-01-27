@@ -28,15 +28,34 @@ export default function Contact() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitResult, setSubmitResult] = useState<'success' | 'error' | ''>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setIsSubmitting(false)
-    setFormState({ name: '', email: '', message: '' })
-    alert('Message sent! (This is a demo)')
+    setSubmitResult('')
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    formData.append('access_key', '670523e8-2a7e-4a33-b9f3-3c0405d34714')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        setSubmitResult('success')
+        setFormState({ name: '', email: '', message: '' })
+      } else {
+        setSubmitResult('error')
+      }
+    } catch {
+      setSubmitResult('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -98,7 +117,7 @@ export default function Contact() {
             >
               <p>Prefer a quick chat?</p>
               <a
-                href="https://calendly.com"
+                href="https://calendly.com/dargantanuj/peer-check-in"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
@@ -120,6 +139,7 @@ export default function Contact() {
               <input
                 type="text"
                 id="name"
+                name="name"
                 placeholder="Your name"
                 value={formState.name}
                 onChange={e => setFormState({ ...formState, name: e.target.value })}
@@ -132,6 +152,7 @@ export default function Contact() {
               <input
                 type="email"
                 id="email"
+                name="email"
                 placeholder="your@email.com"
                 value={formState.email}
                 onChange={e => setFormState({ ...formState, email: e.target.value })}
@@ -143,6 +164,7 @@ export default function Contact() {
               <label htmlFor="message">Message</label>
               <textarea
                 id="message"
+                name="message"
                 placeholder="Tell me about your project..."
                 rows={5}
                 value={formState.message}
@@ -150,6 +172,13 @@ export default function Contact() {
                 required
               />
             </div>
+
+            {submitResult === 'success' && (
+              <p className="form-status form-success">Message sent successfully!</p>
+            )}
+            {submitResult === 'error' && (
+              <p className="form-status form-error">Something went wrong. Please try again.</p>
+            )}
 
             <motion.button
               type="submit"

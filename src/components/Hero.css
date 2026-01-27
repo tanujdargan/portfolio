@@ -123,12 +123,59 @@
   to { opacity: 0.25; transform: scale(1.05); }
 }
 
+/* RGB Chase Border Card */
+@property --rgb-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.rgb-border-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+.rgb-border-card::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: conic-gradient(
+    from var(--rgb-angle, 0deg),
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  animation: rgb-spin 3s linear infinite;
+}
+
+@keyframes rgb-spin {
+  to {
+    --rgb-angle: 360deg;
+    transform: rotate(360deg);
+  }
+}
+
+/* Glassmorphism Card */
 .hero-image-content {
   position: relative;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 17, 19, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .code-block {
@@ -139,8 +186,8 @@
   display: flex;
   gap: 8px;
   padding: 16px 20px;
-  background: var(--bg-tertiary);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(24, 24, 27, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .dot {
@@ -160,6 +207,7 @@
   line-height: 1.8;
   color: var(--text-secondary);
   overflow-x: auto;
+  background: transparent;
 }
 
 /* Scroll Indicator */
