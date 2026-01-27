@@ -36,7 +36,7 @@ export default function Contact() {
     setSubmitResult('')
 
     const formData = new FormData(e.target as HTMLFormElement)
-    formData.append('access_key', '670523e8-2a7e-4a33-b9f3-3c0405d34714')
+    formData.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY)
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
