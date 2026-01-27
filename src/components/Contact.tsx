@@ -35,27 +35,52 @@ export default function Contact() {
     setIsSubmitting(true)
     setSubmitResult('')
 
-    const formData = new FormData(e.target as HTMLFormElement)
-    formData.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY)
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+    if (!accessKey) {
+      setSubmitResult('error')
+      setIsSubmitting(false)
+      return
+    }
 
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      })
-      const data = await response.json()
+    const payload = {
+      access_key: accessKey,
+      name: formState.name,
+      email: formState.email,
+      message: formState.message
+    }
 
-      if (data.success) {
-        setSubmitResult('success')
-        setFormState({ name: '', email: '', message: '' })
-      } else {
+    const maxRetries = 3
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+        const data = await response.json()
+
+        if (data.success) {
+          setSubmitResult('success')
+          setFormState({ name: '', email: '', message: '' })
+          setIsSubmitting(false)
+          return
+        } else {
+          setSubmitResult('error')
+          setIsSubmitting(false)
+          return
+        }
+      } catch {
+        if (attempt < maxRetries - 1) {
+          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
+          continue
+        }
         setSubmitResult('error')
       }
-    } catch {
-      setSubmitResult('error')
-    } finally {
-      setIsSubmitting(false)
     }
+    setIsSubmitting(false)
   }
 
   return (
@@ -177,7 +202,10 @@ export default function Contact() {
               <p className="form-status form-success">Message sent successfully!</p>
             )}
             {submitResult === 'error' && (
-              <p className="form-status form-error">Something went wrong. Please try again.</p>
+              <p className="form-status form-error">
+                Something went wrong. Please try again or{' '}
+                <a href="mailto:tanujd@uvic.ca" className="form-error-link">email me directly</a>.
+              </p>
             )}
 
             <motion.button
