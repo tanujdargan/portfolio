@@ -152,6 +152,16 @@ a.contact-card-value:hover {
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
+.form-error-link {
+  color: var(--accent-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-error-link:hover {
+  color: var(--accent);
+}
+
 .submit-btn {
   width: 100%;
   justify-content: center;

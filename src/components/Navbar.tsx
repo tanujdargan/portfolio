@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download } from 'lucide-react'
+import { Menu, X, FileText } from 'lucide-react'
 import './Navbar.css'
 
 const navLinks = [
@@ -58,7 +58,8 @@ export default function Navbar() {
 
         <motion.a
           href="/resume.pdf"
-          download
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn btn-primary nav-cta"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -66,7 +67,7 @@ export default function Navbar() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Download size={16} />
+          <FileText size={16} />
           Resume
         </motion.a>
 
@@ -100,8 +101,8 @@ export default function Navbar() {
                 {link.name}
               </motion.a>
             ))}
-            <a href="/resume.pdf" download className="btn btn-primary mobile-cta">
-              <Download size={16} />
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-primary mobile-cta">
+              <FileText size={16} />
               Resume
             </a>
           </motion.div>

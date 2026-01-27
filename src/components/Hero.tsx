@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react'
 import './Hero.css'
 
 const socialLinks = [
@@ -68,13 +68,14 @@ export default function Hero() {
             </motion.a>
             <motion.a
               href="/resume.pdf"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-secondary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Download Resume
-              <Download size={18} />
+              View Resume
+              <FileText size={18} />
             </motion.a>
           </motion.div>
 
@@ -109,7 +110,6 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="hero-image-wrapper">
-            <div className="hero-image-bg" />
             <div className="rgb-border-card">
               <div className="hero-image-content">
                 <div className="code-block">

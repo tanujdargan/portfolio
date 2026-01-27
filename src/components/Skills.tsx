@@ -1,7 +1,70 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import './Skills.css'
+
+const CACHE_DURATION_MS = 24 * 60 * 60 * 1000 // 24 hours
+
+function getCacheKey(url: string): string {
+  // Simple hash of the URL for localStorage key
+  let hash = 0
+  for (let i = 0; i < url.length; i++) {
+    hash = ((hash << 5) - hash + url.charCodeAt(i)) | 0
+  }
+  return `gh-stats-${Math.abs(hash)}`
+}
+
+function CachedStatImage({ url, alt }: { url: string; alt: string }) {
+  const [src, setSrc] = useState<string>(() => {
+    try {
+      const cached = localStorage.getItem(getCacheKey(url))
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached)
+        if (Date.now() - timestamp < CACHE_DURATION_MS) return data
+      }
+    } catch { /* ignore */ }
+    return url
+  })
+
+  useEffect(() => {
+    const key = getCacheKey(url)
+
+    // Check cache
+    try {
+      const cached = localStorage.getItem(key)
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached)
+        if (Date.now() - timestamp < CACHE_DURATION_MS) {
+          setSrc(data)
+          return
+        }
+      }
+    } catch { /* ignore */ }
+
+    // Fetch SVG and cache as data URL
+    let cancelled = false
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.text()
+      })
+      .then(svg => {
+        if (cancelled) return
+        const dataUrl = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
+        try {
+          localStorage.setItem(key, JSON.stringify({ data: dataUrl, timestamp: Date.now() }))
+        } catch { /* storage full */ }
+        setSrc(dataUrl)
+      })
+      .catch(() => {
+        if (!cancelled) setSrc(url) // fallback to direct URL
+      })
+
+    return () => { cancelled = true }
+  }, [url])
+
+  return <img src={src} alt={alt} loading="lazy" />
+}
 
 const skillCategories = [
   {
@@ -89,10 +152,9 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <img
-                src="https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117"
+              <CachedStatImage
+                url="https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117"
                 alt="GitHub Stats"
-                loading="lazy"
               />
             </motion.a>
             <motion.a
@@ -102,10 +164,9 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <img
-                src="https://github-readme-streak-stats.herokuapp.com/?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117"
+              <CachedStatImage
+                url="https://github-readme-streak-stats.herokuapp.com/?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117"
                 alt="GitHub Streak"
-                loading="lazy"
               />
             </motion.a>
             <motion.a
@@ -115,10 +176,9 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <img
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117"
+              <CachedStatImage
+                url="https://github-readme-stats.vercel.app/api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117"
                 alt="Top Languages"
-                loading="lazy"
               />
             </motion.a>
           </div>
