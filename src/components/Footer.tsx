@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Heart } from 'lucide-react'
+import { Github, Linkedin } from 'lucide-react'
 import './Footer.css'
 
 const socialLinks = [
@@ -27,7 +27,7 @@ export default function Footer() {
               Tanuj Dargan
             </a>
             <p className="footer-tagline">
-              Building the future with AI, one system at a time.
+              CS @ UVic. Focused on AI systems and full-stack development.
             </p>
             <div className="footer-socials">
               {socialLinks.map(social => (
@@ -66,9 +66,6 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>
             &copy; {currentYear} Tanuj Dargan. All rights reserved.
-          </p>
-          <p className="footer-credit">
-            Made with <Heart size={14} className="heart-icon" /> using React & Framer Motion
           </p>
         </div>
       </div>
