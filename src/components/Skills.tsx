@@ -153,7 +153,7 @@ export default function Skills() {
               whileHover={{ y: -4, scale: 1.02 }}
             >
               <CachedStatImage
-                url="https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117"
+                url="/api/github-stats?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117"
                 alt="GitHub Stats"
               />
             </motion.a>
@@ -165,7 +165,7 @@ export default function Skills() {
               whileHover={{ y: -4, scale: 1.02 }}
             >
               <CachedStatImage
-                url="https://github-readme-streak-stats.herokuapp.com/?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117"
+                url="/api/github-streak?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117"
                 alt="GitHub Streak"
               />
             </motion.a>
@@ -177,7 +177,7 @@ export default function Skills() {
               whileHover={{ y: -4, scale: 1.02 }}
             >
               <CachedStatImage
-                url="https://github-readme-stats.vercel.app/api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117"
+                url="/api/github-stats/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117"
                 alt="Top Languages"
               />
             </motion.a>
