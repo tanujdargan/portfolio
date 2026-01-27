@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/github-stats",
+      "destination": "https://github-readme-stats.vercel.app/api"
+    },
+    {
+      "source": "/api/github-stats/:path*",
+      "destination": "https://github-readme-stats.vercel.app/api/:path*"
+    },
+    {
+      "source": "/api/github-streak",
+      "destination": "https://github-readme-streak-stats.herokuapp.com/"
+    }
+  ]
+}
