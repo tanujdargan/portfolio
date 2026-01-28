@@ -1,69 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import './Skills.css'
-
-const CACHE_DURATION_MS = 6 * 60 * 60 * 1000 // 6 hours
-
-function getCacheKey(url: string): string {
-  let hash = 0
-  for (let i = 0; i < url.length; i++) {
-    hash = ((hash << 5) - hash + url.charCodeAt(i)) | 0
-  }
-  return `gh-stats-${Math.abs(hash)}`
-}
-
-function GitHubStatImage({ url, alt }: { url: string; alt: string }) {
-  const [src, setSrc] = useState<string | null>(null)
-  const [error, setError] = useState(false)
-
-  useEffect(() => {
-    const key = getCacheKey(url)
-
-    // Check cache first
-    try {
-      const cached = localStorage.getItem(key)
-      if (cached) {
-        const { data, timestamp } = JSON.parse(cached)
-        if (Date.now() - timestamp < CACHE_DURATION_MS) {
-          setSrc(data)
-          return
-        }
-      }
-    } catch { /* ignore */ }
-
-    // Fetch SVG and convert to data URL for caching
-    let cancelled = false
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.text()
-      })
-      .then(svg => {
-        if (cancelled) return
-        const dataUrl = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
-        try {
-          localStorage.setItem(key, JSON.stringify({ data: dataUrl, timestamp: Date.now() }))
-        } catch { /* storage full */ }
-        setSrc(dataUrl)
-      })
-      .catch(() => {
-        if (!cancelled) {
-          // Fallback: use direct URL as img src (no CORS needed for <img>)
-          setSrc(url)
-          setError(true)
-        }
-      })
-
-    return () => { cancelled = true }
-  }, [url])
-
-  if (!src && !error) {
-    return <div className="stat-placeholder">Loading...</div>
-  }
-
-  return <img src={src || url} alt={alt} loading="lazy" />
-}
 
 const GITHUB_STATS_URL = 'https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117'
 const GITHUB_STREAK_URL = 'https://github-readme-streak-stats-chi-gray.vercel.app/?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117'
@@ -155,7 +93,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <GitHubStatImage url={GITHUB_STATS_URL} alt="GitHub Stats" />
+              <img src={GITHUB_STATS_URL} alt="GitHub Stats" loading="lazy" />
             </motion.a>
             <motion.a
               href="https://github.com/tanujdargan"
@@ -164,7 +102,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <GitHubStatImage url={GITHUB_STREAK_URL} alt="GitHub Streak" />
+              <img src={GITHUB_STREAK_URL} alt="GitHub Streak" loading="lazy" />
             </motion.a>
             <motion.a
               href="https://github.com/tanujdargan"
@@ -173,7 +111,7 @@ export default function Skills() {
               className="stat-card"
               whileHover={{ y: -4, scale: 1.02 }}
             >
-              <GitHubStatImage url={GITHUB_LANGS_URL} alt="Top Languages" />
+              <img src={GITHUB_LANGS_URL} alt="Top Languages" loading="lazy" />
             </motion.a>
           </div>
         </motion.div>
