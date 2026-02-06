@@ -10,10 +10,10 @@ const projects = [
     subtitle: 'Hack the North 2025 Winner',
     awards: ['Y Combinator Unicorn Prize', 'Federato Best RiskOps Solution'],
     description: 'AI-powered underwriting dashboard that delivers explainable AI insights, interactive heatmaps, and real-time portfolio tracking. Cut review time by 50% and reduced errors by 20%.',
-    image: 'https://images.unsplash.com/photo-1697682474899-6deb2a165a29?w=800&q=80',
+    image: '/projects/optimate.png',
     tags: ['Next.js', 'Cohere LLMs', 'RL', 'AWS DynamoDB', 'shadcn'],
-    github: 'https://github.com/tanujdargan',
-    live: '#',
+    github: 'https://github.com/jruttan1/Optimate',
+    live: 'https://optimate-two.vercel.app/login',
     featured: true
   },
   {
