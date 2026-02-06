@@ -3,9 +3,9 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import './Skills.css'
 
-const GITHUB_STATS_URL = 'https://github-readme-stats.vercel.app/api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117'
+const GITHUB_STATS_URL = 'https://github-readme-stats-td.vercel.app//api?username=tanujdargan&show_icons=true&theme=midnight-purple&hide_border=true&bg_color=0d1117'
 const GITHUB_STREAK_URL = 'https://github-readme-streak-stats-chi-gray.vercel.app/?user=tanujdargan&theme=midnight-purple&hide_border=true&background=0d1117'
-const GITHUB_LANGS_URL = 'https://github-readme-stats.vercel.app/api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117'
+const GITHUB_LANGS_URL = 'https://github-readme-stats-td.vercel.app//api/top-langs/?username=tanujdargan&layout=compact&theme=midnight-purple&hide_border=true&bg_color=0d1117'
 
 const skillCategories = [
   {
