@@ -26,10 +26,10 @@ const experiences: ExperienceItem[] = [
     title: 'Lead AI Developer',
     company: 'Pear Care',
     location: 'Remote',
-    period: 'Sep 2025 - Present',
-    description: 'Architecting autonomous medical-AI agents using mixture of experts, task-introspective reasoning, and adaptive task routing.',
-    fullDescription: 'Architecting autonomous medical-AI agents using mixture of experts, task-introspective reasoning, and adaptive task routing. Building RAG-scalable AWS architectures with LoRA/PEFT fine-tuning. Developing multi-agent systems for medical diagnosis assistance and patient care optimization. Implementing real-time inference pipelines with sub-100ms latency requirements.',
-    tags: ['LLMs', 'MoE', 'LoRA/PEFT', 'AWS', 'RAG'],
+    period: 'Jul 2025 - Present',
+    description: 'Building autonomous medical-AI agents with LangGraph, MoE routing, and task-introspective reasoning across 1,000+ clinical specialties.',
+    fullDescription: 'Building autonomous medical-AI agents with LangGraph, MoE routing, and task-introspective reasoning, served via FastAPI on GCP across 1,000+ clinical specialties. Cut model memory footprint by 40% while preserving 95%+ F1 on internal clinical triage benchmarks by transitioning to quantized LoRA/PEFT fine-tuned deployments on PyTorch, Ollama, and vLLM. Architected multi-tenant GCP/AWS infrastructure with Redis caching, DynamoDB persistence, end-to-end encryption, and mobile-first access. Leading a team of developers building the core AI platform.',
+    tags: ['LangGraph', 'MoE', 'LoRA/PEFT', 'FastAPI', 'GCP', 'PyTorch'],
     links: [
       { label: 'Pear Care', url: 'https://pearcare.ai', icon: 'external' }
     ]
@@ -38,47 +38,47 @@ const experiences: ExperienceItem[] = [
     title: 'Software Engineering Fellow',
     company: 'Major League Hacking (MLH)',
     location: 'Remote',
-    period: 'Jun 2025 - Aug 2025',
-    description: 'Contributed to Apache Airflow with Royal Bank of Canada. Enhanced workflow orchestration capabilities.',
-    fullDescription: 'Contributed to Apache Airflow with Royal Bank of Canada. Enhanced workflow orchestration capabilities and collaborated with open-source maintainers on production-grade features. Implemented new DAG scheduling features, improved error handling mechanisms, and contributed to documentation efforts. Worked in an agile environment with weekly sprints and code reviews.',
-    tags: ['Apache Airflow', 'Python', 'Open Source', 'RBC'],
+    period: 'May 2025 - Aug 2025',
+    description: 'Streamlined developer debugging for Apache Airflow\'s 50K+ star codebase and patched a core scheduler bug.',
+    fullDescription: 'Architected Docker-based IDE debugging for Apache Airflow\'s 50K+ star codebase, enabling step-through debugging in VSCode and PyCharm with dynamic port exposure — cutting setup-to-debug cycles from hours to minutes. Shipped in a team of 3 alongside Royal Bank of Canada engineers. Diagnosed and patched a long-standing time-window logic bug causing silently missed DAG runs across multiple Airflow releases; fix merged into the core scheduler.',
+    tags: ['Apache Airflow', 'Python', 'Docker', 'Open Source', 'RBC'],
     links: [
       { label: 'Apache Airflow', url: 'https://github.com/apache/airflow', icon: 'github' },
       { label: 'MLH Fellowship', url: 'https://fellowship.mlh.io', icon: 'external' }
     ]
   },
   {
-    title: 'Research Assistant - Vector Search',
+    title: 'Undergraduate Researcher - Vector Search',
     company: 'DEIA Lab, University of Victoria',
     location: 'Victoria, BC',
-    period: 'Jan 2025 - Present',
-    description: 'Optimizing billion-scale vector search systems achieving sub-250ms latency and 1-4M QPS across GPU clusters.',
-    fullDescription: 'Optimizing billion-scale vector search systems achieving sub-250ms latency and 1-4M QPS across GPU clusters. Researching high-performance inference pipelines for semantic search applications. Implementing novel indexing strategies for approximate nearest neighbor search. Benchmarking various vector database solutions and contributing to academic publications.',
-    tags: ['Vector Search', 'GPU Clusters', 'High-Performance Computing'],
+    period: 'May 2025 - Present',
+    description: 'Built a custom retrieval system on a modified cuVS fork, sustaining 1-4M QPS at billion-vector scale.',
+    fullDescription: 'Built a custom retrieval system on a modified cuVS fork (CAGRA, IVF-PQ), sustaining 1-4M QPS at billion-vector scale with 90-95% recall and sub-250ms latency across 8+ NVIDIA GPUs and 2TB of indexed data. Achieved 4.3x throughput scaling by building automated stress-testing pipelines on Kubernetes GPU clusters, profiling memory bandwidth and NVLink interconnect saturation to expose bottlenecks. Researching novel indexing strategies for approximate nearest neighbor search and contributing to academic publications.',
+    tags: ['cuVS', 'GPU Clusters', 'Kubernetes', 'High-Performance Computing'],
     links: [
       { label: 'DEIA Lab', url: 'https://www.uvic.ca/engineering/ece/research/groups/deia/', icon: 'external' }
     ]
   },
   {
-    title: 'Research Assistant - Coastal AI',
+    title: 'Undergraduate AI Researcher',
     company: 'SOLIDS Lab, University of Victoria',
     location: 'Victoria, BC',
-    period: 'Sep 2025 - Present',
-    description: 'Training multimodal models for coastal erosion prediction. Developing computer vision pipelines.',
-    fullDescription: 'Training multimodal models for coastal erosion prediction. Developing computer vision pipelines for environmental monitoring and analysis. Working with satellite imagery, drone footage, and ground-truth sensor data to build predictive models. Collaborating with environmental scientists to translate ML insights into actionable conservation strategies.',
-    tags: ['Computer Vision', 'Multimodal ML', 'PyTorch'],
+    period: 'May 2025 - Present',
+    description: 'Achieved R² = 93.6% satellite-to-deep-water temperature prediction and delivered frameworks to NRC Canada.',
+    fullDescription: 'Achieved R² = 93.6% satellite-to-deep-water temperature prediction (+17.7% over baseline) across 9 experiments, disproving the original 167m-depth hypothesis and pivoting the research direction for the lab. Delivered and deployed 3 ocean-health frameworks (SHQI, CVI, OHI at R² = 87.9%) to the National Research Council Canada, now in active use for salmon habitat monitoring, coastal erosion early warning, and First Nations stewardship dashboards. Working with satellite imagery, drone footage, and ground-truth sensor data to build predictive models.',
+    tags: ['PyTorch', 'Remote Sensing', 'NRC Canada', 'Multimodal ML'],
     links: [
       { label: 'SOLIDS Lab', url: 'https://www.uvic.ca/engineering/civil/research/solids/', icon: 'external' }
     ]
   },
   {
-    title: 'Software Developer',
+    title: 'Software Developer & Undergraduate Researcher',
     company: 'UVic Centre for Aerospace Research (CFAR)',
     location: 'Victoria, BC',
-    period: 'Jan 2025 - Present',
-    description: 'Building mission control software for MarmotSat 1U CubeSat. Developed C/Java parsing functions for YAMCS.',
-    fullDescription: 'Building mission control software for MarmotSat 1U CubeSat. Developed C/Java parsing functions for YAMCS integration and YAML-driven CI pipeline cutting test time from 30min to 4min. Implementing telemetry processing systems, command uplink protocols, and ground station automation. Contributing to Canada\'s growing small satellite program.',
-    tags: ['C', 'Java', 'YAMCS', 'CI/CD', 'Satellite Systems'],
+    period: 'Apr 2025 - Present',
+    description: 'Led OBC firmware, TTC board design, and cross-functional integration for DoomSat and balloon missions.',
+    fullDescription: 'Led OBC firmware (C), TTC board design, and cross-functional hardware/software integration for DoomSat and a high-altitude balloon mission, coordinating across electrical, mechanical, and software teams. Cut MarmotSat testing from 180 min to 15 min by building a CI/HIL pipeline with GitHub Actions and SWD flashing (80+ checksum rules/commit), and implementing C/Java YAMCS integration that eliminated 20+ hours of manual work per release.',
+    tags: ['C', 'Java', 'YAMCS', 'CI/CD', 'GitHub Actions', 'Satellite Systems'],
     links: [
       { label: 'CFAR', url: 'https://www.uvic.ca/research/centres/aerospace/', icon: 'external' },
       { label: 'YAMCS Docs', url: 'https://yamcs.org/', icon: 'docs' }

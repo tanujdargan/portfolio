@@ -9,7 +9,7 @@ const projects = [
     title: 'Optimate',
     subtitle: 'Hack the North 2025 Winner',
     awards: ['Y Combinator Unicorn Prize', 'Federato Best RiskOps Solution'],
-    description: 'AI-powered underwriting dashboard that delivers explainable AI insights, interactive heatmaps, and real-time portfolio tracking. Cut review time by 50% and reduced errors by 20%.',
+    description: 'AI-powered underwriting dashboard that delivers explainable AI insights, interactive heatmaps, and real-time portfolio tracking. Federato CEO validated 40% faster review cycles and 15% fewer underwriting errors versus manual workflows.',
     image: '/projects/optimate.png',
     tags: ['Next.js', 'Cohere LLMs', 'RL', 'AWS DynamoDB', 'shadcn'],
     github: 'https://github.com/jruttan1/Optimate',
@@ -17,13 +17,13 @@ const projects = [
     featured: true
   },
   {
-    title: 'Drop',
-    subtitle: 'Open Source AirDrop Alternative',
-    description: 'Cross-platform file sharing tool with peer-to-peer WebRTC transfers, secure session management, and NFC/BLE-based device discovery. No app install or shared Wi-Fi needed.',
+    title: 'Hive Agent Framework',
+    subtitle: 'Open Source Contributor | 7.7K+ Stars',
+    description: 'Resolved a cross-platform setup blocker (Issue #476) by overhauling Python detection with multi-candidate probing, timeout handling, and pipefail hardening across Windows, macOS, and Linux.',
     image: 'https://images.unsplash.com/photo-1697682475093-307818dfa164?w=800&q=80',
-    tags: ['Rust', 'Next.js', 'WebRTC', 'NFC/BLE'],
-    github: 'https://github.com/tanujdargan',
-    live: '#',
+    tags: ['Python', 'Bash', 'Open Source'],
+    github: 'https://github.com/adenhq/hive',
+    live: 'https://github.com/adenhq/hive',
     featured: true
   },
   {
@@ -38,11 +38,21 @@ const projects = [
     featured: true
   },
   {
-    title: 'Wedding Studio',
-    subtitle: 'Buildspace s5 | YC/a16z Backed',
-    description: 'AI-powered MVP enabling couples to generate personalized venue mock-ups from real photos using diffusion models, rapidly connecting them with vendors.',
+    title: 'Drop',
+    subtitle: 'Open Source AirDrop Alternative',
+    description: 'Cross-platform file sharing tool with peer-to-peer WebRTC transfers, secure session management, and NFC/BLE-based device discovery. No app install or shared Wi-Fi needed.',
     image: 'https://images.unsplash.com/photo-1697682475505-17a9beed80bd?w=800&q=80',
-    tags: ['Next.js', 'Python', 'PyTorch', 'Diffusion Models'],
+    tags: ['Rust', 'Next.js', 'WebRTC', 'NFC/BLE'],
+    github: 'https://github.com/tanujdargan',
+    live: '#',
+    featured: false
+  },
+  {
+    title: 'TDSLABS - Self-Hosted Homelab',
+    subtitle: '15+ Production Services',
+    description: 'Self-hosted infrastructure including Home Assistant, Jellyfin, Immich, and Paperless-ngx on Proxmox with Docker, ZFS, and automated rclone backups. Managed UniFi VLANs and configured Zero Trust access.',
+    image: 'https://images.unsplash.com/photo-1697682474917-14188d02b124?w=800&q=80',
+    tags: ['Proxmox', 'Docker', 'ZFS', 'Nginx', 'Caddy', 'UniFi'],
     github: 'https://github.com/tanujdargan',
     live: '#',
     featured: false

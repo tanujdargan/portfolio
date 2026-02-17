@@ -10,27 +10,27 @@ const GITHUB_LANGS_URL = 'https://github-readme-stats-td.vercel.app//api/top-lan
 const skillCategories = [
   {
     title: 'Languages',
-    skills: ['Python', 'Java', 'C', 'JavaScript', 'TypeScript', 'Rust', 'YAML']
+    skills: ['Python', 'C/C++', 'Java', 'JavaScript', 'TypeScript', 'Go', 'Bash', 'SQL']
   },
   {
     title: 'Frontend',
-    skills: ['React', 'Next.js', 'Three.js', 'Tailwind CSS', 'Webflow']
+    skills: ['React', 'Next.js', 'Flutter', 'Three.js', 'Tailwind CSS']
   },
   {
     title: 'Backend',
-    skills: ['Node.js', 'Django', 'FastAPI', 'Express.js']
+    skills: ['Node.js', 'Django', 'FastAPI', 'Flask', 'Express.js']
   },
   {
     title: 'Databases',
-    skills: ['MongoDB', 'Firebase', 'PostgreSQL', 'Redis', 'Supabase']
+    skills: ['MongoDB', 'Firebase', 'PostgreSQL', 'Redis', 'DynamoDB', 'Supabase']
   },
   {
     title: 'AI/ML',
-    skills: ['TensorFlow', 'PyTorch', 'scikit-learn', 'Hugging Face', 'Pandas', 'NumPy', 'OpenCV']
+    skills: ['PyTorch', 'Hugging Face', 'Pandas', 'NumPy', 'OpenCV', 'cuVS', 'scikit-learn']
   },
   {
     title: 'LLM/Inference',
-    skills: ['LangChain', 'LangGraph', 'vLLM', 'Ollama', 'LoRA', 'OpenAI API']
+    skills: ['LangGraph', 'LangChain', 'vLLM', 'Ollama', 'LoRA/PEFT', 'OpenAI API']
   },
   {
     title: 'MLOps',
@@ -38,15 +38,11 @@ const skillCategories = [
   },
   {
     title: 'Cloud',
-    skills: ['GCP', 'AWS', 'Vercel', 'Cloudflare']
+    skills: ['AWS', 'GCP', 'Vercel', 'Cloudflare']
   },
   {
     title: 'DevOps/Infra',
-    skills: ['Docker', 'Kubernetes', 'Proxmox', 'Terraform', 'Ansible', 'GitHub Actions', 'Nix', 'ZFS', 'UniFi']
-  },
-  {
-    title: 'Monitoring',
-    skills: ['Grafana', 'Prometheus', 'Nginx', 'Traefik']
+    skills: ['Docker', 'Kubernetes', 'Proxmox', 'GitHub Actions', 'Nginx', 'Slurm', 'ZFS']
   },
   {
     title: 'Design',

@@ -57,29 +57,29 @@ export default function About() {
           >
             <p>
               I'm a Computer Science student at the <strong>University of Victoria</strong> (April 2027 grad),
-              recipient of the International Undergraduate Scholarship. My journey spans from building
-              autonomous medical AI systems to contributing to satellite mission control software.
+              completing an accelerated 3-year degree as a recipient of the International Undergraduate Scholarship.
+              My journey spans from building autonomous medical AI systems to contributing to satellite mission control software.
             </p>
             <p>
-              Currently, I'm the <strong>Lead AI Developer at Pear Care</strong>, where I architect
-              autonomous medical-AI agents using mixture of experts, task-introspective reasoning,
-              and adaptive task routing. I've also completed the <strong>MLH Software Engineering
-              Fellowship</strong> working on Apache Airflow with Royal Bank of Canada.
+              Currently, I'm the <strong>Lead AI Developer at Pear Care</strong>, where I lead a team
+              building autonomous medical-AI agents with LangGraph, MoE routing, and task-introspective reasoning
+              across 1,000+ clinical specialties. I've also completed the <strong>MLH Software Engineering
+              Fellowship</strong> working on Apache Airflow with Royal Bank of Canada, where my bug fix was merged into the core scheduler.
             </p>
             <p>
-              My research spans multiple labs - optimizing billion-scale vector search at the <strong>DEIA Lab</strong>,
-              training multimodal models for coastal erosion prediction at <strong>SOLIDS</strong>,
-              and building satellite software at the <strong>UVic Centre for Aerospace Research</strong>.
+              My research spans multiple labs — building a custom billion-scale vector retrieval system at the <strong>DEIA Lab</strong>,
+              delivering deployed ocean-health frameworks to the National Research Council Canada at <strong>SOLIDS</strong>,
+              and building satellite OBC firmware at the <strong>UVic Centre for Aerospace Research</strong>.
             </p>
 
             <div className="about-stats">
               <div className="stat">
-                <span className="stat-number">2x</span>
-                <span className="stat-label">Hackathon Winner</span>
+                <span className="stat-number">3-Year</span>
+                <span className="stat-label">Accelerated CS Degree</span>
               </div>
               <div className="stat">
-                <span className="stat-number">4+</span>
-                <span className="stat-label">Research Positions</span>
+                <span className="stat-number">2x</span>
+                <span className="stat-label">Hackathon Winner</span>
               </div>
               <div className="stat">
                 <span className="stat-number">Top 10%</span>
