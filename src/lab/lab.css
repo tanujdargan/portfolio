@@ -138,6 +138,23 @@
   }
   .lab-dock__narrow {
     display: block;
+    min-width: 0;
+  }
+  .lab-dock {
+    max-width: calc(100vw - 16px);
+    gap: 4px;
+  }
+  .lab-dock select {
+    max-width: 30vw;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+  }
+  .lab-dock__home,
+  .lab-dock__pop summary {
+    padding: 0 8px;
+  }
+  .lab-dock__pop {
+    padding-left: 4px;
   }
 }
 
