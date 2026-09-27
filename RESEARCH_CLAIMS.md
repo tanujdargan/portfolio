@@ -138,7 +138,7 @@ Every factual claim, number and result shown in the demos and write-ups, where i
 | Amazon Robotics SDE intern, May–Aug 2026, Toronto; LLM planning assistant in production in Optimus across 180+ fulfillment sites (NA and EU); $136.2M/yr projected; RAG pipeline cut planner time-to-insight 60%+; multi-turn what-if interface | Resume | High |
 | Amazon **return offer** | Brief only (the resume doesn't mention it) | Med |
 | MarmotSat: led OBC firmware (C), TTC board design; in orbit after launching on a SpaceX Falcon 9; CI/HIL 180 → 15 min, 80+ checksum rules/commit; YAMCS integration saved 20+ h per release | Resume | High |
-| MarmotSat launch date (placed "2026" on timelines) | Assumption | Low (badged) |
+| MarmotSat launched 2026-07-07; NORAD 69912 (SatNOGS placeholder 98272); callsign VA7UVS; V7 propagates its real TLE (fetched 2026-09-27) | SatNOGS DB | High |
 | RBC Borealis AI mentorship, Mar–May 2026: 1,500+ records, 3+ years, 20+ features, UMAP 4+ cohorts, dashboard for 4+ teams | Resume | High |
 | Pear Care, Jul 2025 – Apr 2026: 1,000+ specialties, −40% memory at 95%+ F1 | Resume | High |
 | MLH × Airflow, May–Aug 2025: Docker IDE debugging, hours → minutes, team of 3 with RBC | Resume | High |

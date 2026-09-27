@@ -386,7 +386,8 @@ export const milestonesAll: Milestone[] = [
   { when: 'Sep 2025', year: 2025.7, title: 'Hack the North', kind: 'competition', line: 'Optimate, an AI underwriting dashboard. 2 prizes out of 300+ teams.', metric: 'YC Unicorn Prize' },
   { when: '2025 –', year: 2025.8, title: 'Beri', kind: 'build', line: 'Co-founded a native iOS food app. iOS, backend and the design system.', href: '/beri', flag: 'beri' },
   { when: 'Mar – May 2026', year: 2026.2, title: 'RBC Borealis', kind: 'research', line: 'AI mentorship: models flagging at-risk youth with chronic illness from 1,500+ longitudinal records.', metric: '4+ cohorts via UMAP' },
-  { when: '2026', year: 2026.25, title: 'MarmotSat in orbit', kind: 'build', line: 'Launched on a SpaceX Falcon 9. The firmware I led is running in space.', metric: 'In orbit', unverified: 'Launch date not on the resume; placed in early 2026 (the CFAR role ended Apr 2026).' },
+  // Launch date from SatNOGS DB (MARMOTSat, NORAD 69912, launched 2026-07-07T07:12Z), fetched 2026-09-27.
+  { when: 'Jul 2026', year: 2026.52, title: 'MarmotSat in orbit', kind: 'build', line: 'Launched on a SpaceX Falcon 9. The firmware I led is running in space.', metric: 'In orbit' },
   { when: 'May 2026', year: 2026.35, title: 'ES-LoRA', kind: 'research', line: 'Fine-tuning Qwen2.5-1.5B on GSM8K with evolutionary strategies instead of gradients.', metric: '45 guesses, keep 8', href: '/research/es-lora' },
   { when: 'May – Aug 2026', year: 2026.45, title: 'Amazon Robotics', kind: 'industry', line: 'An LLM planning assistant shipped to production in Optimus, across 180+ fulfillment sites. Return offer.', metric: '$136.2M/yr projected' },
   { when: 'Aug 2026', year: 2026.6, title: 'Digital Minds sprint', kind: 'research', line: 'Loss-masking regime decides how loudly a model voices shutdown distress, and calm-sounding models still represent it negatively.', metric: 'Apart Research', href: '/research/loss-masking-distress' },
