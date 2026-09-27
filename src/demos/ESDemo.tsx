@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion'
 import { Frame, cssVar } from './Frame'
+import { Flag } from '../shared/Flag'
 
 // Toy fitness landscape on [-1,1]²: one global peak, one decoy, a broad shoulder and a ripple.
 const g = (x: number, y: number, cx: number, cy: number, s: number) => Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * s * s))
@@ -237,7 +238,8 @@ export default function ESDemo({ compact }: { compact?: boolean }) {
       caption={
         <>
           <b>Illustrative:</b> a 2-D landscape stands in for the ≈18.5M LoRA weights (rank 16, all projections, 28 layers). Each generation samples λ = 45
-          perturbations and moves toward the mean of the best μ = 8, the same selection rule as the real GSM8K run. Tap the field to start somewhere else.
+          perturbations and moves toward the mean of the best μ = 8, the same selection rule as the real GSM8K run.
+          <Flag note="Only population 45 / keep 8 match es_lora_original.py. The real run picks the 8 by a gradient-linearised proxy, not by fitness, then steps θ += α/8·Σ zₖεₖ. The demo's 'move toward the fittest 8' is a simplification, so 'same selection rule' overstates it." /> Tap the field to start somewhere else.
           Try a small σ near the smaller peak.
         </>
       }

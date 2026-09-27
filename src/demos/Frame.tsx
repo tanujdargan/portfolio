@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Flag } from '../shared/Flag'
 
 export type Provenance = 'real' | 'illustrative' | 'exact'
 const label: Record<Provenance, string> = { real: 'Real model outputs', illustrative: 'Illustrative simulation', exact: 'Exact definition' }
@@ -19,7 +20,10 @@ export function Frame({
   return (
     <figure className="demo">
       <div className="demo__head">
-        <span className="demo__title">{title}</span>
+        <span className="demo__title">
+          {title}
+          {provenance.includes('illustrative') && <Flag note="Illustrative simulation: not real data from the project. See RESEARCH_CLAIMS.md." />}
+        </span>
         <span className="demo__badges">
           {provenance.map((p) => (
             <span key={p} className="demo__badge" data-p={p}>

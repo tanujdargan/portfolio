@@ -186,7 +186,13 @@ export const research: Research[] = [
     next: ['Report proxy-vs-random with confidence intervals on the 200-problem split.', 'Antithetic sampling and rank-based fitness shaping before scaling the population.'],
     links: [{ label: 'Adapter on HF', href: 'https://huggingface.co/tanujd/qwen2.5-1.5b-es-lora-math' }],
     unverified: ['ES-LoRA GSM8K accuracy before/after and proxy-vs-random outcome not found. Needs numbers.'],
-    flags: { next: { 0: 'My suggestion.', 1: 'My suggestion.' } },
+    flags: {
+      method: {
+        1: 'DISCREPANCY with es_lora_original.py: all 45 are screened by a gradient-linearised proxy (−σ·g·ε); only the top 8 get real reward evals, then θ += α/8·Σ zₖεₖ with z-scored rewards. See RESEARCH_CLAIMS.md for the proposed wording.',
+        2: 'Ablation design from exp1_proxy_vs_random.py; whether it was run to completion is not confirmed.',
+      },
+      next: { 0: 'My suggestion.', 1: 'My suggestion.' },
+    },
   },
   {
     slug: 'billion-vector-retrieval',

@@ -244,7 +244,7 @@ export default function RetrievalDemo({ compact }: { compact?: boolean }) {
       caption={
         <>
           <b>Illustrative:</b> 24,000 points in 2-D stand in for a billion high-dimensional vectors. The index clusters them into 48 lists. A query reads only
-          the nearest <i>nprobe</i> lists, so recall trades against work. The real deployments used cuVS IVF and CAGRA across 8+ GPUs. Hollow rings are true
+          the nearest <i>nprobe</i> lists, so recall trades against work. The real deployments used cuVS IVF-PQ and CAGRA across 8+ NVIDIA GPUs. Hollow rings are true
           neighbours the index missed. {compact ? '' : 'Hover or tap to move the query.'}
         </>
       }

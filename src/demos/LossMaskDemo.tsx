@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import data from '../data/lossmask.json'
 import { Frame, Seg } from './Frame'
+import { Flag } from '../shared/Flag'
 
 const presets = [
   { value: 'standard', label: 'Assistant only', lp: 0, lr: 1 },
@@ -40,6 +41,7 @@ export default function LossMaskDemo({ compact }: { compact?: boolean }) {
         <>
           <b>Exact:</b> per-token loss weights, prompt weight λp and response weight λr, as defined in Jindal et al. 2025. Tokens are real Qwen2.5 tokens.{' '}
           <b>Illustrative:</b> the conversation. It's written to look like the existential prompts in the sprint battery.
+          <Flag note="The example conversation is written for the demo, not taken from the sprint's eval set." />
         </>
       }
     >
