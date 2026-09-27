@@ -23,11 +23,5 @@
         }
       ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!assets/|beri/|.*\\..*).*)",
-      "destination": "/index.html"
-    }
   ]
 }
