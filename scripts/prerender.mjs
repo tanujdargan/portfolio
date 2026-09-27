@@ -23,6 +23,11 @@ function collect(key, seen = new Set()) {
   return out
 }
 
+// Vite's own stylesheet links in the template get inlined per route instead.
+const templateCss = [...template.matchAll(/<link rel="stylesheet"[^>]*href="\/([^"]+\.css)">/g)].map((m) => m[1])
+const baseTemplate = template.replace(/\s*<link rel="stylesheet"[^>]*href="\/[^"]+\.css">/g, '')
+// Font preloads cost more than they save on slow 4G here (swap + fallback metrics are close); keep 0 unless measured otherwise.
+const PRELOAD_FONTS = +(process.env.PRELOAD_FONTS ?? 0)
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
 for (const p of allPaths()) {
@@ -36,12 +41,13 @@ for (const p of allPaths()) {
   }
   const url = `https://tanujdargan.com${p === '/' ? '/' : p}`
   const inject = [
-    ...[...new Set(assets.css)].filter((c) => !template.includes(c)).map((c) => `<link rel="stylesheet" crossorigin href="/${c}">`),
-    ...[...fonts].slice(0, 4).map((f) => `<link rel="preload" as="font" type="font/woff2" href="${f}" crossorigin>`),
+    // All CSS for the route is small (<15 KB), so inline it: no render-blocking round trips before first paint.
+    `<style>${[...new Set([...templateCss, ...assets.css])].map((c) => readFileSync(path.join(dist, c), 'utf8')).join('\n')}</style>`,
+    ...[...fonts].slice(0, PRELOAD_FONTS).map((f) => `<link rel="preload" as="font" type="font/woff2" href="${f}" crossorigin>`),
     ...[...new Set(assets.js)].filter((j) => !template.includes(j)).map((j) => `<link rel="modulepreload" crossorigin href="/${j}">`),
     p.startsWith('/lab') ? '<meta name="robots" content="noindex">' : '',
   ].join('\n    ')
-  const out = template
+  const out = baseTemplate
     .replace(/<title>.*?<\/title>/, `<title>${esc(head.title)}</title>`)
     .replace(/(<meta name="description" content=")[^"]*/, `$1${esc(head.description)}`)
     .replace(/(<meta property="og:title" content=")[^"]*/, `$1${esc(head.title)}`)
@@ -54,5 +60,7 @@ for (const p of allPaths()) {
   mkdirSync(path.dirname(file), { recursive: true })
   writeFileSync(file, out)
 }
+const pub = allPaths().filter((p) => !p.startsWith('/lab'))
+writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pub.map((p) => `  <url><loc>https://tanujdargan.com${p}</loc></url>`).join('\n')}\n</urlset>\n`)
 rmSync(path.resolve('dist-ssr'), { recursive: true, force: true })
 console.log(`prerendered ${allPaths().length} routes`)

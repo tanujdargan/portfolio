@@ -26,7 +26,7 @@ export default function LabDock({ variant, page }: { variant: string; page: Page
 
   return (
     <div className="lab-dock" role="region" aria-label="Design lab controls">
-      <Link to="/lab" className="lab-dock__home" aria-label="All variants">
+      <Link to="/lab" className="lab-dock__home" title="All variants">
         Lab
       </Link>
       <div className="lab-dock__seg lab-dock__wide" role="group" aria-label="Variant">

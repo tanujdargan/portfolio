@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /lab
+Sitemap: https://tanujdargan.com/sitemap.xml
