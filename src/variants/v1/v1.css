@@ -14,9 +14,18 @@
 @font-face {
   font-family: 'v1 Newsreader Fallback';
   src: local('Georgia'), local('Times New Roman');
-  size-adjust: 89%;
-  ascent-override: 82%;
-  descent-override: 30%;
+  /* measured with fontTools: Newsreader wght vs Georgia, lowercase advance widths */
+  size-adjust: 97.24%;
+  ascent-override: 75.59%;
+  descent-override: 27.25%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'v1 Plex Mono Fallback';
+  src: local('Menlo'), local('SF Mono');
+  size-adjust: 99.66%;
+  ascent-override: 102.85%;
+  descent-override: 27.59%;
   line-gap-override: 0%;
 }
 
@@ -32,7 +41,7 @@
   --font-display: 'Newsreader Variable', 'v1 Newsreader Fallback', Georgia, serif;
   --font-body: 'Newsreader Variable', 'v1 Newsreader Fallback', Georgia, serif;
   --font-prose: 'v1 OSF', 'Newsreader Variable', 'v1 Newsreader Fallback', Georgia, serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono: 'IBM Plex Mono', 'v1 Plex Mono Fallback', ui-monospace, 'SF Mono', Menlo, monospace;
   --radius: 6px;
   --measure: 620px;
   --display-weight: 360;

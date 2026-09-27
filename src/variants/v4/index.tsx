@@ -12,7 +12,6 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 // Font budget (orchestrator, Lighthouse mobile): Fraunces wght latin 37 KB + Onest 34 KB. No italic, no opsz/SOFT/WONK files,
 // and mono falls back to the system stack so nothing else is fetched before first paint.
 import '@fontsource-variable/fraunces'
-import '@fontsource-variable/onest'
 import { person, proof, research, engineering, community, earlier, links, beri } from '../../content/site'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'

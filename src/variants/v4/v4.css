@@ -1,3 +1,30 @@
+/* Metric-matched fallbacks (measured with fontTools) so the web-font swap doesn't shift layout. */
+@font-face {
+  font-family: 'v4 Fraunces Fallback';
+  src: local('Georgia');
+  size-adjust: 118.6%;
+  ascent-override: 82.46%;
+  descent-override: 21.5%;
+  line-gap-override: 0%;
+}
+/* Onest latin only. The package CSS also registers symbols/math subsets (43 KB) that arrows and ≈ would pull in;
+   those glyphs fall back to the system face instead. */
+@font-face {
+  font-family: 'Onest Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/onest/files/onest-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'v4 Onest Fallback';
+  src: local('Arial'), local('Helvetica');
+  size-adjust: 107.51%;
+  ascent-override: 90.23%;
+  descent-override: 28.37%;
+  line-gap-override: 0%;
+}
 /* v4 Narrative. Warm dark ground, Fraunces display, Onest body. Everything scoped under .v4. */
 .v4 {
   --bg: #13110e;
@@ -7,8 +34,8 @@
   --fg-3: #8d8477;
   --line: rgb(255 238 214 / 0.09);
   --accent: #ff9360;
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
-  --font-body: 'Onest Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces Variable', 'v4 Fraunces Fallback', Georgia, serif;
+  --font-body: 'Onest Variable', 'v4 Onest Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
   --radius: 16px;
   --measure: 660px;
@@ -638,8 +665,9 @@
 .v4-node {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  /* 32px so the Dehradun and Gurgaon targets don't overlap on the phone strip (≥24px, WCAG 2.2) */
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
 }
 .v4-node__dot {
@@ -802,11 +830,15 @@
     display: none;
   }
   .v4-step__text > p {
-    opacity: 0.4;
+    /* 0.72 keeps dimmed steps at ≥4.5:1 contrast on the ground */
+    opacity: 0.72;
     transition: opacity 0.2s;
   }
   .v4-step[data-active] .v4-step__text > p {
     opacity: 1;
+  }
+  .v4-step__text > p.v4-dim {
+    color: var(--fg-2);
   }
   .v4-coda {
     padding-top: 20vh;
@@ -854,8 +886,8 @@
     padding: 4px 10px 0;
   }
   .v4-strip .v4-node {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
   }
   .v4-strip .v4-node__dot {
     width: 9px;
