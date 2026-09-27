@@ -523,5 +523,309 @@
     "url": "https://linear.app",
     "note": "#08090A, Inter Variable 64/64 at weight 510 with -1.4px tracking, secondary #8A8F98; product frame with faint 1px borders; Berkeley Mono accents. Easings (0.32,0.72,0,1) and (0.16,1,0.3,1).",
     "type": "live-screenshot"
+  },
+  {
+    "file": "61-mobbin-modal-3d-cubes-hero.jpg",
+    "source": "Mobbin: Modal",
+    "url": "https://mobbin.com/screens/1f74f012-bf20-4dcd-8fc6-7eec1522d852",
+    "note": "Rendered 3D cubes sit below and behind the headline, never under it. The glow is confined to the object, so the type sits on flat near-black and stays AA. The scene frames the copy instead of competing with it.",
+    "type": "mobbin",
+    "app": "Modal",
+    "image_url": "https://mobbin.com/api/mcp/short/JFUSOmzp",
+    "downloaded": true
+  },
+  {
+    "file": "62-mobbin-fey-3d-object-vignette.jpg",
+    "source": "Mobbin: Fey",
+    "url": "https://mobbin.com/screens/2e3533e4-07db-412c-a52e-8d71f3f32915",
+    "note": "A single dark 3D object in a pool of warm light with a heavy vignette, and nothing else. The object reads because the scene has one light and one material. Good template for a low-draw-call hero.",
+    "type": "mobbin",
+    "app": "Fey",
+    "image_url": "https://mobbin.com/api/mcp/short/81K3tUj1",
+    "downloaded": true
+  },
+  {
+    "file": "63-mobbin-betterstack-billion-lines-card.jpg",
+    "source": "Mobbin: Better Stack",
+    "url": "https://mobbin.com/sites/sections/bb33da71-254d-4f6f-bfc7-60c9f99a4b56",
+    "note": "'1 billion log lines per second' set as the display type, with a live-looking query readout ('13TB of 311TB, 1.2TB/s') beside it. The number is the hero; the visual only backs it up. Relevant to V8's '1B vectors'.",
+    "type": "mobbin",
+    "app": "Better Stack",
+    "image_url": "https://mobbin.com/api/mcp/short/pGIFn97s",
+    "downloaded": true
+  },
+  {
+    "file": "64-mobbin-oryzo-crosshair-reticle.jpg",
+    "source": "Mobbin: Oryzo",
+    "url": "https://mobbin.com/sites/sections/4cb6d525-33c6-46f2-8445-b676aedc0d32",
+    "note": "A thin orange reticle with tick handles, centred on a flat field with faint crosshair lines. It works as a loader and as a cursor. Precise, instrument-like, and almost free to render.",
+    "type": "mobbin",
+    "app": "Oryzo",
+    "image_url": "https://mobbin.com/api/mcp/short/SQZqtz1Q",
+    "downloaded": true
+  },
+  {
+    "file": "65-mobbin-kodeimmersive-chapter-sound-toggle.jpg",
+    "source": "Mobbin: KODE Immersive",
+    "url": "https://mobbin.com/sites/sections/4e3f95e7-be97-44a7-8ce8-362ff79c959a",
+    "note": "A huge chapter numeral ('001') set left, the 3D object centre, and a bracketed '[ SOUND ON ]  [ 028 ]' status in the header. Sound state and progress are text, not icons.",
+    "type": "mobbin",
+    "app": "KODE Immersive",
+    "image_url": "https://mobbin.com/api/mcp/short/TjB9C9R7",
+    "downloaded": true
+  },
+  {
+    "file": "66-mobbin-koto-shape-hero-play.jpg",
+    "source": "Mobbin: Koto",
+    "url": "https://mobbin.com/sites/sections/61fb2932-aba4-484a-9c9f-349ce3eb54c5",
+    "note": "One flat animated shape on black, a '▶ PLAY' affordance and a pause glyph bottom-right. The loop is user-pausable from the first frame.",
+    "type": "mobbin",
+    "app": "Koto",
+    "image_url": "https://mobbin.com/api/mcp/short/Sz81Hdes",
+    "downloaded": true
+  },
+  {
+    "file": "67-mobbin-offbrand-discovered-counter-sound.jpg",
+    "source": "Mobbin: OFF+BRAND",
+    "url": "https://mobbin.com/sites/sections/4aacdbcc-a886-431c-8a15-289596ba368e",
+    "note": "An exploration site with a '0/5 DISCOVERED' counter pinned left and a small 'sound' waveform toggle bottom-right. A progress count tells visitors how much is left, so they don't wander.",
+    "type": "mobbin",
+    "app": "OFF+BRAND",
+    "image_url": "https://mobbin.com/api/mcp/short/nu6LUfjD",
+    "downloaded": true
+  },
+  {
+    "file": "68-mobbin-cloudflare-dotted-globe-callouts.jpg",
+    "source": "Mobbin: Cloudflare Workers",
+    "url": "https://mobbin.com/sites/sections/812789fa-37f5-4e8c-9bb7-4fbba96331b7",
+    "note": "A dotted halftone globe with arcs and two bracketed HTML callouts ('4.5x faster', '95% within 50ms') anchored to points on it. The facts live in DOM and the globe is decoration you can lose.",
+    "type": "mobbin",
+    "app": "Cloudflare Workers",
+    "image_url": "https://mobbin.com/api/mcp/short/JcOGnjFU",
+    "downloaded": true
+  },
+  {
+    "file": "69-mobbin-dub-dotted-globe-last-50.jpg",
+    "source": "Mobbin: Dub",
+    "url": "https://mobbin.com/sites/sections/c9831c1e-e14f-4ba8-9f87-c9bafeaddf2b",
+    "note": "A dot-matrix globe where the highlighted dots are 'the locations of the last 50 clicks'. A caption makes it clear the visual is real data, which earns it credibility.",
+    "type": "mobbin",
+    "app": "Dub",
+    "image_url": "https://mobbin.com/api/mcp/short/yCWHETrA",
+    "downloaded": true
+  },
+  {
+    "file": "70-mobbin-visitors-live-globe-panel.jpg",
+    "source": "Mobbin: Visitors",
+    "url": "https://mobbin.com/screens/4a9b9ef7-7fae-47c3-9dc7-04b548a9b39d",
+    "note": "A live globe with a single pulsing marker and a dark floating panel (Pages / Referrers / Countries) below. Selection drives the globe and the panel carries the numbers.",
+    "type": "mobbin",
+    "app": "Visitors",
+    "image_url": "https://mobbin.com/api/mcp/short/lK1cJrkj",
+    "downloaded": true
+  },
+  {
+    "file": "71-mobbin-basementstudio-wireframe-scene.jpg",
+    "source": "Mobbin: basement.studio",
+    "url": "https://mobbin.com/sites/sections/28a88d90-f813-478b-bb89-336dbe1e48a0",
+    "note": "A whole interior drawn as white 1px wireframe on black with pixelated particle trails. Line-only rendering is cheap, reads as 'engineered', and leaves room for type.",
+    "type": "mobbin",
+    "app": "basement.studio",
+    "image_url": "https://mobbin.com/api/mcp/short/hn0zAbau",
+    "downloaded": true
+  },
+  {
+    "file": "72-mobbin-oryzo-scroll-3d-data-readout.jpg",
+    "source": "Mobbin: Oryzo",
+    "url": "https://mobbin.com/sites/sections/172e2366-713b-4cb3-9dfb-5778e3442892",
+    "note": "A scroll-driven macro shot of the product with a small data card ('FRICTION COEFFICIENT (EST): 0.80') and 'SCROLL TO CONTINUE'. The 3D moment is tied to one measurable claim.",
+    "type": "mobbin",
+    "app": "Oryzo",
+    "image_url": "https://mobbin.com/api/mcp/short/EfRXvn2p",
+    "downloaded": true
+  },
+  {
+    "file": "73-mobbin-figma-webgl-water-caustics.jpg",
+    "source": "Mobbin: Figma",
+    "url": "https://mobbin.com/sites/sections/eda46561-7e73-42dc-94be-ed9dd8ea87a9",
+    "note": "Evan Wallace's WebGL water (a pool with caustics) used as the origin-story figure. Water plus caustics is the classic proof that the browser can do real rendering.",
+    "type": "mobbin",
+    "app": "Figma",
+    "image_url": "https://mobbin.com/api/mcp/short/8Ojr1qg2",
+    "downloaded": true
+  },
+  {
+    "file": "74-mobbin-aqua-caustic-background.jpg",
+    "source": "Mobbin: Aqua",
+    "url": "https://mobbin.com/sites/sections/2f15b024-cf4d-435d-a596-c612c3bb1e82",
+    "note": "A very low-contrast caustic light pattern behind a two-line hero. The shader is at around 6% contrast, so the text never fights it. The V9 surface should work the same way.",
+    "type": "mobbin",
+    "app": "Aqua",
+    "image_url": "https://mobbin.com/api/mcp/short/9tyehkks",
+    "downloaded": true
+  },
+  {
+    "file": "75-mobbin-twenty-data-lines-hero.jpg",
+    "source": "Mobbin: Twenty",
+    "url": "https://mobbin.com/sites/sections/462859fb-70c3-4bcb-9315-9e65c987bfad",
+    "note": "Horizontal line segments of varying length stream toward a chrome logo tile, like a histogram that's become a landscape. Data texture as the hero.",
+    "type": "mobbin",
+    "app": "Twenty",
+    "image_url": "https://mobbin.com/api/mcp/short/iObT50Ri",
+    "downloaded": true
+  },
+  {
+    "file": "76-mobbin-betterstack-telemetry-mono.jpg",
+    "source": "Mobbin: Better Stack",
+    "url": "https://mobbin.com/screens/9cd04fc8-b8bd-4fc8-89a5-00285a547712",
+    "note": "A 'Live tail' log stream: millisecond timestamps in mono, a single red dot on the newest row, and a detail drawer. The model for V7's telemetry stream.",
+    "type": "mobbin",
+    "app": "Better Stack",
+    "image_url": "https://mobbin.com/api/mcp/short/HH4KLs8y",
+    "downloaded": true
+  },
+  {
+    "file": "77-mobbin-supabase-status-dashboard.jpg",
+    "source": "Mobbin: Supabase",
+    "url": "https://mobbin.com/screens/782baf2b-1d87-4a1c-a461-a87acc585ba9",
+    "note": "Status tiles in uppercase mono labels (STATUS Healthy, COMPUTE NANO) above a row of small bar charts. It's dense but calm: labels are 10-11px caps with tracking, and the values are regular weight.",
+    "type": "mobbin",
+    "app": "Supabase",
+    "image_url": "https://mobbin.com/api/mcp/short/Ez3U75V2",
+    "downloaded": true
+  },
+  {
+    "file": "78-mobbin-spade-contour-hud-card.jpg",
+    "source": "Mobbin: Spade",
+    "url": "https://mobbin.com/sites/sections/b387e0c1-68fd-4579-8c98-e07e6767bd04",
+    "note": "A dark green card with faint topographic contour lines, a bracketed corner-tick frame and 'Analyzing customer spending...' with a segmented progress bar. HUD framing without sci-fi clichés.",
+    "type": "mobbin",
+    "app": "Spade",
+    "image_url": "https://mobbin.com/api/mcp/short/SKa69SX2",
+    "downloaded": true
+  },
+  {
+    "file": "79-mobbin-spade-wireframe-data-hero.jpg",
+    "source": "Mobbin: Spade",
+    "url": "https://mobbin.com/sites/sections/cb2e0ca2-02bf-4362-b00f-07f093c0766f",
+    "note": "Stacked wireframe contour objects in one accent colour, and edge ruler ticks down both sides of the viewport. Ruler ticks make any scene feel measured.",
+    "type": "mobbin",
+    "app": "Spade",
+    "image_url": "https://mobbin.com/api/mcp/short/6lrWd398",
+    "downloaded": true
+  },
+  {
+    "file": "80-mobbin-reducto-counter-point-field.jpg",
+    "source": "Mobbin: Reducto",
+    "url": "https://mobbin.com/sites/sections/9242cefa-a95b-48df-82e1-5aac6046250c",
+    "note": "'999,985,821 pages processed' in a large serif over a faint grid of squares, a few of them lit in colour. It's a point field where each lit cell could be one item. Scale told by one number.",
+    "type": "mobbin",
+    "app": "Reducto",
+    "image_url": "https://mobbin.com/api/mcp/short/0YEVIeAw",
+    "downloaded": true
+  },
+  {
+    "file": "81-mobbin-spline-drag-to-interact-hint.jpg",
+    "source": "Mobbin: Spline",
+    "url": "https://mobbin.com/sites/sections/8a590fed-9ab7-4293-a6a2-ad3b43cf2733",
+    "note": "A 3D cube in a framed stage with 'Drag the cube to interact with it' as a small caption top-left, and axis lines through the object. Interactivity is announced in text, not discovered by accident.",
+    "type": "mobbin",
+    "app": "Spline",
+    "image_url": "https://mobbin.com/api/mcp/short/5Q5fVz1H",
+    "downloaded": true
+  },
+  {
+    "file": "82-mobbin-mouthwash-line-figure-hero.jpg",
+    "source": "Mobbin: MOUTHWASH Studio",
+    "url": "https://mobbin.com/sites/sections/672c2210-6085-428a-920f-c03f1b5933be",
+    "note": "A single white polyline figure on black with a one-line mono statement through its centre. Minimal geometry and maximum legibility. A shape that could morph between states.",
+    "type": "mobbin",
+    "app": "MOUTHWASH Studio",
+    "image_url": "https://mobbin.com/api/mcp/short/VkXn1jJN",
+    "downloaded": true
+  },
+  {
+    "file": "83-live-activetheory-particle-logo.jpg",
+    "source": "activetheory.net",
+    "url": "https://activetheory.net",
+    "note": "An iridescent 3D logo ring over a field of bokeh particles on #000, with the nav in a single glass pill. The canvas renders at 1.5x on DPR 1 (2160x1350 for 1440x900) and at full 3x on an iPhone viewport. WebGL2, antialias:false, powerPreference high-performance. ~11.6 MB transferred.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "84-live-lusion-3d-hero-frame.jpg",
+    "source": "lusion.co",
+    "url": "https://lusion.co",
+    "note": "The 3D scene is contained in a rounded 16px-radius card below a three-line HTML statement, with 'SCROLL TO EXPLORE' and + ticks along the bottom. The text never sits over the render. On mobile the canvas is capped at 1.5x DPR (590x989 for 393x659 CSS at DPR 3).",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "85-live-lusion-scroll-handoff.jpg",
+    "source": "lusion.co",
+    "url": "https://lusion.co",
+    "note": "After four wheel ticks the 3D card scrolls away like a normal element and big HTML type takes over. The 3D is one section, not the whole page, and the rest is fast DOM.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "86-live-igloo-hud-constellation.jpg",
+    "source": "igloo.inc",
+    "url": "https://www.igloo.inc",
+    "note": "A photoreal snow scene with a mono HUD: numbered nodes (57, 60, 59, 24, 30) joined by 1px lines over the object, and a '// Copyright' block and right-aligned manifesto in mono. 'Scroll down to discover' and 'Sound: Off' by default. ~19 MB transferred.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "87-live-igloo-object-callouts.jpg",
+    "source": "igloo.inc",
+    "url": "https://www.igloo.inc",
+    "note": "Portfolio items are ice blocks. Each carries anchored mono callouts ('PORTFOLIO_CO_03 ABSTRACT', 'TEMP 26.57', 'D 06.28.2024 CLICK TO EXPLORE') on leader lines that track the object. A strong precedent for V6 and V8 labels.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "88-live-bruno-click-to-start.jpg",
+    "source": "bruno-simon.com",
+    "url": "https://bruno-simon.com",
+    "note": "The scene assembles inside a glowing ring on an infinite X-grid floor, and a handwritten 'CLICK TO START' with a speaker icon unlocks audio on the first gesture. Renderer is WebGPU (navigator.gpu requested, 'webgpu' context). Canvas capped at 2x DPR on mobile.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "89-live-shopify-editions-3d-shelf-index.jpg",
+    "source": "shopify.com/editions",
+    "url": "https://www.shopify.com/editions",
+    "note": "Editions as 3D record sleeves on two shelves, with a plain HTML index (year / season / name) under the canvas and a mute button. The 3D is browsable, but every item is also a normal link. It queries prefers-reduced-motion.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "90-live-stripe-sessions-ribbon.jpg",
+    "source": "stripe.com/sessions",
+    "url": "https://stripe.com/sessions",
+    "note": "A fibrous gradient ribbon rendered in WebGL2 inside a 24px-radius card below the headline. The whole page is 1.6 MB and it checks prefers-reduced-motion 7 times. Proof that a shader hero can be cheap.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "91-live-vercel-ship-dot-pixel.jpg",
+    "source": "vercel.com/ship",
+    "url": "https://vercel.com/ship",
+    "note": "Pixel robots on black, a dot-matrix 'Ship what's next' (Geist Pixel), and a mono countdown '18D.00H.28M.23S'. WebGPU with a WebGL fallback, capped at 2x DPR on mobile, and heavy prefers-reduced-motion use.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "92-live-nasa-eyes-live-timeline.jpg",
+    "source": "eyes.nasa.gov",
+    "url": "https://eyes.nasa.gov/apps/solar-system/#/home",
+    "note": "Orbits as thin coloured ellipses with letter-spaced labels, a 'LIVE' green dot, the date and time, and a 'REAL RATE' scrubber. Time is a first-class control. Featured stories sit in a left rail of dark cards.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "93-live-spacex-sim-brief.jpg",
+    "source": "iss-sim.spacex.com",
+    "url": "https://iss-sim.spacex.com",
+    "note": "A starfield, a one-paragraph brief ('Successful docking is achieved when all green numbers ... are below 0.2') and a single BEGIN button. The goal is stated in numbers before the scene takes over.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "94-live-spacex-sim-docking-hud.jpg",
+    "source": "iss-sim.spacex.com",
+    "url": "https://iss-sim.spacex.com",
+    "note": "The real Dragon docking HUD: a circular reticle with ROLL/PITCH/YAW in green (15.0°, -20.0°, -10.0°) and rates in cyan (0.0 °/s), X/Y/Z and RANGE/RATE readouts, and translucent touch controls at the corners. The canonical V7 reference.",
+    "type": "live-screenshot"
   }
 ]

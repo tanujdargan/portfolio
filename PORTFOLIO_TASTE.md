@@ -576,3 +576,282 @@ Several of these are on the current site; they go.
 3. **P06 Token activation strip.** The native visual of the field, reused for steering and SFT loss-masking.
 4. **P20 + P21 Beri shared-element transition into a scroll-scrubbed phone recording.** Proves product craft with his own app's real motion.
 5. **P03 + P27 Live "now" line and copy-email morph.** Human, current and one click to contact, with P25 ⌘K behind it.
+
+---
+
+## 8. Experimental variants (pass 2): WebGL, shaders, scroll-3D
+
+References `#61`-`#94`. Mobbin gave `#61`-`#82`. `#83`-`#94` are live captures from headless Chromium with the real GPU (ANGLE Metal).
+
+Each live site was also probed with an init script that logged three things: which context it creates, whether it ever calls `matchMedia('(prefers-reduced-motion…)')`, and its canvas backing size under iPhone 15 emulation (DPR 3). Transfer is the total fetched in the first 10 s on desktop. It's one run, so treat the numbers as order-of-magnitude.
+
+| Site | Renderer | Mobile canvas DPR | Transfer | Queries reduced motion |
+|---|---|---|---|---|
+| activetheory.net `#83` | WebGL2, `antialias:false`, high-performance | 3.0 (uncapped); 1.5× supersampled on a DPR-1 desktop | 11.6 MB | no |
+| lusion.co `#84` | WebGL2, `antialias:false`, high-performance | **1.5** | 13.6 MB | no |
+| igloo.inc `#86` | WebGL2, `antialias:false` | n/a (canvas not in light DOM) | 19.2 MB | no |
+| bruno-simon.com `#88` | **WebGPU** | **2.0** | 12.8 MB | no |
+| shopify.com/editions `#89` | WebGL2, `antialias:true` | n/a | 6.4 MB | yes |
+| stripe.com/sessions `#90` | WebGL2, `antialias:true` | n/a | **1.6 MB** | yes (7 queries) |
+| vercel.com/ship `#91` | WebGPU, with a WebGL fallback | **2.0** | 12.4 MB (10.1 MB JS) | yes |
+| eyes.nasa.gov `#92` | WebGL2, `antialias:true` | 3.0 | 8.7 MB | no |
+| iss-sim.spacex.com `#93-94` | WebGL1 | n/a | 9.3 MB (8.3 MB images) | no |
+
+What this shows:
+- None of the six studio or agency sites checked reduced motion from JS. All three product-company sites did.
+- The best-looking mobile builds cap DPR at 1.5-2.
+- A shader hero can cost 1.6 MB for the whole page (Stripe), or 19 MB.
+
+### Principles
+
+1. **HTML first; the scene is an enhancement.**
+   - The LCP element is prerendered text. The canvas mounts after first paint from a dynamic import, as V6-V9 already do.
+   - Budget: ≤150 KB gzip of scene JS and ≤1.5 MB transferred before the first interaction. Stripe `#90` proves this is enough for a striking hero, and the 11-19 MB studio sites prove what happens without a budget.
+2. **Contain the scene, or make it yield to text.**
+   - Lusion frames its render in a card and hands off to plain DOM type after a few wheel ticks (`#84`, `#85`). Modal keeps its objects below the headline (`#61`). Aqua runs its caustics at about 6% contrast (`#74`).
+   - When text has to sit over a scene, the scene darkens itself under the text (P40). Contrast is checked against the brightest frame the shader can produce, not an average one.
+3. **Every 3D thing has a DOM twin.**
+   - Shopify's 3D shelf also has a plain year/season/name index (`#89`). Cloudflare's globe facts are HTML callouts (`#68`).
+   - Labels, links and numbers live in the DOM, so they are focusable, selectable, crawlable, and survive context loss.
+4. **Tie every visual to a real quantity, and say how real it is.**
+   - Examples: Dub's "the last 50 clicks" (`#69`), Oryzo's friction coefficient (`#72`), SpaceX's "all green numbers below 0.2" (`#93`), and NASA's LIVE / REAL RATE (`#92`).
+   - Each scene carries an EXACT, APPROX or ILLUSTRATIVE tag (P46). V7's orbit disclaimer is the model.
+5. **Announce interaction in words.** "Drag the cube to interact with it" (`#81`), "CLICK TO START" (`#88`), "0/5 DISCOVERED" (`#67`). One mono caption is enough. Nobody should have to discover by accident that the hero is touchable.
+6. **Reduced motion is a designed still, not a kill switch.**
+   - Render the same shader at an authored `t`.
+   - Keep hover, pick and drag working. Camera flights become cuts, and scrubbing becomes stepping.
+   - The studios skip this. Doing it is a cheap way to stand out to exactly the reviewers who notice.
+7. **Adapt quality to the device; never fix it.**
+   - Start at the DPR cap, measure frame time, and step down before the user feels it (P33).
+   - Lusion's 1.5 mobile cap is the reference. Uncapped DPR 3 (activetheory, NASA) shades 4× the fragments of 1.5 for a difference nobody sees on a soft scene.
+8. **Sound is opt-in, labelled in text, and never the only channel.**
+   - igloo defaults to "Sound: Off" (`#86`), KODE shows "[ SOUND ON ]" (`#65`), and Bruno unlocks audio on the first gesture (`#88`).
+   - The `AudioContext` is created only from a click. Audio mirrors state that is already visible.
+9. **Stop when nobody is looking.**
+   - Call `setAnimationLoop(null)` when the canvas is <1% visible or `document.hidden`, and pause the `Timer` with it.
+   - After a camera move settles, render on demand only. The phone should be cool after five minutes on the page.
+10. **Fail to a good static page.**
+   - Context loss, software GL, Save-Data and low memory all end on the poster plus the DOM twin, with a "Static mode" label (P47).
+   - A blank black rectangle is the worst possible failure for a portfolio.
+
+### Patterns
+
+Same format as §4. *Fits* uses V6 latent space, V7 mission control, V8 billion vectors and V9 depth. Build notes target three r186 (`WebGLRenderer`, or `three/webgpu` + TSL where compute helps); every name below was checked against `node_modules/three@0.186.1`. V6, V8 and V9 are raw WebGL2 today on purpose (single draw call, no 150 KB renderer). Where a pattern applies to them, port the shader-side values; don't add three.
+
+**P32 Poster-first boot.** *Src:* Stripe `#90`, Lusion `#84`; activetheory `#83` as the counter-example (a black screen until the scene is ready).
+- *Does/why:* The scene container starts with a still of the scene itself. The canvas compiles off the critical path and crossfades in only once it has a real frame. First paint, LCP and CLS stay as they are without the scene, and a slow GPU looks like a still image, not a failure.
+- *Fits:* V6, V7, V8, V9.
+- *Build:*
+  - At build time, render the shader at an authored `t` into a poster, as AVIF.
+  - Keep the poster under 0.05 bits per pixel (≈8 KB at 1440×900) so Chrome's low-entropy rule stops it becoming the LCP candidate. The H1 stays the LCP.
+  - Mount after `requestIdleCallback` (1500 ms timeout) with `new WebGLRenderer({ antialias: false, powerPreference: "high-performance", failIfMajorPerformanceCaveat: true })` inside a try/catch. A throw keeps the poster.
+  - Call `await renderer.compileAsync(scene, camera)`, render one frame, then fade the canvas `opacity` 0→1 over 400 ms `ease-out`.
+  - **RM:** same boot, but the first frame is the final frame, and it renders on demand from then on.
+
+**P33 Adaptive quality governor.** *Src:* the measured caps above (Lusion 1.5, Bruno and Vercel 2.0).
+- *Does/why:* Each scene degrades in steps the user can't see, rather than dropping frames. It is the only way one build hits 60 fps on a Pixel 6a and still looks rich on an M-series laptop.
+- *Fits:* V6, V7, V8, V9.
+- *Build:*
+  - Skip 30 warm-up frames, then take the median frame delta over 90 frames.
+  - If it's above 20 ms, step down:
+    - `renderer.setPixelRatio(Math.max(1, dpr * 0.75))`.
+    - Halve the particle count with `geometry.setDrawRange(0, n)`, or `sprite.count` on WebGPU.
+    - Drop any post pass.
+  - After 3 steps with the median still above 24 ms, fall back to the P32 poster and show "Static mode (this device)".
+  - Step back up after 5 s under 12 ms. Keep hysteresis so the governor can't oscillate.
+  - Start the DPR cap at 1.5 on touch devices and 2 on desktop. V9's soft full-screen ocean can start at 1.0 on phones.
+  - **RM:** not needed, since on-demand rendering has no sustained load.
+
+**P34 Anchored DOM callouts with leader lines.** *Src:* igloo `#87` ("PORTFOLIO_CO_03 / TEMP 26.57 / CLICK TO EXPLORE") and `#86`, Cloudflare `#68`.
+- *Does/why:* Labels are real DOM elements pinned to 3D anchors with a 1px leader. You get crisp text, links that are focusable, and the scene's meaning readable without WebGL.
+- *Fits:* V6 (concept clusters), V7 (satellite, Victoria ground station), V8 (the top-k neighbours).
+- *Build:*
+  - Each frame, `v.copy(anchor).project(camera)`, then `x = (v.x * .5 + .5) * w`, `y = (-v.y * .5 + .5) * h`.
+  - Write `transform: translate3d(x, y, 0)` in the same rAF as `render()`. Hide the label if `v.z > 1` or the anchor faces away (`normal.dot(viewDir) > 0`).
+  - Show at most 6 labels, ranked by importance and then screen distance to the pointer.
+  - Type is 11px mono caps with 0.06em tracking. Leaders are an SVG `<line>` at white 40%.
+  - DOM order = importance, so Tab walks the labels and focusing one moves the camera.
+  - **RM:** labels snap (no lerp), and camera moves are cuts.
+
+**P35 Instrument reticle HUD.** *Src:* SpaceX Dragon HUD `#94` (ROLL 15.0°, 0.0 °/s; X/Y/Z; RANGE 202.6 m; RATE -0.001 m/s), Oryzo reticle `#64`, Spade corner ticks and edge rulers (`#78`, `#79`).
+- *Does/why:* A circular reticle with a few live readouts turns a pretty orbit into an instrument you read. It's MarmotSat in the language Tanuj actually worked in.
+- *Fits:* V7 (primary). A lighter version suits V9's depth readout.
+- *Build:*
+  - The HUD is SVG in the DOM, not in the shader.
+  - Ring: a 1px circle with `stroke-dasharray` ticks every 10°.
+  - Readouts are `<span>`s with `font-variant-numeric: tabular-nums`, written at 10 Hz (text layout at 60 Hz is wasted).
+  - Values come from `orbit.ts`: ALT km, INC 97.7°, LAT/LON, and range to Victoria.
+  - Colour follows Principle 5 of §2: values in the one accent, rates in secondary ink. No SpaceX green and cyan.
+  - **RM:** values update at 1 Hz, and the ring doesn't rotate.
+
+**P36 Time as a control ("LIVE / REAL RATE").** *Src:* NASA Eyes `#92`, Vercel Ship's mono countdown `#91`.
+- *Does/why:* A LIVE dot, the UTC time and a rate selector let you scrub the orbit forward and back. "Return to live" snaps back. It proves the propagation is real, because you can drive it.
+- *Fits:* V7 (orbit). V9 too, where depth is time: scrubbing is a year slider.
+- *Build:*
+  - `simTime = Date.now() + offset`, with rate ∈ {1×, 60×, 600×}.
+  - `<input type="range">` spans ±90 min (one orbit is ~96.6 min at 14.91 rev/day), with `aria-valuetext="12:04 UTC, 18 min ahead"`.
+  - Update the marker with `mesh.position.copy(propagate(simTime))`.
+  - The ground track is a 360-point `BufferGeometry` rebuilt only when the offset changes by more than 1 min.
+  - **RM:** rate defaults to 1× with a 1 Hz update, and scrubbing jumps instead of easing.
+
+**P37 GPU particle field with compute (TSL).** *Src:* activetheory `#83`, Reducto's point grid `#80`, Better Stack's "1 billion log lines" `#63`.
+- *Does/why:* A dense field whose points have *state*: they drift toward a query, settle and cool. That makes "a billion vectors" feel physical rather than a screensaver.
+- *Fits:* V8 (primary), V6.
+- *Build:*
+  - `import * as THREE from "three/webgpu"` and `{ Fn, instancedArray, instanceIndex, hash, uniform, float } from "three/tsl"`.
+  - Buffers: `const pos = instancedArray(N, "vec3")` and `const vel = instancedArray(N, "vec3")`.
+  - Init with `Fn(() => { pos.element(instanceIndex).assign(cellOf(instanceIndex)) })().compute(N)` via `await renderer.computeAsync(init)`.
+  - Each frame, run an update compute with the spring pull `k = 4.0`, damping `0.9`, capped at 0.02 units per frame.
+  - Render with `new THREE.Sprite(new THREE.PointsNodeMaterial({ positionNode: pos.toAttribute(), sizeNode: float(2) }))` and `sprite.count = N`. WebGPU point primitives are fixed at 1px (per three's own docs), so sized points must be sprites.
+  - Counts: 1M on desktop WebGPU, 250k on phones, and a 250k/100k WebGL2 fallback.
+  - V8's current stateless `gl_VertexID` hash is already optimal. Add compute only if points need memory.
+  - **RM:** run the init compute once, render one frame, and apply query highlights instantly with no drift.
+
+**P38 Retrieval as navigation.** *Src:* the Visitors globe and panel `#70`, Dub `#69`.
+- *Does/why:* A query runs the ANN search *visibly*, in three stages:
+  1. The probed cells light up (nprobe 8 of 256 IVF partitions).
+  2. Candidates brighten.
+  3. The top 10 connect to the query point with lines.
+
+  The DOM panel lists the hits with distances. The navigation *is* the work, which is Tanuj's billion-vector system.
+- *Fits:* V8 (primary), V6 (nearest concepts to a steering vector).
+- *Build:*
+  - Probe mask: a `uniformArray` of 256 floats (or a 256×1 `DataTexture`). Fragment brightness is `mix(0.25, 1.0, mask[cell])`.
+  - Top-k is a 10-segment `LineSegments` with `depthWrite: false`, at 60% opacity.
+  - Camera damping is frame-rate independent: `pos.lerp(target, 1 - Math.exp(-dt * 4))`.
+  - Stage timing: probe 250 ms, candidates 250 ms, links 300 ms. That's 800 ms total, inside the §3 ≤900 ms sequence budget.
+  - The results are an ordered list of links. Enter opens the first.
+  - **RM:** all three stages appear at once as the final state, and the camera cuts.
+
+**P39 Scroll-scrubbed camera on a spline, with chapter stops.** *Src:* igloo "Scroll down to discover" `#86`, Lusion's handoff `#85`, KODE's chapter numerals `#65`, the Oryzo scroll prompt `#72`.
+- *Does/why:* Scroll moves the camera along an authored path, and each chapter lands on a composed frame that carries its numeral and copy. Story order becomes spatial order.
+- *Fits:* V9 (the dive), V6 (fly between concepts), V7 (orbit phases).
+- *Build:*
+  - Path: `new THREE.CatmullRomCurve3(points, false, "centripetal")` through 5-7 authored points.
+  - Progress comes from a tall sentinel's `getBoundingClientRect()` read in rAF. Never write scroll position.
+  - Smooth it with `p += (target - p) * (1 - Math.exp(-dt * 6))`.
+  - Camera: `camera.position.copy(curve.getPointAt(p))` and `camera.lookAt(curve.getPointAt(Math.min(p + 0.02, 1)))`.
+  - Sections use `min-height: 100svh`, with `scroll-snap-type: y proximity` on the root.
+  - No wheel hijacking and no smooth-scroll library: `preventDefault` on wheel is banned.
+  - **RM:** each chapter is a fixed camera stop, and crossing a section boundary swaps stops with a 150 ms opacity crossfade.
+
+**P40 Scene-aware text scrim.** *Src:* Aqua's 6% caustics `#74`, the Modal layout `#61`, Lusion's contained frame `#84`.
+- *Does/why:* The shader knows where the text is and dims itself there. Text stays ≥4.5:1 without a heavy box, and without `backdrop-filter` over a canvas (a per-frame readback that is expensive on phones).
+- *Fits:* V9 (copy over the ocean), V6, V8.
+- *Build:*
+  - Put up to 4 text rects in screen UV into `uniform vec4 uText[4]`, updated from `ResizeObserver`.
+  - In the fragment shader: `col *= mix(1.0, 0.35, 1.0 - smoothstep(0.0, 0.12, sdBox(uv - c, h)))`.
+  - In CI, render 20 frames across `t` and scroll positions, take the max luminance inside each rect, and fail if contrast drops below 4.5:1 (or 3:1 for text ≥24px).
+  - **RM:** same as above, since it's static anyway.
+
+**P41 Route transitions over a persistent canvas.** *Src:* the Shopify Editions shelf into an edition `#89`, Lusion `#84`. (Mobbin's web flows had no useful examples.)
+- *Does/why:* The canvas lives outside the route tree. On navigation, the DOM crossfades via View Transitions while the camera flies to the destination, so the scene never reloads or flashes.
+- *Fits:* V6 (to `/research/*`), V7 (subsystem pages), V8, V9 (surface to depth pages).
+- *Build:*
+  - The canvas gets `view-transition-name: scene`. Then set `::view-transition-old(scene) { display: none }` and `::view-transition-new(scene) { animation: none }`. The new snapshot is live, so the canvas keeps animating underneath.
+  - `::view-transition-group(root)` gets 350 ms `ease-drawer`. The camera tween runs 700 ms `ease-in-out` in parallel.
+  - `src/App.tsx` already wraps route commits in `startViewTransition`, and V6 already names its canvas `v6-field`. Only the old/new rules and the camera target are new.
+  - **RM:** `App.tsx` already skips the view transition, so the DOM swaps instantly and the camera cuts. If a fade is wanted, use a 150 ms opacity-only one.
+
+**P42 Cursor as a field force, not a glow.** *Src:* the Oryzo reticle `#64`, V9's existing cursor ripples; §6 bans decorative cursor glows.
+- *Does/why:* The pointer does something that *means* something:
+  - In V6 it's a local steering probe that bends nearby points along the active concept vector.
+  - In V8 it's a lens that spreads dense points apart so single vectors can be picked.
+  - In V9 it's ripples.
+- *Fits:* V6, V8, V9.
+- *Build:*
+  - `uPointer` in NDC, damped with `1 - Math.exp(-dt * 12)`.
+  - Vertex displacement: `d = uStrength * exp(-dot(dp, dp) / (2.0 * 0.12 * 0.12))`, with strength ≤0.04 world units.
+  - The V8 lens radius is 120 css px with magnification 2.5.
+  - Pick on the CPU from the same hash as the shader (`field.ts` already mirrors the PCG), with no GPU readback.
+  - Touch: press-and-hold for 300 ms activates the lens. Nothing depends on hover.
+  - **RM:** displacement off and the lens static at 1.8×. Picking still works.
+
+**P43 Opt-in sound with bounded audio reactivity.** *Src:* igloo `#86`, KODE `#65`, Bruno `#88`, OFF+BRAND `#67`. V7 `signal.ts` and V9 `audio.ts` already synthesise sound.
+- *Does/why:* A text toggle (`[ SOUND OFF ]`) and a synthesized bed with the visuals lightly coupled to it. It adds presence without making audio load-bearing.
+- *Fits:* V9 (swell and marine snow), V7 (signal lock), V6 (a quiet tone per concept).
+- *Build:*
+  - Create the `AudioContext` only in the click handler.
+  - Master gain 0.25, fading in over 800 ms.
+  - `AnalyserNode` with `fftSize = 256` and `smoothingTimeConstant = 0.8`, read once per frame into a reused `Uint8Array(128)`.
+  - Split into bands (0-8, 9-40, 41-127) and envelope each: attack 0.5, release 0.08.
+  - Map to ≤15% modulation, e.g. V9 snow brightness `1.0 + 0.15 * low`. Nothing flashes more than 3 times a second (WCAG 2.3.1).
+  - Suspend on `visibilitychange`, and persist the choice in `localStorage`.
+  - **RM:** sound is still allowed (it isn't motion), but the visual modulation is off.
+
+**P44 Discovery counter.** *Src:* OFF+BRAND "0/5 DISCOVERED" `#67`, KODE `[ 028 ]` `#65`, the SpaceX brief `#93`.
+- *Does/why:* Exploratory scenes need a sense of how much is left. A mono `03/07` counter tells a recruiter when they're done, which makes them more willing to start.
+- *Fits:* V6 (concepts visited), V7 (subsystems inspected), V8 (queries run), V9 (stations passed).
+- *Build:*
+  - DOM only, 11px mono, top-left. Each discovery also appends to the DOM twin list, reachable from a "Skip to index" link.
+  - The counter never gates content.
+  - **RM:** identical.
+
+**P45 Line-only rendering as the house style.** *Src:* basement.studio wireframe `#71`, NASA orbits `#92`, MOUTHWASH `#82`, Spade `#79`.
+- *Does/why:* Hairline geometry reads as engineered, costs almost nothing, and leaves room for type. It matches the hairline language of §2 principle 4.
+- *Fits:* V7 (Earth graticule, orbits), V6 (graph edges).
+- *Build:*
+  - Merge everything into one `LineSegments` (18 meridians × 64 segments + 9 parallels + a 360-point orbit), using `LineBasicMaterial({ transparent: true, opacity: 0.4, depthWrite: false })`.
+  - WebGL ignores `linewidth`, so lines are 1 device px. That's fine at DPR ≥1.5. Avoid `Line2` fat lines on phones.
+  - Depth fade: `alpha *= smoothstep(far, near, -mvPosition.z)`.
+  - Target ≤10 draw calls for the whole scene.
+  - **RM:** static frame.
+
+**P46 Provenance tag on the canvas.** *Src:* Dub's "last 50 clicks" caption `#69`, V7's orbit disclaimer, the Exact / Illustrative figure labels in §2.
+- *Does/why:* One mono line says what the pixels are:
+  - "EXACT · Qwen2.5-1.5B residual stream"
+  - "APPROX · two-body + J2, TLE age 0.4 d"
+  - "ILLUSTRATIVE · drawing 262,144 of 1,000,000,000"
+
+  Credibility is the whole point of these variants, and research reviewers look for exactly this.
+- *Fits:* V6, V7, V8, V9.
+- *Build:*
+  - 10-11px mono, bottom-left of the canvas, secondary ink.
+  - The V8 count is live, from the P33 governor's current draw range.
+  - **RM:** identical.
+
+**P47 Capability and failure ladder.** *Src:* the probe above (no fallbacks seen on the studio sites), Stripe's 1.6 MB `#90`.
+- *Does/why:* One explicit ladder, so every device gets the best experience it can sustain, and failure lands on the P32 poster plus the DOM twin.
+- *Fits:* V6, V7, V8, V9.
+- *Build:*
+  - The ladder: WebGPU (`three/webgpu`, V8 compute only; the adapter request gets a 1500 ms timeout) → WebGL2 → static.
+  - Go static on any of:
+    - `failIfMajorPerformanceCaveat` throws.
+    - `navigator.connection?.saveData`.
+    - `navigator.deviceMemory <= 2`.
+    - `?static=1` in the URL.
+    - The P33 governor bottoms out.
+  - On `webglcontextlost`: call `preventDefault()`, show the poster, and try one restore on `webglcontextrestored`. After that, stay static.
+  - Reduced motion is *not* static mode. They are separate switches.
+  - **RM:** interactive-on-demand, as in principle 6.
+
+### Performance budget: WebGL on mid-range phones
+
+The targets are Pixel 6a / Galaxy A54 / iPhone 12 class, plus Lighthouse's Moto G Power (4× CPU) for load. One frame is 16.7 ms; aim for ≤10 ms GPU and ≤3 ms JS.
+
+| Item | Mid-range phone | Desktop | Notes |
+|---|---|---|---|
+| DPR cap | **1.5** (1.0 for full-screen soft shaders like V9) | 2.0 | Going from DPR 3 to 1.5 on a 393×852 phone cuts fragments from 3.0 M to 0.75 M, 4× fewer. Lusion ships 1.5; Bruno and Vercel ship 2. |
+| Particles, WebGL2 points | 100k (point size ≤4 device px) | 500k | Overdraw from large additive points costs more than the count. |
+| Particles, WebGPU compute sprites | 250k | 1M | Sprites are 2 triangles each; keep them ≤3 css px. |
+| Draw calls | ≤30 (these variants: ≤10) | ≤100 | Merge static lines; one `Points` or `Sprite` per field. |
+| Triangles | ≤100k | ≤500k | Line-only scenes (P45) sit far below this. |
+| Fragment work, full screen | ≤4 noise octaves; raymarch ≤48 steps at DPR 1 | ≤6 octaves; ≤96 steps | V9's analytic waves stay inside this. |
+| Shader precision | `mediump` for colour, lighting and noise; `highp` for positions, hashes and **time** | `highp` | fp16 spacing at t=1000 s is 0.5 s, so declare `uniform highp float uTime` or `sin(t)` stutters after a few minutes. |
+| Textures | ≤1024² (2048² max), KTX2 (ETC1S for colour, UASTC for data); ≤32 MB GPU total | ≤2048²; ≤128 MB | V6 and V8 need none (procedural). Posters are AVIF ≤8 KB. |
+| Post-processing | none by default; at most 1 half-resolution pass | ≤2 passes | `RenderPipeline` (renamed from `PostProcessing` in r183). |
+| Scene JS | ≤150 KB gzip for three, ≤30 KB for raw WebGL2 | same | Loaded after first paint, never at SSR. |
+| Transfer before interaction | ≤1.5 MB | ≤3 MB | Stripe's whole page is 1.6 MB; the studios are 11-19 MB. |
+| First scene frame | ≤1.0 s after LCP | ≤0.5 s | `compileAsync` before the first visible frame. |
+| Per-frame allocation | 0 | 0 | Reuse vectors and typed arrays; the heap should be flat after 60 s. |
+| Idle | loop stopped | loop stopped | Offscreen <1%, `document.hidden`, or camera settled → `setAnimationLoop(null)`. |
+
+**Drop to the static poster when any of these hold:**
+- the governor has stepped down 3 times and the median frame is still >24 ms;
+- `failIfMajorPerformanceCaveat` fails (software GL);
+- Save-Data is on;
+- `deviceMemory ≤ 2`;
+- the context has been lost twice;
+- the user picks "Static mode".
+
+Reduced motion never triggers static mode on its own.
