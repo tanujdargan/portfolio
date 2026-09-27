@@ -6,7 +6,8 @@
   "<b>V2 Design engineer on a laptop</b>: press ⌘K, hover the index rows (cursor preview), copy the email. It carries the most craft per pixel.",
   "<b>V4 Narrative</b>: scroll slowly through Victoria. The pinned place name, stat and route draw together.",
   "<b>V3 Vector space</b>: drag the space, then click a node. The arrow in the Interpretability cluster is the real joy vector.",
-  "Switch motion between <b>Subtle and Expressive</b> in the dock on any of them. Then open any write-up (e.g. /lab/v1/research/activation-steering) and the Beri case study."
+  "Switch motion between <b>Subtle and Expressive</b> in the dock on any of them. Then open any write-up (e.g. /lab/v1/research/activation-steering) and the Beri case study.",
+  "Preview deploy: <a href=\"https://dist-beri2.vercel.app/lab\">dist-beri2.vercel.app/lab</a> (Vercel project <code>dist</code> in the beri2 team, SSO-protected, so log in to Vercel first). Local: <code>npm run build &amp;&amp; npx vite preview</code>, then <a href=\"http://localhost:4173/lab\">localhost:4173/lab</a>."
  ],
  "baseline": "Generic student template: gradient 'Hi, I'm Tanuj', a typing code card, a 60-chip skills wall and GitHub stat cards. On iPhone the code card sits above the name, so the recruiter test fails. Amazon, Beri and the interpretability work are absent. Full diagnosis in PORTFOLIO_DIAGNOSIS.md.",
  "variants": [
