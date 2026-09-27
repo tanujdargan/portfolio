@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import App, { load } from './App'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// Load the route's variant chunk first so hydration renders the same tree the prerender did.
+const el = document.getElementById('root')!
+load(location.pathname).then((initial) => {
+  const app = <App initial={initial} />
+  if (el.hasChildNodes()) hydrateRoot(el, app)
+  else createRoot(el).render(app)
+})
