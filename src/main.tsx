@@ -5,6 +5,7 @@ import App, { load } from './App'
 const el = document.getElementById('root')!
 load(location.pathname).then((initial) => {
   const app = <App initial={initial} />
-  if (el.hasChildNodes()) hydrateRoot(el, app)
+  // In dev the root holds only the <!--app--> placeholder comment, so check for elements, not nodes.
+  if (el.firstElementChild) hydrateRoot(el, app)
   else createRoot(el).render(app)
 })
