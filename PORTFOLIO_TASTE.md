@@ -855,3 +855,274 @@ The targets are Pixel 6a / Galaxy A54 / iPhone 12 class, plus Lighthouse's Moto 
 - the user picks "Static mode".
 
 Reduced motion never triggers static mode on its own.
+
+
+## 9. Patterns found while building V6–V9 (pass 2)
+
+Each experimental-variant agent ran its own Mobbin research and recorded patterns in the §4 format. They're merged here verbatim (29 patterns); the source files remain in `docs/patterns-v*.md`.
+
+### V6
+
+
+Mobbin web references gathered for V6 (Sept 2026), written in the same format as PORTFOLIO_TASTE.md §4. Three searches were run: dark heroes with a 3D or particle field, embedding and cluster plots, and slider panels over generated output. Mobbin shows single frames, so any motion described here is *(inferred)*.
+
+**V6-P1 Words left, scene right.** *Src:* Resend hero ([screen](https://mobbin.com/screens/72bd36ac-0d76-4f93-b5a2-1a73afb92d92)), Graphite hero ([screen](https://mobbin.com/screens/b2c0cbe1-9772-446d-9f79-f613be2529c7)).
+- *Does/why:* In both heroes the headline, one line of copy and two buttons fill the left 45%. The 3D object (a cube in Resend, glowing hexagon rings in Graphite) fills the right half and never runs under the text. The text stays readable and the scene can be loud.
+- *Fits:* the V6 hero and every cluster stop. The camera aims so the active cluster lands right of centre, and the document panel sits on the left.
+- *Build:* offset the look-at target to the left of the cluster centroid on desktop (≥ 900px). On mobile the cluster sits in the top third, above a panel with a solid backdrop. **RM:** the same frames, cut rather than flown.
+
+**V6-P2 Labels pinned to the data.** *Src:* LangChain hero ([screen](https://mobbin.com/screens/b59685a4-716e-40e4-96ce-b5ce02c8841b)), Hume AI embedding plot ([screen](https://mobbin.com/screens/f0c483a8-e4f1-4068-b6ac-0fa4579d262b)).
+- *Does/why:* LangChain puts mono pill labels ("Build", "Observe", "Evaluate", "Deploy") where its glowing curves begin. Hume labels regions of an emotion embedding with a colour square and a word ("Joy", "Calmness", "Fear"). Label and colour together name each region of the space.
+- *Fits:* cluster names and the HUD. Each cluster keeps its tint in the scene, and its index chip in the document panel uses the same tint.
+- *Build:* DOM labels in the mono face, `--c` per cluster shared by the shader colour and a CSS swatch.
+
+**V6-P3 Parameter panel with mono values.** *Src:* FLORA canvas ([screen](https://mobbin.com/screens/e492029d-aacd-49cb-89b0-de086eeaa1e4)).
+- *Does/why:* A small dark card in the top-right lists `MODEL Flux Dev`, `QUALITY 40` with a short slider, `SIZE`, and `SEED 891412874`. Labels are uppercase mono and values sit in chips. It reads as an instrument, not a form.
+- *Fits:* the steering HUD, with rows for model, layer, concept, α and read-back projection.
+- *Build:* a grid of label/value rows with tabular numbers. α is a native range input (keyboard and ARIA for free) that snaps to the 9 real α values.
+
+**V6-P4 Strength slider inline with the prompt.** *Src:* Krea "AI Strength" ([screen](https://mobbin.com/screens/4561c02e-8911-4d23-be77-60b493940bbc)), Leonardo "Elements" ([screen](https://mobbin.com/screens/33109f54-d0fc-4077-bb41-250d7042484d)).
+- *Does/why:* Krea puts its strength slider directly above the prompt field. Leonardo stacks a slider under each named style, with a Reset button. The control sits next to the text it changes, so cause and effect share one glance.
+- *Fits:* the HUD shows the prompt ("Describe your morning."), α right under it, and the model's real steered answer typing out below.
+- *Build:* prompt, then slider, then output in one card. A Reset button returns α to 0. **RM:** the output swaps without typing.
+
+**V6-P5 Dot grid as ground.** *Src:* FLORA ([screen](https://mobbin.com/screens/e492029d-aacd-49cb-89b0-de086eeaa1e4)), Stitch ([screen](https://mobbin.com/screens/54bbd0f4-f90c-412d-94fc-165ac2cf7621)), Cloudflare bindings ([screen](https://mobbin.com/screens/fa011061-0438-45b8-9371-caa44424b211)).
+- *Does/why:* A faint regular dot lattice tells you that you are on a canvas or in a space, not on a page. Stitch bends its dot field into a horizon.
+- *Fits:* the static fallback (SVG dot lattice plus the real activation points), and the far background layer of the point field.
+- *Build:* a CSS `radial-gradient` lattice at 4% white, never animated.
+
+**V6-P6 A space that resolves from a skeleton.** *Src:* Higgsfield "Supercomputer memory" ([screen](https://mobbin.com/screens/6e29e638-e73a-447f-ad31-52a1f3301740)).
+- *Does/why:* A centre node spokes out to icon nodes, and the far labels are grey skeleton pills, not yet resolved. Distance means "not decoded yet".
+- *Fits:* clusters condense out of noise as the camera approaches, and their titles decode character by character on arrival.
+- *Build:* a per-cluster `resolve` uniform mixes each point between a scattered and a home position. The DOM title runs a glyph scramble once per arrival. **RM:** no scramble, and points are drawn resolved.
+
+**V6-P7 Overlay intensity is the user's call.** *Src:* Sprig heatmap ([screen](https://mobbin.com/screens/8388d7c2-e0af-4583-a0ee-6fa403200181)).
+- *Does/why:* Click points are drawn over the captured page, and a "Heat opacity" slider sits in a popover. The overlay helps, but the reader decides how loud it is.
+- *Fits:* the cursor-as-query glow and the steering displacement both scale with the lab motion level (Subtle, Default, Expressive).
+- *Build:* one `uK` uniform multiplies drift, bend and query radius.
+
+### V7
+
+
+Research pass: Mobbin web references for dark dashboards, telemetry logs, command consoles, globe/tracking views and status pages (searched 2026-09-27). Format follows PORTFOLIO_TASTE.md §4: *Src*, *Does/why*, *Fits*, *Build* (with **RM** for reduced motion).
+
+Refs:
+- `M1` Railway, usage dashboard with a red-ruled error-log panel: https://mobbin.com/screens/dd6801ce-350b-479d-b296-7210dbb2c252
+- `M2` StackAI, analytics tiles (big number over a thin chart): https://mobbin.com/screens/03fb91f0-89d0-45e6-ada1-34d533a3febf
+- `M3` Mintlify, KPI strip plus one chart: https://mobbin.com/screens/03b084b9-d5ed-41be-a9ca-43445af854f2
+- `M4` Better Stack, "Telemetry → Live tail" with a timestamp column: https://mobbin.com/screens/5555d9cf-1760-4b61-a404-f8533e728a99
+- `M5` Cloudflare, observability events with timestamp, type pill and message: https://mobbin.com/screens/ad394819-f3c4-4409-96cc-540329602310
+- `M6` PlanetScale, console (one prompt on a dark well): https://mobbin.com/screens/a1fa1590-52b6-4554-b83c-03e998fe6537
+- `M7` Laravel Cloud, command details with dotted key……value output: https://mobbin.com/screens/d846dc81-5058-489b-a885-95d1be9689df
+- `M8` Visitors, a globe with a live dot and a compact stats dock: https://mobbin.com/screens/e3a55696-6526-49bc-b345-1b75da8f57d1
+- `M9` Google Analytics, realtime overview (map with a floating per-minute panel): https://mobbin.com/screens/6db3d3ea-27ab-48e2-bd99-f349c703fae0
+- `M10` OpenAI Platform, service health ("All systems operational", component rows, incident history): https://mobbin.com/screens/d605f83d-3869-4ecc-8874-b913e09e2930
+- `M11` Customer.io, service list with a "Normal" status pill per row: https://mobbin.com/screens/b9743841-5a29-4454-bc39-133d7b0d7d9c
+- `M12` incident.io, per-component uptime bars: https://mobbin.com/screens/12799f14-5784-4df2-97b6-7c9a8406fa09
+
+---
+
+**V7-P1 Globe as the live instrument, DOM as the readout.** *Src:* `M8`, `M9`, TASTE P29.
+- *Does/why:* The satellite view is the one moving thing above the fold. Every number sits in DOM corners over it (position, altitude, UTC, pass), so the text stays crisp, selectable and translatable, and the canvas is never the LCP. In `M8` and `M9` the map carries the mood while the panel carries the facts. Same split here.
+- *Fits:* hero right column (desktop), under the recruiter block (mobile).
+- *Build:*
+  - three r186 `WebGLRenderer`, imported in an effect after first paint + `requestIdleCallback`. Setup yields between steps so no task goes past ~55 ms at 4× CPU.
+  - The Earth is one `ShaderMaterial`: a dot grid sampled from a 7 KB 1-bit Natural Earth land mask, night-side dots in the accent, a terminator band, a 30° graticule, and a fresnel rim. An additive back-face sphere gives the atmosphere.
+  - Real orbit: NORAD 69912 elements (SatNOGS DB, Space-Track TLE), two-body + J2 secular drift. It is labelled "approximate" and shows the TLE age.
+  - DPR capped at 1.5. The loop runs only when the stage intersects the viewport and the tab is visible.
+  - HUD text is written with `textContent` at 4 Hz, never through a React render per frame.
+  - **RM:** one composed frame (the next daylight moment with the terminator in view), marked FROZEN. The HUD is written once and the warp buttons are disabled.
+
+**V7-P2 Time warp as the motion dial.** *Src:* mission-sim convention; `M9`'s "last 30 min / per minute" framing.
+- *Does/why:* Orbit speed is an honest control: LIVE (1×) or a sim multiplier, always labelled (`SIM ×90`). The lab's motion level picks the default: subtle ×20, default ×90, expressive ×360. The user can override it with a 3-way segment or `/warp`.
+- *Fits:* under the orbit stage, and the console.
+- *Build:*
+  - A `SimClock` rebases on every change so the satellite never jumps.
+  - The segment is 30–40 px tall with `aria-pressed`.
+  - **RM:** frozen.
+
+**V7-P3 Subsystem panel = one area of work, one status, real readouts.** *Src:* `M10`, `M11`, `M2`, `M3`.
+- *Does/why:* Status pages earn trust with a component name, a status word and a few numbers. Mapping the work to EPS / OBC / TTC / ADCS / PAYLOAD / HERITAGE / GROUND (and RIDESHARE for Beri when its flag is on) turns a CV into something to scan. Each value is a site.ts metric (180+ sites, $136.2M/yr, 180→15 min, 1–4M QPS, R² 0.936…) set in large tabular mono over a small mnemonic.
+- *Fits:* §01 Subsystems.
+- *Build:*
+  - `dl` grid with 1 px gaps on a line-colour background, so the rules come free.
+  - A "NOMINAL" status in the ok green.
+  - An odd last cell spans the row, so there are no empty holes whichever flags are on.
+  - **RM:** identical and static.
+
+**V7-P4 Telemetry packets, one at a time.** *Src:* `M4`, `M5`.
+- *Does/why:* A single round-robin ticker (950 ms default; 1600 subtle; 520 expressive) picks one panel and one readout. That cell flashes the accent for 900 ms and the panel's packet line types in: `PKT 00012 · APID 03 · QUERY.RATE=1–4M QPS · CRC OK`. The panels feel live without anything counting fake numbers. The packet only replays values that are already on the page.
+- *Fits:* every subsystem panel.
+- *Build:*
+  - One `setInterval`, gated by an IntersectionObserver on the section and by `document.hidden`.
+  - The flash is an opacity-only `::after`.
+  - The typed line is `clip-path` with `steps()`.
+  - **RM:** no ticker; "LINK IDLE · n CHANNELS".
+
+**V7-P5 YAMCS-style command line.** *Src:* `M6`, `M7`, TASTE P25.
+- *Does/why:* The console is the site's ⌘K, dressed as a ground-station command line: `/tlm amazon`, `/open research steering`, `/downlink resume`, `/pass`, `/warp 600`, `/signal on`. Suggestions list the commands, so nobody has to guess the grammar. ACK/NAK replies in green/red teach it in one try. Commands that move the view close the console so the result is visible.
+- *Fits:* the top bar on desktop (always visible, `/` or ⌘K focuses it), and a sheet under the bar on phones (›_ button).
+- *Build:*
+  - One `input role="combobox"` with `aria-activedescendant` over a `listbox`.
+  - ↑/↓ move through the list, Tab completes, Enter sends, ↑ on an empty list walks the history, and Esc closes.
+  - The panel opens with scale .97→1 over 180 ms `ease-out`.
+  - **RM:** no transform; it opens in place.
+
+**V7-P6 Event log as tail -f.** *Src:* `M4` (Live tail), `M1` (log panel), `M5`.
+- *Does/why:* The milestones are rows in a fixed-height log (timestamp · channel · event · metric). The channel codes are SCI / OPS / ENG / CMP / GND. The first time the log scrolls into view, lines arrive one by one and the box follows the tail; after that it's a normal scrollable log. A PAUSE control stops it.
+- *Fits:* §03 Event log.
+- *Build:*
+  - Lines are armed (hidden) only if the section is below the fold at mount, so SSR and no-JS readers see everything.
+  - The reveal is a CSS `clip-path` + opacity animation with a 120 ms stagger. `animationstart` scrolls the box.
+  - `useMilestones()` keeps flags honest.
+  - **RM:** every line present, no box animation.
+
+**V7-P7 Downlink transition between pages.** *Src:* the brief; `M7`'s "Finished · Just now" confirmation.
+- *Does/why:* Opening a write-up plays a short acquisition: a scan-lined sheet wipes down, shows `DOWNLINK · research/activation-steering`, fills a progress bar, flashes `RX LOCK`, then wipes away to reveal the page. The page opens with a "DOWNLINK COMPLETE" strip and a way back to MCC. Page changes feel like fetching data from the spacecraft, and the delay is short (300 ms before navigating).
+- *Fits:* every internal link (queue, log, panel detail, console `/open`).
+- *Build:*
+  - Overlay `clip-path` keyframes `inset(0 0 100% 0) → inset(0) → inset(100% 0 0 0)` over 920 ms × `--t` with `ease-drawer`. Navigation fires at 300 ms × level.
+  - Modifier-clicks bypass it.
+  - **RM:** a 320 ms opacity blink.
+
+**V7-P8 Signal: sound as an opt-in instrument.** *Src:* ground-station audio; `M12`-style explicit status toggles.
+- *Does/why:* SIGNAL is OFF by default and says so. Turning it on starts a very quiet band-passed noise bed with a slow drift, plus short beeps on telemetry packets, commands (two-tone ACK, low NAK), downlinks and AOS over Victoria. It adds presence for people who want it and costs nothing for people who don't.
+- *Fits:* the top bar toggle and `/signal on|off`.
+- *Build:*
+  - Web Audio only: a 2 s noise buffer → biquad band-pass 1.4 kHz → gain 0.028 with an LFO. No files.
+  - The context is created on the click and closed when turned off.
+  - The bars icon animates only while on and not reduced.
+  - **RM:** the audio still works on request; the icon stays still.
+
+### V8
+
+
+Same format as PORTFOLIO_TASTE.md §4. Mobbin references were pulled with the Mobbin MCP (web platform, September 2026). Motion on Mobbin refs is inferred from the frames and marked *(inferred)*.
+
+References used:
+- Command palettes: Mintlify [screen](https://mobbin.com/screens/7c7ad31f-9dfe-4be7-83d7-6002fe31d4d0), fal [screen](https://mobbin.com/screens/d8e46a56-c6c6-4db3-b85f-83bd6cedc01f), Dropbox Dash [screen](https://mobbin.com/screens/489be514-9c73-4642-885c-e79872cf350f), Higgsfield [screen](https://mobbin.com/screens/ed02d9e2-8743-439b-a09d-a621d673a641), v0 [screen](https://mobbin.com/screens/29db691c-e7fb-4ee3-9f4b-e16c4970b92a).
+- Search as the hero: Campsite [section](https://mobbin.com/sites/sections/e4547810-67d9-46bc-b103-77bb719fe9a6), Airbnb Resource Center [section](https://mobbin.com/sites/sections/04ec26fb-062e-4210-815d-08ef23fa0888), Serus [section](https://mobbin.com/sites/sections/59e1bf61-234b-4bc6-8190-d88dea1ccbef), mymind [section](https://mobbin.com/sites/sections/191d027d-69c2-4609-b3b6-60e57d42521e).
+- Particle heroes: Squarespace [section](https://mobbin.com/sites/sections/c89f9f86-b4f8-4d83-ae11-71ba2fb6f5f3), Grok [section](https://mobbin.com/sites/sections/30ab578c-5e08-4070-905a-146bc41a8e12).
+- Live counters and dashboards: Supabase [screen](https://mobbin.com/screens/782baf2b-1d87-4a1c-a461-a87acc585ba9), Mintlify analytics [screen](https://mobbin.com/screens/03b084b9-d5ed-41be-a9ca-43445af854f2), Plain [screen](https://mobbin.com/screens/e892500e-f820-4e3e-af83-973bf50ed22e), Railway [screen](https://mobbin.com/screens/dd6801ce-350b-479d-b296-7210dbb2c252).
+- Result lists: Basecamp [screen](https://mobbin.com/screens/71e7649e-4e4f-450c-92d1-d1e23b6338c0), Perplexity [screen](https://mobbin.com/screens/f8838e0b-1127-444d-80a1-e76f309c4030).
+
+---
+
+**V8-P1 Search is the nav.** *Src:* Campsite (search box as the hero object, "Search projects / people / tags" rows), Airbnb Resource Center (one input, suggestion chips under it), Mintlify and fal palettes (grouped rows, `ESC` pill, footer key hints).
+- *Does/why:* The top bar holds one wide field, "Search the index", with example queries in grey and a `/` key hint. There are no section links. Every page is reachable as a search result, so the navigation shows off the retrieval work instead of describing it. Campsite and Airbnb show that a single field with 3–5 chips reads as "type here" at once. The palettes show the row anatomy: a title, a grey context line, a right-aligned meta column.
+- *Fits:* top bar on every page; hero chips (`steering · amazon · satellite · retrieval`); 404 ("Search the index").
+- *Build:*
+  - A trigger button opens a `role="dialog"` with a `role="combobox"` input and a `role="listbox"` of options (`aria-activedescendant`, arrows, Enter). `/` and ⌘K open it from anywhere, Esc closes it, and Tab is trapped inside.
+  - Panel: 600px wide, pinned top-left on desktop so the field stays visible on the right. Full-screen on mobile, with a transparent 26svh "window" band between the controls and the results so the retrieval animation shows on phones.
+  - Enter animation: `translateY(-10px·k) scale(.985) → 0`, 260ms `ease-drawer`. Rows stagger at 40ms.
+  - **RM:** fade only; the field cuts instead of flying.
+
+**V8-P2 Retrieval replay.** *Src:* Grok (lines radiating from one point to scattered nodes), Squarespace (a dense point sphere with nothing else on screen); the IVF/CAGRA mechanics come from Tanuj's cuVS work.
+- *Does/why:* A query shows the algorithm that answered it. The query lands as a white ring, the IVF coarse quantiser lights the `nprobe` nearest lists one by one, a greedy graph walk draws its hops (rejected neighbours in faint ink, the taken path in accent), and edges fan out to the top-k results, which get labels in the field. The camera flies to the query, and on selection it flies into the chosen vector before the route changes. Grok's radial lines show that edges alone can carry a hero. Here they carry meaning.
+- *Fits:* search dialog on every page; the field is loaded on demand on write-up pages.
+- *Build:*
+  - One timeline in the render loop: probe `i` ramps at `0.12 + i·0.065 s`, then each hop takes 0.13s, then results reveal. Everything is scaled by the motion level's `t`.
+  - Probe intensity is a `vec4[16]` uniform read per point by cell id. Hops are one `LINES` buffer whose vertex shader extends each segment by `clamp(uProg − order)`.
+  - Result labels are DOM spans positioned from the same projection each frame, nudged apart when they collide.
+  - **RM:** the final state appears at once, with a 220ms canvas crossfade in place of the flight.
+
+**V8-P3 Counters that say what they are.** *Src:* Supabase (big number with a small uppercase label), Mintlify analytics and Plain (stat tiles with a unit and context line), Railway (live cost tiles).
+- *Does/why:* Every number carries a provenance tag: **simulated** (the toy index: lists probed, hops, fraction read, recall against an exact scan), **measured** (the scoring time in your browser), **illustrative** (at 1B vectors on 8+ GPUs, the lab's measured 1–4M QPS means 10,000 such queries take 2.5–10 ms of GPU time). Dashboards earn trust by pairing each number with its unit and scope, and a research portfolio needs that more than a SaaS console does.
+- *Fits:* search stats footer; the descent counter ("vectors in view, implied at 1B scale, the field draws ~1M"); the live field readout ("drawing 1,048,576 points · 60 fps · webgl2").
+- *Build:*
+  - Tags are 9.5px mono pills. Simulated uses the accent, measured a green, illustrative a neutral grey.
+  - Numbers use tabular figures. The stats fade from 35% to 100% when the replay finishes.
+  - **RM:** identical (text only).
+
+**V8-P4 Scroll descent, 1B → 1.** *Src:* Squarespace (a single point cloud that fills the viewport), Supabase (one giant number as the headline).
+- *Does/why:* Below the hero, a 260svh sticky stage turns scroll into a camera fall. The target rotates to centre by 45%, distance shrinks on a log scale from 9.6 to 0.075 units, a giant counter drops from 1,000,000,000 toward 1, and three captions state the facts in order. At the end, the vector under the crosshair becomes the DEIA project card with its six measured numbers. The page tells the scale story with the reader's own thumb.
+- *Fits:* home, between the hero and the document layer.
+- *Build:*
+  - A passive scroll listener, rAF-throttled, reads `scrollY` against offsets cached on resize, writes `--p` on the stage, and hands `p` to the engine. There are no layout reads on scroll.
+  - Captions and the card animate in CSS from `--p` (`clamp()`/`min()` opacity windows).
+  - **RM:** `p` is quantised to 4 steps (1B, 1M, 1K, 1), each a crossfade. Captions and the card fade without travel.
+
+**V8-P5 Nearest-neighbour halo.** *Src:* PORTFOLIO_TASTE P04/P18 (cursor labels that are useful); Grok (bright nodes among faint ones).
+- *Does/why:* On fine pointers, a 120px ring follows the cursor and points inside it brighten and warm in the vertex shader. When a site vector is within 60px, the ring snaps to 34px around it and names it. Clicking empty field space opens that vector. The only thing that follows the cursor is a retrieval query.
+- *Fits:* the hero and descent stage.
+- *Build:*
+  - `uMouse` in device pixels; per point `halo = 1 − smoothstep(0, 70·dpr, dist)` scales size and alpha.
+  - The nearest vector is picked on the CPU from ~28 projected doc positions per frame. The ring eases with `1 − e^(−16·dt)`.
+  - **RM:** the ring jumps rather than eases. Hidden on coarse pointers.
+
+**V8-P6 The plain index.** *Src:* Basecamp and Perplexity result pages (dense, typographic lists with context lines).
+- *Does/why:* Every vector the search can return is also printed as an ordinary link list, grouped by district (interpretability, retrieval + systems, industry, space + earth, community, products, "you are here"). It is the no-WebGL, no-JS and screen-reader route through the whole site, and it makes the metaphor honest: the index is real and readable.
+- *Fits:* home, before Contact; the search dialog's list works the same without the canvas.
+- *Build:*
+  - CSS columns (`3 × 260px`), 44px rows, mono cell ids in the gutter.
+  - Content is filtered by the same flags as the search pool (`?show=beri,vikelabs,cde`).
+  - **RM:** static.
+
+### V9
+
+
+These are the Mobbin references gathered for V9 in Sept 2026, written in the same format as PORTFOLIO_TASTE.md §4. Five searches were run:
+- a full-screen dark water or shader hero with text over it
+- a scroll timeline with a depth or altitude gauge and year markers
+- predicted-versus-measured sensor readouts
+- ambient sound toggles
+- vertical gauges with a live numeric readout (iOS)
+
+Mobbin stores single frames, so any motion described here is *(inferred)*. No reference had a generative ocean. The ocean itself is built from first principles (see the V9 index.tsx header). What the references supply is the chrome around the scene.
+
+**V9-P1 Scene hero, stats on the floor.** *Src:* Unity "Go Create" ([screen](https://mobbin.com/screens/6359ec02-eb25-4da6-a46e-6d159479e739)).
+- *Does/why:* A dark, moody 3D scene (a boat on a night sea) fills the viewport. The headline sits large in the sky. Three proof numbers ("20+", "3.6B", "82") sit in a row along the bottom edge, over the darkest part of the scene. The scene carries the mood and the stat row carries the proof, and neither covers the other.
+- *Fits:* the V9 surface. The name and the one-line claim sit in the dusk sky, and the three `useProof()` points run in a hairline-topped row over the dark near-field water. The moon glitter is placed on the right, away from the text.
+- *Build:*
+  - A radial scrim sits behind the name, plus a bottom scrim that fades back to 0 at the hero's lower edge, so it leaves no seam.
+  - The horizon is fixed at 58% on desktop and 64% on mobile. The shader and the CSS fallback share the same numbers.
+  - **RM:** the same frame, frozen.
+
+**V9-P2 Pinned year column over full-bleed imagery.** *Src:* Joby Aviation "Breakthroughs" ([section](https://mobbin.com/sites/sections/6944c2bb-f5b4-4bf0-b707-e4c048c17040)), V7 timeline ticks ([section](https://mobbin.com/sites/sections/a5b3c6c0-dd04-4ca2-b06b-4ee1c673c2a5)).
+- *Does/why:* Joby lists its years in a column: the active year is bright and the rest are dim, all over a full-bleed forest photo. V7 draws a tick ruler with accent ticks at events. Together they show where you are in time and where the events sit, without a progress bar.
+- *Fits:* the V9 depth gauge. A tick ruler scrolls under a fixed accent needle. Year bands (2026 to 2022) and accent dots mark each milestone.
+- *Build:*
+  - The ruler moves by a `translate3d` computed from scroll through anchors that are measured on resize only. There are no layout reads on scroll.
+  - The readout shows metres in large tabular mono with the month and year under it.
+  - **RM:** the same, because it's scroll-scrubbed and not ambient.
+
+**V9-P3 Big number over a ruler.** *Src:* Me+ weight picker ([screen](https://mobbin.com/screens/186618f9-d714-42b0-baf1-01cfcfd932a7)), Runna elevation ([screen](https://mobbin.com/screens/892f40ae-8664-4096-b8dd-95c0d578c4e1)), Tide Guide ([screen](https://mobbin.com/screens/3f126a65-3ae1-46fc-90e2-331a302aeca8)).
+- *Does/why:* Each one pairs a large numeral ("70.0 kg", "193 m", "0.7m") with a small unit and a ruler or curve right under it. You read the value first and then its context. Me+ makes the ruler itself the control.
+- *Fits:* the gauge is a real `role="slider"`. You can drag the ruler to scrub the dive, and ↑/↓ jump to the previous or next station. On phones, where a draggable edge would fight scrolling, it collapses to a readout pill ("128 m · Jun 2025").
+- *Build:*
+  - Pointer capture on the window: 1 px of drag equals 0.9 m.
+  - Keys step through the anchors with `scrollTo` (smooth unless reduced).
+  - `aria-valuetext` reads "128 metres, Jun 2025".
+
+**V9-P4 Forecast band against measured points.** *Src:* Databricks weather dashboard ([screen](https://mobbin.com/screens/662bc1c6-57e2-44b5-bf0d-18efe99395ef)), GitBook traffic ([screen](https://mobbin.com/screens/1dfc1ac5-3d51-4fcf-82d4-7a2109087afd)).
+- *Does/why:* Databricks draws the forecast as a line with a shaded uncertainty band, set against the observed series. The gap between prediction and truth is the story, and the band says how much to trust the line.
+- *Fits:* the SOLIDS satellite-to-deep-water sketch. A satellite beams onto the surface, and a dashed "inferred" column drops to a probe. The model's curve and band sit next to moored-sensor dots.
+- *Build:*
+  - The plot is SVG. A native range input steps the probe through 12 sensor depths, and dragging on the plot works too.
+  - Four readouts: Depth, Predicted (accent), Sensor, Residual.
+  - It is labelled "Illustrative". The real R² = 0.936 carries its `<Flag>`.
+
+**V9-P5 Sound is opt-in and says so.** *Src:* mymind "Diving into your mind…" with a SOUND pill ([screen](https://mobbin.com/screens/29c2d334-fc1b-428a-960c-07190d42a18d)), SuperHi FM ([screen](https://mobbin.com/screens/9f01acf8-4ee1-40d9-92fa-412845e157f5)).
+- *Does/why:* mymind's immersive "diving" transition keeps a small SOUND pill in a corner. SuperHi offers "Want some ambient music in the background?" behind a muted icon. The ambience is there if you ask for it and silent until you do.
+- *Fits:* the V9 "Sound off" pill, bottom-right on desktop and next to the depth pill on phones.
+- *Build:*
+  - Nothing loads until the click: the audio module is a dynamic import, and the `AudioContext` is created in the handler.
+  - The sound is synthesized: brown-noise swell through a lowpass that closes with depth, a drone that rises with depth, and a sonar ping, panned left or right, when a station resolves.
+  - The button uses `aria-pressed`.
+
+**V9-P6 Sonar ping resolves into a card.** *Src:* V7 accent event ticks ([section](https://mobbin.com/sites/sections/a5b3c6c0-dd04-4ca2-b06b-4ee1c673c2a5)), PayPal alternating timeline ([section](https://mobbin.com/sites/sections/2644f16d-1d3f-4cc5-ae0c-4521e8a03f2b)).
+- *Does/why:* PayPal alternates cards left and right of a central spine with years on the spine. It's generic on white, but the structure scans fast. On a dark sea the spine becomes a sounding line and each event becomes a bioluminescent marker.
+- *Fits:* every `useMilestones()` item, newest first. Steering, the Digital Minds sprint and Amazon come just below the surface, and Hack@JBCNOsh sits on the seabed.
+- *Build:*
+  - Two accent rings `scale(1 → 1 + 10·k)` and fade out. Then the card rises `26px·k` and fades in, once, driven by an IntersectionObserver.
+  - The static HTML shows every card. JS only hides the ones below the fold.
+  - The steering demo and the sensor get wide cards that span the spine.
+  - **RM:** k = 0, so the transition is opacity only.
+
+**V9-P7 Still water.** *Src:* Unity (a hero that is a composed still frame at rest).
+- *Does/why:* Reduced motion must not look like a broken page. The ocean renders one composed frame at a fixed time: no loop, no ripples, no snow parallax. As you scroll, the waterline sweep becomes a crossfade.
+- *Build:* the shader's `uMix` switches the split waterline to `mix()`. The loop stops, and the ocean renders a frame only when scroll changes depth.
+
+**V9-P8 Logbook on the seabed.** *Src:* Joby (an editorial column after the immersive part), PayPal timeline (the full text version).
+- *Does/why:* The immersive layer is the hook, and a recruiter still needs the document. At 474 m a gradient settles into solid ground. It holds the full log: expandable experience rows, 5 research write-ups, Beri (flagged), engineering, community, earlier work and contact.
+- *Build:* the `.v9-log` background runs from transparent to `--bg` over 40svh. Once it covers the viewport, the WebGL loop pauses.
