@@ -1,5 +1,5 @@
 /* Fonts: site-specific subsets (public/v2/fonts, 32 KB + 37 KB, wght axis kept), with the fontsource
-   faces behind them for anything outside the subset, and metric-matched local fallbacks so the swap doesn't shift. */
+   system faces for anything outside the subset (no fontsource backups: they pulled 70 KB of Greek/latin files for α and arrows), and metric-matched local fallbacks so the swap doesn't shift. */
 @font-face {
   font-family: 'v2 Inter Tight';
   src: url('/v2/fonts/inter-tight.woff2') format('woff2');
@@ -46,9 +46,9 @@
   --line-2: rgb(255 255 255 / 0.14);
   --ghost: rgb(255 255 255 / 0.04);
   --accent: oklch(0.86 0.15 152);
-  --font-display: 'v2 Inter Tight', 'Inter Tight Variable', 'v2 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'v2 Inter Tight', 'Inter Tight Variable', 'v2 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'v2 JetBrains Mono', 'JetBrains Mono Variable', 'v2 Mono Fallback', ui-monospace, monospace;
+  --font-display: 'v2 Inter Tight', 'v2 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'v2 Inter Tight', 'v2 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'v2 JetBrains Mono', 'v2 Mono Fallback', ui-monospace, monospace;
   --radius: 12px;
   --measure: 620px;
   --display-weight: 500;

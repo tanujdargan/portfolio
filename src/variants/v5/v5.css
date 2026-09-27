@@ -268,6 +268,9 @@ html:has(.v5) {
 }
 .v5-crumb a {
   color: var(--fg-2);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  text-underline-offset: 3px;
 }
 .v5-crumb a:hover {
   color: var(--fg);

@@ -82,7 +82,7 @@ function TopBar({ base, home }: { base: string; home: boolean }) {
   return (
     <header className="v5-bar">
       <div className="v5-bar__in">
-        <Link to={`${base}/`} className="v5-bar__repo" aria-label={`${person.name}, model card home`}>
+        <Link to={`${base}/`} className="v5-bar__repo" title={`${person.name}, model card home`}>
           <span className="v5-mark" aria-hidden="true" />
           <span className="v5-bar__owner">tanujdargan /</span>
           <b>tanuj-dargan</b>

@@ -1,3 +1,21 @@
+/* Metric-matched fallbacks (measured with fontTools) so the web-font swap doesn't shift layout. */
+@font-face {
+  font-family: 'v3 Sans Fallback';
+  src: local('Arial'), local('Helvetica');
+  /* width ratio measured in Chromium on real text (fontTools' default-instance estimate was 106%) */
+  size-adjust: 100.52%;
+  ascent-override: 96.5%;
+  descent-override: 24.87%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'v3 Mono Fallback';
+  src: local('Menlo Regular'), local('Menlo-Regular'), local('SFMono-Regular');
+  size-adjust: 116.27%;
+  ascent-override: 86.01%;
+  descent-override: 17.2%;
+  line-gap-override: 0%;
+}
 /* v3 Vector space. Everything scoped under .v3. */
 .v3 {
   --bg: #0a0c10;
@@ -8,9 +26,9 @@
   --line: rgb(168 188 222 / 0.12);
   --line-2: rgb(168 188 222 / 0.22);
   --accent: #79f2c0;
-  --font-display: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Martian Mono Variable', ui-monospace, 'SF Mono', monospace;
+  --font-display: 'Instrument Sans Variable', 'v3 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Instrument Sans Variable', 'v3 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Martian Mono Variable', 'v3 Mono Fallback', ui-monospace, 'SF Mono', monospace;
   --radius: 6px;
   --measure: 62ch;
   --display-weight: 540;

@@ -40,6 +40,9 @@
 }
 .s-kicker a {
   color: var(--fg-2);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  text-underline-offset: 3px;
 }
 .s-kicker a:hover {
   color: var(--fg);

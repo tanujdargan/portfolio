@@ -1,0 +1,165 @@
+{
+ "date": "2026-09-27",
+ "previewUrl": "http://localhost:4173",
+ "lookFirst": [
+  "<b>V1 Research lab on your phone</b>, then drag α in Fig. 1. It's the strongest fit for Anthropic Fellows and Cohere Labs readers: a real demo, numbered notes and sidenotes, and it still passes the 5-second test.",
+  "<b>V2 Design engineer on a laptop</b>: press ⌘K, hover the index rows (cursor preview), copy the email. It carries the most craft per pixel.",
+  "<b>V4 Narrative</b>: scroll slowly through Victoria. The pinned place name, stat and route draw together.",
+  "<b>V3 Vector space</b>: drag the space, then click a node. The arrow in the Interpretability cluster is the real joy vector.",
+  "Switch motion between <b>Subtle and Expressive</b> in the dock on any of them. Then open any write-up (e.g. /lab/v1/research/activation-steering) and the Beri case study."
+ ],
+ "baseline": "Generic student template: gradient 'Hi, I'm Tanuj', a typing code card, a 60-chip skills wall and GitHub stat cards. On iPhone the code card sits above the name, so the recruiter test fails. Amazon, Beri and the interpretability work are absent. Full diagnosis in PORTFOLIO_DIAGNOSIS.md.",
+ "variants": [
+  {
+   "id": "v0",
+   "name": "Refined",
+   "rationale": "The current structure (hero → about → experience → research → contact), fixed per the diagnosis. The name, the claim and three proof points are the first screen. The steering demo leads Research. The skills wall, gradients and stat cards are gone. The safe option.",
+   "type": "Geist + Geist Mono, one Instrument Serif italic word. Warm grey dark, one soft-violet accent.",
+   "moments": [
+    "Steering demo",
+    "Experience rows expand in place (spring height)",
+    "Nav pill slides to the section in view",
+    "Copy-email morph"
+   ],
+   "patterns": "P01, P02, P19, P24, P27"
+  },
+  {
+   "id": "v1",
+   "name": "Research lab",
+   "rationale": "Reads like a small lab's front page. A masthead, then Fig. 1 (live steering) with a framing lede, the five write-ups as numbered notes, Fig. 2 (loss masking), then applied work. Sidenotes and linked terms make the prose point at the figures. Built for research-program reviewers.",
+   "type": "Newsreader (wght) 19/30 at 62ch + IBM Plex Mono 500 labels; old-style digits subset from Source Serif 4 (3 KB). Warm dark, teal accent for live data only.",
+   "moments": [
+    "Fig. 1 steering + Fig. 2 loss-masking live",
+    "Linked terms (α, the scatter, λp) pulse the matching part of the figure",
+    "Margin sidenotes, tap-to-open on mobile",
+    "Global pause-all-motion",
+    "Sticky contents list with a sliding bar on write-ups"
+   ],
+   "patterns": "P01, P06, P10, P11, P12, P13, P14, P27",
+   "issues": "The pause control drives the shared demos through their buttons, which is a workaround. A shared paused flag would be cleaner."
+  },
+  {
+   "id": "v2",
+   "name": "Design engineer",
+   "rationale": "A 760px column where the whole identity fits one screen. Below it are dense index rows with one proof metric each. The micro-interactions are the argument that he can build: ⌘K, cursor-follow previews, an odometer and a live Toronto clock.",
+   "type": "Inter Tight + JetBrains Mono, subset to the glyphs used (68 KB). Body 14/21, one display step. Green accent for live only.",
+   "moments": [
+    "⌘K command menu (also on mobile)",
+    "Cursor-following row previews with real mini-figures; tap-to-expand on touch",
+    "Copy-email morph with width animation",
+    "Odometer metrics and a rolling clock",
+    "Nav pill following the section",
+    "Inline steering demo"
+   ],
+   "patterns": "P01, P03, P17, P18, P19, P24, P25, P27",
+   "issues": "The metric strip's hidden odometer digits get copied along if you select the text. Glyphs outside the font subset (α, ‖) render in the metric-matched system fallback."
+  },
+  {
+   "id": "v3",
+   "name": "Vector space",
+   "rationale": "Three.js space where the work is the data. There are 5,180 points in six domain clusters and 20 labelled nodes, and the Interpretability cluster uses the real joy activations and steering direction. A HUD keeps the recruiter facts legible before WebGL loads, and a plain document sits below.",
+   "type": "Instrument Sans (display, uppercase) + Martian Mono HUD. Cool near-black, mint for live nodes.",
+   "moments": [
+    "Drag to orbit with damped inertia",
+    "Click a node to fly there and open a sheet with facts and links",
+    "Cluster index that flies between clusters (works without WebGL)",
+    "'Locate in space' from each document section",
+    "Steering demo"
+   ],
+   "patterns": "P04, P29 (HUD only), P12, P01, P19, P27, P28",
+   "issues": "three.js is 192 KB gzipped (lazy, after first paint). A few labels at 1440 hide behind the hero panel until focused."
+  },
+  {
+   "id": "v4",
+   "name": "Narrative",
+   "rationale": "Dehradun → Gurgaon → Mumbai → Victoria → Toronto, told through the work. The first screen is still the recruiter screen, with 'Skip to the work'. The story pins the chapter name and one stat while the text steps past, and a route line draws across the Pacific.",
+   "type": "Fraunces (wght, light, 96–184px) + Onest 18/29. Warm dark, ember accent only on the route.",
+   "moments": [
+    "Scroll-drawn route, tap a city to jump",
+    "Pinned place names and years swapping with direction",
+    "Retrieval demo in Victoria, steering demo in Toronto",
+    "Expandable chapter notes",
+    "Copy email"
+   ],
+   "patterns": "P02, P03, P05, P08, P17, P19, P22, P27, P28, P30",
+   "issues": "The Dehradun and Gurgaon chapters are one line each and flagged, because I found no facts to fill them."
+  },
+  {
+   "id": "v5",
+   "name": "Model card",
+   "rationale": "Tanuj documented as a model release: headline evals, intended use, training data (the chronology), a sortable evaluations table, limitations and a citation block. It's witty through precision, and the header still passes the 5-second test.",
+   "type": "IBM Plex Sans + Plex Mono, Instrument Serif italic twice. Warm graphite, mint accent.",
+   "moments": [
+    "Inference widget: canned questions stream pre-written answers token by token (labelled, not an LLM)",
+    "Sortable eval table with spring reorder",
+    "Steering demo as 'Steering this model'",
+    "Copy BibTeX / copy email",
+    "Hover anchors and sliding tab underline"
+   ],
+   "patterns": "P01, P06, P14, P18, P19, P24, P27",
+   "issues": "The home page is long on mobile (about 9,900 px). The BibTeX block scrolls sideways on phones."
+  }
+ ],
+ "demos": [
+  "<b>Activation steering</b> (real): 108 greedy generations from Qwen2.5-1.5B-Instruct with difference-of-means joy / distress / certainty vectors, 9 steering strengths × 4 prompts, plus real activation projections. Generated on this Mac for the page (scripts/steer.py). Findings: joy flips between +0.3 and +0.6‖h‖. Distress steering produces refusals, not anxious prose. Certainty leaks the literal word \"Certainly\". Three outputs at +1.2 collapse into off-topic tokens; their tails are hidden and labelled.",
+  "<b>Loss masking</b> (exact definition, illustrative conversation): per-token λp/λr weights on real Qwen2.5 tokens, and the share of training signal from prompt vs response.",
+  "<b>Evolution strategies</b> (illustrative): live (μ=8, λ=45)-ES on a 2-D landscape, using the same selection rule as the real ES-LoRA run on GSM8K. σ slider, tap to reposition.",
+  "<b>IVF retrieval</b> (illustrative): 24k points and 48 k-means lists. Moving the query shows recall@10 against the fraction scanned, extrapolated to 1B vectors."
+ ],
+ "flags": [
+  "<b>Resume PDF is stale</b> (last committed 2026-01-27): no Amazon, Beri or research sprint. Every variant links it. Drop a new <code>public/resume.pdf</code>.",
+  "<b>X handle</b>: none on GitHub, the old site or the resume. Links use <code>x.com/tanujdargan</code> as a guess.",
+  "<b>Steering results</b>: the write-up and demo use a replication run made for this site (real, but not your main project's models or numbers). Add the main project's findings.",
+  "<b>Digital Minds sprint outcome</b>: the local repo has scoping and dataset work (Jindal et al. prior-work finding, verified token ratios), but no final λ-grid results or submitted report. The write-up describes only the scoping.",
+  "<b>ES-LoRA results</b>: config verified from es_lora_original.py and the adapter is public on HF, but no GSM8K before/after or proxy-vs-random numbers were found.",
+  "<b>Dehradun and Gurgaon</b> chapters (V4 narrative, V5 training data): no years or details anywhere I could check.",
+  "<b>Amazon Robotics AI</b>: only the brief's wording is used (ML tooling for planning agents, return offer). No project details were invented.",
+  "<b>CDE 2026</b> described as the CFES Conference on Diversity in Engineering (inferred from cde2026.cfes.ca). <b>VikeLabs</b> described as building software for local non-profits (inferred). Confirm both.",
+  "<b>Parameter Golf</b> (OpenAI challenge, 8×H100, negative results) is listed under Earlier from ~/dev/parameter-golf/SESSION_REPORT.md. Not in the brief, so confirm it should be public.",
+  "<b>Beri</b>: no App Store status or user numbers are claimed. Redesign screens are labelled as in-progress directions, not shipped."
+ ],
+ "decisions": [
+  "<b>Stack kept</b>: Vite + React 18 + Framer Motion + Lucide. Added a 60-line prerender step (vite SSR build + renderToString per route), so every route ships as static HTML with its CSS inlined. That fixes SEO and LCP without moving to Next/Astro. three.js was added for V3 only (its own lazy chunk). No router library: a 30-line pushState router with view transitions.",
+  "<b>Dark only</b>, per your standing preference. 'Editorial' in V1 means editorial type on a warm dark ground.",
+  "<b>Real over illustrative</b>: the steering demo runs on real model outputs I generated locally rather than invented text. The other demos are labelled Illustrative or Exact on the figure itself.",
+  "<b>Fonts are the LCP budget</b>: Lighthouse's simulated slow 4G charges every font fetched before first paint. Swapping one 147 KB Newsreader opsz italic for a 22 KB italic took V0 mobile LCP from 2.86 s to 2.25 s. The variants use wght-only font files.",
+  "<b>Deferred hydration</b>: the prerendered HTML is complete, so the JS entry is injected after the first frame and nothing is preloaded. The ~100 KB of JS no longer competes with text and fonts. Mobile FCP dropped 0.3–0.6 s on every variant.",
+  "<b>Zero-shift font swaps</b>: every variant's fallback face uses size-adjust and ascent/descent overrides, measured with fontTools and then calibrated on rendered text in Chromium. Local names are full names (e.g. 'Menlo Regular'), because a bare 'Menlo' silently fails to match. This took V1 desktop CLS from 0.197 to 0.001 and the V3 write-up from 0.127 to 0.",
+  "<b>Lighthouse method</b>: <code>vite preview</code> of the production build, Lighthouse 12 default mobile (Moto G Power, slow 4G, 4× CPU) and desktop presets, best of 2 runs. <code>is-crawlable</code> is skipped because lab pages are deliberately noindex.",
+  "<b>Lab is hidden</b>: /lab/* is noindex and disallowed in robots.txt. The lab dock only renders under /lab. / currently serves V0 until you pick.",
+  "<b>Old code removed</b>: src/components, App.css and the abandoned Tailwind half-migration (untracked src/pages, src/lib/utils.ts, src/data) were replaced. The old site stays in git history and audit/current/.",
+  "<b>Beri assets</b>: shipped screens come from the getberi.com site. Redesign screens and simulator clips come from ~/beri/ios-redesign/design-board (V3, V5, V6 and V7 directions), compressed to about 40 KB per image and 150–530 KB per clip."
+ ],
+ "refs": [
+  "01-",
+  "02-",
+  "06-",
+  "08-",
+  "10-",
+  "12-",
+  "17-",
+  "18-",
+  "25-",
+  "26-",
+  "27-",
+  "30-",
+  "33-",
+  "34-",
+  "35-",
+  "36-",
+  "38-",
+  "40-",
+  "42-",
+  "43-",
+  "44-",
+  "47-",
+  "48-",
+  "49-",
+  "50-",
+  "51-",
+  "52-",
+  "57-",
+  "59-",
+  "60-"
+ ]
+}

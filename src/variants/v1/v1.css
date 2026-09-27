@@ -22,7 +22,7 @@
 }
 @font-face {
   font-family: 'v1 Plex Mono Fallback';
-  src: local('Menlo'), local('SF Mono');
+  src: local('Menlo Regular'), local('Menlo-Regular'), local('SFMono-Regular');
   size-adjust: 99.66%;
   ascent-override: 102.85%;
   descent-override: 27.59%;

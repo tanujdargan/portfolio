@@ -7,8 +7,6 @@
  * Type: Inter Tight Variable + JetBrains Mono Variable. Body 14/21, one display step (22/28), mono 12/18.
  */
 import { useState } from 'react'
-import '@fontsource-variable/inter-tight'
-import '@fontsource-variable/jetbrains-mono'
 import { person, proof, links } from '../../content/site'
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'

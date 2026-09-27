@@ -1,0 +1,266 @@
+{
+ "/lab/v0": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2255,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1678
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 494,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 388
+  }
+ },
+ "/lab/v1": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2153,
+   "cls": 0.003,
+   "tbt": 0,
+   "fcp": 1828
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 492,
+   "cls": 0.001,
+   "tbt": 0,
+   "fcp": 427
+  }
+ },
+ "/lab/v2": {
+  "mobile": {
+   "perf": 97,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2306,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1829
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 612,
+   "cls": 0.001,
+   "tbt": 0,
+   "fcp": 429
+  }
+ },
+ "/lab/v3": {
+  "mobile": {
+   "perf": 97,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2405,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1756
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 536,
+   "cls": 0.001,
+   "tbt": 0,
+   "fcp": 409
+  }
+ },
+ "/lab/v4": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2156,
+   "cls": 0.019,
+   "tbt": 0,
+   "fcp": 1679
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 535,
+   "cls": 0.017,
+   "tbt": 0,
+   "fcp": 409
+  }
+ },
+ "/lab/v5": {
+  "mobile": {
+   "perf": 96,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2467,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1985
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 579,
+   "cls": 0.023,
+   "tbt": 0,
+   "fcp": 451
+  }
+ },
+ "/lab/v0/research/activation-steering": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2133,
+   "cls": 0.008,
+   "tbt": 0,
+   "fcp": 1593
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 490,
+   "cls": 0.01,
+   "tbt": 0,
+   "fcp": 366
+  }
+ },
+ "/lab/v1/research/activation-steering": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2144,
+   "cls": 0.01,
+   "tbt": 0,
+   "fcp": 1823
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 454,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 388
+  }
+ },
+ "/lab/v2/research/activation-steering": {
+  "mobile": {
+   "perf": 98,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2134,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1668
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 491,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 386
+  }
+ },
+ "/lab/v3/research/activation-steering": {
+  "mobile": {
+   "perf": 97,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2280,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1741
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 531,
+   "cls": 0.018,
+   "tbt": 0,
+   "fcp": 406
+  }
+ },
+ "/lab/v4/research/activation-steering": {
+  "mobile": {
+   "perf": 97,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2439,
+   "cls": 0.01,
+   "tbt": 0,
+   "fcp": 1821
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 524,
+   "cls": 0.008,
+   "tbt": 0,
+   "fcp": 406
+  }
+ },
+ "/lab/v5/research/activation-steering": {
+  "mobile": {
+   "perf": 96,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 2442,
+   "cls": 0.01,
+   "tbt": 0,
+   "fcp": 1972
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 647,
+   "cls": 0.001,
+   "tbt": 0,
+   "fcp": 503
+  }
+ }
+}
