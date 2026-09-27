@@ -15,7 +15,7 @@ const shipped = [
 ]
 const screens = ['home', 'chat', 'pantry', 'library', 'profile', 'taste'] as const
 const dirs = [
-  { v: 'current', t: 'Shipped' },
+  { v: 'current', t: 'Current' },
   { v: 'v3', t: 'V3 Wild' },
   { v: 'v5', t: 'V5 Motion-first' },
   { v: 'v6', t: 'V6 Apple Pro' },
@@ -98,7 +98,7 @@ export function BeriCaseStudy({ base }: { base: string }) {
       </header>
 
       <section className="s-sec s-wide">
-        <h2 className="s-h2">The shipped app</h2>
+        <h2 className="s-h2">The app today</h2>
         <div className="s-phones">
           {shipped.map((s) => (
             <figure key={s.f} className="s-phone">
