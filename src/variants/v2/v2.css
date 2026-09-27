@@ -499,6 +499,7 @@
 .v2-proof__d {
   position: relative;
   color: var(--fg-2);
+  text-wrap: pretty;
 }
 .v2-proof__go,
 .v2-row__go {

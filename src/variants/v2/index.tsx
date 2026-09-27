@@ -7,7 +7,9 @@
  * Type: Inter Tight Variable + JetBrains Mono Variable. Body 14/21, one display step (22/28), mono 12/18.
  */
 import { useState } from 'react'
-import { person, proof, links } from '../../content/site'
+import { person, links } from '../../content/site'
+import { useProof, useCommunity } from '../../content/useContent'
+import { useFlags } from '../../lib/labprefs'
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { ResearchArticle } from '../../shared/ResearchArticle'
@@ -23,7 +25,8 @@ import './v2.css'
 const I = (i: number) => ({ ['--i' as string]: i })
 
 function Identity({ base }: { base: string }) {
-  const to: Record<string, string> = { amazon: '#work', beri: `${base}/beri`, research: '#demo' }
+  const proof = useProof()
+  const to: Record<string, string> = { amazon: '#work', marmotsat: '#work', beri: `${base}/beri`, research: '#demo' }
   return (
     <section id="v2-top" className="v2-id" aria-labelledby="v2-name">
       <h1 id="v2-name" className="v2-display v2-in" style={I(0)}>
@@ -85,6 +88,12 @@ function Identity({ base }: { base: string }) {
 }
 
 function Home({ base }: { base: string }) {
+  const flags = useFlags()
+  const community = useCommunity()
+  const workRows = work.filter((r) => !r.beri || flags.beri)
+  // A lone community row joins Earlier rather than holding up a section of its own.
+  const solo = community.length < 2
+  const later = solo ? [...earlierRows, ...communityRows(community)] : earlierRows
   return (
     <>
       <Identity base={base} />
@@ -108,7 +117,7 @@ function Home({ base }: { base: string }) {
         <h2 id="v2-h-work" className="v2-h2">
           Work
         </h2>
-        <Index rows={work} base={base} />
+        <Index rows={workRows} base={base} />
       </section>
 
       <section id="research" className="v2-sec" aria-labelledby="v2-h-research">
@@ -121,18 +130,20 @@ function Home({ base }: { base: string }) {
         </div>
       </section>
 
-      <section id="community" className="v2-sec" aria-labelledby="v2-h-community">
-        <h2 id="v2-h-community" className="v2-h2">
-          Community
-        </h2>
-        <Index rows={communityRows} base={base} compact />
-      </section>
+      {!solo && (
+        <section id="community" className="v2-sec" aria-labelledby="v2-h-community">
+          <h2 id="v2-h-community" className="v2-h2">
+            Community
+          </h2>
+          <Index rows={communityRows(community)} base={base} compact />
+        </section>
+      )}
 
       <section id="earlier" className="v2-sec" aria-labelledby="v2-h-earlier">
         <h2 id="v2-h-earlier" className="v2-h2">
           Earlier
         </h2>
-        <Index rows={earlierRows} base={base} compact />
+        <Index rows={later} base={base} compact />
       </section>
 
       <section id="contact" className="v2-sec v2-contact" aria-labelledby="v2-h-contact">

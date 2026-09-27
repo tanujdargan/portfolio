@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import '@fontsource-variable/geist'
 import '@fontsource-variable/geist-mono'
 import '@fontsource/instrument-serif/400-italic.css'
-import { person, proof, research, engineering, community, earlier, links } from '../../content/site'
+import { person, research, engineering, earlier, links, experience } from '../../content/site'
+import { useProof, useCommunity } from '../../content/useContent'
+import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { ResearchArticle } from '../../shared/ResearchArticle'
@@ -84,55 +86,51 @@ function CopyEmail() {
   )
 }
 
-const roles = [
-  {
-    org: 'Amazon Robotics AI',
-    role: 'SDE intern',
-    when: 'Summer 2026',
-    where: 'Toronto',
-    line: 'ML tooling for planning agents. Received a return offer.',
-    more: 'Summer 2026 internship on the Robotics AI team in Toronto, building ML tooling for planning agents. Ended with a return offer.',
-  },
-  {
-    org: 'Beri',
-    role: 'Co-founder',
-    when: '2025 –',
-    where: 'getberi.com',
-    line: 'Native iOS food and recipe social app. iOS, backend, design system.',
-    more: 'SwiftUI app, Kotlin Android twin, Supabase backend. Ran the redesign as nine directions inside a hidden in-app design lab.',
-    to: '/beri',
-  },
-  {
-    org: 'DEIA Lab, UVic',
-    role: 'Undergraduate researcher',
-    when: '2025 –',
-    where: 'Prof. Sean Chester',
-    line: 'Billion-vector GPU retrieval at 1–4M QPS, under 250 ms.',
-    more: 'cuVS (CAGRA, IVF) across 8+ GPUs and 2 TB of index. 90–95% recall. Automated stress tests on Kubernetes GPU clusters found the interconnect bottleneck.',
-    to: '/research/billion-vector-retrieval',
-  },
-  {
-    org: 'SOLIDS Lab, UVic',
-    role: 'Undergraduate researcher',
-    when: '2025 –',
-    where: 'Dr. Navneet Popli',
-    line: 'Satellite-to-deep-water temperature, R² = 0.936, with NRC Canada.',
-    more: 'Multimodal model on Ocean Networks Canada sensors and satellite imagery. Validated against real sensor data with the National Research Council.',
-    to: '/research/ocean-sensing',
-  },
-  {
-    org: 'UVic satellite design team',
-    role: 'Onboard-computer firmware lead',
-    when: '2025 –',
-    where: 'CFAR',
-    line: engineering[0].detail.split('. ')[0] + '.',
-    more: engineering[0].detail,
-  },
-]
+interface Role {
+  org: string
+  role: string
+  when: string
+  where: string
+  line: string
+  more: string
+  to?: string
+}
+
+// Short labels for the row grid; the full resume title goes in the expanded text.
+const shortOrg: Record<string, string> = { 'UVic Centre for Aerospace Research': 'UVic CFAR', 'MLH Fellowship · Apache Airflow': 'MLH · Apache Airflow' }
+const shortRole: Record<string, string> = {
+  'Amazon Robotics': 'SDE intern',
+  'RBC Borealis': 'AI/ML research mentee',
+  'UVic Centre for Aerospace Research': 'MarmotSat firmware lead',
+  'DEIA Lab, UVic': 'Undergraduate researcher',
+  'MLH Fellowship · Apache Airflow': 'SWE fellow',
+}
+
+// Resume roles (content/experience), plus Beri when its flag is on.
+const resumeRoles: Role[] = experience.map((e) => ({
+  org: shortOrg[e.org] ?? e.org,
+  role: shortRole[e.org] ?? e.role,
+  when: e.when,
+  where: `${e.org}, ${e.role}, ${e.where}`,
+  line: e.line,
+  more: e.bullets.join(' '),
+  to: e.org.startsWith('DEIA') ? '/research/billion-vector-retrieval' : undefined,
+}))
+const beriRole: Role = {
+  org: 'Beri',
+  role: 'Co-founder',
+  when: '2025 –',
+  where: 'getberi.com',
+  line: 'Native iOS food and recipe social app. iOS, backend, design system.',
+  more: 'SwiftUI app, Kotlin Android twin, Supabase backend. Ran the redesign as nine directions inside a hidden in-app design lab.',
+  to: '/beri',
+}
 
 function Experience({ base }: { base: string }) {
   const [open, setOpen] = useState<number | null>(0)
   const m = useMotionPrefs()
+  const { beri } = useFlags()
+  const roles = beri ? [resumeRoles[0], beriRole, ...resumeRoles.slice(1)] : resumeRoles
   return (
     <ol className="v0-rows">
       {roles.map((r, i) => (
@@ -174,6 +172,8 @@ function Experience({ base }: { base: string }) {
 }
 
 function Home({ base }: { base: string }) {
+  const proof = useProof()
+  const community = useCommunity()
   return (
     <>
       <section className="v0-hero" aria-labelledby="v0-name">
@@ -201,13 +201,16 @@ function Home({ base }: { base: string }) {
         <h2 className="v0-h2">About</h2>
         <div className="v0-prose">
           <p>
-            I'm finishing a CS degree at the University of Victoria in three years instead of four. This summer I was an SDE intern at Amazon Robotics AI,
-            building ML tooling for planning agents, and I'm going back. I also co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for cooking and
-            sharing food.
+            I'm finishing a CS degree at the University of Victoria in three years instead of four. This summer I was an SDE intern at Amazon Robotics, where I
+            shipped an LLM planning assistant to production across 180+ fulfillment sites, and I'm going back.
+            <Show when="beri">
+              {' '}
+              I also co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for cooking and sharing food.
+            </Show>
           </p>
           <p>
             My research is about finding concepts as directions inside a model, then checking whether pushing along them does what the label says. Before that I
-            worked on billion-vector search on GPUs and on ocean-sensing models. I also lead onboard-computer firmware for UVic's satellite team.
+            worked on billion-vector search on GPUs and on ocean-sensing models. I also led onboard-computer firmware for MarmotSat, which is now in orbit.
           </p>
         </div>
       </section>
@@ -228,7 +231,10 @@ function Home({ base }: { base: string }) {
             <li key={r.slug}>
               <Link to={`${base}/research/${r.slug}`} className="v0-list__a">
                 <span className="v0-list__n">{String(i + 1).padStart(2, '0')}</span>
-                <span className="v0-list__t">{r.title}</span>
+                <span className="v0-list__t">
+                  {r.title}
+                  {r.unverified && <Flag note={r.unverified.join(' ')} />}
+                </span>
                 <span className="v0-list__m">{r.where}</span>
                 <span className="v0-list__arrow" aria-hidden="true">
                   →
@@ -285,8 +291,8 @@ function Home({ base }: { base: string }) {
           ))}
         </ul>
         <p className="v0-tools">
-          <span className="v0-h3">Tools</span> Python, PyTorch, Hugging Face, CUDA/cuVS, vLLM · Swift/SwiftUI, TypeScript/React · C on STM32 · Nix, Proxmox,
-          Kubernetes.
+          <span className="v0-h3">Tools</span> Python, PyTorch, Hugging Face, CUDA/cuVS, vLLM, LangGraph · <Show when="beri">Swift/SwiftUI, </Show>
+          TypeScript/React · C firmware · Nix, Proxmox, Kubernetes, GCP/AWS.
         </p>
       </section>
 

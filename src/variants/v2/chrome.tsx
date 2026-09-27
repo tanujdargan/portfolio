@@ -5,6 +5,8 @@ import { person, links, linkOrder, research, type LinkKey } from '../../content/
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { Link, useRouter } from '../../lib/router'
+import { useFlags } from '../../lib/labprefs'
+import { useCommunity } from '../../content/useContent'
 import { LEVELS } from '../../lib/motion'
 import { ease, useTokens } from './motion'
 
@@ -186,6 +188,8 @@ export function CommandMenu({ open, setOpen, base, home }: { open: boolean; setO
   const listRef = useRef<HTMLDivElement>(null)
   const prevFocus = useRef<HTMLElement | null>(null)
   const byKeyboard = useRef(false)
+  const { beri } = useFlags()
+  const hasCommunity = useCommunity().length > 1
 
   // global shortcut
   useEffect(() => {
@@ -234,9 +238,9 @@ export function CommandMenu({ open, setOpen, base, home }: { open: boolean; setO
     const nextLevel = LEVELS[(LEVELS.indexOf(m.level) + 1) % LEVELS.length]
     return [
       ...sections.map((s) => ({ id: `s-${s.id}`, group: 'Jump to', label: s.label, icon: <Hash size={14} />, run: go(s.id) })),
-      { id: 's-community', group: 'Jump to', label: 'Community', icon: <Hash size={14} />, run: go('community') },
+      ...(hasCommunity ? [{ id: 's-community', group: 'Jump to', label: 'Community', icon: <Hash size={14} />, run: go('community') }] : []),
       { id: 's-demo', group: 'Jump to', label: 'Steering demo', hint: 'drag α', icon: <Hash size={14} />, run: go('demo') },
-      { id: 'w-beri', group: 'Write-ups', label: 'Beri, a case study', icon: <ArrowRight size={14} />, run: () => navigate(`${base}/beri`) },
+      ...(beri ? [{ id: 'w-beri', group: 'Write-ups', label: 'Beri, a case study', icon: <ArrowRight size={14} />, run: () => navigate(`${base}/beri`) }] : []),
       ...research.map((r) => ({
         id: `w-${r.slug}`,
         group: 'Write-ups',
@@ -278,7 +282,7 @@ export function CommandMenu({ open, setOpen, base, home }: { open: boolean; setO
         },
       },
     ]
-  }, [base, home, m, navigate, setOpen])
+  }, [base, home, m, navigate, setOpen, beri, hasCommunity])
 
   const shown = useMemo(() => {
     const words = q.toLowerCase().trim().split(/\s+/).filter(Boolean)
@@ -393,7 +397,7 @@ export function CommandMenu({ open, setOpen, base, home }: { open: boolean; setO
                   transition={ind.first ? { duration: 0 } : snap}
                 />
               )}
-              {shown.length === 0 && <p className="v2-cmd__empty">Nothing for “{q}”. Try “steer”, “beri” or “email”.</p>}
+              {shown.length === 0 && <p className="v2-cmd__empty">Nothing for “{q}”. Try “steer”, {beri ? '“beri”' : '“gpu”'} or “email”.</p>}
               {shown.map((c, i) => {
                 const head = c.group !== lastGroup
                 lastGroup = c.group

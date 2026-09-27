@@ -1,5 +1,5 @@
 // v2 index rows. Every fact comes from src/content/site.ts; only the phrasing is v2's.
-import { research, engineering, community, earlier, beri } from '../../content/site'
+import { research, engineering, earlier, beri, experience, type Community } from '../../content/site'
 
 export type Preview =
   | { kind: 'type'; big: string; lines: string[] }
@@ -28,18 +28,25 @@ export interface Row {
 
 const R = Object.fromEntries(research.map((r) => [r.slug, r]))
 
-export const work: Row[] = [
+const E = Object.fromEntries(experience.map((e) => [e.org, e]))
+const amazon = E['Amazon Robotics']
+const rbc = E['RBC Borealis']
+
+/** Work rows, resume-sourced. The Beri row carries `beri` so the index can drop it when that flag is off. */
+export const work: (Row & { beri?: boolean })[] = [
   {
     id: 'amazon',
-    title: 'Amazon Robotics AI',
+    title: amazon.org,
     sub: 'SDE intern · Toronto',
-    metric: 'Return offer',
+    metric: '$136.2M',
+    unit: '/yr projected',
     when: '2026',
-    detail: 'Summer 2026 on the Robotics AI team, building ML tooling for planning agents. Ended with a return offer.',
-    preview: { kind: 'type', big: 'Return offer', lines: ['SDE intern, summer 2026', 'ML tooling for planning agents'] },
+    detail: `${amazon.bullets[0]} ${amazon.bullets[1]} Return offer.`,
+    preview: { kind: 'type', big: 'Return offer', lines: ['LLM planning assistant in production', '180+ fulfillment sites · Optimus'] },
   },
   {
     id: 'beri',
+    beri: true,
     title: 'Beri',
     sub: 'Co-founder · native iOS',
     metric: '9',
@@ -54,11 +61,21 @@ export const work: Row[] = [
     id: 'obc',
     title: engineering[0].title,
     sub: 'Firmware lead · UVic CFAR',
-    metric: '4',
-    unit: 'min, was 30',
-    when: '2025 –',
+    metric: '15',
+    unit: 'min, was 180',
+    when: '2025–26',
     detail: engineering[0].detail,
-    preview: { kind: 'type', big: '30 → 4 min', lines: ['manual test time per change', '80+ checksum rules on every commit'] },
+    preview: { kind: 'type', big: 'In orbit', lines: ['launched on a SpaceX Falcon 9', 'CI/HIL: tests 180 → 15 min'] },
+  },
+  {
+    id: 'rbc',
+    title: rbc.org,
+    sub: 'AI/ML research mentee',
+    metric: '1,500+',
+    unit: 'records',
+    when: '2026',
+    detail: rbc.bullets.join(' '),
+    preview: { kind: 'type', big: '4+ cohorts', lines: ['UMAP over 1,500+ longitudinal records', 'AI Mentorship Program'] },
   },
   {
     id: 'homelab',
@@ -88,6 +105,7 @@ export const researchRows: Row[] = [
     when: '2026',
     detail: 'Contrastive difference-of-means vectors, steered on Qwen2.5-1.5B-Instruct. Joy steering is a switch, not a dial: between +0.3 and +0.6‖h‖ the read-back projection jumps from −8.0 to +9.6.',
     to: '/research/activation-steering',
+    flag: R['activation-steering'].unverified?.join(' '),
     preview: { kind: 'bars', values: joy, alphas },
   },
   {
@@ -97,9 +115,9 @@ export const researchRows: Row[] = [
     metric: '3',
     unit: 'datasets',
     when: 'Aug 2026',
-    detail: 'Sweeping prompt-token loss weight λp in LoRA SFT, then reading how the persona direction moves while benchmarks stay flat. No Robots, WildChat-1M and OASST2 as substrate, scale arm and control.',
+    detail: 'The same base model, SFT under different loss-masking regimes. Assistant-only loss maximizes expressed shutdown distress; any loss on user turns restores a neutral register with no capability cost. Valence probes show calm-sounding models still register shutdown negatively.',
     to: '/research/loss-masking-distress',
-    flag: R['loss-masking-distress'].unverified?.join(' '),
+    flag: R['loss-masking-distress'].unverified?.join(' ') ?? R['loss-masking-distress'].flags?.method?.[1],
     preview: { kind: 'tokens' },
   },
   {
@@ -120,9 +138,10 @@ export const researchRows: Row[] = [
     sub: 'DEIA Lab, UVic',
     metric: '1–4M',
     unit: 'QPS',
-    when: '2025 –',
-    detail: 'cuVS (CAGRA and IVF) across 8+ GPUs and 2 TB of index. 90–95% recall under 250 ms, 4.3× scaling, with memory and interconnect as the limit.',
+    when: '2025–26',
+    detail: 'A modified cuVS fork, CAGRA and IVF-PQ across 8+ NVIDIA GPUs and 2 TB of index. 90–95% recall under 250 ms, 4.3× scaling, with memory bandwidth and NVLink saturation as the limit.',
     to: '/research/billion-vector-retrieval',
+    flag: R['billion-vector-retrieval'].unverified?.join(' '),
     preview: { kind: 'type', big: '1–4M QPS', lines: ['90–95% recall · < 250 ms', '4.3× scaling across 8+ GPUs'] },
   },
   {
@@ -131,9 +150,10 @@ export const researchRows: Row[] = [
     sub: 'SOLIDS Lab, UVic · NRC',
     metric: '0.936',
     unit: 'R²',
-    when: '2025 –',
+    when: R['ocean-sensing'].when,
     detail: 'Multimodal model on Ocean Networks Canada sensors and satellite imagery, validated against real readings with the National Research Council Canada.',
     to: '/research/ocean-sensing',
+    flag: R['ocean-sensing'].unverified?.join(' '),
     preview: { kind: 'type', big: 'R² 0.936', lines: ['satellite → deep-water temperature', 'delivered to NRC Canada'] },
   },
 ]
@@ -143,7 +163,9 @@ const communityMetric: Record<string, [string, string?, string?]> = {
   VikeLabs: ['Director', undefined, 'Events · UVic'],
   'CDE 2026': ['VP', 'comms', 'Diversity in Engineering'],
 }
-export const communityRows: Row[] = community.map((c) => ({
+/** Community rows for whatever the content flags leave visible (see useCommunity). */
+export const communityRows = (community: Community[]): Row[] =>
+  community.map((c) => ({
   id: c.title,
   title: c.title,
   sub: communityMetric[c.title][2]!,
@@ -153,7 +175,7 @@ export const communityRows: Row[] = community.map((c) => ({
   detail: c.detail,
   href: c.href,
   preview: { kind: 'type', big: communityMetric[c.title].slice(0, 2).filter(Boolean).join(' '), lines: [c.role, c.when] },
-}))
+  }))
 
 const earlierMetric: Record<string, [string, string?]> = {
   'Pear Care': ['−40%', 'memory'],

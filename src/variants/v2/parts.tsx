@@ -4,6 +4,7 @@ import { Check, Copy } from 'lucide-react'
 import lossmask from '../../data/lossmask.json'
 import { person, links } from '../../content/site'
 import { Flag } from '../../shared/Flag'
+import { useFlags } from '../../lib/labprefs'
 import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import { ease, useTokens } from './motion'
@@ -68,6 +69,7 @@ export function Odo({ value, live = false }: { value: string; live?: boolean }) 
 /* ---------------------------------------------------------------- P03 now line */
 
 export function NowLine() {
+  const { beri } = useFlags()
   const [t, setT] = useState<string | null>(null)
   useEffect(() => {
     const f = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
@@ -84,8 +86,15 @@ export function NowLine() {
       <span className="v2-now__dot" aria-hidden="true" />
       <span className="v2-now__time">{t ? <Odo value={t} live /> : <span aria-hidden="true">--:--</span>}</span>
       <span>
-        in Toronto<span className="v2-dim"> · </span>building Beri<span className="v2-dim"> · </span>
-        <span className="v2-now__long">steering Qwen2.5-1.5B</span>
+        in Toronto<span className="v2-dim"> · </span>
+        {beri ? (
+          <>
+            building Beri<span className="v2-dim"> · </span>
+            <span className="v2-now__long">steering Qwen2.5-1.5B</span>
+          </>
+        ) : (
+          'steering Qwen2.5-1.5B'
+        )}
       </span>
     </p>
   )
