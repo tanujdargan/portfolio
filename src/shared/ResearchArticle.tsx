@@ -27,7 +27,7 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
         </ul>
       </header>
 
-      <section className="s-sec">
+      <section className="s-sec" id="question">
         <h2 className="s-h2">Question</h2>
         <p className="s-lede">{r.question}</p>
       </section>
@@ -38,7 +38,7 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
         </div>
       )}
 
-      <section className="s-sec">
+      <section className="s-sec" id="method">
         <h2 className="s-h2">Method</h2>
         <ol className="s-steps">
           {r.method.map((m) => (
@@ -47,7 +47,7 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
         </ol>
       </section>
 
-      <section className="s-sec">
+      <section className="s-sec" id="result">
         <h2 className="s-h2">
           Result
           {r.unverified?.length ? <Flag note={r.unverified.join(' ')} /> : null}
@@ -59,7 +59,7 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
         ))}
       </section>
 
-      <section className="s-sec">
+      <section className="s-sec" id="next">
         <h2 className="s-h2">What I'd do next</h2>
         <ul className="s-bullets">
           {r.next.map((m) => (
