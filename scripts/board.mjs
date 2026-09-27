@@ -29,7 +29,7 @@ function page(media, refDir, liveBase) {
       (v) => `
   <section class="v" id="${v.id}">
     <header class="v__h">
-      <div><span class="id">${v.id.toUpperCase()}</span><h2>${esc(v.name)}</h2></div>
+      <div><span class="id">${v.id.toUpperCase()}</span>${v.tag ? `<span class="tag">${esc(v.tag)}</span>` : ''}<h2>${esc(v.name)}</h2></div>
       <a class="open" href="${liveBase}/lab/${v.id}" target="_blank">Open live ↗</a>
     </header>
     <p class="why">${esc(v.rationale)}</p>
@@ -38,6 +38,7 @@ function page(media, refDir, liveBase) {
       <div><dt>Interactive moments</dt><dd>${v.moments.map(esc).join(' · ')}</dd></div>
       <div><dt>Patterns</dt><dd>${esc(v.patterns)}</dd></div>
       ${v.issues ? `<div><dt>Known issues</dt><dd>${esc(v.issues)}</dd></div>` : ''}
+      ${v.fps ? `<div><dt>Frame rate (4× CPU throttle)</dt><dd>${esc(v.fps)}</dd></div>` : ''}
     </dl>
     ${lhTable([lhRow('Mobile', lh[`/lab/${v.id}`]?.mobile), lhRow('Desktop', lh[`/lab/${v.id}`]?.desktop), lhRow('Write-up, mobile', lh[`/lab/${v.id}/research/activation-steering`]?.mobile)])}
     <div class="shots">
@@ -46,6 +47,7 @@ function page(media, refDir, liveBase) {
       <figure class="d"><video src="${img(`${v.id}-desktop.mp4`)}" muted loop playsinline autoplay preload="none"></video><figcaption>Desktop scroll, looping</figcaption></figure>
       <figure class="m"><video src="${img(`${v.id}-mobile.mp4`)}" muted loop playsinline autoplay preload="none"></video><figcaption>Mobile scroll</figcaption></figure>
     </div>
+    ${existsSync(`public/board/${v.id}-flags-mobile-fold.jpg`) ? `<details><summary>With Beri, VikeLabs and CDE shown (content flags on)</summary><div class="shots"><figure class="d"><img loading="lazy" src="${img(`${v.id}-flags-desktop-fold.jpg`)}" alt=""><figcaption>Desktop, flags on</figcaption></figure><figure class="m"><img loading="lazy" src="${img(`${v.id}-flags-mobile-fold.jpg`)}" alt=""><figcaption>Mobile, flags on</figcaption></figure></div></details>` : ''}
     <details><summary>Full-page screenshots</summary>
       <div class="full"><img loading="lazy" src="${img(`${v.id}-desktop-full.jpg`)}" alt=""><img loading="lazy" src="${img(`${v.id}-mobile-full.jpg`)}" alt=""></div>
     </details>
@@ -71,6 +73,7 @@ nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:24px}nav.toc a{padding:6p
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 28px;margin:20px 0}.facts dt{font:600 11px ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--f3)}.facts dd{margin:4px 0 0;color:var(--f2)}
 table.lh{border-collapse:collapse;font:13px ui-monospace,monospace;margin:8px 0 20px}table.lh td,table.lh th{padding:6px 12px;border-bottom:1px solid var(--ln);text-align:left}table.lh th{color:var(--f3);font-weight:500}
 .sc{display:inline-block;min-width:34px;padding:2px 6px;border-radius:6px;text-align:center}.sc.g{background:#12351f;color:#7ee2a0}.sc.o{background:#3a2c0e;color:#f3c46b}.sc.r{background:#3d1512;color:#ff8a7a}
+.v .tag{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;font:600 10px ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;background:#2a1f45;color:#c9b8ff;vertical-align:middle}
 .shots{display:grid;grid-template-columns:2.1fr 1fr 2.1fr 1fr;gap:12px;align-items:start}@media(max-width:900px){.shots{grid-template-columns:1fr 1fr}}
 figure{margin:0}figure img,figure video{width:100%;display:block;border-radius:10px;box-shadow:0 0 0 1px var(--ln);background:#000}
 .shots .m img,.shots .m video{aspect-ratio:393/659;object-fit:cover;object-position:top}.shots .d img,.shots .d video{aspect-ratio:1440/900;object-fit:cover;object-position:top}
@@ -83,6 +86,7 @@ code{font:13px ui-monospace,monospace;background:var(--b2);padding:2px 6px;borde
 </style></head><body><main>
 <h1>Portfolio design board</h1>
 <p class="lead">tanujdargan.com redesign. ${notes.variants.length} full-site variants built on the same content, all live in the Design Lab. Every variant is dark, prerendered to static HTML, and runs the same four in-browser research demos. Generated ${notes.date}.</p>
+${notes.changelog ? `<section class="first" style="margin-top:28px"><b>Changelog: pass 2 (${esc(notes.changelogDate || '')})</b><ul class="flat">${notes.changelog.map((c) => `<li>${c}</li>`).join('')}</ul>${notes.resumeChanges ? `<details><summary>Every change caused by the Aug 2026 resume (${notes.resumeChanges.length})</summary><ul class="flat">${notes.resumeChanges.map((c) => `<li>${c}</li>`).join('')}</ul></details>` : ''}</section>` : ''}
 <div class="first"><b>Look at these first</b><ol>${notes.lookFirst.map((l) => `<li>${l}</li>`).join('')}</ol>
 <p class="dim" style="margin:12px 0 0">Lab: <a href="${liveBase}/lab">${liveBase || ''}/lab</a>. The dock at the bottom switches variant and motion intensity (Subtle / Default / Expressive). <code>[</code> and <code>]</code> cycle variants. Every page has a write-up at <code>/lab/vN/research/…</code> and the Beri case study at <code>/lab/vN/beri</code>.</p></div>
 <nav class="toc">${notes.variants.map((v) => `<a href="#${v.id}">${v.id.toUpperCase()} ${esc(v.name)}</a>`).join('')}<a href="#baseline">Current site</a><a href="#demos">Demos</a><a href="#flags">Unverified</a><a href="#decisions">Decisions</a><a href="#refs">References</a></nav>

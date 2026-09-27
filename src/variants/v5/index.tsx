@@ -8,9 +8,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
-import '@fontsource-variable/ibm-plex-sans'
 import '@fontsource/ibm-plex-mono/400.css'
-import '@fontsource/instrument-serif/400-italic.css'
 import { person, research, engineering, experience, earlier, links, linkOrder, chapters, beri, type LinkKey } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
@@ -251,7 +249,7 @@ function Header({ base }: { base: string }) {
   return (
     <section className="v5-card" aria-labelledby="v5-title">
       <div className="v5-card__main">
-        <h1 id="v5-title" className="v5-title v5-in" style={{ ['--i' as string]: 0 }}>
+        <h1 id="v5-title" className="v5-title">
           <span className="v5-mark v5-mark--lg" aria-hidden="true" />
           <span aria-hidden="true">
             <span className="v5-title__owner">tanujdargan /</span> <span className="v5-title__repo">tanuj-dargan</span>

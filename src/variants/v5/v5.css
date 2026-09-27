@@ -1,3 +1,12 @@
+/* IBM Plex Sans, subset to the glyphs this site uses (35 KB vs 45 KB, wght axis kept; pyftsubset, see board decisions).
+   Glyphs outside the subset fall through to the system face. */
+@font-face {
+  font-family: 'v5 Plex Sans';
+  src: url('/v5/plex-sans.woff2') format('woff2');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
 /* v5 "Model card". Dense documentation scale, its own warm-graphite dark, one mint accent that means "live". */
 html:has(.v5) {
   scroll-padding-top: 68px;
@@ -12,10 +21,11 @@ html:has(.v5) {
   --line: rgb(255 255 255 / 0.085);
   --line-2: rgb(255 255 255 / 0.14);
   --accent: #8fdcc2;
-  --font-display: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'v5 Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'v5 Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  /* System serif italic for the two accent words: Instrument Serif cost 22 KB before first paint and pushed mobile LCP past 2.5 s. */
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --radius: 10px;
   --measure: 680px;
   --display-weight: 540;
@@ -83,7 +93,7 @@ html:has(.v5) {
   border-radius: 6px;
 }
 
-/* entrance: CSS, so it runs at first paint and the header text is in the static HTML */
+/* entrance: CSS, so it runs at first paint and the header text is in the static HTML. The h1 (the LCP element) never animates. */
 .v5-in {
   animation: v5-rise calc(480ms * var(--t, 1)) var(--ease-out) both;
   animation-delay: calc(var(--i, 0) * 45ms * var(--t, 1));
