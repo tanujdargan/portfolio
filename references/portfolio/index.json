@@ -1,0 +1,527 @@
+[
+  {
+    "file": "01-mobbin-resend-serif-hero-3d.jpg",
+    "source": "Mobbin: Resend",
+    "url": "https://mobbin.com/screens/72bd36ac-0d76-4f93-b5a2-1a73afb92d92",
+    "note": "Light-weight serif display on near-black, one monochrome 3D object lit from the side, two quiet CTAs. Editorial-on-dark done right.",
+    "type": "mobbin",
+    "app": "Resend",
+    "image_url": "https://mobbin.com/api/mcp/short/G7VfFZTs",
+    "downloaded": true
+  },
+  {
+    "file": "02-mobbin-langchain-hairline-diagram-hero.jpg",
+    "source": "Mobbin: LangChain",
+    "url": "https://mobbin.com/screens/b59685a4-716e-40e4-96ce-b5ce02c8841b",
+    "note": "Hero where a hairline diagram (4 labelled stages converging) is the art. Mono labels in pills on 1px rules.",
+    "type": "mobbin",
+    "app": "LangChain",
+    "image_url": "https://mobbin.com/api/mcp/short/kS8fsBe8",
+    "downloaded": true
+  },
+  {
+    "file": "03-mobbin-chronicle-outline-wordmark.jpg",
+    "source": "Mobbin: Chronicle",
+    "url": "https://mobbin.com/sites/sections/ae44c0d6-872d-4892-9c35-d2a07fcb9904",
+    "note": "Giant hairline-outline wordmark bleeding off the bottom; single CTA with light-streak corners. Type as texture, near-zero chrome.",
+    "type": "mobbin",
+    "app": "Chronicle",
+    "image_url": "https://mobbin.com/api/mcp/short/8RlyvE0J",
+    "downloaded": true
+  },
+  {
+    "file": "04-mobbin-grok-radial-points-hero.jpg",
+    "source": "Mobbin: Grok (xAI)",
+    "url": "https://mobbin.com/sites/sections/30ab578c-5e08-4070-905a-146bc41a8e12",
+    "note": "Radial point field with hairline spokes behind a split, gradient-to-grey headline. Mono uppercase nav with wide tracking. Close to an embedding-space visual.",
+    "type": "mobbin",
+    "app": "Grok (xAI)",
+    "image_url": "https://mobbin.com/api/mcp/short/JNFaWo52",
+    "downloaded": true
+  },
+  {
+    "file": "05-mobbin-unseen-chromatic-wordmark.jpg",
+    "source": "Mobbin: Unseen Studio",
+    "url": "https://mobbin.com/sites/sections/64611226-7921-4e34-9001-83c7e91bd803",
+    "note": "Studio intro: chromatic-split wordmark over a wireframe globe, 'enter without audio' micro-link, (c) year in corner. Warm charcoal, not pure black.",
+    "type": "mobbin",
+    "app": "Unseen Studio",
+    "image_url": "https://mobbin.com/api/mcp/short/dySw3xc9",
+    "downloaded": true
+  },
+  {
+    "file": "06-mobbin-niteriot-index-table.jpg",
+    "source": "Mobbin: Nite Riot",
+    "url": "https://mobbin.com/sites/sections/1aa05a05-6920-4f35-a581-3dcf42634162",
+    "note": "Work as a dense 3-column index (project / director / location) in small caps over a desaturated hovered still. Local time in the header. Archive-as-table.",
+    "type": "mobbin",
+    "app": "Nite Riot",
+    "image_url": "https://mobbin.com/api/mcp/short/0zvWOdse",
+    "downloaded": true
+  },
+  {
+    "file": "07-mobbin-a24-giant-title-list.jpg",
+    "source": "Mobbin: A24",
+    "url": "https://mobbin.com/sites/sections/b645a881-adf5-43f3-a86c-758cd54f0b72",
+    "note": "Project list as stacked display-size titles with tiny mono year superscripts. Tight leading, no thumbnails until hover. (Light; invert for dark.)",
+    "type": "mobbin",
+    "app": "A24",
+    "image_url": "https://mobbin.com/api/mcp/short/Q0nMR6do",
+    "downloaded": true
+  },
+  {
+    "file": "08-mobbin-cloudstudio-work-grid-metrics.jpg",
+    "source": "Mobbin: Cloudstudio",
+    "url": "https://mobbin.com/sites/sections/48890788-7d16-4887-baaa-5b22583ef055",
+    "note": "Work tiles numbered 01/02 with one big metric per tile (94 avg run score, 474 runs) and mono meta line. Numbers-as-proof on case cards.",
+    "type": "mobbin",
+    "app": "Cloudstudio",
+    "image_url": "https://mobbin.com/api/mcp/short/mnuzcg5i",
+    "downloaded": true
+  },
+  {
+    "file": "09-mobbin-studiofreight-drag-canvas.jpg",
+    "source": "Mobbin: Studio Freight",
+    "url": "https://mobbin.com/sites/sections/2f12827e-5e12-4f35-9bc8-93d914ff9695",
+    "note": "Infinite drag/scroll canvas of work tiles on black, zoom 1X/2X control, 'Drag or Scroll to Explore' mono hint. Good 3D/immersive-variant reference.",
+    "type": "mobbin",
+    "app": "Studio Freight",
+    "image_url": "https://mobbin.com/api/mcp/short/PDX8uYnM",
+    "downloaded": true
+  },
+  {
+    "file": "10-mobbin-koto-sticky-caption-work.jpg",
+    "source": "Mobbin: Koto",
+    "url": "https://mobbin.com/sites/sections/eec8e349-6e6b-4409-aac8-8fed304d4ae6",
+    "note": "Sticky left caption (title in two greys, body at bottom) while case media scrolls on the right. Local time UTC offset top-right.",
+    "type": "mobbin",
+    "app": "Koto",
+    "image_url": "https://mobbin.com/api/mcp/short/eAr3G6fB",
+    "downloaded": true
+  },
+  {
+    "file": "11-mobbin-freshman-numbered-rows.jpg",
+    "source": "Mobbin: Freshman",
+    "url": "https://mobbin.com/sites/sections/7715758c-5482-4a9a-9aed-f8e0bf60d30e",
+    "note": "Numbered work rows (Nº 01) separated by dotted rules; filmstrip thumbs, hero still, serif+sans title pair and a short paragraph.",
+    "type": "mobbin",
+    "app": "Freshman",
+    "image_url": "https://mobbin.com/api/mcp/short/nhD3DS4h",
+    "downloaded": true
+  },
+  {
+    "file": "12-mobbin-giga-progress-rail-steps.jpg",
+    "source": "Mobbin: Giga",
+    "url": "https://mobbin.com/sites/sections/f850ffc1-be4a-4064-88d5-9b52d2ec9d52",
+    "note": "Mono display headline + a glowing gradient progress rail; steps 1-3 lit, 4-5 dimmed. Scroll position shown as literal progress through a process.",
+    "type": "mobbin",
+    "app": "Giga",
+    "image_url": "https://mobbin.com/api/mcp/short/5g5lzC7o",
+    "downloaded": true
+  },
+  {
+    "file": "13-mobbin-wild-pixel-scatter-to-line.jpg",
+    "source": "Mobbin: Wild",
+    "url": "https://mobbin.com/sites/sections/eef9343d-0d21-41e4-9524-54462b7612db",
+    "note": "Pixel-cell scatter that converges into a line then fans out (explore -> refine -> scale). A data-shaped narrative; maps directly to optimization / ES finetuning. (Light; invert.)",
+    "type": "mobbin",
+    "app": "Wild",
+    "image_url": "https://mobbin.com/api/mcp/short/d3mxaWzE",
+    "downloaded": true
+  },
+  {
+    "file": "14-mobbin-titan-radial-scroll-dial.jpg",
+    "source": "Mobbin: Titan Intake",
+    "url": "https://mobbin.com/sites/sections/997ccdfd-8e26-4f3b-ba9e-423d72ed08c1",
+    "note": "Scroll rotates a radial dial of numbered steps; active step sharp, neighbours rotate away and fade. Serif labels on black.",
+    "type": "mobbin",
+    "app": "Titan Intake",
+    "image_url": "https://mobbin.com/api/mcp/short/Pb37YUix",
+    "downloaded": true
+  },
+  {
+    "file": "15-mobbin-dovetail-vertical-stepper.jpg",
+    "source": "Mobbin: Dovetail",
+    "url": "https://mobbin.com/sites/sections/0c8a622e-7ba8-4695-8e33-c1a6138dda78",
+    "note": "Vertical hairline stepper: square nodes, active item expands with body copy, inactive items grey. Good for timeline / experience.",
+    "type": "mobbin",
+    "app": "Dovetail",
+    "image_url": "https://mobbin.com/api/mcp/short/jR4QHwed",
+    "downloaded": true
+  },
+  {
+    "file": "16-mobbin-greptile-howitworks-diagrams.jpg",
+    "source": "Mobbin: Greptile",
+    "url": "https://mobbin.com/sites/sections/1b166ffd-5b9f-4579-9398-629d9779f7af",
+    "note": "Blueprint-grid 'how it works' with STEP 01/02/03 mono labels and small wireframe diagrams per step, crop marks on the grid.",
+    "type": "mobbin",
+    "app": "Greptile",
+    "image_url": "https://mobbin.com/api/mcp/short/z85I4dIN",
+    "downloaded": true
+  },
+  {
+    "file": "17-mobbin-giga-proof-cards-dotgrid.jpg",
+    "source": "Mobbin: Giga",
+    "url": "https://mobbin.com/sites/sections/4b7ca144-327d-4a66-b75a-647cdd01171d",
+    "note": "Three proof cards: mono eyebrow, one claim, then a tiny purpose-built chart each (dot-grid where each dot = 1%, before/after bar, growth bars). Legend lines in mono.",
+    "type": "mobbin",
+    "app": "Giga",
+    "image_url": "https://mobbin.com/api/mcp/short/JdBoltMQ",
+    "downloaded": true
+  },
+  {
+    "file": "18-mobbin-mixpanel-mono-data-texture.jpg",
+    "source": "Mobbin: Mixpanel",
+    "url": "https://mobbin.com/sites/sections/0ad85c67-29c0-4532-9caf-511229d94cc8",
+    "note": "Single sentence over an animated field of mono digits and pills. Data as texture that can animate state-to-state as you scroll.",
+    "type": "mobbin",
+    "app": "Mixpanel",
+    "image_url": "https://mobbin.com/api/mcp/short/8DYTstMD",
+    "downloaded": true
+  },
+  {
+    "file": "19-mobbin-origin-forecast-annotated-line.jpg",
+    "source": "Mobbin: Origin",
+    "url": "https://mobbin.com/sites/sections/1fde4e1c-d8f6-4c55-b10f-e432b36ec6dd",
+    "note": "Italic serif + roman headline, then a scrubbable line with a 'today' cursor, event pins on the curve and mono axis labels.",
+    "type": "mobbin",
+    "app": "Origin",
+    "image_url": "https://mobbin.com/api/mcp/short/k75pY04E",
+    "downloaded": true
+  },
+  {
+    "file": "20-mobbin-dovetail-dotted-grid-hero.jpg",
+    "source": "Mobbin: Dovetail",
+    "url": "https://mobbin.com/sites/sections/57c3f21b-b420-47cc-be74-8b45ab45aea5",
+    "note": "Dark hero with dotted connector lines from sources into a product frame on a faint grid. Hairline 'wiring' that could carry a pipeline diagram.",
+    "type": "mobbin",
+    "app": "Dovetail",
+    "image_url": "https://mobbin.com/api/mcp/short/4gCZuWFW",
+    "downloaded": true
+  },
+  {
+    "file": "21-mobbin-legend-footer-lit-scene.jpg",
+    "source": "Mobbin: Legend",
+    "url": "https://mobbin.com/sites/sections/010b6e4d-1e73-4698-9e32-e4396c7d9357",
+    "note": "Footer as a lit 3D scene: glowing mark casting light onto water. Mono small-caps meta row (A: San Francisco / E: contact@) on 1px column rules.",
+    "type": "mobbin",
+    "app": "Legend",
+    "image_url": "https://mobbin.com/api/mcp/short/qxZLtfzd",
+    "downloaded": true
+  },
+  {
+    "file": "22-mobbin-runway-outline-footer-wordmark.jpg",
+    "source": "Mobbin: Runway",
+    "url": "https://mobbin.com/sites/sections/902d3be1-1cae-4cf3-bb62-ea51a2008af7",
+    "note": "Footer card with a clipped hairline-outline wordmark between two rules; warm-dark brown tint rather than neutral black.",
+    "type": "mobbin",
+    "app": "Runway",
+    "image_url": "https://mobbin.com/api/mcp/short/y8GTwBax",
+    "downloaded": true
+  },
+  {
+    "file": "23-mobbin-mammoth-serif-footer-links.jpg",
+    "source": "Mobbin: Mammoth Brands",
+    "url": "https://mobbin.com/sites/sections/526eb747-eba7-47e6-851e-903150f3861f",
+    "note": "Footer where links are set in large serif (Overview, LinkedIn) under tiny sans labels. One illustration, nothing else.",
+    "type": "mobbin",
+    "app": "Mammoth Brands",
+    "image_url": "https://mobbin.com/api/mcp/short/LsE2HyDM",
+    "downloaded": true
+  },
+  {
+    "file": "24-mobbin-resend-footer-status.jpg",
+    "source": "Mobbin: Resend",
+    "url": "https://mobbin.com/sites/sections/9301c687-40d0-4d8d-bbb8-b1325bac2679",
+    "note": "Quiet footer with a live 'All systems operational' pill; top edge fades from a soft light bloom. Status pill idea -> 'currently: interning at Amazon Robotics'.",
+    "type": "mobbin",
+    "app": "Resend",
+    "image_url": "https://mobbin.com/api/mcp/short/ma8M36LR",
+    "downloaded": true
+  },
+  {
+    "file": "25-mobbin-linear-command-menu.jpg",
+    "source": "Mobbin: Linear",
+    "url": "https://mobbin.com/sites/sections/4600d041-2634-4e63-b635-b9f48c9f3ec0",
+    "note": "Cmd-K palette: context chip, input, rows with kbd shortcut badges on the right, 2px active-row indicator. Model for a portfolio Cmd-K.",
+    "type": "mobbin",
+    "app": "Linear",
+    "image_url": "https://mobbin.com/api/mcp/short/NZnIfPcR",
+    "downloaded": true
+  },
+  {
+    "file": "26-mobbin-fourmula-pill-nav-scroll-percent.jpg",
+    "source": "Mobbin: Fourmula AI",
+    "url": "https://mobbin.com/sites/sections/3332ff1d-967c-4f6a-99fa-f9a4734c181b",
+    "note": "Centered pill nav: Menu / theme toggle / live scroll '0%' readout. Radial orbit of items around a drop target. (Light; the pill works dark.)",
+    "type": "mobbin",
+    "app": "Fourmula AI",
+    "image_url": "https://mobbin.com/api/mcp/short/2oRb6dlA",
+    "downloaded": true
+  },
+  {
+    "file": "27-mobbin-garden-dithered-scanline-hero.jpg",
+    "source": "Mobbin: Garden",
+    "url": "https://mobbin.com/sites/sections/6a54d993-ed1c-4cef-bbe8-072534e7997c",
+    "note": "Scanline/dither shader on a 3D ribbon in one accent (mint) over warm charcoal; light serif headline. Inset frame with notched corner for nav.",
+    "type": "mobbin",
+    "app": "Garden",
+    "image_url": "https://mobbin.com/api/mcp/short/j8NiNEsZ",
+    "downloaded": true
+  },
+  {
+    "file": "28-mobbin-bitcoinos-numbered-menu.jpg",
+    "source": "Mobbin: BitcoinOS",
+    "url": "https://mobbin.com/sites/sections/c1dc63b8-957a-4567-970b-bd3a21232beb",
+    "note": "Full-screen menu: [Product] bracket labels, numbered 01-08 rows on hairlines, row hover fills; image panel on the left.",
+    "type": "mobbin",
+    "app": "BitcoinOS",
+    "image_url": "https://mobbin.com/api/mcp/short/bgJygX1t",
+    "downloaded": true
+  },
+  {
+    "file": "29-mobbin-sana-case-metrics-row.jpg",
+    "source": "Mobbin: Sana AI (flow: Case study)",
+    "url": "https://mobbin.com/flows/18de0716-f7ae-4c3c-8330-0faa88ed55cc",
+    "note": "Case study beat: full-bleed hero image, then three big light-weight metrics (+275% / 15 h / 4.5/5) with one-line captions, then 'Challenge' at a narrow measure. (Light; the structure is the point.)",
+    "type": "mobbin",
+    "app": "Sana AI (flow: Case study)",
+    "image_url": "https://mobbin.com/api/mcp/short/dFjBUgbg",
+    "downloaded": true
+  },
+  {
+    "file": "30-mobbin-perplexity-post-byline-measure.jpg",
+    "source": "Mobbin: Perplexity (flow: Blog post)",
+    "url": "https://mobbin.com/flows/a0069fbe-6fff-4039-8e00-ca994486f50e",
+    "note": "Write-up header: mono 'Written by / Published on' byline pair, 2px rule, title, ~65ch body. Share icons as square outline buttons.",
+    "type": "mobbin",
+    "app": "Perplexity (flow: Blog post)",
+    "image_url": "https://mobbin.com/api/mcp/short/kvntiPeD",
+    "downloaded": true
+  },
+  {
+    "file": "31-mobbin-t1-labelled-macro-tiles.jpg",
+    "source": "Mobbin: T1 Energy",
+    "url": "https://mobbin.com/sites/sections/4a2223c9-c1c1-4c29-918e-a76280b36292",
+    "note": "Row of large-radius macro-photo tiles, each with a glass label pill + arrow. Square mono eyebrow. Template for 'systems' tiles (GPU retrieval, satellite firmware).",
+    "type": "mobbin",
+    "app": "T1 Energy",
+    "image_url": "https://mobbin.com/api/mcp/short/IVGMoTVo",
+    "downloaded": true
+  },
+  {
+    "file": "32-mobbin-framer-layout-demo-with-code.jpg",
+    "source": "Mobbin: Framer Motion docs",
+    "url": "https://mobbin.com/sites/sections/dc938a66-a9a8-48e7-87bc-8b925e61d1b4",
+    "note": "Live demo pane beside the exact code that drives it (layoutId + AnimatePresence). The demo-next-to-source pattern for research write-ups.",
+    "type": "mobbin",
+    "app": "Framer Motion docs",
+    "image_url": "https://mobbin.com/api/mcp/short/T7KsAmNv",
+    "downloaded": true
+  },
+  {
+    "file": "33-mobbin-mews-odometer-year.jpg",
+    "source": "Mobbin: Mews",
+    "url": "https://mobbin.com/sites/sections/8b7d9d81-339d-4b24-a381-476d6d1b347f",
+    "note": "Story rows where the year is mid-roll (odometer digits sliding) as each row enters. Hairline row dividers, photo + caption pairs.",
+    "type": "mobbin",
+    "app": "Mews",
+    "image_url": "https://mobbin.com/api/mcp/short/cBBBDd5k",
+    "downloaded": true
+  },
+  {
+    "file": "34-mobbin-handshake-sticky-year-index.jpg",
+    "source": "Mobbin: Handshake",
+    "url": "https://mobbin.com/sites/sections/ec153601-7b86-4380-946e-655696b65bbd",
+    "note": "Sticky left year index (2014 / 2019 / 2020 / Today) that lights the active year while content scrolls on the right.",
+    "type": "mobbin",
+    "app": "Handshake",
+    "image_url": "https://mobbin.com/api/mcp/short/JqgcxiUl",
+    "downloaded": true
+  },
+  {
+    "file": "35-mobbin-buro-chapters-table.jpg",
+    "source": "Mobbin: Buro",
+    "url": "https://mobbin.com/sites/sections/bcad6cf8-5eb5-4590-bb1f-b8f4d4ecfb88",
+    "note": "Year range pinned to top corners (2006 / 2024), a drawn line crossing the layout, '(04) Chapters' table with date ranges, floating 'Scroll, this is a website!!' pill. Witty, personal. (Light.)",
+    "type": "mobbin",
+    "app": "Buro",
+    "image_url": "https://mobbin.com/api/mcp/short/ZTIkcf8M",
+    "downloaded": true
+  },
+  {
+    "file": "36-live-emilkowalski-home.jpg",
+    "source": "emilkowal.ski",
+    "url": "https://emilkowal.ski",
+    "note": "Single 644px column, one Inter-like sans at 16/26.4, two inks only (#000 names, #63635E descriptions). Section labels are the same size as body; hierarchy comes from colour and spacing.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "37-live-emilkowalski-article.jpg",
+    "source": "emilkowal.ski",
+    "url": "https://emilkowal.ski/ui/great-animations",
+    "note": "Article with live demos inline: Dynamic Island morph buttons (Idle/Ring/Timer) and a spring visualiser with stiffness/damping/mass sliders + Copy. Easing set includes cubic-bezier(0.32,0.72,0,1) and (0.23,1,0.32,1).",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "38-live-rauno-home.jpg",
+    "source": "rauno.me",
+    "url": "https://rauno.me",
+    "note": "Horizontal card rail; a staggered-indent display paragraph (75px) is the bio; yellow disc with crosshair cursor; tick-mark scrubber at top as position indicator; mix-blend-mode: difference. cubic-bezier(.2,.8,.2,1).",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "39-live-rauno-craft-essay.jpg",
+    "source": "rauno.me",
+    "url": "https://rauno.me/craft/interaction-design",
+    "note": "Dark essay (#161616, text #EDEDED at 16/28, 672px measure) with a quiet sticky ToC on the left; figures on light cards; italic serif for single emphasised words.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "40-live-paco-home.jpg",
+    "source": "paco.me",
+    "url": "https://paco.me",
+    "note": "#1A1A1A, 640px column, Sohne/Inter body + Newsreader italic for the one-line tagline. Three-column Building/Projects/Writing index with ↗ for external. Full --ease-* token set (in/out quad..expo) defined as CSS vars.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "41-live-joshwcomeau-home.jpg",
+    "source": "joshwcomeau.com",
+    "url": "https://www.joshwcomeau.com",
+    "note": "Dark night-sky hero with 3D mascot and rainbow arc; small-caps pink eyebrows; Wotfard + Cartograph mono. Spring easings shipped as CSS linear() with durations (833ms, 1.167s) and view-transition-name on the search modal.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "42-live-joshwcomeau-flexbox-widget.jpg",
+    "source": "joshwcomeau.com",
+    "url": "https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/",
+    "note": "Long-form tutorial: sticky ToC with active-section highlight, callout with hand-drawn bracket, like-counter heart (353,468), sandbox widgets. Body 18/27 at ~686px.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "43-live-benji-home.jpg",
+    "source": "benji.org",
+    "url": "https://benji.org",
+    "note": "One screen: bio paragraphs, a year-grouped Writing table on hairlines with dd/mm dates right-aligned, and a footer 'local time in city' line. Named motion tokens: snappy 220ms cubic-bezier(.175,.885,.32,1.1), smooth 300ms (.19,1,.22,1), swift 800ms.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "44-live-jhey-home.jpg",
+    "source": "jhey.dev",
+    "url": "https://jhey.dev",
+    "note": "Black with fading grid in one corner; DM Serif display headline, mono uppercase role line, pink inline links, hand-drawn signature, and a live 'now' stack (location, weather+time, playing, listening) in dot-matrix mono.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "45-live-samuelkraft-home.jpg",
+    "source": "samuelkraft.com",
+    "url": "https://samuelkraft.com",
+    "note": "#161615 warm black, 14/21 Inter, secondary ink #A1A09A; project cards are dark tiles with a single rendered app icon centered. Extremely small type used confidently.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "46-live-delba-home.jpg",
+    "source": "delba.dev",
+    "url": "https://delba.dev",
+    "note": "Fraunces throughout (30px heading, 18/28 body) with Geist Mono accents; bold underlined links act as the index. Plain, warm, editorial. (Light site.)",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "47-live-brianlovin-home.jpg",
+    "source": "brianlovin.com",
+    "url": "https://brianlovin.com",
+    "note": "Pure black, bio at 24/32 in white-70%, writing list at the same size in white. Two inks, one size step, no chrome besides a hamburger.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "48-live-distill-momentum.jpg",
+    "source": "distill.pub",
+    "url": "https://distill.pub/2017/momentum/",
+    "note": "Hero IS the figure: a loss landscape with draggable start point and two sliders (step-size α, momentum β) that re-run the optimiser live. Byline grid (author / date / citation) under it. Title 56px serif, -1.12px tracking.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "49-live-transformer-circuits-monosemanticity.jpg",
+    "source": "transformer-circuits.pub",
+    "url": "https://transformer-circuits.pub/2024/scaling-monosemanticity/",
+    "note": "Left sticky ToC with nested sections; feature figures show token-level activation highlighting (orange intensity per token) across languages and images. 17/28.8 body at 704px.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "50-live-ciechanowski-watch.jpg",
+    "source": "ciechanow.ski",
+    "url": "https://ciechanow.ski/mechanical-watch/",
+    "note": "IBM Plex Sans 19.2/30.7 on #F8F8F8 at 704px; colour-coded part names in prose match colours in the figure; 'globally pause' link for all animations; each figure has its own pause button.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "51-live-gwern-sidenotes.jpg",
+    "source": "gwern.net",
+    "url": "https://gwern.net/scaling-hypothesis",
+    "note": "Dark mode: Source Serif 4 justified + hyphenated, indented paragraphs, dotted-underline link-previews with ↓ markers; strict monochrome.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "52-live-colah-lstm.jpg",
+    "source": "colah.github.io",
+    "url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/",
+    "note": "Computer Modern body 18/27, margin comment bubbles as numbered footnote markers, hand-drawn-feeling diagrams with one highlight colour tracking the concept (the blue h_t).",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "53-live-karpathy-home.jpg",
+    "source": "karpathy.github.io",
+    "url": "https://karpathy.github.io",
+    "note": "Zero design: date, blue title link, one-sentence description. Proof that the writing carries it; the bar for 'minimal' is set by content quality.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "54-live-lilianweng-post.jpg",
+    "source": "lilianweng.github.io",
+    "url": "https://lilianweng.github.io/posts/2023-06-23-agent/",
+    "note": "Dark long-form (#1D1E20, text #C4C4C5 at 16/25.6, 720px): nested bullets and a boxed architecture diagram on white. Shows the cost of un-themed light figures on dark.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "55-live-neelnanda-home.jpg",
+    "source": "neelnanda.io",
+    "url": "https://www.neelnanda.io",
+    "note": "Squarespace blog grid: centered bold serif titles in three columns. Included as a counterexample: template layout, low contrast between items, no signal of the research itself.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "56-live-pudding-home.jpg",
+    "source": "pudding.cool",
+    "url": "https://pudding.cool",
+    "note": "#191919 grid of visual essays: #223-style issue numbers in outlined pills, month/year right-aligned, each card is a real chart thumbnail on a saturated colour field. Gooper SemiCondensed + Atlas Typewriter.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "57-live-gwern-wide-sidenotes.jpg",
+    "source": "gwern.net",
+    "url": "https://gwern.net/design",
+    "note": "At 1920px footnotes become numbered sidenotes in the right margin, boxed, aligned to their reference; small-caps page title top-left; ToC left. The sidenote system to borrow for write-ups.",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "58-live-nanfyi-explainer.jpg",
+    "source": "nan.fyi",
+    "url": "https://www.nan.fyi",
+    "note": "Interactive CS explainers index: condensed serif titles, line-drawn icon per post, dashed crop-mark frame around the featured course, fixed left column with name and blurb. (Light.)",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "59-live-maximeheckel-shader-post.jpg",
+    "source": "blog.maximeheckel.com",
+    "url": "https://blog.maximeheckel.com/posts/the-study-of-shaders-with-react-three-fiber/",
+    "note": "oklch dark (L 0.147, hue 262) with tinted greys; floating pill 'current article' header with progress; code blocks with highlighted line bar; section headings with a trailing hairline. Easing cubic-bezier(0.2,0.85,0.32,1.2).",
+    "type": "live-screenshot"
+  },
+  {
+    "file": "60-live-linear-home.jpg",
+    "source": "linear.app",
+    "url": "https://linear.app",
+    "note": "#08090A, Inter Variable 64/64 at weight 510 with -1.4px tracking, secondary #8A8F98; product frame with faint 1px borders; Berkeley Mono accents. Easings (0.32,0.72,0,1) and (0.16,1,0.3,1).",
+    "type": "live-screenshot"
+  }
+]
