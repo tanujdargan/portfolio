@@ -14,9 +14,14 @@ export default defineConfig({
           const m = id.match(/src\/variants\/(v\d+[a-z]?)\//)
           if (m) return `variant-${m[1]}`
           if (id.includes('node_modules/three/')) return 'three'
-          if (id.includes('node_modules/@fontsource')) return undefined
+          // Font CSS shared by two variants would otherwise be absorbed into one of them (v5 ended up importing v0).
+          // Per file, not per package: grouping would hand one variant another's weights (v5 started fetching v1's Plex 500).
+          const font = id.match(/node_modules\/@fontsource(?:-variable)?\/([^/]+)\/([^/?]+)\.css/)
+          if (font) return `font-${font[1]}-${font[2]}`
           if (id.includes('node_modules/')) return 'vendor'
           if (/src\/(shared|content|lib)\//.test(id)) return 'core'
+          // Shared data (steering.json is used by the demo, v2, v3, v6) gets its own chunk, or a variant absorbs it.
+          if (/src\/data\//.test(id)) return 'data'
         },
       },
     },

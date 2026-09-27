@@ -5,7 +5,7 @@ export function Flag({ note }: { note: string }) {
   const { badges } = useLabPrefs()
   if (!badges) return null
   return (
-    <span className="s-flag" title={`Unverified: ${note}`} aria-label={`Unverified: ${note}`} tabIndex={0}>
+    <span className="s-flag" title={`Unverified: ${note}`} aria-label={`Unverified: ${note}`}>
       unverified
     </span>
   )

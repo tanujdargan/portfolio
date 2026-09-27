@@ -40,7 +40,7 @@ function Top({ base }: { base: string }) {
   return (
     <header className="v8-top">
       <div className="v8-top__in">
-        <Link to={`${base}/`} className="v8-top__name">
+        <Link to={`${base}/`} className="v8-top__name" aria-label="Tanuj Dargan, home">
           <span className="v8-top__dot" aria-hidden="true" />
           <span>Tanuj Dargan</span>
         </Link>

@@ -84,8 +84,8 @@ button {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: #1a1400;
-  background: #f0c36a;
+  color: #000;
+  background: #ffd27a;
   cursor: help;
 }
 .s-flag:focus-visible {

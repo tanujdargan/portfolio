@@ -869,7 +869,7 @@
   transition: opacity 0.45s var(--ease-out), transform 0.6s var(--ease-expo);
 }
 .v4b-story[data-mode='pin'] .v4b-step:not([data-active]) > :not(.v4b-step__demo) {
-  opacity: 0.3;
+  opacity: 0.74; /* ≥4.5:1 on dimmed steps (was 0.3) */
 }
 .v4b-story[data-mode='pin'] .v4b-step:not([data-active]) > .v4b-step__t {
   transform: translateX(calc(-10px * var(--k, 1)));

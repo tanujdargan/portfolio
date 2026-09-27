@@ -1532,3 +1532,13 @@ html[data-motion='reduced'] .v8-vec {
 .v8-page .s-h2 {
   font-stretch: 87.5%;
 }
+
+/* Tags use Martian at wdth 87.5, the width the mono fallback is calibrated for, so the swap can't rewrap them (CLS). */
+.v8-page .s-tags li {
+  font-stretch: 87.5%;
+}
+.v8-crumbs a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+  text-underline-offset: 3px;
+}
