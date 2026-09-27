@@ -390,7 +390,7 @@ export const milestonesAll: Milestone[] = [
   { when: 'May 2026', year: 2026.35, title: 'ES-LoRA', kind: 'research', line: 'Fine-tuning Qwen2.5-1.5B on GSM8K with evolutionary strategies instead of gradients.', metric: '45 guesses, keep 8', href: '/research/es-lora' },
   { when: 'May – Aug 2026', year: 2026.45, title: 'Amazon Robotics', kind: 'industry', line: 'An LLM planning assistant shipped to production in Optimus, across 180+ fulfillment sites. Return offer.', metric: '$136.2M/yr projected' },
   { when: 'Aug 2026', year: 2026.6, title: 'Digital Minds sprint', kind: 'research', line: 'Loss-masking regime decides how loudly a model voices shutdown distress, and calm-sounding models still represent it negatively.', metric: 'Apart Research', href: '/research/loss-masking-distress' },
-  { when: '2026', year: 2026.7, title: 'Activation steering', kind: 'research', line: 'Emotion and persona vectors: extract a direction, push along it, check the label holds. Live demo on this site.', metric: 'Live demo', href: '/research/activation-steering' },
+  { when: '2026', year: 2026.7, title: 'Activation steering', kind: 'research', line: 'Emotion and persona vectors: extract a direction, push along it, check the label holds. Live demo on this site.', metric: 'Live demo', href: '/research/activation-steering', unverified: "Numbers shown for this milestone (e.g. +9.6 read-back) come from the site's replication run, not the main project." },
 ]
 export const milestonesFor = (flags: Flags) => milestonesAll.filter((m) => !m.flag || flags[m.flag])
 
