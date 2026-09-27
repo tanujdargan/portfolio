@@ -12,7 +12,9 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 // Font budget (orchestrator, Lighthouse mobile): Fraunces wght latin 37 KB + Onest 34 KB. No italic, no opsz/SOFT/WONK files,
 // and mono falls back to the system stack so nothing else is fetched before first paint.
 import '@fontsource-variable/fraunces'
-import { person, proof, research, engineering, community, earlier, links, beri } from '../../content/site'
+import { person, research, engineering, experience, earlier, links, beri } from '../../content/site'
+import { useProof, useCommunity } from '../../content/useContent'
+import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { ResearchArticle } from '../../shared/ResearchArticle'
@@ -100,6 +102,7 @@ function NowLine() {
 
 function Hero({ chapters }: { chapters: Chapter[] }) {
   const m = useMotionPrefs()
+  const proof = useProof()
   return (
     <section className="v4-hero" aria-labelledby="v4-name">
       <NowLine />
@@ -330,7 +333,8 @@ function Story({ chapters }: { chapters: Chapter[] }) {
   useEffect(() => {
     prev.current = active
   }, [active])
-  const cur = flat[active]
+  // flags can drop steps (lab toggles), so never index past the end
+  const cur = flat[Math.min(active, flat.length - 1)]
   const ci = cur.ci
 
   // One opener per chapter; segment i draws while opener i+1 rises to the centre.
@@ -376,7 +380,7 @@ function Story({ chapters }: { chapters: Chapter[] }) {
       io.disconnect()
       fade.disconnect()
     }
-  }, [])
+  }, [flat])
 
   const toChapter = (i: number) => jump(`ch-${chapters[i].id}`, m.reduced)
   let n = -1
@@ -502,7 +506,12 @@ function Row({ title, meta, detail, to, href, flag }: { title: string; meta: str
   )
 }
 
+// Roles told once here; the satellite and retrieval roles live under Engineering and Research, Pear Care and Airflow leave Earlier.
+const roles = experience.filter((x) => !x.org.startsWith('UVic') && !x.org.startsWith('DEIA'))
+const earlierOnly = earlier.filter((e) => !roles.some((x) => x.org.includes(e.title)))
+
 function Work({ base }: { base: string }) {
+  const community = useCommunity()
   return (
     <section id="work" className="v4-work" tabIndex={-1} aria-labelledby="v4-work-h">
       <h2 id="v4-work-h" className="v4-work__h">
@@ -510,10 +519,14 @@ function Work({ base }: { base: string }) {
       </h2>
 
       <div className="v4-group">
-        <h3 className="v4-label">Now</h3>
+        <h3 className="v4-label">Experience</h3>
         <ul className="v4-rows">
-          <Row title="Amazon Robotics AI" meta="Summer 2026 · Toronto" detail="SDE intern. ML tooling for planning agents. Return offer." />
-          <Row title="Beri" meta="Co-founder" detail={`${beri.oneLiner.split('.')[0]}. ${beri.role.replace('Co-founder. ', '')}`} to={`${base}/beri`} />
+          {roles.map((x) => (
+            <Row key={x.org} title={x.org} meta={`${x.role} · ${x.when}`} detail={x.line} />
+          ))}
+          <Show when="beri">
+            <Row title="Beri" meta="Co-founder" detail={`${beri.oneLiner.split('.')[0]}. ${beri.role.replace('Co-founder. ', '')}`} to={`${base}/beri`} />
+          </Show>
         </ul>
       </div>
 
@@ -521,7 +534,7 @@ function Work({ base }: { base: string }) {
         <h3 className="v4-label">Research</h3>
         <ul className="v4-rows">
           {research.map((r) => (
-            <Row key={r.slug} title={r.title} meta={`${r.where} · ${r.when}`} to={`${base}/research/${r.slug}`} />
+            <Row key={r.slug} title={r.title} meta={`${r.where} · ${r.when}`} to={`${base}/research/${r.slug}`} flag={r.unverified?.[0]} />
           ))}
         </ul>
       </div>
@@ -547,7 +560,7 @@ function Work({ base }: { base: string }) {
       <div className="v4-group v4-group--earlier">
         <h3 className="v4-label">Earlier</h3>
         <ul className="v4-rows v4-rows--small">
-          {earlier.map((e) => (
+          {earlierOnly.map((e) => (
             <Row
               key={e.title}
               title={e.title}
@@ -559,7 +572,7 @@ function Work({ base }: { base: string }) {
           ))}
         </ul>
         <p className="v4-tools">
-          Python, PyTorch, Hugging Face, CUDA/cuVS, vLLM · Swift/SwiftUI, TypeScript/React · C on STM32 · Nix, Proxmox, Kubernetes.
+          Python, PyTorch, Hugging Face, CUDA/cuVS, vLLM · Swift/SwiftUI, TypeScript/React · C firmware · Nix, Proxmox, Kubernetes.
         </p>
       </div>
 
@@ -602,7 +615,8 @@ function Footer() {
 
 export default function V4({ page, base }: VariantProps) {
   const { path } = useRouter()
-  const chapters = useMemo(() => buildChapters(base), [base])
+  const flags = useFlags()
+  const chapters = useMemo(() => buildChapters(base, flags), [base, flags])
   return (
     <div className="v4">
       <a href="#main" className="v4-skip">

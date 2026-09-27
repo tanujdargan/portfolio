@@ -11,7 +11,9 @@ import { Check, Copy } from 'lucide-react'
 import '@fontsource-variable/ibm-plex-sans'
 import '@fontsource/ibm-plex-mono/400.css'
 import '@fontsource/instrument-serif/400-italic.css'
-import { person, research, engineering, community, earlier, links, linkOrder, chapters, beri, type LinkKey } from '../../content/site'
+import { person, research, engineering, experience, earlier, links, linkOrder, chapters, beri, type LinkKey } from '../../content/site'
+import { useProof, useCommunity } from '../../content/useContent'
+import { Show, useFlags } from '../../lib/labprefs'
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { ResearchArticle } from '../../shared/ResearchArticle'
@@ -38,7 +40,7 @@ const files: Record<LinkKey, { name: string; meta: string }> = {
   email: { name: 'email', meta: person.email },
   github: { name: 'github', meta: 'tanujdargan' },
   linkedin: { name: 'linkedin', meta: 'in/tanujdargan' },
-  x: { name: 'x', meta: '@tanujdargan' },
+  x: { name: 'x', meta: '@DarganTanuj' },
 }
 
 function FileLink({ k, compact }: { k: LinkKey; compact?: boolean }) {
@@ -172,18 +174,80 @@ function CopyButton({ text, label, className }: { text: string; label: ReactNode
   )
 }
 
-const bibtex = `@misc{dargan2027,
+const bibtexFor = (showBeri: boolean) => `@misc{dargan2027,
   author      = {Dargan, Tanuj},
   title       = {tanuj-dargan: ML systems and interpretability},
   year        = {2027},
   institution = {University of Victoria, CS (accelerated)},
-  note        = {SDE intern, Amazon Robotics AI (return offer);
-                 co-founder, Beri},
+  note        = {SDE intern, Amazon Robotics (return offer);
+                 ${showBeri ? 'co-founder, Beri' : 'OBC firmware lead, MarmotSat (in orbit)'}},
   url         = {https://tanujdargan.com},
   email       = {tanujd@uvic.ca}
 }`
 
+// Roles told in Applied. The satellite role lives in Technical specifications, DEIA in the write-ups,
+// and Pear Care and Airflow leave "Earlier runs" so nothing is listed twice.
+const roles = experience.filter((x) => !x.org.startsWith('UVic') && !x.org.startsWith('DEIA'))
+const earlierOnly = earlier.filter((e) => !roles.some((x) => x.org.includes(e.title)))
+const bySlug = (slug: string) => research.find((r) => r.slug === slug)
+
+/** One headline-eval row per proof point; the order and the second slot come from useProof(). */
+function headline(key: string, base: string) {
+  switch (key) {
+    case 'amazon':
+      return (
+        <>
+          <span className="v5-headline__task">
+            <b>Amazon Robotics</b>
+            <span>SDE intern, summer 2026 · LLM planning assistant in production, 180+ sites</span>
+          </span>
+          <span className="v5-headline__res">
+            <Check size={14} strokeWidth={2} aria-hidden="true" /> return offer
+          </span>
+        </>
+      )
+    case 'beri':
+      return (
+        <>
+          <span className="v5-headline__task">
+            <b>Beri</b>
+            <span>Native iOS food and recipe social app</span>
+          </span>
+          <Link to={`${base}/beri`} className="v5-headline__res v5-headline__res--a">
+            co-founder · case study →
+          </Link>
+        </>
+      )
+    case 'marmotsat':
+      return (
+        <>
+          <span className="v5-headline__task">
+            <b>MarmotSat</b>
+            <span>Led onboard-computer firmware and the TTC board · SpaceX Falcon 9</span>
+          </span>
+          <span className="v5-headline__res">
+            <Check size={14} strokeWidth={2} aria-hidden="true" /> in orbit
+          </span>
+        </>
+      )
+    default:
+      return (
+        <>
+          <span className="v5-headline__task">
+            <b>Interpretability</b>
+            <span>Activation steering, emotion and persona vectors, SFT loss-masking</span>
+          </span>
+          <a href="#steering" className="v5-headline__res v5-headline__res--live">
+            <span className="v5-live" aria-hidden="true" /> live demo ↓
+          </a>
+        </>
+      )
+  }
+}
+
 function Header({ base }: { base: string }) {
+  const proof = useProof()
+  const { beri: showBeri } = useFlags()
   return (
     <section className="v5-card" aria-labelledby="v5-title">
       <div className="v5-card__main">
@@ -201,40 +265,16 @@ function Header({ base }: { base: string }) {
           {person.name} builds ML systems and studies what happens <em>inside</em> models.
         </p>
         <ul className="v5-tags v5-in" style={{ ['--i' as string]: 3 }} aria-label="Tags">
-          {['activation steering', 'persona vectors', 'SFT', 'GPU retrieval', 'iOS', 'firmware'].map((t) => (
+          {['activation steering', 'persona vectors', 'SFT', 'GPU retrieval', showBeri ? 'iOS' : 'LLM agents', 'firmware'].map((t) => (
             <li key={t}>{t}</li>
           ))}
         </ul>
         <div className="v5-headline v5-in" style={{ ['--i' as string]: 4 }}>
           <p className="v5-label">Headline evals</p>
           <ol>
-            <li>
-              <span className="v5-headline__task">
-                <b>Amazon Robotics AI</b>
-                <span>SDE intern, summer 2026 · ML tooling for planning agents</span>
-              </span>
-              <span className="v5-headline__res">
-                <Check size={14} strokeWidth={2} aria-hidden="true" /> return offer
-              </span>
-            </li>
-            <li>
-              <span className="v5-headline__task">
-                <b>Beri</b>
-                <span>Native iOS food and recipe social app</span>
-              </span>
-              <Link to={`${base}/beri`} className="v5-headline__res v5-headline__res--a">
-                co-founder · case study →
-              </Link>
-            </li>
-            <li>
-              <span className="v5-headline__task">
-                <b>Interpretability</b>
-                <span>Activation steering, emotion and persona vectors, SFT loss-masking</span>
-              </span>
-              <a href="#steering" className="v5-headline__res v5-headline__res--live">
-                <span className="v5-live" aria-hidden="true" /> live demo ↓
-              </a>
-            </li>
+            {proof.map((p) => (
+              <li key={p.key}>{headline(p.key, base)}</li>
+            ))}
           </ol>
         </div>
       </div>
@@ -254,6 +294,9 @@ function Header({ base }: { base: string }) {
 }
 
 function Home({ base }: { base: string }) {
+  const community = useCommunity()
+  const { beri: showBeri } = useFlags()
+  const solids = bySlug('ocean-sensing')
   return (
     <>
       <Header base={base} />
@@ -271,8 +314,12 @@ function Home({ base }: { base: string }) {
             </H2>
             <p className="v5-p">
               {person.name} is a Computer Science student at the {person.school}, on the accelerated three-year track, graduating in {person.grad}. He builds ML
-              systems and does interpretability research. In summer 2026 he was an SDE intern at Amazon Robotics AI in Toronto, building ML tooling for planning
-              agents, and left with a return offer. He co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for food and recipes.
+              systems and does interpretability research. In summer 2026 he was an SDE intern at Amazon Robotics in Toronto, where he shipped an LLM planning
+              assistant to production across 180+ fulfillment sites, and left with a return offer. He led the onboard-computer firmware for MarmotSat, now in
+              orbit.
+              <Show when="beri">
+                {' '}He co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for food and recipes.
+              </Show>
             </p>
             <dl className="v5-dl">
               <dt>Developed by</dt>
@@ -282,16 +329,23 @@ function Home({ base }: { base: string }) {
               <dt>Release</dt>
               <dd className="v5-mono">{person.grad}</dd>
               <dt>Current checkpoint</dt>
-              <dd>Amazon Robotics AI · SDE intern, summer 2026 → return offer</dd>
-              <dt>Also shipping</dt>
-              <dd>
-                Beri, co-founder ·{' '}
-                <a href={beri.url} target="_blank" rel="noopener">
-                  getberi.com ↗
-                </a>
-              </dd>
+              <dd>Amazon Robotics · SDE intern, May – Aug 2026 → return offer</dd>
+              <dt>In orbit</dt>
+              <dd>MarmotSat · OBC firmware and TTC board lead, UVic CFAR</dd>
+              <Show when="beri">
+                <dt>Co-founded</dt>
+                <dd>
+                  Beri ·{' '}
+                  <a href={beri.url} target="_blank" rel="noopener">
+                    getberi.com ↗
+                  </a>
+                </dd>
+              </Show>
               <dt>Research labs</dt>
-              <dd>DEIA Lab (Prof. Sean Chester) · SOLIDS Lab (Dr. Navneet Popli) · Apart Research sprint</dd>
+              <dd>
+                DEIA Lab (Prof. Sean Chester) · SOLIDS Lab (Dr. Navneet Popli)
+                {solids?.unverified?.length ? <Flag note={solids.unverified.join(' ')} /> : null} · RBC Borealis mentorship · Apart Research sprint
+              </dd>
               <dt>Location</dt>
               <dd>{person.location}</dd>
               <dt>Contact</dt>
@@ -312,8 +366,13 @@ function Home({ base }: { base: string }) {
                 <b>Labs.</b> ML systems: billion-vector GPU retrieval, LoRA fine-tuning with evolutionary strategies, model serving on his own hardware.
               </li>
               <li>
-                <b>Founders.</b> A native iOS app, its backend and its design system, as built at Beri.
+                <b>Product teams.</b> LLM features in production: a planning assistant across 180+ Amazon fulfillment sites, medical-AI agents at Pear Care.
               </li>
+              <Show when="beri">
+                <li>
+                  <b>Founders.</b> A native iOS app, its backend and its design system, as built at Beri.
+                </li>
+              </Show>
             </ul>
             <h3 className="v5-h3">How to get started</h3>
             <div className="v5-code">
@@ -358,10 +417,10 @@ function Home({ base }: { base: string }) {
             </ol>
             <details className="v5-more">
               <summary>
-                Earlier runs <span className="v5-dim">{earlier.length} checkpoints, 2024–2026</span>
+                Earlier runs <span className="v5-dim">{earlierOnly.length} checkpoints, 2024–2026</span>
               </summary>
               <ul className="v5-earlier">
-                {earlier.map((e) => (
+                {earlierOnly.map((e) => (
                   <li key={e.title}>
                     <span className="v5-earlier__when">{e.when}</span>
                     <span className="v5-earlier__t">
@@ -417,6 +476,7 @@ function Home({ base }: { base: string }) {
                     <span className="v5-papers__n">{String(i + 1).padStart(2, '0')}</span>
                     <span className="v5-papers__t">
                       {r.title}
+                      {r.unverified?.length ? <Flag note={r.unverified.join(' ')} /> : null}
                       <span className="v5-papers__w">
                         {r.where} · {r.when}
                       </span>
@@ -435,27 +495,42 @@ function Home({ base }: { base: string }) {
             <H2 id="applied" n="6">
               <span id="h-applied">Applied</span>
             </H2>
-            <Link to={`${base}/beri`} className="v5-beri">
-              <img src="/beri/shipped/home.jpg" alt="Beri home screen" width={420} height={914} loading="lazy" decoding="async" />
-              <span className="v5-beri__body">
-                <span className="v5-label">Downstream deployment · iOS</span>
-                <b className="v5-beri__t">Beri</b>
-                <span className="v5-beri__d">{beri.oneLiner}</span>
-                <span className="v5-beri__d v5-dim">{beri.role}</span>
-                <span className="v5-stack">
-                  {beri.stack.map((s) => (
-                    <span key={s}>{s}</span>
-                  ))}
+            <Show when="beri">
+              <Link to={`${base}/beri`} className="v5-beri">
+                <img src="/beri/shipped/home.jpg" alt="Beri home screen" width={420} height={914} loading="lazy" decoding="async" />
+                <span className="v5-beri__body">
+                  <span className="v5-label">Downstream deployment · iOS</span>
+                  <b className="v5-beri__t">Beri</b>
+                  <span className="v5-beri__d">{beri.oneLiner}</span>
+                  <span className="v5-beri__d v5-dim">{beri.role}</span>
+                  <span className="v5-stack">
+                    {beri.stack.map((s) => (
+                      <span key={s}>{s}</span>
+                    ))}
+                  </span>
+                  <span className="v5-beri__cta">Read the case study →</span>
                 </span>
-                <span className="v5-beri__cta">Read the case study →</span>
-              </span>
-            </Link>
-            <div className="v5-applied2">
-              <span className="v5-label">Industry</span>
-              <p>
-                <b>Amazon Robotics AI</b>, SDE intern, summer 2026, Toronto. ML tooling for planning agents. Return offer.
-              </p>
-            </div>
+              </Link>
+            </Show>
+            <p className="v5-label v5-applied__h">Downstream deployments · roles</p>
+            <dl className="v5-specs v5-applied">
+              {roles.map((x) => (
+                <div key={x.org}>
+                  <dt>
+                    <span className="v5-label">{x.when}</span>
+                    <b>{x.org}</b>
+                    <span className="v5-dim">{x.role}</span>
+                  </dt>
+                  <dd>
+                    {x.line}
+                    <span className="v5-stack">
+                      <span>{x.metric}</span>
+                      <span>{x.where}</span>
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </section>
 
           <section id="specs" className="v5-sec" aria-labelledby="h-specs">
@@ -522,7 +597,7 @@ function Home({ base }: { base: string }) {
               <li>
                 The steering results on this page come from a replication on Qwen2.5-1.5B-Instruct, run for this site. They are not the main project's models or
                 numbers.
-                <Flag note={research[0].unverified!.join(' ')} />
+                <Flag note={bySlug('activation-steering')?.unverified?.join(' ') ?? ''} />
               </li>
               <li>
                 Two directions don't do what their labels say. Distress, extracted this way, overlaps with refusal. Certainty partly encodes the word
@@ -530,13 +605,13 @@ function Home({ base }: { base: string }) {
               </li>
               <li>
                 ES-LoRA: the adapter is on Hugging Face, but GSM8K accuracy before and after, and the proxy-vs-random ablation, are <i>results pending</i>.
-                <Flag note={research[2].unverified!.join(' ')} />
+                <Flag note={bySlug('es-lora')?.unverified?.join(' ') ?? ''} />
               </li>
               <li>
-                Loss-masking sprint: only the scoping findings are reported. The <span className="v5-gk">λ</span>-grid numbers are pending.
-                <Flag note={research[1].unverified!.join(' ')} />
+                Loss-masking sprint: the findings are reported as directions of effect (which regime raises expressed distress, and where expression and
+                representation split). Per-regime numbers are not on this page.
               </li>
-              <li>The Amazon work is described here only as “ML tooling for planning agents”.</li>
+              <li>Amazon's $136.2M a year is a projection, not measured savings.</li>
               <li>
                 Training data before 2021 is sparse. The early chapters are unconfirmed.
                 <Flag note="Dehradun and Gurgaon chapters, and their years, need Tanuj's confirmation." />
@@ -552,10 +627,10 @@ function Home({ base }: { base: string }) {
             <div className="v5-code">
               <div className="v5-code__head">
                 <span>BibTeX</span>
-                <CopyButton text={bibtex} label="Copy" />
+                <CopyButton text={bibtexFor(showBeri)} label="Copy" />
               </div>
               <pre>
-                <code>{bibtex}</code>
+                <code>{bibtexFor(showBeri)}</code>
               </pre>
             </div>
           </section>

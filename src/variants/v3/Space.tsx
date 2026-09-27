@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from '../../lib/router'
 import { useMotionPrefs, type MotionLevel } from '../../lib/motion'
 import { Flag } from '../../shared/Flag'
-import { clusters, nodes, nodesIn, fieldCount, fmt } from './nodes'
+import { useFlags } from '../../lib/labprefs'
+import { clusters, nodesFor, nodesIn, flagKey, fieldCount, fmt } from './nodes'
 import type { SceneApi, MotionState } from './scene'
 
 const LEVEL: Record<MotionLevel, { t: number; bounce: number }> = {
@@ -22,6 +23,13 @@ type Status = 'idle' | 'ready' | 'failed'
 
 export function Space({ base, hero }: { base: string; hero: ReactNode }) {
   const m = useMotionPrefs()
+  // content flags decide which nodes exist; the scene is rebuilt when they change (lab only)
+  const flags = useFlags()
+  const fkey = flagKey(flags)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const nodes = useMemo(() => nodesFor(flags), [fkey])
+  const nodesRef = useRef(nodes)
+  nodesRef.current = nodes
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const labelRefs = useRef<(HTMLElement | null)[]>([])
@@ -48,7 +56,7 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
     const el = document.activeElement
     returnFocus.current = el instanceof HTMLElement && el !== document.body ? el : null
     setSel(i)
-    setActive(nodes[i].cluster)
+    setActive(nodesRef.current[i].cluster)
     api.current?.focusNode(i)
     api.current?.setSelected(i)
     // narrow screens: the sheet covers the lower half, so bring the canvas up to meet it
@@ -66,7 +74,7 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
   const close = useCallback(() => {
     if (sel === null) return
     api.current?.setSelected(null)
-    api.current?.focusCluster(nodes[sel].cluster)
+    api.current?.focusCluster(nodesRef.current[sel].cluster)
     setSel(null)
     const back = returnFocus.current
     if (back && document.contains(back)) back.focus({ preventScroll: true })
@@ -88,6 +96,8 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
   useEffect(() => {
     let dead = false
     let made: SceneApi | null = null
+    setSel(null)
+    setActive(-1)
     const start = async () => {
       try {
         const cs = getComputedStyle(stageRef.current!)
@@ -95,7 +105,8 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
         if (dead) return
         made = await createScene({
           canvas: canvasRef.current!,
-          labels: labelRefs.current,
+          nodes,
+          labels: labelRefs.current.slice(0, nodes.length),
           clusterLabels: clusterRefs.current,
           arrowLabel: arrowRef.current,
           tip: tipRef.current,
@@ -130,7 +141,8 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
       made?.dispose()
       api.current = null
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nodes])
 
   useEffect(() => {
     api.current?.setMotion(motionState())
@@ -231,7 +243,7 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
   }
 
   const node = sel !== null ? nodes[sel] : null
-  const siblings = node ? nodesIn(node.cluster) : []
+  const siblings = node ? nodesIn(nodes, node.cluster) : []
   const sIdx = node ? siblings.findIndex((s) => s.i === sel) : -1
   const sheetAnim = m.reduced
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.16 } }
@@ -325,7 +337,7 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
           <ol>
             {clusters.map((c, ci) => {
               const on = active === ci
-              const list = nodesIn(ci)
+              const list = nodesIn(nodes, ci)
               return (
                 <li key={c.id} data-on={on || undefined}>
                   <button className="v3-index__c" aria-expanded={on} aria-controls={`v3-c-${c.id}`} onClick={() => pickCluster(ci)}>

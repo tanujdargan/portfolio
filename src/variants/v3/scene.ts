@@ -2,7 +2,7 @@
 // three is imported dynamically *inside* createScene: vite.config pins src/variants/v3/** into the variant chunk,
 // so a static `import 'three'` here would make the variant chunk depend on the three chunk up front.
 import type * as T from 'three'
-import { clusters, nodes, type Vec3 } from './nodes'
+import { clusters, type SpaceNode, type Vec3 } from './nodes'
 
 export interface MotionState {
   reduced: boolean
@@ -16,6 +16,8 @@ export interface MotionState {
 
 export interface SceneOpts {
   canvas: HTMLCanvasElement
+  /** the flag-filtered node list; labels[i] belongs to nodes[i] */
+  nodes: SpaceNode[]
   labels: (HTMLElement | null)[]
   clusterLabels: (HTMLElement | null)[]
   arrowLabel: HTMLElement | null
@@ -144,6 +146,7 @@ void main() {
 
 export async function createScene(o: SceneOpts): Promise<SceneApi> {
   const THREE = await import('three')
+  const { nodes } = o
   const {
     WebGLRenderer,
     Scene,

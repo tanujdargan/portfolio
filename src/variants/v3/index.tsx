@@ -14,7 +14,9 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import '@fontsource-variable/instrument-sans'
 import '@fontsource-variable/martian-mono'
-import { person, proof, research, engineering, community, earlier, beri, links } from '../../content/site'
+import { person, research, engineering, experience, earlier as earlierAll, beri, links } from '../../content/site'
+import { useProof, useCommunity } from '../../content/useContent'
+import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { ResearchArticle } from '../../shared/ResearchArticle'
@@ -23,11 +25,16 @@ import { Demo } from '../../demos/Demo'
 import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import type { VariantProps } from '../../routes'
-import { clusters, nodes, fmt } from './nodes'
+import { clusters, nodesFor, earlierOnly, fmt } from './nodes'
 import { Space, locate } from './Space'
 import './v3.css'
 
-const nodeBy = (id: string) => nodes.findIndex((n) => n.id === id)
+// metrics only; positions don't matter here, so the all-on set covers every id
+const allNodes = nodesFor({ beri: true, vikelabs: true, cde: true })
+const metricOf = (id: string) => allNodes.find((n) => n.id === id)?.metric
+// resume roles told in Work (CFAR sits in Hardware, DEIA in Research)
+const earlierLink = (org: string) => earlierAll.find((e) => org.includes(e.title))?.href
+const roles = experience.filter((x) => !x.org.startsWith('UVic') && !x.org.startsWith('DEIA'))
 
 function Top({ base }: { base: string }) {
   return (
@@ -50,7 +57,9 @@ function Top({ base }: { base: string }) {
 }
 
 function Hero({ base }: { base: string }) {
-  const to = [undefined, `${base}/beri`, `${base}/#research`]
+  const proof = useProof()
+  const toFor: Record<string, string | undefined> = { beri: `${base}/beri`, marmotsat: `${base}/#hardware`, research: `${base}/#research` }
+  const to = proof.map((p) => toFor[p.key])
   return (
     <div className="v3-hero">
       <p className="v3-mono v3-in" style={{ ['--i' as string]: 0 }}>
@@ -184,6 +193,8 @@ function Row({ k, title, meta, detail, metric, to, href, hrefLabel, flag, live }
 }
 
 function Home({ base }: { base: string }) {
+  const community = useCommunity()
+  const flags = useFlags()
   return (
     <>
       <Space base={base} hero={<Hero base={base} />} />
@@ -207,7 +218,6 @@ function Home({ base }: { base: string }) {
           </div>
           <ol className="v3-rows">
             {research.map((r, i) => {
-              const n = nodes[nodeBy(r.slug)]
               return (
                 <Row
                   key={r.slug}
@@ -215,7 +225,7 @@ function Home({ base }: { base: string }) {
                   title={r.title}
                   meta={`${r.where} · ${r.when}`}
                   detail={r.short + '.'}
-                  metric={n?.metric}
+                  metric={metricOf(r.slug)}
                   to={`${base}/research/${r.slug}`}
                   flag={r.unverified?.[0]}
                   live={!!r.demo}
@@ -226,19 +236,35 @@ function Home({ base }: { base: string }) {
         </section>
 
         <section className="v3-sec" aria-labelledby="work">
-          <SecHead id="work" code="C3" title="Work" note="Amazon · Beri" cluster={2} />
+          <SecHead id="work" code="C3" title="Work" note={flags.beri ? 'Amazon · Beri' : 'Amazon · RBC Borealis'} cluster={2} />
           <ol className="v3-rows">
-            <Row k="W1" title="Amazon Robotics AI" meta="SDE intern · Toronto · Summer 2026" detail="ML tooling for planning agents. Ended the internship with a return offer." metric="Return offer" />
-            <Row
-              k="W2"
-              title="Beri"
-              meta={`Co-founder · ${beri.stack.join(', ')}`}
-              detail={`${beri.oneLiner} ${beri.role}`}
-              metric="iOS"
-              to={`${base}/beri`}
-              href={beri.url}
-              hrefLabel="getberi.com"
-            />
+            {roles.map((x, i) => {
+              const link = earlierLink(x.org)
+              return (
+                <Row
+                  key={x.org}
+                  k={`W${i + 1}`}
+                  title={x.org}
+                  meta={`${x.role} · ${x.where} · ${x.when}`}
+                  detail={x.line}
+                  metric={x.metric}
+                  href={link}
+                  hrefLabel={link?.replace('https://', '').replace(/\/$/, '')}
+                />
+              )
+            })}
+            <Show when="beri">
+              <Row
+                k={`W${roles.length + 1}`}
+                title="Beri"
+                meta={`Co-founder · ${beri.stack.join(', ')}`}
+                detail={`${beri.oneLiner} ${beri.role}`}
+                metric="iOS"
+                to={`${base}/beri`}
+                href={beri.url}
+                hrefLabel="getberi.com"
+              />
+            </Show>
           </ol>
         </section>
 
@@ -252,7 +278,7 @@ function Home({ base }: { base: string }) {
                 title={e.title}
                 meta={e.role}
                 detail={e.detail}
-                metric={nodes[nodeBy(i === 0 ? 'satellite' : 'homelab')].metric}
+                metric={metricOf(i === 0 ? 'satellite' : 'homelab')}
                 href={'href' in e ? e.href : undefined}
                 hrefLabel="GitHub"
               />
@@ -261,7 +287,7 @@ function Home({ base }: { base: string }) {
         </section>
 
         <section className="v3-sec" aria-labelledby="community">
-          <SecHead id="community" code="C5" title="Community" cluster={4} />
+          <SecHead id="community" code="C5" title="Community" note={community.map((c) => c.title).join(' · ')} cluster={4} />
           <ol className="v3-rows">
             {community.map((c, i) => (
               <Row key={c.title} k={`M${i + 1}`} title={c.title} meta={`${c.role} · ${c.when}`} detail={c.detail} href={'href' in c ? c.href : undefined} />
@@ -270,9 +296,9 @@ function Home({ base }: { base: string }) {
         </section>
 
         <section className="v3-sec v3-sec--quiet" aria-labelledby="earlier">
-          <SecHead id="earlier" code="C6" title="Earlier" note={`${earlier.length} items`} cluster={5} />
+          <SecHead id="earlier" code="C6" title="Earlier" note={`${earlierOnly.length} items`} cluster={5} />
           <ul className="v3-earlier">
-            {earlier.map((e) => (
+            {earlierOnly.map((e) => (
               <li key={e.title}>
                 <span className="v3-earlier__t">
                   {e.href ? (

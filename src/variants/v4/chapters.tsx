@@ -1,10 +1,13 @@
 import type { ReactNode } from 'react'
-import { chapters as src, community, earlier, engineering, research, beri, person } from '../../content/site'
+import { chapters as src, communityFor, earlier, experience, research, beri, person } from '../../content/site'
+import type { Flags } from '../../content/flags'
 import { Link } from '../../lib/router'
 import { Demo } from '../../demos/Demo'
+import { Flag } from '../../shared/Flag'
 
 // Every sentence below is built from src/content/site.ts. Dehradun and Gurgaon have no verified
-// years or details, so they stay one line long and carry a <Flag>.
+// years or details, so they stay one line long and carry a <Flag>. Content flags (Beri, VikeLabs, CDE) drop
+// whole steps, never leave a half-empty one: see buildChapters(base, flags).
 
 export interface Fig {
   v: string
@@ -31,14 +34,16 @@ const solids = r('ocean-sensing')
 const steer = r('activation-steering')
 const loss = r('loss-masking-distress')
 const es = r('es-lora')
-const hack = community.find((c) => c.title === 'Hack@JBCNOsh')!
-const vike = community.find((c) => c.title === 'VikeLabs')!
-const cde = community.find((c) => c.title === 'CDE 2026')!
+const hack = communityFor({ beri: false, vikelabs: false, cde: false }).find((c) => c.title === 'Hack@JBCNOsh')!
+const x = (org: string) => experience.find((j) => j.org.startsWith(org))!
+const amazon = x('Amazon')
+const rbc = x('RBC Borealis')
+const pearJob = x('Pear Care')
+const cfar = x('UVic Centre')
 const e = (t: string) => earlier.find((x) => x.title === t)!
 const optimate = e('Optimate')
 const pear = e('Pear Care')
 const airflow = e('Apache Airflow')
-const sat = engineering[0]
 
 function Out({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -55,7 +60,10 @@ function In({ to, children }: { to: string; children: ReactNode }) {
   )
 }
 
-export function buildChapters(base: string): Chapter[] {
+export function buildChapters(base: string, flags: Flags): Chapter[] {
+  // Victoria's community step lists only the clubs whose flags are on; with none on, the step is dropped.
+  const clubs = communityFor(flags).filter((c) => c.flag)
+  const has = <T,>(on: boolean, v: T) => (on ? [v] : [])
   return [
     {
       id: 'dehradun',
@@ -112,11 +120,12 @@ export function buildChapters(base: string): Chapter[] {
         },
         {
           id: 'v1',
-          fig: { v: '30 → 4', cap: 'minutes of manual testing, before and after the rig' },
+          fig: { v: '180 → 15', cap: 'minutes per test run, before and after CI/HIL' },
           body: (
             <p>
-              <b>Firmware lead</b> for the onboard computer of UVic's 1U CubeSat (CFAR): C on STM32, telemetry encoded into YAMCS mission control. I built a
-              hardware-in-the-loop rig on a Pi 4 that checks 80+ checksum rules on every commit.
+              <b>Firmware lead</b> for MarmotSat at UVic's Centre for Aerospace Research: onboard-computer firmware in C, the TTC board, and the
+              hardware/software integration. A CI/HIL pipeline flashes every commit over SWD and checks 80+ checksum rules. MarmotSat launched on a SpaceX
+              Falcon 9 and is in orbit.
             </p>
           ),
         },
@@ -126,8 +135,8 @@ export function buildChapters(base: string): Chapter[] {
           body: (
             <>
               <p>
-                <b>DEIA Lab</b>, with Prof. Sean Chester. Billion-vector search on GPUs: cuVS with CAGRA and IVF indices, across 8+ GPUs and more than 2 TB of
-                index. 90–95% recall at under 250 ms.
+                <b>DEIA Lab</b>, with Prof. Sean Chester, {deia.when}. Billion-vector search on GPUs: a modified cuVS fork with CAGRA and IVF-PQ indices, across
+                8+ GPUs and 2 TB of index. 90–95% recall at under 250 ms.
               </p>
               <p className="v4-dim">The index below reads only the nearest lists. Drag nprobe and watch recall trade against work.</p>
               <div className="v4-demo">
@@ -146,6 +155,7 @@ export function buildChapters(base: string): Chapter[] {
             <p>
               <b>SOLIDS Lab</b>, with Dr. Navneet Popli and NRC Canada. A multimodal model reads satellite imagery and Ocean Networks Canada sensors and predicts
               deep-water temperature. <In to={`${base}/research/${solids.slug}`}>Write-up</In>
+              {solids.unverified?.length ? <Flag note={solids.unverified.join(' ')} /> : null}
             </p>
           ),
         },
@@ -164,30 +174,51 @@ export function buildChapters(base: string): Chapter[] {
           fig: { v: '−40%', cap: 'memory, holding 95%+ F1 on triage' },
           body: (
             <p>
-              <b>Pear Care</b>, lead AI developer on medical-AI agents. Quantized LoRA deployments cut memory by 40% at 95%+ F1 on internal triage benchmarks.{' '}
-              <Out href={pear.href!}>pearcare.ai</Out>
+              <b>{pearJob.org}</b>, lead AI developer, {pearJob.when}. Medical-AI agents across 1,000+ clinical specialties. Quantized LoRA deployments cut memory by
+              40% at 95%+ F1 on internal triage benchmarks. <Out href={pear.href!}>pearcare.ai</Out>
             </p>
           ),
         },
         {
           id: 'v6',
-          fig: { v: 'Airflow', cap: 'scheduler fix, as an MLH fellow with RBC' },
+          fig: { v: 'hours → min', cap: 'Airflow setup-to-debug, as an MLH fellow' },
           body: (
             <p>
-              <b>MLH fellow with RBC.</b> A fix for Apache Airflow's scheduler so missed past DAG runs show up. <Out href={airflow.href!}>apache/airflow</Out>
+              <b>MLH fellow on Apache Airflow</b>, with Royal Bank of Canada engineers. Docker-based IDE debugging for a 50K-star codebase: step-through in VS Code
+              and PyCharm, setup-to-debug from hours to minutes. <Out href={airflow.href!}>apache/airflow</Out>
             </p>
           ),
         },
         {
-          id: 'v7',
-          fig: { v: 'CDE 2026', cap: 'VP Communications' },
+          id: 'v6b',
+          fig: { v: '1,500+', cap: `longitudinal records · ${rbc.org}, ${rbc.when}` },
           body: (
             <p>
-              <b>Around the lab:</b> {vike.role} at VikeLabs, which builds software for local non-profits, and {cde.role} for CDE 2026, the Conference on
-              Diversity in Engineering, hosted at UVic.
+              <b>{rbc.org}</b>, AI mentorship program. PyTorch models that flag at-risk youth with chronic illness from 1,500+ longitudinal engagement records;
+              UMAP clustering isolated 4+ cohorts.
             </p>
           ),
         },
+        ...has(clubs.length > 0, {
+          id: 'v7',
+          fig: { v: clubs[clubs.length - 1]?.title ?? '', cap: clubs[clubs.length - 1]?.role ?? '' },
+          body: (
+            <p>
+              <b>Around the lab:</b>{' '}
+              {clubs.map((c, i) => (
+                <span key={c.title}>
+                  {i > 0 && ', and '}
+                  {c.title === 'VikeLabs' ? (
+                    <>{c.role} at VikeLabs, which builds software for local non-profits</>
+                  ) : (
+                    <>{c.role} for CDE 2026, the Conference on Diversity in Engineering, hosted at UVic</>
+                  )}
+                </span>
+              ))}
+              .
+            </p>
+          ),
+        }),
       ],
       more: {
         label: 'How the Victoria work was done',
@@ -199,7 +230,7 @@ export function buildChapters(base: string): Chapter[] {
             <b>Ocean sensing.</b> {solids.method[1]} {solids.result[0]}
           </>,
           <>
-            <b>Satellite.</b> {sat.detail.split('. ').slice(1).join('. ')}
+            <b>Satellite.</b> {cfar.bullets.slice(1).join(' ')}
           </>,
           <>
             <b>Hack the North.</b> {optimate.role}: {optimate.detail}
@@ -215,14 +246,15 @@ export function buildChapters(base: string): Chapter[] {
       steps: [
         {
           id: 't0',
-          fig: { v: 'Return offer', cap: 'Amazon Robotics AI, summer 2026' },
+          fig: { v: '$136.2M', cap: 'a year, projected · Amazon Robotics, 2026' },
           body: (
             <p>
-              <b>Amazon Robotics AI.</b> SDE intern for summer 2026, building ML tooling for planning agents. It ended with a return offer.
+              <b>{amazon.org}.</b> SDE intern, {amazon.when}. I shipped an LLM planning assistant to production in Optimus, the labor-optimization platform for
+              180+ fulfillment sites, projected to save $136.2M a year. It ended with a return offer.
             </p>
           ),
         },
-        {
+        ...has(flags.beri, {
           id: 't1',
           fig: { v: 'Beri', cap: beri.stack.slice(0, 3).join(' · ') },
           body: (
@@ -231,7 +263,7 @@ export function buildChapters(base: string): Chapter[] {
               <In to={`${base}/beri`}>The case study</In> · <Out href={beri.url}>getberi.com</Out>
             </p>
           ),
-        },
+        }),
         {
           id: 't2',
           fig: { v: '−8.0 → +9.6', cap: 'joy read-back, α from +0.3 to +0.6‖h‖' },
@@ -255,7 +287,7 @@ export function buildChapters(base: string): Chapter[] {
           fig: { v: loss.when, cap: loss.where },
           body: (
             <p>
-              Two more from 2026. Loss masking and shutdown distress at {loss.where} ({loss.when}):{' '}
+              Two more from 2026. At Apart Research's Digital Minds sprint ({loss.when}), the loss-masking regime turned out to decide how much shutdown distress a model voices:{' '}
               <In to={`${base}/research/${loss.slug}`}>write-up</In>. And fine-tuning Qwen2.5-1.5B with evolution strategies instead of gradients ({es.when}):{' '}
               <In to={`${base}/research/${es.slug}`}>write-up</In>.
             </p>

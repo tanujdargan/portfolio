@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
+import { research } from '../../content/site'
+import { Flag } from '../../shared/Flag'
 
-type Kind = 'Competition' | 'Research' | 'Industry' | 'Community'
+type Kind = 'Competition' | 'Research' | 'Industry' | 'Hardware' | 'Community'
 interface Row {
   id: string
   task: string
@@ -15,30 +17,89 @@ interface Row {
   yearLabel: string
   href?: string
   internal?: boolean
+  /** lab-only badge note when the underlying fact is unverified */
+  unverified?: string
 }
 
-// Every number here is from src/content/site.ts.
+const solids = research.find((r) => r.slug === 'ocean-sensing')
+
+// Every number here is from src/content/site.ts (resume-sourced). Nothing here depends on a content flag.
 const rows: Row[] = [
+  {
+    id: 'amzn',
+    task: 'Amazon Optimus',
+    setting: 'Amazon Robotics SDE intern · LLM planning assistant, 180+ fulfillment sites',
+    kind: 'Industry',
+    metric: 'Projected savings',
+    result: '$136.2M/yr projected · return offer',
+    year: 2026,
+    yearLabel: '2026',
+  },
+  {
+    id: 'sprint',
+    task: 'Digital Minds sprint',
+    setting: 'Apart Research · SFT loss-masking regimes vs shutdown distress',
+    kind: 'Research',
+    metric: 'Finding',
+    result: 'Loss masking controls expressed distress',
+    year: 2026,
+    yearLabel: '2026',
+    href: '/research/loss-masking-distress',
+    internal: true,
+  },
+  {
+    id: 'marmotsat',
+    task: 'MarmotSat',
+    setting: 'UVic CFAR · OBC firmware and TTC board lead',
+    kind: 'Hardware',
+    metric: 'Status',
+    result: 'In orbit (Falcon 9) · tests 180 → 15 min',
+    year: 2026,
+    yearLabel: '2025–26',
+  },
+  {
+    id: 'rbc',
+    task: 'RBC Borealis mentorship',
+    setting: 'At-risk youth with chronic illness · PyTorch, UMAP',
+    kind: 'Research',
+    metric: 'Scale',
+    result: '1,500+ records · 4+ cohorts',
+    year: 2026,
+    yearLabel: '2026',
+  },
+  {
+    id: 'deia',
+    task: 'Billion-vector GPU retrieval',
+    setting: 'DEIA Lab, UVic · modified cuVS fork, CAGRA and IVF-PQ, 8+ GPUs',
+    kind: 'Research',
+    metric: 'Throughput',
+    result: '1–4M QPS · <250 ms · 90–95% recall',
+    year: 2025,
+    yearLabel: '2025–26',
+    href: '/research/billion-vector-retrieval',
+    internal: true,
+  },
+  {
+    id: 'pear',
+    task: 'Pear Care medical agents',
+    setting: 'Lead AI developer · quantized LoRA deployments',
+    kind: 'Industry',
+    metric: 'Memory · F1',
+    result: '−40% memory · 95%+ F1',
+    year: 2025,
+    yearLabel: '2025–26',
+    href: 'https://pearcare.ai',
+  },
   {
     id: 'htn',
     task: 'Hack the North 2025',
     setting: 'Optimate, AI underwriting dashboard',
     kind: 'Competition',
     metric: 'Placement',
-    result: 'Winner · YC Unicorn Prize · Federato Best RiskOps',
+    result: '2 prizes of 300+ teams · YC Unicorn Prize · Federato Best RiskOps',
     year: 2025,
     yearLabel: '2025',
     href: 'https://github.com/jruttan1/Optimate',
-  },
-  {
-    id: 'aimo',
-    task: 'AIMO Progress Prize 2',
-    setting: 'Kaggle · multi-stage LLM pipeline, olympiad maths',
-    kind: 'Competition',
-    metric: 'Rank',
-    result: 'Silver · top 10% of 2,200 · 54% accuracy',
-    year: 2025,
-    yearLabel: '2025',
   },
   {
     id: 'solids',
@@ -48,42 +109,20 @@ const rows: Row[] = [
     metric: 'R²',
     result: '0.936',
     year: 2025,
-    yearLabel: '2025–',
+    yearLabel: '2025',
     href: '/research/ocean-sensing',
     internal: true,
+    unverified: solids?.unverified?.join(' '),
   },
   {
-    id: 'deia',
-    task: 'Billion-vector GPU retrieval',
-    setting: 'DEIA Lab, UVic · cuVS on 8+ GPUs, 2 TB',
-    kind: 'Research',
-    metric: 'Throughput',
-    result: '1–4M QPS · <250 ms · 90–95% recall',
+    id: 'aimo',
+    task: 'AIMO Progress Prize 2',
+    setting: 'Kaggle · multi-stage LLM pipeline, olympiad maths',
+    kind: 'Competition',
+    metric: 'Rank',
+    result: 'Silver · top 10% of 2,200 · 54% accuracy',
     year: 2025,
-    yearLabel: '2025–',
-    href: '/research/billion-vector-retrieval',
-    internal: true,
-  },
-  {
-    id: 'amzn',
-    task: 'Amazon Robotics AI internship',
-    setting: 'SDE intern · ML tooling for planning agents',
-    kind: 'Industry',
-    metric: 'Outcome',
-    result: 'Return offer',
-    year: 2026,
-    yearLabel: '2026',
-  },
-  {
-    id: 'pear',
-    task: 'Pear Care triage agents',
-    setting: 'Quantized LoRA deployments',
-    kind: 'Industry',
-    metric: 'Memory · F1',
-    result: '−40% memory · 95%+ F1',
-    year: 2025,
-    yearLabel: '2025',
-    href: 'https://pearcare.ai',
+    yearLabel: '2024–25',
   },
   {
     id: 'jbcn',
@@ -173,6 +212,7 @@ export function EvalTable({ base }: { base: string }) {
                 ) : (
                   <span className="v5-t-name">{r.task}</span>
                 )}
+                {r.unverified && <Flag note={r.unverified} />}
                 <span className="v5-t-setting">{r.setting}</span>
               </td>
               <td role="cell" className="v5-t-kind">

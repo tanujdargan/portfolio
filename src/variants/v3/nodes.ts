@@ -1,6 +1,7 @@
 // The vector space: every project and role in site.ts becomes a node inside a domain cluster.
 // Pure data, no three.js, so the static HTML (HUD, node list, sheet) renders without WebGL.
-import { research, engineering, community, earlier, proof, beri, links } from '../../content/site'
+import { research, engineering, communityAll, earlier, experience, beri } from '../../content/site'
+import type { FlagKey, Flags } from '../../content/flags'
 
 export type Vec3 = [number, number, number]
 
@@ -33,19 +34,24 @@ export interface SpaceNode {
   href?: string
   hrefLabel?: string
   flag?: string
+  /** content flag that must be on for this node to exist */
+  show?: FlagKey
   pos: Vec3
 }
 
 export const clusters: Cluster[] = [
   { id: 'interp', name: 'Interpretability', code: 'C1', center: [0, 0.4, 0], spread: 1.9, count: 900, dist: 8.5 },
   { id: 'systems', name: 'ML systems', code: 'C2', center: [8.6, -1.4, -2.6], spread: 2.1, count: 780, dist: 9.5 },
-  { id: 'product', name: 'Product', code: 'C3', center: [-7.6, 2.3, -3.4], spread: 1.7, count: 620, dist: 8 },
+  { id: 'work', name: 'Work', code: 'C3', center: [-7.6, 2.3, -3.4], spread: 2.2, count: 620, dist: 9 },
   { id: 'hardware', name: 'Hardware', code: 'C4', center: [4.2, 5, 6.2], spread: 1.6, count: 520, dist: 8 },
   { id: 'community', name: 'Community', code: 'C5', center: [-5.2, -3.4, 5.6], spread: 1.7, count: 520, dist: 8.5 },
   { id: 'earlier', name: 'Earlier', code: 'C6', center: [-0.6, -5.8, -8.2], spread: 2.8, count: 700, dist: 12 },
 ]
 
 const r = (slug: string) => research.find((x) => x.slug === slug)!
+
+/** Earlier work minus the roles that now sit in the Work cluster (Pear Care, Airflow), so nothing appears twice. */
+export const earlierOnly = earlier.filter((e) => !experience.some((x) => x.org.includes(e.title)))
 
 type Draft = Omit<SpaceNode, 'pos'>
 
@@ -136,19 +142,25 @@ const drafts: Draft[] = [
       flag: x.unverified?.[0],
     }
   })(),
-  // C3 product
-  {
-    id: 'amazon',
-    cluster: 2,
-    title: 'Amazon Robotics AI',
-    label: 'Amazon Robotics AI',
-    role: 'SDE intern',
-    meta: 'Toronto · Summer 2026',
-    body: [proof[0].detail],
-    metric: 'Return offer',
-    href: links.resume.href,
-    hrefLabel: 'Resume',
-  },
+  // C3 work: resume roles not already told by another cluster (CFAR is hardware, DEIA is ML systems), plus Beri when shown
+  ...experience
+    .filter((x) => !x.org.startsWith('UVic') && !x.org.startsWith('DEIA'))
+    .map((x): Draft => {
+      const link = earlier.find((e) => x.org.includes(e.title))?.href
+      return {
+        id: x.org.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        cluster: 2,
+        title: x.org,
+        label: x.org.replace('MLH Fellowship · ', ''),
+        role: x.role,
+        meta: `${x.where} · ${x.when}`,
+        // Amazon's first bullet restates its line; its number is the metric
+        body: [x.line, ...x.bullets.slice(x.org.startsWith('Amazon') ? 1 : 0)],
+        metric: x.metric,
+        href: link,
+        hrefLabel: link?.replace('https://', '').replace(/\/$/, ''),
+      }
+    }),
   {
     id: 'beri',
     cluster: 2,
@@ -162,6 +174,7 @@ const drafts: Draft[] = [
     toLabel: 'Beri case study',
     href: beri.url,
     hrefLabel: 'getberi.com',
+    show: 'beri',
   },
   // C4 hardware
   {
@@ -172,7 +185,7 @@ const drafts: Draft[] = [
     role: engineering[0].role,
     meta: engineering[0].tags.join(' · '),
     body: [engineering[0].detail],
-    metric: 'Tests 30 → 4 min',
+    metric: 'In orbit',
   },
   {
     id: 'homelab',
@@ -187,7 +200,7 @@ const drafts: Draft[] = [
     hrefLabel: 'nixos config on GitHub',
   },
   // C5 community
-  ...community.map(
+  ...communityAll.map(
     (c): Draft => ({
       id: c.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       cluster: 4,
@@ -199,10 +212,11 @@ const drafts: Draft[] = [
       metric: c.title === 'Hack@JBCNOsh' ? '450+ people' : c.role,
       href: 'href' in c ? c.href : undefined,
       hrefLabel: 'href' in c && c.href ? c.href.replace('https://', '') : undefined,
+      show: c.flag,
     }),
   ),
   // C6 earlier
-  ...earlier.map(
+  ...earlierOnly.map(
     (e): Draft => ({
       id: e.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       cluster: 5,
@@ -230,10 +244,10 @@ function rng(seed: number) {
   }
 }
 
-function place(): SpaceNode[] {
+function place(list: Draft[]): SpaceNode[] {
   const rand = rng(7)
-  return drafts.map((d, i) => {
-    const siblings = drafts.filter((x) => x.cluster === d.cluster)
+  return list.map((d, i) => {
+    const siblings = list.filter((x) => x.cluster === d.cluster)
     const k = siblings.indexOf(d)
     const n = siblings.length
     const c = clusters[d.cluster]
@@ -250,9 +264,12 @@ function place(): SpaceNode[] {
   })
 }
 
-export const nodes: SpaceNode[] = place()
+/** The nodes for a set of content flags. Hidden content never becomes a point, so clusters reflow around it. */
+export const nodesFor = (flags: Flags): SpaceNode[] => place(drafts.filter((d) => !d.show || flags[d.show]))
+/** Stable key for memoising on flags. */
+export const flagKey = (flags: Flags) => (Object.keys(flags) as FlagKey[]).filter((k) => flags[k]).join(',')
 
-export const nodesIn = (ci: number) => nodes.map((n, i) => ({ n, i })).filter((x) => x.n.cluster === ci)
+export const nodesIn = (list: SpaceNode[], ci: number) => list.map((n, i) => ({ n, i })).filter((x) => x.n.cluster === ci)
 
 export const fieldCount = clusters.reduce((s, c) => s + c.count, 0) + 1100 + 40
 

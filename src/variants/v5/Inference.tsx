@@ -1,19 +1,25 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useMotionPrefs } from '../../lib/motion'
+import { useFlags } from '../../lib/labprefs'
 
-// Pre-written answers. Every {braced} span is quoted from src/content/site.ts; the rest is connective prose.
-const QA = [
+// Pre-written answers. Every {braced} span is quoted from src/content/site.ts (resume-sourced); the rest is connective prose.
+// Beri appears only when its content flag is on; otherwise the first answer closes on MarmotSat.
+const qaFor = (showBeri: boolean) => [
   {
     q: 'What are you working on?',
-    a: 'Interpretability research. I find concepts like {joy}, {distress} and {certainty} as {directions in the residual stream}, then check whether steering along them does what the label says. I also co-founded {Beri}, a {native iOS} food and recipe app, and spent {summer 2026} as an {SDE intern at Amazon Robotics AI}.',
+    a:
+      'Interpretability research. I find concepts like {joy}, {distress} and {certainty} as {directions in the residual stream}, then check whether steering along them does what the label says. I spent {summer 2026} as an {SDE intern at Amazon Robotics}, shipping an {LLM planning assistant} to production. ' +
+      (showBeri
+        ? 'I also co-founded {Beri}, a {native iOS} food and recipe app.'
+        : 'Before that I led the {onboard-computer firmware} for {MarmotSat}, which is now {in orbit}.'),
   },
   {
     q: 'Why interpretability?',
-    a: 'Because the labels are testable, and they don\'t always hold. On {Qwen2.5-1.5B-Instruct} the {distress} direction produces {refusals}, not anxious prose, and the {certainty} vector partly encodes the word {"Certainly!"}. Next I want to {monitor} those projections across {long agentic rollouts}, {where drift matters most}.',
+    a: 'Because the labels are testable, and they don\'t always hold. On {Qwen2.5-1.5B-Instruct} the {distress} direction produces {refusals}, not anxious prose, and the {certainty} vector partly encodes the word {"Certainly!"}. At the {Digital Minds sprint} I found that the {loss-masking regime} decides how much {shutdown distress} a model voices, while {calm-sounding models still represent it negatively}.',
   },
   {
     q: 'What did you build at Amazon?',
-    a: '{ML tooling for planning agents}, as an {SDE intern} on the {Robotics AI} team in {Toronto}, {summer 2026}. It ended with a {return offer}.',
+    a: 'An {LLM planning assistant}, shipped to production in {Optimus}, the labor-optimization platform for {180+ fulfillment sites}. It is {projected to save $136.2M a year}. I was an {SDE intern} at {Amazon Robotics} in {Toronto}, {May – Aug 2026}, and left with a {return offer}.',
   },
   {
     q: 'How do I reach you?',
@@ -58,12 +64,16 @@ function tokenize(a: string, j: number): Tok[] {
 
 export function Inference() {
   const m = useMotionPrefs()
-  const toks = useMemo(() => QA.map((x, j) => tokenize(x.a, j)), [])
+  const { beri } = useFlags()
+  const QA = useMemo(() => qaFor(beri), [beri])
+  const toks = useMemo(() => QA.map((x, j) => tokenize(x.a, j)), [QA])
   const [sel, setSel] = useState(0)
   const [run, setRun] = useState(0) // 0 = static first render, no streaming
   const [n, setN] = useState(toks[0].length)
   const [hover, setHover] = useState<number | null>(null)
   const cur = toks[sel]
+  // a flag toggle changes the answer's length: show it whole rather than a stale prefix
+  useEffect(() => setN(toks[sel].length), [toks]) // eslint-disable-line react-hooks/exhaustive-deps
   const every = m.dur(0.034) * 1000
   const step = m.level === 'subtle' ? 3 : 1
 
