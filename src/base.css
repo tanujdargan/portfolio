@@ -70,3 +70,25 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* Lab-only "unverified" badge (src/shared/Flag.tsx). Global so every variant renders it the same. */
+.s-flag {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  margin-left: 6px;
+  padding: 0 5px;
+  vertical-align: 0.12em;
+  border-radius: 4px;
+  font: 600 9.5px/1 ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #1a1400;
+  background: #f0c36a;
+  cursor: help;
+}
+.s-flag:focus-visible {
+  outline: 2px solid #f0c36a;
+  outline-offset: 2px;
+}

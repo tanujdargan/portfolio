@@ -32,7 +32,7 @@ svg{position:absolute;right:56px;top:120px}.cap{position:absolute;right:72px;top
 <polyline points="${traj}" fill="none" stroke="#a1a09a" stroke-width="1.5" stroke-dasharray="3 5"/>
 <circle cx="${sx(d.outputs[0][6].xy[0])}" cy="${sy(d.outputs[0][6].xy[1])}" r="10" fill="#ededec" stroke="#0c0c0b" stroke-width="3"/></svg>
 <div class="cap">joy vector · layer ${d.layer} · Qwen2.5-1.5B<br/>real activations</div>
-<ul><li>Amazon Robotics AI · return offer</li><li>Co-founder, Beri</li><li>Activation steering</li></ul>
+<ul><li>Amazon Robotics · return offer</li><li>MarmotSat · in orbit</li><li>Activation steering</li></ul>
 </body></html>`
 const b = await chromium.launch()
 const p = await b.newPage({ viewport: { width: 1200, height: 630 } })

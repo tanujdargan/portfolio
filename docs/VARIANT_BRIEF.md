@@ -42,3 +42,24 @@ You are building ONE full-site variant of tanujdargan.com. Other agents are buil
 - Screenshots: `node ~/dev/portfolio-tools/capture.mjs http://localhost:<port>/lab/<id> /tmp/<id> <id> --no-video` gives desktop (Chromium) and mobile (WebKit iPhone 15) fold and full-page PNGs, plus the console error count. `node ~/dev/portfolio-tools/shot.mjs <url> <selector> <out.png> [width]` captures a single element. LOOK at the screenshots (Read tool) and iterate until it's genuinely good at both sizes. Zero console errors.
 - Test with reduced motion: add `?motion=subtle`, and emulate reduced motion in a playwright snippet if you can.
 - Final report (≤ 20 lines): what you built, the type system, the 3+ interactive moments, the patterns used, the known issues, and any shared change you wished for.
+
+---
+
+# Addendum (pass 2, 2026-09-27): read this too; it overrides the above where they conflict
+
+## Content is now flag-aware and resume-sourced
+- Source of truth is the Aug 2026 resume (`public/resume.pdf`), already applied in `src/content/site.ts`. Never invent facts; never contradict site.ts.
+- Content flags (`src/content/flags.ts`): **beri, vikelabs, cde**, all hidden by default. The lab toggles them (dock → Content). Every variant must look intentional in BOTH states — no empty gaps, no orphan headings, grids that reflow.
+  - `useProof()` from `src/content/useContent` → the 3 proof points (slot 2 is Beri when on, else "MarmotSat, in orbit"). Never import the static `proof` in components.
+  - `useCommunity()` → community rows filtered by flags. `useMilestones()` → the work over time (oldest first), filtered.
+  - `<Show when="beri">…</Show>` from `src/lib/labprefs` for any Beri-specific block (case-study links, Beri screens, nav items). `useFlags()` for logic.
+  - `experience` (resume roles, newest first, with bullets and one `metric` each) and `milestonesAll` exist in site.ts.
+  - The Beri case study route still exists in the lab; only link to it inside `<Show when="beri">`.
+- `<Flag note="…"/>` now renders a small yellow "unverified" badge, only when the lab's badge toggle is on. Render it next to anything whose data has `unverified` (earlier[].unverified, milestones[].unverified, research[].unverified).
+- X is https://x.com/DarganTanuj (already in `links`).
+
+## Performance lessons from pass 1 (measured; do these)
+- Lighthouse mobile charges every byte fetched before first paint. Fonts: ≤ ~80 KB total. Do NOT import a fontsource package's default CSS if it registers extra subsets you'd trigger (symbols/math/greek). Prefer your own latin-only `@font-face` pointing at `../../../node_modules/@fontsource-variable/<pkg>/files/<pkg>-latin-wght-normal.woff2` with the package's latin unicode-range.
+- Zero-CLS font swap: define a fallback `@font-face` with `size-adjust` / `ascent-override` / `descent-override` and use FULL local names (`local('Menlo Regular')`, `local('Arial')`, `local('Georgia')`), measured on rendered text (`~/dev/portfolio-tools/calib.mjs <url> '[["Your Font Variable","Arial",400]]'` prints the size-adjust). Verify with `node ~/dev/portfolio-tools/wrap.mjs <url>` style checks: layout identical with fonts blocked.
+- The entry JS is injected after first paint in production. Heavy work (three.js import, shader compile, geometry build) must start after first paint and ideally in `requestIdleCallback` / on visibility, chunked so no single task exceeds ~50 ms on a 4× throttled CPU where possible. `import('three')` / `import('three/webgpu')` dynamically inside effects so it gets its own lazy chunk.
+- Canvas is never the LCP element; the recruiter content is real DOM text in the static HTML on top.

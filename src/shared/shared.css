@@ -1,19 +1,5 @@
 /* Shared long-form layout. Everything reads the host variant's tokens:
    --fg --fg-2 --fg-3 --line --bg --bg-2 --accent --font-display --font-body --font-mono --radius --measure */
-.s-flag {
-  display: inline-grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  margin-left: 6px;
-  vertical-align: 0.15em;
-  border-radius: 50%;
-  font: 600 10px/1 ui-monospace, monospace;
-  color: #1a1400;
-  background: #f0c36a;
-  cursor: help;
-}
-
 .s-article,
 .s-case {
   --m: var(--measure, 66ch);

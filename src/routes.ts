@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { research, seo, person } from './content/site'
+import { contentFlags } from './content/flags'
 
 export type Page = { kind: 'home' } | { kind: 'research'; slug: string } | { kind: 'beri' } | { kind: 'notfound' }
 export interface VariantProps {
@@ -16,6 +17,11 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 'v3', name: 'Vector space', pitch: 'The work as points in a space you can fly through.', load: () => import('./variants/v3') },
   { id: 'v4', name: 'Narrative', pitch: 'Dehradun to now, told through the work.', load: () => import('./variants/v4') },
   { id: 'v5', name: 'Model card', pitch: 'Tanuj, documented like a model release.', load: () => import('./variants/v5') },
+  { id: 'v4b', name: 'Narrative: the work', pitch: 'The same scroll story, told only through projects and research over time.', load: () => import('./variants/v4b') },
+  { id: 'v6', name: 'Latent space', pitch: 'Fly through the embedding space of the work; steering vectors bend it.', load: () => import('./variants/v6') },
+  { id: 'v7', name: 'Mission control', pitch: 'MarmotSat telemetry: the work as spacecraft subsystems, live.', load: () => import('./variants/v7') },
+  { id: 'v8', name: 'Billion vectors', pitch: 'A GPU-scale particle index; retrieval is the navigation.', load: () => import('./variants/v8') },
+  { id: 'v9', name: 'Depth', pitch: 'A generative ocean where depth is time and the work surfaces as you dive.', load: () => import('./variants/v9') },
 ]
 
 // The variant served at "/" until Phase 5 picks one.
@@ -34,7 +40,7 @@ export interface Head {
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
-  const m = path.match(/^\/lab\/(v\d+)(\/.*)?$/)
+  const m = path.match(/^\/lab\/(v\d+[a-z]?)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
   const v = variants.find((x) => x.id === id) ?? variants[0]
@@ -64,5 +70,7 @@ function headFor(page: Page, path: string): Head {
 /** Every path the prerender step writes to disk. */
 export function allPaths(): string[] {
   const inner = ['/', '/beri', ...research.map((r) => `/research/${r.slug}`)]
-  return [...inner, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
+  // Production only ships /beri when its content flag is on; the lab always has it for previews.
+  const prod = inner.filter((p) => p !== '/beri' || contentFlags.beri)
+  return [...prod, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
 }

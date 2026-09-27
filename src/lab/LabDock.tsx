@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useRouter, Link } from '../lib/router'
 import { LEVELS, useMotionPrefs, type MotionLevel } from '../lib/motion'
 import { variants, type Page } from '../routes'
+import { useLabPrefs } from '../lib/labprefs'
+import { flagLabels, type FlagKey } from '../content/flags'
 import './lab.css'
 
 export function suffix(page: Page) {
@@ -11,6 +13,7 @@ export function suffix(page: Page) {
 export default function LabDock({ variant, page }: { variant: string; page: Page }) {
   const { navigate } = useRouter()
   const m = useMotionPrefs()
+  const prefs = useLabPrefs()
   const to = (id: string) => `/lab/${id}${suffix(page)}`
   const i = variants.findIndex((v) => v.id === variant)
 
@@ -64,6 +67,24 @@ export default function LabDock({ variant, page }: { variant: string; page: Page
           ))}
         </select>
       </label>
+      {/* Content flags + unverified badges. <details> keeps it native and keyboard-friendly on every device. */}
+      <details className="lab-dock__pop">
+        <summary>Content</summary>
+        <div className="lab-dock__menu" role="group" aria-label="Content flags">
+          <p>Hidden by default · src/content/flags.ts</p>
+          {(Object.keys(flagLabels) as FlagKey[]).map((k) => (
+            <label key={k}>
+              <input type="checkbox" checked={prefs.flags[k]} onChange={(e) => prefs.setFlag(k, e.target.checked)} />
+              {flagLabels[k]}
+            </label>
+          ))}
+          <hr />
+          <label>
+            <input type="checkbox" checked={prefs.badges} onChange={(e) => prefs.setBadges(e.target.checked)} />
+            <span className="s-flag" style={{ marginLeft: 0 }}>unverified</span> badges
+          </label>
+        </div>
+      </details>
       {m.reduced && <span className="lab-dock__note">Reduced motion on</span>}
     </div>
   )

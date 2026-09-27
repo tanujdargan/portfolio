@@ -3,6 +3,7 @@ import { flushSync } from 'react-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { RouterCtx } from './lib/router'
 import { MotionProvider } from './lib/motion'
+import { LabPrefsProvider } from './lib/labprefs'
 import { resolve, type Resolved, type VariantProps } from './routes'
 import LabIndex from './lab/LabIndex'
 import LabDock from './lab/LabDock'
@@ -51,9 +52,11 @@ export default function App({ initial }: { initial: Loaded }) {
   return (
     <RouterCtx.Provider value={{ path, navigate: (to) => go(to, true) }}>
       <MotionProvider>
-        {r.kind === 'lab-index' ? <LabIndex /> : C && <C page={r.page} base={r.base} />}
-        {inLab && r.kind === 'variant' && <LabDock variant={r.variant} page={r.page} />}
-        {!inLab && <Analytics />}
+        <LabPrefsProvider>
+          {r.kind === 'lab-index' ? <LabIndex /> : C && <C page={r.page} base={r.base} />}
+          {inLab && r.kind === 'variant' && <LabDock variant={r.variant} page={r.page} />}
+          {!inLab && <Analytics />}
+        </LabPrefsProvider>
       </MotionProvider>
     </RouterCtx.Provider>
   )

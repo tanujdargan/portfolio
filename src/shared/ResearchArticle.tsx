@@ -13,6 +13,10 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
   const r = research[i]
   const prev = research[(i - 1 + research.length) % research.length]
   const next = research[(i + 1) % research.length]
+  const f = (part: 'question' | 'method' | 'result' | 'next', j: number) => {
+    const note = r.flags?.[part]?.[j]
+    return note ? <Flag note={note} /> : null
+  }
   return (
     <article className="s-article">
       <header className="s-article__head">
@@ -29,7 +33,10 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
 
       <section className="s-sec" id="question">
         <h2 className="s-h2">Question</h2>
-        <p className="s-lede">{r.question}</p>
+        <p className="s-lede">
+          {r.question}
+          {f('question', 0)}
+        </p>
       </section>
 
       {r.demo && (
@@ -41,8 +48,11 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
       <section className="s-sec" id="method">
         <h2 className="s-h2">Method</h2>
         <ol className="s-steps">
-          {r.method.map((m) => (
-            <li key={m}>{m}</li>
+          {r.method.map((m, j) => (
+            <li key={m}>
+              {m}
+              {f('method', j)}
+            </li>
           ))}
         </ol>
       </section>
@@ -52,9 +62,10 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
           Result
           {r.unverified?.length ? <Flag note={r.unverified.join(' ')} /> : null}
         </h2>
-        {r.result.map((m) => (
+        {r.result.map((m, j) => (
           <p key={m} className="s-p">
             {m}
+            {f('result', j)}
           </p>
         ))}
       </section>
@@ -62,8 +73,11 @@ export function ResearchArticle({ slug, base }: { slug: string; base: string }) 
       <section className="s-sec" id="next">
         <h2 className="s-h2">What I'd do next</h2>
         <ul className="s-bullets">
-          {r.next.map((m) => (
-            <li key={m}>{m}</li>
+          {r.next.map((m, j) => (
+            <li key={m}>
+              {m}
+              {f('next', j)}
+            </li>
           ))}
         </ul>
       </section>
