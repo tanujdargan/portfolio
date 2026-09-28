@@ -13,11 +13,7 @@ type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
   { id: 'v4b', name: 'Narrative: the work', pitch: 'Reference: the work over time, scroll-pinned axis.', load: () => import('./variants/v4b') },
   { id: 'v6', name: 'Latent space', pitch: 'Reference: real activations as the scene.', load: () => import('./variants/v6') },
-  { id: 'p1', name: 'Refined', pitch: 'v4b and v6 structure, fixed per DIAGNOSIS_V2: calm, clean, fast.', load: () => import('./variants/p1') },
   { id: 'p2', name: 'SWE classic', pitch: 'Crisp type, clear hierarchy; experience and projects scannable in seconds.', load: () => import('./variants/p2') },
-  { id: 'p3', name: 'Research-forward', pitch: 'The demos are the hero; restrained editorial layout, lots of air.', load: () => import('./variants/p3') },
-  { id: 'p4', name: 'Creative, restrained', pitch: 'Distinctive motion and interaction in the details; still minimal.', load: () => import('./variants/p4') },
-  { id: 'p5', name: 'Wildcard', pitch: 'One unmistakably crafted idea, inside every rule.', load: () => import('./variants/p5') },
 ]
 
 // The variant served at "/" until Phase 5 picks one.

@@ -26,39 +26,6 @@
   },
   "variants": [
     {
-      "id": "p5",
-      "name": "Specimens (wildcard)",
-      "verdict": "keep",
-      "idea": "Below a quiet title screen, research and MarmotSat are six specimen cards. Each has a title, a one-line hook and a small poster drawn from the same source as its demo: the measured steering read-back curve, the real Qwen2.5 token strip, the SGP4 ground track from the TLE, and the illustrative demos' own generators. Posters say whether they are measured, real or illustrative. Tapping a card opens the live demo in a panel under its row.",
-      "type": "IBM Plex Sans + Plex Mono (≈ 60 KB, latin only). Graphite ground, three greys, one warm accent used only for data and state.",
-      "interactions": "Specimen open/close as one View Transition (reduced motion: crossfade); experience rows expand the same way; sticky bar after the hero; hovering a card preloads its demo; copy email.",
-      "critique": [
-        "<b>Meets the rules:</b> first screen is name, line, actions; 400 words of copy; ≤ 1 focal point per screen; the shortest page of the round (4,883 px mobile).",
-        "<b>Crafted without a gimmick:</b> the drawings are the work itself, precise and labelled with their provenance. Nothing needs a legend.",
-        "<b>The density tool reads 4 cards over 25 words.</b> The overflow is poster text (the real token strip), not copy; card copy is ≤ 23 words. Accepted rather than hiding the text from the tool.",
-        "<b>The mobile hero leaves the top half empty</b> so the actions sit in thumb reach. Deliberate, but worth your eye.",
-        "The poster generators copy the illustrative demos' generator code: a maintenance risk (export the generators from src/demos if P5 ships)."
-      ]
-    },
-    {
-      "id": "p3",
-      "name": "Research-forward",
-      "verdict": "keep",
-      "idea": "The demos are the hero. After the rule-1 first screen come five numbered research plates, one idea each: a question as the title, a one-line result, the demo large, 'Read the write-up'. MarmotSat and the live tracker follow as 'Also: hardware in orbit', then a compact tiled work list and contact.",
-      "type": "Newsreader 400 (upright, static cut, 22 KB) for the name and titles; Geist for text. Near-black #0b0c0e, ivory in three steps, one amber accent.",
-      "interactions": "Sticky bar after the hero; steering and loss masking inline, the other demos open on tap on phones (inline at ≥ 900 px); expandable work rows; one closed 'Earlier projects and community' disclosure; copy email.",
-      "critique": [
-        "<b>The strongest identity of the round</b>: editorial typography on a dark ground, not a paper theme. It reads as a researcher's site.",
-        "<b>One idea per screen</b> is literal here; ≤ 2 focal points per screen, and every plate is ≤ 25 words.",
-        "<b>Trade-off:</b> Work comes after five plates. The sticky bar's section links mitigate it for recruiters.",
-        "<b>The desktop page is long</b> (9,186 px) because the plates are large; mobile is 7,632 px, inside the 8,000 px target.",
-        "Some markup was chosen partly around the density tool (plates as groups, CSS numerals). Reader-facing counts are honest."
-      ],
-      "fixed": [
-        "Run buttons and hero icon links now have accessible names that match their visible text (Lighthouse a11y 93 → 97 on mobile)."
-      ]
-    },
-    {
       "id": "p2",
       "name": "SWE classic",
       "verdict": "keep",
@@ -73,39 +40,6 @@
       ],
       "fixed": [
         "Font-swap shift 22 px → 0 (per-weight Inter fallback calibration); two columns start at 1120 px; steering demo reserve re-measured so loading moves the page 0 px."
-      ]
-    },
-    {
-      "id": "p1",
-      "name": "Refined",
-      "verdict": "keep",
-      "idea": "v4b and v6 with every DIAGNOSIS_V2 problem fixed: one calm column, section labels in a narrow left gutter on desktop, every detail behind a tap. Work (six expandable rows), Research (steering and loss masking inline, three on tap), Projects (the MarmotSat tracker inline, Beri, four one-line rows), Contact.",
-      "type": "Geist + Geist Mono (29 + 23 KB). Graphite #111214, three greys, one quiet blue for links, focus and state.",
-      "interactions": "Slim header after the hero; expandable work rows (rows below slide, transform only); demos on tap; copy-email morph.",
-      "critique": [
-        "<b>Calm and finished:</b> every rule met, 377 words of copy (down from 1,124 in v4b), 0 long cards, 1 focal point per screen.",
-        "<b>After review:</b> the hero was a full screen of dead space; it's now ~80svh so the Work label peeks at the fold.",
-        "<b>Safe rather than distinctive</b>: it's the baseline the others are measured against.",
-        "The → and ↗ arrows fall outside Geist's latin subset and render in the system font."
-      ],
-      "fixed": [
-        "Hero shortened to ~80svh with the Work section peeking; demo reserve heights re-measured at 393 and 1440.",
-        "Copy-email button's accessible name now matches its visible text."
-      ]
-    },
-    {
-      "id": "p4",
-      "name": "Creative, restrained",
-      "verdict": "keep",
-      "idea": "P1's simple structure; the creativity is in four details. Headings settle from condensed-heavy to their resting width and weight as they enter (once). Each action nudges toward its destination; Resume rolls to 'PDF ↗'; Email copies with a morph. Work rows open with a layout animation under one gliding hover. A slim bar carries a scroll-progress hairline.",
-      "type": "Instrument Sans Variable (weight + width axes drive the headings, 57 KB) + Geist Mono. Warm graphite #0d0d0c, one apricot accent for focus, progress and state.",
-      "interactions": "The four above, all on the Subtle / Default / Expressive toggle; reduced motion gets a plain fade or an instant state. 60 fps at 4× CPU throttle.",
-      "critique": [
-        "<b>Motion that serves reading:</b> nothing loops; every effect plays once or answers input.",
-        "<b>Its skeleton is almost P1's</b>, so the difference is only visible in motion: watch the recording, or open a work row.",
-        "<b>The MarmotSat tracker is behind 'Track it live'</b>, so the hardware story is quieter than in P1 or P3.",
-        "The hero's first-paint animation can't know the saved motion level, so it always plays at Default.",
-        "If you want three, not five: this is the one I'd merge into P1 (take its action-row and heading details) rather than keep separately."
       ]
     },
     {
