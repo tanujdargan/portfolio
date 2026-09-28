@@ -33,7 +33,7 @@ The gap is not polish. The site answers a question nobody asks ("what's his tech
 4. **"I'm passionate about pushing the boundaries of what's possible with AI"** is the first sentence of About. It's the single most generic sentence in the genre.
 5. **The skills wall**: 11 categories, 60 chips (Canva, Postman, VS Code, Git, Kaggle). A research reviewer infers the opposite of depth. Listing Git as a skill signals junior.
 6. **Stat trio "3-Year / 2x / Top 10%"**: three different units, and none of them is the strongest proof point.
-7. **Stock photography on project cards.** Hive and AIMO use unrelated Unsplash photos (a tree silhouette and a moon). It reads as filler.
+7. ~~**Stock photography on project cards.**~~ **Correction (2026-09-27):** the moon and tree-silhouette images on the Hive and AIMO cards are Tanuj's own photographs from his Unsplash profile (same upload batch, `photo-1697682474…`), not stock. The real problem was that they had no connection to the projects they illustrated. His photography is now the personal layer in the C-candidates.
 8. **Cursor glow + background orbs + scroll progress bar.** Ambient effects that say nothing about the work and cost main-thread time on mobile (`mousemove` handler, three blurred orbs).
 
 ## Where the eye goes vs where it should go
