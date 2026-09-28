@@ -93,35 +93,30 @@ button {
   outline-offset: 2px;
 }
 
-/* Organisation marks (src/shared/OrgLogo.tsx): one ink, height set per mark for optical balance. */
-.s-logo {
-  display: inline-flex;
-  align-items: center;
-  height: var(--h, 18px);
-  flex: none;
-  color: inherit;
-  line-height: 1;
-}
-.s-logo svg {
-  display: block;
-  height: 100%;
-  width: auto;
-}
-.s-logo--type {
-  font: 600 calc(var(--h, 18px) * 0.9) / 1 ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.03em;
-}
-.s-logo--type b {
-  font-weight: 400;
-}
+/* Organisation marks and social icons (OrgLogo.tsx, Links.tsx): an SVG file as a CSS mask, filled with currentColor. */
+.s-logo,
 .s-icon {
   display: inline-block;
   flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--src) center / contain no-repeat;
+  mask: var(--src) center / contain no-repeat;
 }
-.s-icon svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+.s-logo {
+  height: var(--h, 18px);
+  vertical-align: middle;
+}
+.s-logo--type {
+  width: auto;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  font: 600 calc(var(--h, 18px) * 0.9) / 1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+  color: inherit;
+}
+.s-logo--type b {
+  font-weight: 400;
 }
 
 /* Scroll timelapse (src/shared/ScrollTimelapse.tsx): poster first, canvas fades in once it has a frame. */

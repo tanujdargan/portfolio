@@ -1,7 +1,5 @@
 import { FileText, Github, Linkedin, Mail } from 'lucide-react'
 import { links, linkOrder, type LinkKey } from '../content/site'
-import youtube from './logos/youtube.svg?raw'
-import unsplash from './logos/unsplash.svg?raw'
 import { Flag } from './Flag'
 
 function XIcon({ size = 16 }: { size?: number }) {
@@ -22,9 +20,8 @@ export const LinkIcon = ({ k, size = 16 }: { k: LinkKey; size?: number }) => {
     return (
       <span
         className="s-icon"
-        style={{ width: size - 2, height: size - 2 }}
+        style={{ width: size - 2, height: size - 2, ['--src' as string]: `url(/logos/${k}.svg)` }}
         aria-hidden="true"
-        dangerouslySetInnerHTML={{ __html: k === 'youtube' ? youtube : unsplash }}
       />
     )
   return <XIcon size={size - 1} />
