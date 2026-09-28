@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 import { Flag } from '../shared/Flag'
 import './frame.css'
 
-export type Provenance = 'real' | 'illustrative' | 'exact'
-const label: Record<Provenance, string> = { real: 'Real model outputs', illustrative: 'Illustrative simulation', exact: 'Exact definition' }
+export type Provenance = 'real' | 'data' | 'illustrative' | 'exact'
+const label: Record<Provenance, string> = { real: 'Real model outputs', data: 'Real data', illustrative: 'Illustrative simulation', exact: 'Exact definition' }
 
 export function Frame({
   title,
@@ -31,7 +31,7 @@ export function Frame({
         </span>
         <span className="demo__badges">
           {provenance.map((p) => (
-            <span key={p} className="demo__badge" data-p={p}>
+            <span key={p} className="demo__badge" data-p={p === 'data' ? 'real' : p}>
               {label[p]}
             </span>
           ))}

@@ -343,7 +343,7 @@ export default function OrbitDemo({ compact, hero }: { compact?: boolean; hero?:
     <div ref={root}>
       <Frame
         title={hero ? 'MarmotSat, live: the CubeSat whose onboard-computer firmware I led' : 'MarmotSat, live'}
-        provenance={['real']}
+        provenance={['data']}
         controls={
           <>
             <Seg

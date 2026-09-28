@@ -10,7 +10,7 @@
   box-shadow: inset 0 0 0 1px var(--line, rgb(255 255 255 / 0.08));
 }
 
-/* measured orbit demo height on phones (pass table stacks) */
+/* Measured orbit demo height on phones (the pass table stacks). Set on :root so a variant's own root can override it. */
 @media (max-width: 560px) {
-  .demo-slot:has(.orbit), .demo-slot { --demo-h-orbit: 1100px; }
+  :root { --demo-h-orbit: 1100px; }
 }

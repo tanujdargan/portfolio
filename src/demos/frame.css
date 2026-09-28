@@ -67,11 +67,14 @@
 }
 .demo-seg {
   display: inline-flex;
+  flex-wrap: wrap; /* on phones whole options wrap; labels never break mid-option */
+  max-width: 100%;
   padding: 2px;
-  border-radius: 999px;
+  border-radius: 18px;
   box-shadow: inset 0 0 0 1px var(--d-line);
 }
 .demo-seg button {
+  white-space: nowrap;
   min-height: 32px;
   padding: 0 12px;
   border-radius: 999px;
