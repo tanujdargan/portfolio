@@ -46,7 +46,7 @@ const short: Record<string, { role: string; org: string; when: string; line: str
     role: 'Lead AI Developer',
     org: 'Pear Care',
     when: '2025–2026',
-    line: 'Medical-AI agents across 1,000+ clinical specialties, served with FastAPI on GCP.',
+    line: 'Medical-AI agents for 1,000+ clinical specialties, on FastAPI and GCP.',
   },
   'MLH Fellowship · Apache Airflow': {
     role: 'SWE Fellow',
@@ -106,7 +106,7 @@ export const researchEntries: Entry[] = (
     key: 'es-lora',
     when: 'May 2026',
     title: 'Fine-tuning without gradients',
-    hook: 'Evolution strategies fine-tune Qwen2.5-1.5B on GSM8K with a binary reward.',
+    hook: 'Evolution strategies train Qwen2.5-1.5B on GSM8K from a binary reward.',
     tags: ['LoRA', 'ES'],
     demo: 'es',
     flag: r['es-lora'].unverified?.[0],

@@ -16,12 +16,24 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* Metric-matched fallbacks (widths measured with calib.mjs; vertical metrics from each font's hhea). */
+/* Inter vs Arial, measured on this page's own text (not a sample string): 106.5% for the 400 body copy, 100.6% for
+   the 560–650 titles, which fall back to Arial Bold. Ascent/descent are Inter's hhea (0.969/0.241) over each size-adjust. */
 @font-face {
   font-family: 'p2 Inter Fallback';
+  font-weight: 100 549;
   src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
-  size-adjust: 105.3%;
-  ascent-override: 92%;
-  descent-override: 22.9%;
+  size-adjust: 106.5%;
+  ascent-override: 91%;
+  descent-override: 22.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'p2 Inter Fallback';
+  font-weight: 550 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Neue Bold'), local('Helvetica Bold');
+  size-adjust: 100.6%;
+  ascent-override: 96.3%;
+  descent-override: 24%;
   line-gap-override: 0%;
 }
 @font-face {
@@ -404,7 +416,6 @@
 .p2 .p2-tile {
   grid-area: tile;
   margin-top: 3px;
-  --s: 36px;
 }
 .p2-job__main {
   display: contents;
@@ -430,7 +441,6 @@
   font-size: 14.5px;
   line-height: 1.55;
   color: var(--fg-2);
-  text-wrap: pretty;
 }
 .p2-plus {
   grid-area: plus;
@@ -820,7 +830,7 @@ a.p2-more__row:hover .p2-arrow {
   .p2 {
     --pad: 40px;
     --gut: 124px;
-    --demo-h-steering: 1018px;
+    --demo-h-steering: 1019px;
     --demo-h-lossmask: 484px;
     --demo-h-es: 665px;
     --demo-h-retrieval: 650px;
@@ -873,10 +883,10 @@ a.p2-more__row:hover .p2-arrow {
 }
 
 /* ---------- desktop: two columns, left pinned ---------- */
-@media (min-width: 1024px) {
+@media (min-width: 1120px) {
   .p2 {
     --pad: 56px;
-    --demo-h-steering: 535px;
+    --demo-h-steering: 585px;
     --demo-h-lossmask: 531px;
     --demo-h-es: 630px;
     --demo-h-retrieval: 615px;
@@ -989,7 +999,7 @@ a.p2-more__row:hover .p2-arrow {
   }
 
 }
-@media (min-width: 1024px) and (pointer: fine) {
+@media (min-width: 1120px) and (pointer: fine) {
   .p2-btn {
     min-height: 38px;
   }
@@ -997,7 +1007,7 @@ a.p2-more__row:hover .p2-arrow {
     margin-top: 12px;
   }
 }
-@media (min-width: 1024px) and (max-height: 700px) {
+@media (min-width: 1120px) and (max-height: 700px) {
   .p2-side {
     padding-block: 64px 32px;
   }
@@ -1007,6 +1017,29 @@ a.p2-more__row:hover .p2-arrow {
     --pad: 16px;
   }
 }
+/* Steering is open on load, so its slot is reserved per width range. Measured at its tallest first state (α = 0, before
+   its one demonstration sweep), so neither the load nor the sweep moves the page; the demo reflows at ~760px. */
+@media (min-width: 640px) and (max-width: 759px) {
+  .p2 {
+    --demo-h-steering: 960px;
+  }
+}
+@media (min-width: 860px) and (max-width: 1119px) {
+  .p2 {
+    --demo-h-steering: 510px;
+  }
+}
+@media (min-width: 1120px) and (max-width: 1199px) {
+  .p2 {
+    --demo-h-steering: 694px;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1279px) {
+  .p2 {
+    --demo-h-steering: 609px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .p2-rise,
   .p2-more[open] .p2-more__list {

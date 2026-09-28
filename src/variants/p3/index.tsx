@@ -166,7 +166,6 @@ function Slot({ kind, fold, hero }: { kind: Kind; fold?: boolean; hero?: boolean
         <button
           type="button"
           className="p3-run"
-          aria-label={`Run the demo: ${DEMO_NAME[kind]}`}
           onClick={() => {
             tapped.current = true
             setOpen(true)

@@ -334,7 +334,6 @@ function CopyEmail() {
     <button
       type="button"
       className="p1-email"
-      aria-label={copied ? 'Email address copied' : `Copy email address ${person.email}`}
       onClick={async () => {
         try {
           await navigator.clipboard.writeText(person.email)

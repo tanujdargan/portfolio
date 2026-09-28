@@ -1,27 +1,159 @@
 {
- "/lab/c1": {
+ "/lab/p1": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 96,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1352,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1052
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 96,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 323,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 283
+  }
+ },
+ "/lab/p1/research/activation-steering": {
   "mobile": {
    "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 1501,
+   "lcp": 1203,
    "cls": 0,
    "tbt": 0,
-   "fcp": 1351
+   "fcp": 1053
   },
   "desktop": {
    "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 361,
+   "lcp": 323,
    "cls": 0,
    "tbt": 0,
-   "fcp": 321
+   "fcp": 283
   }
  },
- "/lab/c1/research/activation-steering": {
+ "/lab/p2": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1502,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1202
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 363,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 283
+  }
+ },
+ "/lab/p2/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1353,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1203
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 324,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 284
+  }
+ },
+ "/lab/p3": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1204,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1054
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 283,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 283
+  }
+ },
+ "/lab/p3/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1203,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1053
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 284,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 284
+  }
+ },
+ "/lab/p4": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1503,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1203
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 364,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 284
+  }
+ },
+ "/lab/p4/research/activation-steering": {
   "mobile": {
    "perf": 100,
    "a11y": 100,
@@ -37,195 +169,19 @@
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 364,
+   "lcp": 322,
    "cls": 0,
    "tbt": 0,
-   "fcp": 284
+   "fcp": 282
   }
  },
- "/lab/c2": {
+ "/lab/p5": {
   "mobile": {
-   "perf": 99,
+   "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
    "lcp": 1653,
-   "cls": 0.001,
-   "tbt": 0,
-   "fcp": 1503
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 363,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 323
-  }
- },
- "/lab/c2/research/activation-steering": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1504,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1354
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 323,
-   "cls": 0.002,
-   "tbt": 0,
-   "fcp": 283
-  }
- },
- "/lab/c3": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1505,
-   "cls": 0.014,
-   "tbt": 0,
-   "fcp": 1205
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 363,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 323
-  }
- },
- "/lab/c3/research/activation-steering": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1204,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1054
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 323,
-   "cls": 0.023,
-   "tbt": 0,
-   "fcp": 283
-  }
- },
- "/lab/c4": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1501,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1351
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 361,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 321
-  }
- },
- "/lab/c4/research/activation-steering": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1204,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1054
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 283,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 283
-  }
- },
- "/lab/v0": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1353,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1203
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 323,
-   "cls": 0.001,
-   "tbt": 0,
-   "fcp": 283
-  }
- },
- "/lab/v1": {
-  "mobile": {
-   "perf": 99,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1654,
-   "cls": 0.008,
-   "tbt": 0,
-   "fcp": 1504
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 404,
-   "cls": 0.001,
-   "tbt": 0,
-   "fcp": 364
-  }
- },
- "/lab/v2": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1503,
    "cls": 0,
    "tbt": 0,
    "fcp": 1353
@@ -235,20 +191,20 @@
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 673,
+   "lcp": 404,
    "cls": 0,
    "tbt": 0,
-   "fcp": 323
+   "fcp": 324
   }
  },
- "/lab/v3": {
+ "/lab/p5/research/activation-steering": {
   "mobile": {
    "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
    "lcp": 1353,
-   "cls": 0.003,
+   "cls": 0,
    "tbt": 0,
    "fcp": 1203
   },
@@ -257,54 +213,10 @@
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 364,
-   "cls": 0.002,
-   "tbt": 0,
-   "fcp": 324
-  }
- },
- "/lab/v4": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1504,
-   "cls": 0.024,
-   "tbt": 0,
-   "fcp": 1354
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 364,
-   "cls": 0.017,
-   "tbt": 0,
-   "fcp": 324
-  }
- },
- "/lab/v5": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1355,
+   "lcp": 324,
    "cls": 0,
    "tbt": 0,
-   "fcp": 1205
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 363,
-   "cls": 0.029,
-   "tbt": 0,
-   "fcp": 323
+   "fcp": 284
   }
  },
  "/lab/v4b": {
@@ -313,10 +225,10 @@
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 1504,
+   "lcp": 1502,
    "cls": 0,
    "tbt": 0,
-   "fcp": 1354
+   "fcp": 1352
   },
   "desktop": {
    "perf": 100,
@@ -327,6 +239,28 @@
    "cls": 0,
    "tbt": 0,
    "fcp": 323
+  }
+ },
+ "/lab/v4b/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1354,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1204
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 324,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 284
   }
  },
  "/lab/v6": {
@@ -345,76 +279,32 @@
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 363,
+   "lcp": 362,
    "cls": 0,
    "tbt": 0,
-   "fcp": 363
+   "fcp": 362
   }
  },
- "/lab/v7": {
+ "/lab/v6/research/activation-steering": {
   "mobile": {
    "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 1356,
-   "cls": 0.001,
-   "tbt": 4,
-   "fcp": 1206
+   "lcp": 1354,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1204
   },
   "desktop": {
    "perf": 100,
    "a11y": 100,
    "bp": 100,
    "seo": 100,
-   "lcp": 363,
+   "lcp": 323,
    "cls": 0.002,
    "tbt": 0,
    "fcp": 323
-  }
- },
- "/lab/v8": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1504,
-   "cls": 0.012,
-   "tbt": 0,
-   "fcp": 1354
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 363,
-   "cls": 0.001,
-   "tbt": 0,
-   "fcp": 323
-  }
- },
- "/lab/v9": {
-  "mobile": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 1504,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 1354
-  },
-  "desktop": {
-   "perf": 100,
-   "a11y": 100,
-   "bp": 100,
-   "seo": 100,
-   "lcp": 364,
-   "cls": 0,
-   "tbt": 0,
-   "fcp": 324
   }
  }
 }

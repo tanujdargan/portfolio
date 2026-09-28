@@ -39,7 +39,7 @@ export function Links({
         const ext = !l.href.startsWith('mailto:')
         return (
           <li key={k} data-link={k}>
-            <a href={l.href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})} aria-label={mode === 'icon' ? l.label : undefined}>
+            <a href={l.href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})} aria-label={mode === 'icon' || mode === 'both' ? l.label : undefined /* 'both' too: variants hide the text on phones */}>
               {(mode === 'icon' || mode === 'both') && <LinkIcon k={k} size={size} />}
               {mode === 'label' || mode === 'both' ? <span>{l.label}</span> : mode === 'short' ? <span>{l.short}</span> : null}
             </a>

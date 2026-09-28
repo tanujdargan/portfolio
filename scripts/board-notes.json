@@ -1,394 +1,146 @@
 {
- "date": "2026-09-27",
- "previewUrl": "http://localhost:4173",
- "lookFirst": [
-  "<b>C1 Dusk on your phone, then on a laptop.</b> It's the one that should make you say 'this is my website': your own Toronto sky goes from golden hour to night as you scroll from Amazon back to 2022, with the name set big over it. Then drag α in the steering instrument and watch the tracker's next-pass countdown.",
-  "<b>C2 Instrument</b> if C1 feels too atmospheric. It has the same content, research-first and calm, and it's the easiest to ship today.",
-  "<b>C3 City of points</b> for the wow: your night skyline turns into the research clusters.",
-  "<b>C4 Field notes</b> if reading matters most. It's the most personal writing, but the least interactive on phones.",
-  "Dock → Content toggles Beri, VikeLabs and CDE, plus the (now off-by-default) unverified badges."
- ],
- "baseline": "Generic student template: gradient 'Hi, I'm Tanuj', a typing code card, a 60-chip skills wall and GitHub stat cards. On iPhone the code card sits above the name, so the recruiter test fails. Amazon, Beri and the interpretability work are absent. Full diagnosis in PORTFOLIO_DIAGNOSIS.md.",
- "variants": [
-  {
-   "id": "c1",
-   "name": "Dusk",
-   "tag": "candidate · leans v9",
-   "rationale": "The whole home page is one dusk. Tanuj's own Toronto timelapse is a fixed backdrop, and scrolling from now back to 2022 carries it from golden hour into night. Nothing on the page explains the metaphor. The name is set big in Fraunces Italic over his skyline. This is the one that reads as a person before it reads as a portfolio.",
-   "borrowed": "v9: italic display name, the calm, the ocean instrument. v6: instrument framing (question → instrument → result, REAL labels). v4b: the chronology, now as three flagship chapters (Amazon with Beri, Research, MarmotSat + live tracker) and a year-grouped index.",
-   "fixes": "No person → his timelapse is the structure and his photographs close the page. No hierarchy → 3 flagships, then an index. Demos as a gallery → why → instrument → result. No logos → marks on proofs and every experience row. Too long → 7,556 px at 393 (was 14k in v4b). Labels as copy → first-person sentences. Badges → none.",
-   "type": "Fraunces Italic 340 display, Newsreader 400–520 reading, Geist Mono data. Latin-only subsets, 66 KB, fallbacks within 0.1%.",
-   "moments": [
-    "Scroll-scrubbed Toronto sky (golden hour → night) behind the whole page",
-    "Steering, loss-masking and ocean instruments (tabbed on phones)",
-    "Live MarmotSat tracker with next pass over Victoria",
-    "Expandable ES-LoRA and retrieval rows, experience rows",
-    "Copy email"
-   ],
-   "patterns": "P02, P08, P19, P27, P32, P39",
-   "issues": "On phones the three instruments share one tabbed slot to keep the page under 8k px. The tracker's following-passes table is hidden on phones. The sticky year header briefly overlaps a row under 900 px."
+  "date": "2026-09-28",
+  "previewUrl": "http://localhost:4173",
+  "intro": "Reset round. The exploration is archived; five new variants (P1–P5) were built from the density rules in DIAGNOSIS_V2.md, next to the two references they replace (v4b, v6). Every variant is dark, prerendered, uses the same full-colour logo tiles and the same six demos in one shared frame.",
+  "lookFirst": [
+    "<b>P5 Specimens</b>: the most crafted and the shortest. Research and MarmotSat are a 3×2 grid of posters drawn from each demo's own data; tap one and the live demo opens in place. 3,035 px on desktop and 4,883 px on mobile, with every demo one tap away.",
+    "<b>P3 Research-forward</b>: the most character. Serif titles on near-black; the demos are large numbered plates. Choose it if research should lead, and accept that Work comes after five plates.",
+    "<b>P2 SWE classic</b>: the fastest recruiter scan. On desktop the whole experience list fits the first screen beside a pinned name and actions.",
+    "P1 Refined and P4 Creative share a skeleton. P1 is the calm baseline; P4 is P1 plus four precise interactions (open a work row, hover the action row, watch the section headings settle)."
+  ],
+  "changelog": {
+    "deleted": [
+      "Variants v0, v1, v2, v3, v4, v5, v7, v8, v9 and candidates C1–C4, with their fonts and assets. All archived on the local branch <code>archive/portfolio-exploration</code> (065d3f6), not pushed.",
+      "All photography: the Toronto timelapse (146 frames), Unsplash and YouTube data, their components (ScrollTimelapse) and copy.",
+      "YouTube and Unsplash from the social links.",
+      "Seven unused font packages; the old reference thumbnails and flag captures on this board (≈ 8 MB).",
+      "Chapter data and other dead code left by the deleted variants."
+    ],
+    "added": [
+      "<b>DIAGNOSIS_V2.md</b>: a measured density audit of v4b and v6 (words, elements and focal points per screen, cards over 25 words), why v9 and the timelapse rounds failed, and the rules for P1–P5.",
+      "<b>P1–P5</b>, built to <code>docs/P_BRIEF.md</code>. All meet: first screen = name, one line, Resume/GitHub/LinkedIn/X/Email; a compact bar with the same actions after the hero; ≤ 25-word cards; details behind disclosure; write-ups on their own pages.",
+      "<b>Full-colour official logos</b> on uniform 40×40 vector tiles (<code>OrgTile</code>): Amazon, RBC, UVic, UVic CfAR and MLH. The CfAR mark was downloaded from uvic-cfar.com and traced to vector with the drop shadow removed. Sources and crops: <code>docs/logos/SOURCES.md</code>.",
+      "<b>One demo shell</b>: every demo caption is now one line (≤ 25 words) with a <i>Method</i> disclosure; the tracker is labelled 'Real data'; segmented controls wrap by whole option on phones; the ocean demo's '0 m' label no longer collides with the surface line.",
+      "This board: density per variant (measured on the production build), Lighthouse, screenshots and a scroll recording per variant, and a critique of each."
+    ]
   },
-  {
-   "id": "c2",
-   "name": "Instrument",
-   "tag": "candidate · leans v6/v4b",
-   "rationale": "The calmest and most ship-ready. It reads like the site of a researcher who also ships production systems. The research comes first as five instruments at full measure. Amazon and MarmotSat follow as flagships with big numbers, then a dated, logo-led index. The timelapse appears as full-bleed bands between chapters that get darker as the page goes back in time.",
-   "borrowed": "v6: Newsreader + Geist Mono and the real joy-direction data, now a static hero figure (tap → the instrument). v4b: the chronology as a dated index with flip metrics. v9: the italic name and the dusk palette, now his timelapse bands.",
-   "fixes": "No person → first-person copy, timelapse bands, a photo strip and YouTube timelapses. No hierarchy → Research / Amazon / MarmotSat told big, the rest behind '6 more, back to 2022'. Demos as a gallery → question, instrument, one result sentence, write-up link. No logos → marks everywhere. Too long → 7,700 px at 393. v6's duplicate hero console → a static real figure instead.",
-   "type": "Newsreader (reading and display, with a 4 KB italic cut of the name), Geist Mono labels only. Three sizes on home. 68 KB.",
-   "moments": [
-    "Five research instruments at full width",
-    "Timelapse bands scrubbing golden hour → night",
-    "Live MarmotSat tracker (inline on desktop, one tap on phones)",
-    "Hero figure of the real joy activations that jumps to the instrument",
-    "Rolling metrics, expandable index, copy email"
-   ],
-   "patterns": "P01, P06, P17, P19, P39",
-   "issues": "On phones the tracker sits behind one tap ('Where MarmotSat is right now') to stay under 8k px."
-  },
-  {
-   "id": "c3",
-   "name": "City of points",
-   "tag": "candidate · most creative",
-   "rationale": "His Toronto skyline at night rebuilt from its own lit pixels as a WebGL2 point field. Scrolling unthreads the city lights into the embedding space of the work, and the interpretability cluster is the real Qwen2.5 activations. Scroll back and the city re-forms. It's his photograph and his research in a single image.",
-   "borrowed": "v6: the raw-WebGL2 field and the real activation clusters (the loss-masking cluster is the real tokenised chat). v9: one living backdrop and the calm. v4b: numbers before prose, as rolling counters.",
-   "fixes": "No person → his own photo IS the scene, and the photography section is titled 'The city these points came from'. No hierarchy → 3 chapters, then a logo index. Demos → why → instrument → result. No logos → proofs and every row. Too long → 7,911 px. Demo-ness → the morph explains itself: city in, clusters out.",
-   "type": "Instrument Sans display and reading, Martian Mono data only. 53 KB. Cool near-black with one sodium-light accent.",
-   "moments": [
-    "Scroll morph: city of lights ↔ research clusters",
-    "Hover or focus a research entry to highlight its cluster",
-    "Steering instrument on home, loss-masking and ocean (one tap on phones), ES and retrieval rows",
-    "Live MarmotSat tracker",
-    "Scrubbed timelapse, rolling counters, copy email"
-   ],
-   "patterns": "P04, P32, P33, P34, P39, V6-P*",
-   "fps": "60 fps idle, morphing and scrolling back at 4× CPU throttle on the M5 GPU. Worst frame 17 ms. Capped at 56k points on phones, with adaptive shedding. A real mid-range phone GPU is untested.",
-   "issues": "On phones, loss-masking and ocean are one tap away. With Beri, VikeLabs and CDE all on, the page reaches 8,042 px."
-  },
-  {
-   "id": "c4",
-   "name": "Field notes",
-   "tag": "candidate · most personal",
-   "rationale": "A single-column notebook of the work by year, newest first, set in a humanist serif at reading size. Each year opens with one of his own photographs as a chapter plate. The Toronto timelapse is the 2026 plate. Flagships get prose, numbers and instruments; everything else is a one-line row with a logo.",
-   "borrowed": "v4b: newest-first chronology, display numbers only on flagships, sticky year rail. v6: instrument framing and Newsreader. v9: Fraunces Italic warmth and the dusk palette, now from his photos.",
-   "fixes": "No person → first-person notes, his photos as plates, 'What I shoot'. No hierarchy → flagship entries vs one-line rows. Demos → why/instrument/result, restyled into the page type. No logos → marks on every experience entry. Too long → 7,916 px. Labels → sentences.",
-   "type": "Newsreader 400/540 at 19–20 px, Fraunces Italic 360 headings, Geist Mono dates. Static latin cuts, 72 KB. Warm paper-black, amber = live.",
-   "moments": [
-    "Timelapse chapter plate with a phase readout",
-    "Instruments inline on desktop",
-    "Live MarmotSat tracker",
-    "Year rail (desktop) and a year jump menu (phones)",
-    "Expandable minor entries, copy email"
-   ],
-   "patterns": "P08, P10, P19, P27, P30",
-   "issues": "On phones every instrument (including steering, loss-masking and ocean) is one tap away, and research result sentences show only after opening. It's the most readable candidate but the least interactive on a phone. The Beri + VikeLabs + CDE state reaches 8,057 px."
-  },
-  {
-   "id": "v0",
-   "name": "Refined",
-   "rationale": "The current structure (hero → about → experience → research → contact), fixed per the diagnosis. The name, the claim and three proof points are the first screen. The steering demo leads Research. The skills wall, gradients and stat cards are gone. The safe option.",
-   "type": "Geist + Geist Mono, one Instrument Serif italic word. Warm grey dark, one soft-violet accent.",
-   "moments": [
-    "Steering demo",
-    "Experience rows expand in place (spring height)",
-    "Nav pill slides to the section in view",
-    "Copy-email morph"
-   ],
-   "patterns": "P01, P02, P19, P24, P27"
-  },
-  {
-   "id": "v1",
-   "name": "Research lab",
-   "rationale": "Reads like a small lab's front page. A masthead, then Fig. 1 (live steering) with a framing lede, the five write-ups as numbered notes, Fig. 2 (loss masking), then applied work. Sidenotes and linked terms make the prose point at the figures. Built for research-program reviewers.",
-   "type": "Newsreader (wght) 19/30 at 62ch + IBM Plex Mono 500 labels; old-style digits subset from Source Serif 4 (3 KB). Warm dark, teal accent for live data only.",
-   "moments": [
-    "Fig. 1 steering + Fig. 2 loss-masking live",
-    "Linked terms (α, the scatter, λp) pulse the matching part of the figure",
-    "Margin sidenotes, tap-to-open on mobile",
-    "Global pause-all-motion",
-    "Sticky contents list with a sliding bar on write-ups"
-   ],
-   "patterns": "P01, P06, P10, P11, P12, P13, P14, P27",
-   "issues": "The pause control drives the shared demos through their buttons, which is a workaround. A shared paused flag would be cleaner."
-  },
-  {
-   "id": "v2",
-   "name": "Design engineer",
-   "rationale": "A 760px column where the whole identity fits one screen. Below it are dense index rows with one proof metric each. The micro-interactions are the argument that he can build: ⌘K, cursor-follow previews, an odometer and a live Toronto clock.",
-   "type": "Inter Tight + JetBrains Mono, subset to the glyphs used (68 KB). Body 14/21, one display step. Green accent for live only.",
-   "moments": [
-    "⌘K command menu (also on mobile)",
-    "Cursor-following row previews with real mini-figures; tap-to-expand on touch",
-    "Copy-email morph with width animation",
-    "Odometer metrics and a rolling clock",
-    "Nav pill following the section",
-    "Inline steering demo"
-   ],
-   "patterns": "P01, P03, P17, P18, P19, P24, P25, P27",
-   "issues": "The metric strip's hidden odometer digits get copied along if you select the text. Glyphs outside the font subset (α, ‖) render in the metric-matched system fallback."
-  },
-  {
-   "id": "v3",
-   "name": "Vector space",
-   "rationale": "Three.js space where the work is the data. There are 5,180 points in six domain clusters and 20 labelled nodes, and the Interpretability cluster uses the real joy activations and steering direction. A HUD keeps the recruiter facts legible before WebGL loads, and a plain document sits below.",
-   "type": "Instrument Sans (display, uppercase) + Martian Mono HUD. Cool near-black, mint for live nodes.",
-   "moments": [
-    "Drag to orbit with damped inertia",
-    "Click a node to fly there and open a sheet with facts and links",
-    "Cluster index that flies between clusters (works without WebGL)",
-    "'Locate in space' from each document section",
-    "Steering demo"
-   ],
-   "patterns": "P04, P29 (HUD only), P12, P01, P19, P27, P28",
-   "issues": "three.js is 192 KB gzipped (lazy, after first paint). A few labels at 1440 hide behind the hero panel until focused."
-  },
-  {
-   "id": "v4",
-   "name": "Narrative",
-   "rationale": "The original place-based story (Dehradun → Toronto), kept as you asked. Its facts now follow the resume and the content flags. See V4b for the version told through the work.",
-   "type": "Fraunces (wght, light, 96–184px) + Onest 18/29. Warm dark, ember accent only on the route.",
-   "moments": [
-    "Scroll-drawn route, tap a city to jump",
-    "Pinned place names and years swapping with direction",
-    "Retrieval demo in Victoria, steering demo in Toronto",
-    "Expandable chapter notes",
-    "Copy email"
-   ],
-   "patterns": "P02, P03, P05, P08, P17, P19, P22, P27, P28, P30",
-   "issues": "The Dehradun and Gurgaon chapters are one line each and flagged, because I found no facts to fill them.",
-   "tag": "kept (original)"
-  },
-  {
-   "id": "v5",
-   "name": "Model card",
-   "rationale": "Tanuj documented as a model release: headline evals, intended use, training data (the chronology), a sortable evaluations table, limitations and a citation block. It's witty through precision, and the header still passes the 5-second test.",
-   "type": "IBM Plex Sans (subset to used glyphs, 35 KB) + Plex Mono 400; the two accent words use a system serif italic (Iowan/Georgia). Warm graphite, mint accent.",
-   "moments": [
-    "Inference widget: canned questions stream pre-written answers token by token (labelled, not an LLM)",
-    "Sortable eval table with spring reorder",
-    "Steering demo as 'Steering this model'",
-    "Copy BibTeX / copy email",
-    "Hover anchors and sliding tab underline"
-   ],
-   "patterns": "P01, P06, P14, P18, P19, P24, P27",
-   "issues": "The home page is long on mobile (about 9,900 px). The BibTeX block scrolls sideways on phones."
-  },
-  {
-   "id": "v4b",
-   "name": "Narrative: the work",
-   "tag": "new",
-   "rationale": "The scroll story with places removed: 2022 → 2026 told only through projects and research. A pinned time axis moves from milestone to milestone as you scroll, bars stack up as the work compounds, and each milestone's number flips in with a colour per category. Live demos sit at their milestones: retrieval at DEIA, ES at ES-LoRA, loss-masking at the sprint, steering at 'now'.",
-   "type": "Martian Mono (wide) display and numbers, JetBrains Mono body. Latin-only, 78 KB. Graphite ground, one accent per category.",
-   "moments": [
-    "Scroll-scrubbed time axis with flip-counter metrics",
-    "Tap a bar or use the arrow keys to jump to a milestone",
-    "Category counts highlight their bars",
-    "Four demos at their milestones",
-    "Expandable experience rows, copy email"
-   ],
-   "patterns": "P08, P17, P19, P30, P39",
-   "issues": "On phones, the tall steering demo sits under the pinned block while you use it. Big-number choices per milestone are mine (all from site.ts)."
-  },
-  {
-   "id": "v6",
-   "name": "Latent space",
-   "tag": "experimental",
-   "rationale": "You fly through a 150k-point latent space. The interpretability cluster IS the real Qwen2.5 activations, and the α console bends the whole field along the real joy, distress or certainty direction while the real steered answer types out. The cursor acts as a query vector. It shows his research running without explaining it.",
-   "type": "Geist Mono display and HUD, Newsreader body (subset, 64 KB).",
-   "moments": [
-    "Scroll flight through 5 clusters that decode out of noise",
-    "Steering console: real α grid, the field bends, the real answer types (distress +1.2 jitters where the model collapsed)",
-    "Cursor query ray lighting points by cosine similarity",
-    "Dissolve-to-points page transition into write-ups",
-    "Shared steering demo, expandable rows, copy email"
-   ],
-   "patterns": "P32, P33, P34, P39, V6-P1–P7",
-   "fps": "58–60 fps during flight at 4× CPU throttle on a real GPU (Apple M5) in desktop and mobile emulation. With software GL (SwiftShader) desktop drops to 36–46 fps even after adaptive reduction. Boot long tasks 50–150 ms. Not tested on a real mid-range phone.",
-   "issues": "The mobile page is long (58svh viewing gaps per cluster). Overview labels can overlap. The console and the shared demo both steer on the home page, which is redundant."
-  },
-  {
-   "id": "v7",
-   "name": "Mission control",
-   "tag": "experimental",
-   "rationale": "MarmotSat's operations console. The orbit uses the satellite's REAL TLE (NORAD 69912 via SatNOGS), with pass predictions over Victoria. His work is mapped to spacecraft subsystems that stream telemetry built only from real metrics, and a YAMCS-style console navigates the site. The credibility is literal: the firmware he led is up there.",
-   "type": "Geist Mono HUD, Onest prose. Latin-only, 57 KB, contrast ≥ 5.4:1.",
-   "moments": [
-    "Live orbit: dotted Earth, terminator, ground track, footprint, time warp LIVE/×90/×600",
-    "Command console (/ or ⌘K): /tlm amazon, /open research steering, /downlink resume",
-    "Subsystem panels with streamed telemetry and an INSPECT drawer",
-    "Event log typing in, downlink page transition",
-    "SIGNAL audio (synthesised, off by default), steering demo as ADCS"
-   ],
-   "patterns": "P34, P35, P40, V7-P1–P8",
-   "fps": "60 fps at 4× CPU throttle, 0 frames over 20 ms, ~0.6–0.9 ms main thread per frame, no long task over ~57 ms after setup was split. The GPU was an M5, so real-phone GPU cost is unmeasured.",
-   "issues": "Propagation is simplified (two-body + J2); the UI shows TLE age and 'approximate'. The TLE will drift unless it's refreshed."
-  },
-  {
-   "id": "v8",
-   "name": "Billion vectors",
-   "tag": "experimental",
-   "rationale": "His DEIA billion-vector work turned into the site's navigation. A 1M-point WebGL2 field (256k on phones) is the index. Typing a query probes IVF lists, draws graph hops and flies to the top-k, which are the sections and write-ups. Scrolling descends from 1,000,000,000 vectors to one. Every number is tagged measured, simulated or illustrative.",
-   "type": "Martian Mono condensed display and numbers, Geist prose. Latin-only, 67 KB.",
-   "moments": [
-    "Search as navigation (/ or ⌘K): probe lists → graph hops → fly to top-k",
-    "Scroll descent from 1B to 1 vector",
-    "Nearest-neighbour cursor halo that opens what it's on",
-    "Shared retrieval demo",
-    "Plain HTML index and results that work without WebGL"
-   ],
-   "patterns": "P33, P34, P38, V8-P1–P6",
-   "fps": "60 fps idle, 58 fps scrolling, 60 fps during search at 4× CPU throttle (M5 GPU). One 87 ms long task on first search open. Software-GL captures show ~20 fps.",
-   "issues": "Keyword scoring, not embeddings; the page says so. Dense probed lists blow out toward white. Weak matches still fill the top 6 (marked 'far')."
-  },
-  {
-   "id": "v9",
-   "name": "Depth",
-   "tag": "experimental",
-   "rationale": "His ocean-sensing work turned into the medium. A full-screen raw-WebGL ocean at dusk: the surface is now, and you dive 100 m per year back to Hack@JBCNOsh on the seabed. Milestones surface as sonar pings, and a satellite probe lowers through the water comparing predicted vs sensor temperature (illustrative, and the real R² is badged unverified).",
-   "type": "Fraunces Italic display, Geist Mono readouts, system sans body. 68 KB.",
-   "moments": [
-    "Surface ripples under the cursor or finger",
-    "Depth gauge you can drag or arrow through (metres and years)",
-    "Satellite sensor probe: predicted vs sensor at 12 depths",
-    "Sonar-ping milestones resolving into cards, steering demo at the surface",
-    "Optional synthesised ambient audio (off by default)"
-   ],
-   "patterns": "P32, P33, P39, V9-P1–P8",
-   "fps": "60 fps (p95 16.7 ms) at the surface, while diving and underwater at 4× CPU throttle (M5 GPU), render scale 0.5 on mobile. Software GL: a 1.3 s stall while diving, 43–49 fps underwater.",
-   "issues": "Built around SOLIDS, which isn't on the latest resume, so it depends on your call there. Very dark below ~150 m. The moon is slightly oval near the right edge."
-  }
- ],
- "demos": [
-  "<b>Activation steering</b> (real): 108 greedy generations from Qwen2.5-1.5B-Instruct with difference-of-means joy / distress / certainty vectors, 9 steering strengths × 4 prompts, plus real activation projections. Generated on this Mac for the page (scripts/steer.py). Findings: joy flips between +0.3 and +0.6‖h‖. Distress steering produces refusals, not anxious prose. Certainty leaks the literal word \"Certainly\". Three outputs at +1.2 collapse into off-topic tokens; their tails are hidden and labelled.",
-  "<b>Loss masking</b> (exact definition, illustrative conversation): per-token λp/λr weights on real Qwen2.5 tokens, and the share of training signal from prompt vs response.",
-  "<b>Evolution strategies</b> (illustrative): live (μ=8, λ=45)-ES on a 2-D landscape, using the same selection rule as the real ES-LoRA run on GSM8K. σ slider, tap to reposition.",
-  "<b>IVF retrieval</b> (illustrative): 24k points and 48 k-means lists. Moving the query shows recall@10 against the fraction scanned, extrapolated to 1B vectors."
- ],
- "flags": [
-  "<b>Resume PDF is stale</b> (last committed 2026-01-27): no Amazon, Beri or research sprint. Every variant links it. Drop a new <code>public/resume.pdf</code>.",
-  "<b>X handle</b>: none on GitHub, the old site or the resume. Links use <code>x.com/tanujdargan</code> as a guess.",
-  "<b>Steering results</b>: the write-up and demo use a replication run made for this site (real, but not your main project's models or numbers). Add the main project's findings.",
-  "<b>Digital Minds sprint outcome</b>: the local repo has scoping and dataset work (Jindal et al. prior-work finding, verified token ratios), but no final λ-grid results or submitted report. The write-up describes only the scoping.",
-  "<b>ES-LoRA results</b>: config verified from es_lora_original.py and the adapter is public on HF, but no GSM8K before/after or proxy-vs-random numbers were found.",
-  "<b>Dehradun and Gurgaon</b> chapters (V4 narrative, V5 training data): no years or details anywhere I could check.",
-  "<b>Amazon Robotics AI</b>: only the brief's wording is used (ML tooling for planning agents, return offer). No project details were invented.",
-  "<b>CDE 2026</b> described as the CFES Conference on Diversity in Engineering (inferred from cde2026.cfes.ca). <b>VikeLabs</b> described as building software for local non-profits (inferred). Confirm both.",
-  "<b>Parameter Golf</b> (OpenAI challenge, 8×H100, negative results) is listed under Earlier from ~/dev/parameter-golf/SESSION_REPORT.md. Not in the brief, so confirm it should be public.",
-  "<b>Beri</b>: no App Store status or user numbers are claimed. Redesign screens are labelled as in-progress directions, not shipped."
- ],
- "decisions": [
-  "<b>Stack kept</b>: Vite + React 18 + Framer Motion + Lucide. Added a 60-line prerender step (vite SSR build + renderToString per route), so every route ships as static HTML with its CSS inlined. That fixes SEO and LCP without moving to Next/Astro. three.js was added for V3 only (its own lazy chunk). No router library: a 30-line pushState router with view transitions.",
-  "<b>Dark only</b>, per your standing preference. 'Editorial' in V1 means editorial type on a warm dark ground.",
-  "<b>Real over illustrative</b>: the steering demo runs on real model outputs I generated locally rather than invented text. The other demos are labelled Illustrative or Exact on the figure itself.",
-  "<b>Fonts are the LCP budget</b>: Lighthouse's simulated slow 4G charges every font fetched before first paint. Swapping one 147 KB Newsreader opsz italic for a 22 KB italic took V0 mobile LCP from 2.86 s to 2.25 s. The variants use wght-only font files.",
-  "<b>Deferred hydration</b>: the prerendered HTML is complete, so the JS entry is injected after the first frame and nothing is preloaded. The ~100 KB of JS no longer competes with text and fonts. Mobile FCP dropped 0.3–0.6 s on every variant.",
-  "<b>Zero-shift font swaps</b>: every variant's fallback face uses size-adjust and ascent/descent overrides, measured with fontTools and then calibrated on rendered text in Chromium. Local names are full names (e.g. 'Menlo Regular'), because a bare 'Menlo' silently fails to match. This took V1 desktop CLS from 0.197 to 0.001 and the V3 write-up from 0.127 to 0.",
-  "<b>Lighthouse method</b>: <code>vite preview</code> of the production build, Lighthouse 12 default mobile (Moto G Power, slow 4G, 4× CPU) and desktop presets, best of 2 runs. <code>is-crawlable</code> is skipped because lab pages are deliberately noindex.",
-  "<b>Lab is hidden</b>: /lab/* is noindex and disallowed in robots.txt. The lab dock only renders under /lab. / currently serves V0 until you pick.",
-  "<b>Old code removed</b>: src/components, App.css and the abandoned Tailwind half-migration (untracked src/pages, src/lib/utils.ts, src/data) were replaced. The old site stays in git history and audit/current/.",
-  "<b>Beri assets</b>: shipped screens come from the getberi.com site. Redesign screens and simulator clips come from ~/beri/ios-redesign/design-board (V3, V5, V6 and V7 directions), compressed to about 40 KB per image and 150–530 KB per clip.",
-  "<b>Resume vs brief</b>: the resume wins on conflicts. Where it's silent (return offer, steering research, ES-LoRA, homelab, Hack@JBCNOsh), the brief is kept. SOLIDS isn't on the resume, so it stays but carries a badge everywhere.",
-  "<b>Raw WebGL over three.js</b> for V6, V8 and V9: each scene is one draw call over a procedural buffer, so three.js would only add weight. V3 and V7 use three (a real scene graph and globe).",
-  "<b>Frame rates</b> were measured in Chromium with 4× CPU throttling, on this Mac's GPU (Apple M5). That only proves the CPU side. Real mid-range phone GPUs are untested, and I've noted where each variant would degrade (adaptive counts and render scale are built in).",
-  "<b>Timelapse source</b>: the brief's path was a placeholder. I first found only Victoria timelapses (Mount Tolmie, 24 h) because the raw Toronto DJI files were gone; you then supplied <code>~/Downloads/Sunset_compressed.MOV</code>, which is what ships. <code>scripts</code> + <code>public/timelapse/toronto/</code> can be regenerated from any clip.",
-  "<b>Unsplash</b> blocks scripted requests (bot check), so the 20 photos were collected from your public profile in a real Chrome window. Images are hotlinked from images.unsplash.com, as Unsplash's guidelines require.",
-  "<b>Logos</b>: Amazon (Wikimedia Commons official wordmark), RBC Borealis (their site), UVic shield (uvic.ca; used for CFAR, DEIA and SOLIDS), MLH and Airflow (simple-icons). Pear Care has no public SVG anywhere I could reach, so it gets a typographic mark.",
-  "<b>satellite.js</b> added, as the brief asked. Its package root drags in a WebAssembly worker Vite can't bundle, so the tracker imports its plain-JS SGP4 modules. It gets its own lazy chunk (11 KB gz), loaded only with the tracker.",
-  "<b>CelesTrak rate limit</b>: after hundreds of automated test loads, CelesTrak started returning 403 to this machine (their normal throttle for repeat fetches). The tracker falls back to the build-time TLE and says so on the panel, and real visitors fetch at most once per 2 h per browser. Screenshots taken during the block show 'cached TLE'."
- ],
- "refs": [
-  "01-",
-  "02-",
-  "06-",
-  "08-",
-  "10-",
-  "12-",
-  "17-",
-  "18-",
-  "25-",
-  "26-",
-  "27-",
-  "30-",
-  "33-",
-  "34-",
-  "35-",
-  "36-",
-  "38-",
-  "40-",
-  "42-",
-  "43-",
-  "44-",
-  "47-",
-  "48-",
-  "49-",
-  "50-",
-  "51-",
-  "52-",
-  "57-",
-  "59-",
-  "60-",
-  "63-",
-  "64-",
-  "68-",
-  "69-",
-  "72-",
-  "73-",
-  "76-",
-  "78-",
-  "80-",
-  "83-",
-  "85-",
-  "86-",
-  "87-",
-  "89-",
-  "92-",
-  "93-",
-  "94-"
- ],
- "changelogDate": "2026-09-27",
- "resumeChanges": [
-  "<b>Amazon</b>: 'Amazon Robotics AI' becomes <b>Amazon Robotics</b>, and 'SDE intern' becomes <b>Software Development Engineer Intern, May – Aug 2026, Toronto</b>.",
-  "<b>Amazon work</b>: 'ML tooling for planning agents' becomes <b>an LLM-powered planning assistant shipped to production in Optimus</b> (labor optimization for 180+ fulfillment sites, NA and EU). Added: <b>$136.2M/yr projected savings</b>, a RAG pipeline (<b>60%+</b> faster time-to-insight), and a multi-turn what-if interface. The return offer is kept from the brief, since the resume doesn't mention it.",
-  "<b>New role: RBC Borealis AI Mentorship</b>, Mar – May 2026. PyTorch on 1,500+ longitudinal records (3+ years, 20+ features), UMAP gave 4+ cohorts, plus a dashboard for 4+ teams.",
-  "<b>CFAR / MarmotSat</b>: added <b>MarmotSat is in orbit</b> after launching on a SpaceX Falcon 9, plus TTC board design and cross-team integration. Testing time changed from '30 min → ~4 min' to <b>180 min → 15 min</b>. Added YAMCS integration that saves 20+ hours per release. Dates are now Apr 2025 – Apr 2026.",
-  "<b>Proof point #2</b>: with Beri hidden by default, it is now <b>MarmotSat, in orbit</b>. It switches back to Beri when the beri flag is on.",
-  "<b>DEIA</b>: dates are May 2025 – <b>Feb 2026</b> (was 'present'). 'IVF' is now <b>IVF-PQ</b>, and 8+ GPUs are now '8+ <b>NVIDIA</b> GPUs'. Added NVLink interconnect saturation as the profiled bottleneck.",
-  "<b>Pear Care</b>: ended <b>Apr 2026</b> (was 'present').",
-  "<b>MLH / Airflow</b>: the 'surfaced missed past DAG runs' bullet (from the Jan 2026 resume) is replaced by <b>Docker-based IDE debugging, setup-to-debug from hours to minutes</b>, team of 3 with RBC engineers.",
-  "<b>Digital Minds sprint</b>: the write-up now shows <b>real results</b>. Assistant-only loss maximizes expressed shutdown distress, user-turn loss restores a neutral register with no capability loss, and valence probing shows an expression–representation dissociation. The 'unverified: no results found' flag is removed.",
-  "<b>Optimate</b>: now reads <b>2 prizes out of 300+ teams</b>.",
-  "<b>AIMO</b>: the wording now covers fine-tuned open-weight models, NeMo-Skills reasoning strategies and ICL ablations.",
-  "<b>Education</b>: B.S. Computer Science, accelerated 3-year completion, April 2027, International Scholarship.",
-  "<b>SOLIDS / ocean sensing</b> is <b>not on the Aug 2026 resume</b>. It's kept because the brief lists it, but every mention is now badged unverified.",
-  "<b>Resume link</b>: <code>/resume.pdf</code> is now the Aug 19 2026 resume. It arrived via upstream main in the rebase and is byte-identical to the Desktop file.",
-  "<b>SEO and OG card</b>: now say Amazon Robotics, LLM planning assistant, MarmotSat in orbit. Beri was removed while hidden, and X was added to sameAs."
- ],
- "changelog": [
-  "<b>Git</b>: I hadn't pulled before pass 1. I rebased all 16 commits onto origin/main (4 upstream commits: a content+SEO update and 3 resume uploads). Conflicts: <code>src/components/{About,Experience,Projects,Skills}.tsx</code> (modify/delete; kept the deletion, since upstream's content intent is already in site.ts) and <code>index.html</code> (kept the redesign version, a superset of upstream's SEO tags). Upstream's newest resume.pdf came through unchanged.",
-  "<b>Resume is now the source of truth</b> (Aug 19 2026): 15 content changes across every variant, listed below. The biggest: Amazon's real work (an LLM planning assistant in production across 180+ sites, $136.2M/yr projected), MarmotSat in orbit, the RBC Borealis mentorship, and the Digital Minds sprint's real results.",
-  "<b>X</b> is <code>x.com/DarganTanuj</code>, everywhere socials appear, and in JSON-LD sameAs.",
-  "<b>Content flags</b>: Beri, VikeLabs and CDE 2026 are hidden by default in <code>src/content/flags.ts</code>. Lab toggles are under dock → Content (or <code>?show=beri,vikelabs,cde</code>). Every variant was checked in both states; with Beri off, proof point #2 becomes 'MarmotSat, in orbit'. The production prerender skips <code>/beri</code> while its flag is off, and the SEO/OG card no longer mentions Beri.",
-  "<b>Research accuracy</b>: RESEARCH_CLAIMS.md traces every claim in the 5 write-ups and 4 demos (source + confidence). Toggleable yellow UNVERIFIED badges mark every assumption or illustrative item, line by line. Content is unchanged, but one <b>discrepancy</b> is flagged with a proposed fix: the ES-LoRA method line misdescribes selection (the real run screens with a gradient proxy).",
-  "<b>MarmotSat launch verified</b>: SatNOGS lists it launched 2026-07-07 (NORAD 69912). The timeline now places it in Jul 2026, sourced.",
-  "<b>V4b Narrative: the work</b> is new. The story is told through projects and research over time, no places. V4 is kept untouched in structure, with updated facts.",
-  "<b>Four experimental variants</b>: V6 Latent space, V7 Mission control, V8 Billion vectors, V9 Depth. Three of them use raw WebGL/WebGL2 instead of three.js to keep chunks small, and all have static fallbacks, reduced-motion states and adaptive quality.",
-  "<b>Research</b>: 34 new references (#61–94) and PORTFOLIO_TASTE.md §8 (P32–P47, WebGL budget) and §9 (29 patterns from the variant agents).",
-  "<b>Lab</b>: the dock lists V0–V9 + V4b, adds the Content popover (flags + badges), and fits 360px.",
-  "<b>Perf bug found and fixed</b>: Rollup had folded shared steering data into V6's chunk and shared font CSS into V0's. As a result V3 loaded three.js and V6's code before first paint (mobile LCP 3.67 s), and V5 imported V0. Shared data and each font file now get their own chunks, and a leak check on the manifest reports zero cross-variant imports. After the fix: V3 at 2.29 s.",
-  "<b>Accessibility</b>: dimmed story steps in V4 and V4b now keep 4.5:1 contrast, and the unverified badge passes contrast even when its parent is dimmed. It's no longer focusable, so it can't trap focus inside aria-hidden regions. V8 label and underline fixes, and V8 write-up CLS 0.134 → 0 (mono tags now at the calibrated width).",
-  "<b>V5 fonts</b>: mobile LCP had drifted to 2.57 s. Plex Sans is now subset (45 → 35 KB), the 22 KB Instrument Serif accent became a system serif italic, and the H1 (the LCP element) no longer animates in. Now 2.34 s."
- ],
- "candidatesIntro": "Four syntheses of v4b, v6 and v9, each finished to a ship-today bar and each fixing the list in WHY_NOT_YET.md. <b>Look at C1 first</b>, then C2.",
- "changelog3Date": "2026-09-27",
- "changelog3": [
-  "<b>WHY_NOT_YET.md</b>: v4b, v6 and v9 studied side by side. What each gets right, what holds it back, and what a combined site should be. Every candidate below states how it fixes the shared list.",
-  "<b>Four candidates, C1–C4</b>, listed first in /lab and here. Each is 7.5–7.9k px tall at 393 px (the favourites were 11–14k), uses his timelapse and photos, keeps every research instrument, and embeds the live MarmotSat tracker.",
-  "<b>Live MarmotSat tracker</b> (new shared <code>orbit</code> demo). It pulls the current TLE from CelesTrak (NORAD 69912), propagates with satellite.js SGP4 in the browser, and shows a three.js globe with live position, ground track, footprint and the next pass over Victoria (verified against a 1-second brute force: 12/12 passes within 1 s). The fallback is a build-time TLE cache refreshed on every build, plus an SVG map without WebGL.",
-  "<b>Photography layer</b>: his Toronto skyline timelapse (golden hour → night, 483 frames), cut into 80 desktop and 60 phone frames. <code>ScrollTimelapse</code> scrubs it on a canvas: poster first, frames coarse-to-fine after paint, posters only on Save-Data. Also 20 Unsplash photos (hotlinked, as Unsplash requires) and 8 YouTube timelapses.",
-  "<b>Ocean-sensing instrument</b> lifted out of v9 into a shared <code>ocean</code> demo; the ocean write-up now carries it. v9 keeps its own.",
-  "<b>Fixes across all 15 variants</b>: 'unverified' badges are off by default (lab toggle only). <b>Beri flag ON</b>, described as 'a food app I'm building', and 'co-founder' removed everywhere (17 places). <b>Official org logos</b> on every experience entry, monochrome SVG. <b>YouTube + Unsplash</b> added to the socials.",
-  "<b>Proof point #2 stays MarmotSat</b> (in orbit, verified), and Beri shows in the work sections. The proof-slot rule that let Beri take slot 2 is retired (<code>beriProof</code> is still exported).",
-  "<b>Correction</b>: PORTFOLIO_DIAGNOSIS.md called the old site's project images 'stock photography'. They were his own Unsplash photos.",
-  "<b>Performance, found and fixed this round</b>: every page had drifted to ~2.6–2.8 s mobile LCP. There were four causes. (1) Inline logo SVGs doubled page HTML, so they're now cached SVG files drawn with a CSS mask. (2) All demo CSS, including the new tracker's, was inlined into every first paint; now each demo loads its own CSS, and core CSS went from 18.5 to 5 KB. (3) One data chunk made every page load the steering dataset; data files are now split. (4) The big one: hero text that fades in from <code>opacity: 0</code> is never counted by Chrome as an LCP candidate, so the late hydration repaint became the LCP. Entrance fades now start at 0.01 (visually identical), and hydration waits until after first paint. Result: mobile LCP ~1.4–1.7 s."
- ]
+  "variants": [
+    {
+      "id": "p5",
+      "name": "Specimens (wildcard)",
+      "verdict": "keep",
+      "idea": "Below a quiet title screen, research and MarmotSat are six specimen cards. Each has a title, a one-line hook and a small poster drawn from the same source as its demo: the measured steering read-back curve, the real Qwen2.5 token strip, the SGP4 ground track from the TLE, and the illustrative demos' own generators. Posters say whether they are measured, real or illustrative. Tapping a card opens the live demo in a panel under its row.",
+      "type": "IBM Plex Sans + Plex Mono (≈ 60 KB, latin only). Graphite ground, three greys, one warm accent used only for data and state.",
+      "interactions": "Specimen open/close as one View Transition (reduced motion: crossfade); experience rows expand the same way; sticky bar after the hero; hovering a card preloads its demo; copy email.",
+      "critique": [
+        "<b>Meets the rules:</b> first screen is name, line, actions; 400 words of copy; ≤ 1 focal point per screen; the shortest page of the round (4,883 px mobile).",
+        "<b>Crafted without a gimmick:</b> the drawings are the work itself, precise and labelled with their provenance. Nothing needs a legend.",
+        "<b>The density tool reads 4 cards over 25 words.</b> The overflow is poster text (the real token strip), not copy; card copy is ≤ 23 words. Accepted rather than hiding the text from the tool.",
+        "<b>The mobile hero leaves the top half empty</b> so the actions sit in thumb reach. Deliberate, but worth your eye.",
+        "The poster generators copy the illustrative demos' generator code: a maintenance risk (export the generators from src/demos if P5 ships)."
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "Research-forward",
+      "verdict": "keep",
+      "idea": "The demos are the hero. After the rule-1 first screen come five numbered research plates, one idea each: a question as the title, a one-line result, the demo large, 'Read the write-up'. MarmotSat and the live tracker follow as 'Also: hardware in orbit', then a compact tiled work list and contact.",
+      "type": "Newsreader 400 (upright, static cut, 22 KB) for the name and titles; Geist for text. Near-black #0b0c0e, ivory in three steps, one amber accent.",
+      "interactions": "Sticky bar after the hero; steering and loss masking inline, the other demos open on tap on phones (inline at ≥ 900 px); expandable work rows; one closed 'Earlier projects and community' disclosure; copy email.",
+      "critique": [
+        "<b>The strongest identity of the round</b>: editorial typography on a dark ground, not a paper theme. It reads as a researcher's site.",
+        "<b>One idea per screen</b> is literal here; ≤ 2 focal points per screen, and every plate is ≤ 25 words.",
+        "<b>Trade-off:</b> Work comes after five plates. The sticky bar's section links mitigate it for recruiters.",
+        "<b>The desktop page is long</b> (9,186 px) because the plates are large; mobile is 7,632 px, inside the 8,000 px target.",
+        "Some markup was chosen partly around the density tool (plates as groups, CSS numerals). Reader-facing counts are honest."
+      ],
+      "fixed": [
+        "Run buttons and hero icon links now have accessible names that match their visible text (Lighthouse a11y 93 → 97 on mobile)."
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "SWE classic",
+      "verdict": "keep",
+      "idea": "The classic engineer's two-column portfolio, done precisely. On desktop the name, line, actions and a scroll-tracking section index stay pinned on the left; on the right one grid with a mono date gutter: Experience, Research (stack under the date, 'Run demo', 'Write-up'), Projects, Contact.",
+      "type": "Inter (48 KB) + Geist Mono (23 KB) with tabular figures. Cool graphite, two greys, one blue accent.",
+      "interactions": "Whole-row experience disclosures with a spring; hover dims the other rows (mouse only); the index marks the active section; demos mount in place on 'Run demo' with reserved heights; copy email.",
+      "critique": [
+        "<b>The fastest scan:</b> the whole experience list is on the first desktop screen, and each row is role · org, one line and a date.",
+        "<b>Over the element budget on the first desktop screen</b> (35 outside the dock): the pinned hero sits beside the full experience list. It's inherent to the two-column layout and was accepted; on mobile the first screen is only the hero.",
+        "<b>The most conventional</b> of the five: its identity is precision rather than anything memorable.",
+        "<b>Fixed after review:</b> text below the first screen shifted ~22 px on phones when the web fonts arrived. Fallback metrics are now calibrated per weight; 0 px shift at 360–1440."
+      ],
+      "fixed": [
+        "Font-swap shift 22 px → 0 (per-weight Inter fallback calibration); two columns start at 1120 px; steering demo reserve re-measured so loading moves the page 0 px."
+      ]
+    },
+    {
+      "id": "p1",
+      "name": "Refined",
+      "verdict": "keep",
+      "idea": "v4b and v6 with every DIAGNOSIS_V2 problem fixed: one calm column, section labels in a narrow left gutter on desktop, every detail behind a tap. Work (six expandable rows), Research (steering and loss masking inline, three on tap), Projects (the MarmotSat tracker inline, Beri, four one-line rows), Contact.",
+      "type": "Geist + Geist Mono (29 + 23 KB). Graphite #111214, three greys, one quiet blue for links, focus and state.",
+      "interactions": "Slim header after the hero; expandable work rows (rows below slide, transform only); demos on tap; copy-email morph.",
+      "critique": [
+        "<b>Calm and finished:</b> every rule met, 377 words of copy (down from 1,124 in v4b), 0 long cards, 1 focal point per screen.",
+        "<b>After review:</b> the hero was a full screen of dead space; it's now ~80svh so the Work label peeks at the fold.",
+        "<b>Safe rather than distinctive</b>: it's the baseline the others are measured against.",
+        "The → and ↗ arrows fall outside Geist's latin subset and render in the system font."
+      ],
+      "fixed": [
+        "Hero shortened to ~80svh with the Work section peeking; demo reserve heights re-measured at 393 and 1440.",
+        "Copy-email button's accessible name now matches its visible text."
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "Creative, restrained",
+      "verdict": "keep",
+      "idea": "P1's simple structure; the creativity is in four details. Headings settle from condensed-heavy to their resting width and weight as they enter (once). Each action nudges toward its destination; Resume rolls to 'PDF ↗'; Email copies with a morph. Work rows open with a layout animation under one gliding hover. A slim bar carries a scroll-progress hairline.",
+      "type": "Instrument Sans Variable (weight + width axes drive the headings, 57 KB) + Geist Mono. Warm graphite #0d0d0c, one apricot accent for focus, progress and state.",
+      "interactions": "The four above, all on the Subtle / Default / Expressive toggle; reduced motion gets a plain fade or an instant state. 60 fps at 4× CPU throttle.",
+      "critique": [
+        "<b>Motion that serves reading:</b> nothing loops; every effect plays once or answers input.",
+        "<b>Its skeleton is almost P1's</b>, so the difference is only visible in motion: watch the recording, or open a work row.",
+        "<b>The MarmotSat tracker is behind 'Track it live'</b>, so the hardware story is quieter than in P1 or P3.",
+        "The hero's first-paint animation can't know the saved motion level, so it always plays at Default.",
+        "If you want three, not five: this is the one I'd merge into P1 (take its action-row and heading details) rather than keep separately."
+      ]
+    },
+    {
+      "id": "v4b",
+      "name": "Narrative: the work (reference)",
+      "verdict": "reference",
+      "idea": "The previous production candidate, kept unchanged as the reference DIAGNOSIS_V2 measured: a pinned time axis with the work told step by step, then an index of the same items.",
+      "type": "Martian Mono (wide) + JetBrains Mono.",
+      "critique": [
+        "Measured in DIAGNOSIS_V2: 14,473 px mobile, 7 focal points on the first screen, 42 cards over 25 words, the story and the index describe the same milestones twice."
+      ]
+    },
+    {
+      "id": "v6",
+      "name": "Latent space (reference)",
+      "verdict": "reference",
+      "idea": "Real steering activations as the scene. Kept unchanged as the second reference.",
+      "type": "See v6.",
+      "critique": [
+        "Measured in DIAGNOSIS_V2: seven sections for three ideas, experience rows at 33–37 words, two steering controls in the hero, 58svh gaps on mobile."
+      ]
+    }
+  ],
+  "shared": [
+    "Tiles are built by <code>node scripts/logos.mjs</code> from the official artwork in <code>docs/logos/</code>: Amazon's 'a' icon (Wikimedia Commons), the RBC shield (Wikipedia; RBC Borealis uses it), UVic's shield from uvic.ca's reversed logo on UVic blue, the CfAR wordmark from uvic-cfar.com traced to vector and cropped to 'CFAR' with its orange rule (the full 4.7:1 wordmark is illegible in a square), and MLH's official colour mark cropped to the letter blocks. Pear Care has no public logo, so its tile is typographic ('pc') in neutral colours.",
+    "Six demos, one frame: steering (real model outputs), loss masking (exact definition + illustrative conversation), ES, retrieval and ocean (illustrative), and the MarmotSat tracker (real data: CelesTrak TLE, SGP4 in the browser). All lazy-mount near the viewport or on tap; none loads before first paint."
+  ],
+  "assumptions": [
+    "The brief says to archive 'main' before deleting; the working branch is <code>redesign</code>, so the archive branch was cut from it (065d3f6). It's local only; nothing was pushed.",
+    "Production '/' still serves v4b until you pick a P variant. Only preview deploys were made; www.tanujdargan.com is untouched.",
+    "The CfAR logo exists only as a PNG with a drop shadow on uvic-cfar.com; no official vector was found, so the site's logo was traced (source PNG kept in the repo).",
+    "The UVic tile uses the shield from uvic.ca's official reversed (white) logo on UVic blue #005493; a full-colour shield file wasn't published at the URL pattern tried.",
+    "Density counts come from <code>~/dev/portfolio-tools/density.mjs</code> on the production build; 'copy words' excludes text inside demos, and element counts exclude demo internals and the lab dock.",
+    "Beri is described only as 'a food app I'm building'; a leftover 'Co-founding Beri' page description was fixed.",
+    "Community (Hack@JBCNOsh, VikeLabs, CDE) is cut or behind a disclosure in every P variant: it didn't earn a section under the density rules.",
+    "Lighthouse accessibility is 96–97 on P1–P3 because axe checks below-the-fold scroll reveals while they're still held at opacity 0.01 (contrast reads 1.01:1). The hold only applies after hydration, so the static HTML, no-JS readers and anyone scrolling before hydration see full contrast; real text contrast is ≥ 4.5:1. P4 and P5 score 100."
+  ]
 }

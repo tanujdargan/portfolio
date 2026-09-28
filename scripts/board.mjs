@@ -23,14 +23,15 @@ function densityTable(d) {
   if (!d) return '<p class="dim">Density not measured.</p>'
   const row = (tag) => {
     const v = d[tag]
-    const w = v.windows.map((x, i) => ({ ...x, elements: i === 0 ? x.elements - DOCK[tag] : x.elements }))
+    // Elements outside the demos (a demo's token spans and table cells are its content, not page chrome).
+    const w = v.windows.map((x, i) => ({ ...x, elements: (x.outsideDemo ?? x.elements) - (i === 0 ? DOCK[tag] : 0) }))
     const maxEl = Math.max(...w.map((x) => x.elements))
     const maxF = Math.max(...w.map((x) => x.focal))
     const ok = (c) => (c ? 'g' : 'r')
     return `<tr><td>${tag}</td><td class="${ok(v.height <= 8000 || tag === 'desktop')}">${v.height.toLocaleString()} px</td><td class="${ok((v.copyWords ?? v.totalWords) <= 700)}">${v.copyWords ?? v.totalWords}</td><td>${v.demoWords ?? '–'}</td><td class="${ok(maxEl <= 25)}">${maxEl}</td><td class="${ok(maxF <= 2)}">${maxF}</td><td class="${ok(v.longCards === 0)}">${v.longCards}</td></tr>`
   }
   const secs = d.mobile.sections.map((s) => `<span><b>${esc(s.id)}</b> ${s.words}</span>`).join('')
-  return `<table class="t"><thead><tr><th>Density</th><th>Page height</th><th>Copy words (≤700)</th><th>Words inside demos</th><th>Max elements / screen (≤25)</th><th>Max focal / screen (≤2)</th><th>Cards &gt;25 words (0)</th></tr></thead><tbody>${row('mobile')}${row('desktop')}</tbody></table>
+  return `<table class="t"><thead><tr><th>Density</th><th>Page height</th><th>Copy words (≤700)</th><th>Words inside demos</th><th>Max elements / screen, outside demos (≤25)</th><th>Max focal / screen (≤2)</th><th>Cards &gt;25 words (0)</th></tr></thead><tbody>${row('mobile')}${row('desktop')}</tbody></table>
   <p class="secs"><span class="dim">Words per section (mobile):</span> ${secs}</p>`
 }
 
