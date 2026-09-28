@@ -74,6 +74,8 @@ export default function ESDemo({ compact }: { compact?: boolean }) {
       c.height = H * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       col = colors()
+      // Hidden (display:none ancestor) → 0×0: nothing to paint, and drawImage throws on an empty source.
+      if (W < 1 || H < 1) return void (bg = null)
       // low-res field with banded contours
       const q = 3
       const w = Math.ceil(W / q)
@@ -110,7 +112,7 @@ export default function ESDemo({ compact }: { compact?: boolean }) {
     const draw = (now: number) => {
       const s = st.current
       ctx.clearRect(0, 0, W, H)
-      if (bg) {
+      if (bg && bg.width && bg.height) {
         ctx.imageSmoothingEnabled = true
         ctx.drawImage(bg, 0, 0, W, H)
       }

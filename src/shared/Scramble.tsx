@@ -93,6 +93,14 @@ export function Scramble({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run])
 
+  // Reduced motion can arrive after hydration (MotionProvider reads the media query in an effect): drop any noise.
+  useEffect(() => {
+    if (!m.reduced) return
+    cancelAnimationFrame(raf.current)
+    setShown(text)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [m.reduced])
+
   useEffect(() => () => cancelAnimationFrame(raf.current), [])
 
   return createElement(
