@@ -144,3 +144,18 @@ html:not([data-motion]) .s-logo:not(.s-logo--type) {
   font: 650 calc(var(--s, 40px) * 0.38) / 1 ui-sans-serif, system-ui, sans-serif;
   letter-spacing: -0.04em;
 }
+
+/* Split text (src/shared/Split.tsx): each word is a clip mask so translated words read as a line reveal. */
+.s-split__w {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.s-split__i,
+.s-split__c {
+  display: inline-block;
+  white-space: pre;
+}

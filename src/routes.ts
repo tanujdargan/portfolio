@@ -13,7 +13,12 @@ type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
   { id: 'v4b', name: 'Narrative: the work', pitch: 'Reference: the work over time, scroll-pinned axis.', load: () => import('./variants/v4b') },
   { id: 'v6', name: 'Latent space', pitch: 'Reference: real activations as the scene.', load: () => import('./variants/v6') },
-  { id: 'p2', name: 'SWE classic', pitch: 'Crisp type, clear hierarchy; experience and projects scannable in seconds.', load: () => import('./variants/p2') },
+  { id: 'p2', name: 'SWE classic', pitch: 'Reference: crisp two-column index, scannable in seconds.', load: () => import('./variants/p2') },
+  { id: 's1', name: 'Index', pitch: 'The work as a live index: a lens previews each demo, rows open into exhibits in place.', load: () => import('./variants/s1') },
+  { id: 's2', name: 'Latent', pitch: 'v6, elevated: drag α and a real model rewrites the hero while its activation space bends.', load: () => import('./variants/s2') },
+  { id: 's3', name: 'Board', pitch: 'A zoomable research board: pan, zoom, fly into a work and it comes alive.', load: () => import('./variants/s3') },
+  { id: 's4', name: 'Signal', pitch: 'A dithered shader screen that tunes between works; a lens shows the full signal.', load: () => import('./variants/s4') },
+  { id: 's5', name: 'Spec', pitch: 'Sticky captions, one lit exhibit at a time, and a HUMAN/MACHINE switch.', load: () => import('./variants/s5') },
 ]
 
 // The variant served at "/" until Phase 5 picks one.
@@ -32,7 +37,7 @@ export interface Head {
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
-  const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+)(\/.*)?$/)
+  const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+|s\d+)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
   const v = variants.find((x) => x.id === id) ?? variants[0]

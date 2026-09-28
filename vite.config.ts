@@ -11,7 +11,7 @@ export default defineConfig({
         // Named per-variant chunks so the prerender step can find each variant's CSS and JS.
         // Everything shared is pinned elsewhere, or a manual chunk absorbs it (React ended up inside V0 once).
         manualChunks(id) {
-          const m = id.match(/src\/variants\/(v\d+[a-z]?|p\d+)\//)
+          const m = id.match(/src\/variants\/(v\d+[a-z]?|p\d+|s\d+)\//)
           if (m) return `variant-${m[1]}`
           if (id.includes('node_modules/three/')) return 'three'
           // SGP4 is only used by the lazy orbit demo; keep it out of the vendor chunk every page loads.
