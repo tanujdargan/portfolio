@@ -27,3 +27,4 @@ dist-ssr/
 scripts/.og.html
 .vercel
 .env*
+.playwright-mcp/
