@@ -11,6 +11,11 @@ export interface VariantProps {
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
+  // Convergence round: syntheses of v4b, v6 and v9, finished to a ship-today bar. Listed first.
+  { id: 'c1', name: 'Dusk', pitch: 'The Toronto timelapse scrubs golden hour into night as you scroll from now to 2022.', load: () => import('./variants/c1') },
+  { id: 'c2', name: 'Instrument', pitch: 'Research-first and calm: real instruments at full measure, a dated index with logos.', load: () => import('./variants/c2') },
+  { id: 'c3', name: 'City of points', pitch: 'The skyline at night dissolves into the embedding space of the work.', load: () => import('./variants/c3') },
+  { id: 'c4', name: 'Field notes', pitch: 'A single-column notebook of the work, with photographs as the chapter plates.', load: () => import('./variants/c4') },
   { id: 'v0', name: 'Refined', pitch: 'The current structure, fixed.', load: () => import('./variants/v0') },
   { id: 'v1', name: 'Research lab', pitch: 'Demos and write-ups first. Editorial type on dark.', load: () => import('./variants/v1') },
   { id: 'v2', name: 'Design engineer', pitch: 'Small, exact, and alive under the cursor.', load: () => import('./variants/v2') },
@@ -40,7 +45,7 @@ export interface Head {
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
-  const m = path.match(/^\/lab\/(v\d+[a-z]?)(\/.*)?$/)
+  const m = path.match(/^\/lab\/(v\d+[a-z]?|c\d+)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
   const v = variants.find((x) => x.id === id) ?? variants[0]

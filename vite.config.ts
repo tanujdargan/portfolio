@@ -11,7 +11,7 @@ export default defineConfig({
         // Named per-variant chunks so the prerender step can find each variant's CSS and JS.
         // Everything shared is pinned elsewhere, or a manual chunk absorbs it (React ended up inside V0 once).
         manualChunks(id) {
-          const m = id.match(/src\/variants\/(v\d+[a-z]?)\//)
+          const m = id.match(/src\/variants\/(v\d+[a-z]?|c\d+)\//)
           if (m) return `variant-${m[1]}`
           if (id.includes('node_modules/three/')) return 'three'
           // Font CSS shared by two variants would otherwise be absorbed into one of them (v5 ended up importing v0).

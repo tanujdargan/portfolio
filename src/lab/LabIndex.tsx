@@ -6,7 +6,7 @@ export default function LabIndex() {
   return (
     <main className="lab-index">
       <h1>Design Lab · tanujdargan.com</h1>
-      <p className="lead">Six directions, same content. Open one, then use the dock to switch variants and motion intensity. [ and ] cycle variants.</p>
+      <p className="lead">Candidates C1–C4 first (the convergence round), then every earlier direction. Same content everywhere. Open one, then use the dock to switch variants and motion intensity. [ and ] cycle variants.</p>
       <ol>
         {variants.map((v) => (
           <li key={v.id}>

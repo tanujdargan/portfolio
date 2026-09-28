@@ -8,7 +8,7 @@ import data from '../data/timelapse.json'
  * - Frames load after first paint, only near the viewport, coarse-to-fine (every 8th, 4th, 2nd, then all),
  *   so any scroll position has a nearby frame within ~1 s on 4G. Missing frames crossfade from their neighbours.
  * - Picks the 3:4 phone set when the box is portrait, else 16:9. Save-Data or 2G: posters only.
- * `progress` is 0 → 1 (golden hour → night). Pass a framer MotionValue (from useScroll) or a number.
+ * The caller sizes the box (className/height); poster and canvas fill it. `progress` is 0 → 1 (golden hour → night). Pass a framer MotionValue (from useScroll) or a number.
  */
 type SetKey = keyof typeof data
 export function ScrollTimelapse({
