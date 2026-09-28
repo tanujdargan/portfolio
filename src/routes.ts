@@ -11,26 +11,12 @@ export interface VariantProps {
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
-  // Convergence round: syntheses of v4b, v6 and v9, finished to a ship-today bar. Listed first.
-  { id: 'c1', name: 'Dusk', pitch: 'The Toronto timelapse scrubs golden hour into night as you scroll from now to 2022.', load: () => import('./variants/c1') },
-  { id: 'c2', name: 'Instrument', pitch: 'Research-first and calm: real instruments at full measure, a dated index with logos.', load: () => import('./variants/c2') },
-  { id: 'c3', name: 'City of points', pitch: 'The skyline at night dissolves into the embedding space of the work.', load: () => import('./variants/c3') },
-  { id: 'c4', name: 'Field notes', pitch: 'A single-column notebook of the work, with photographs as the chapter plates.', load: () => import('./variants/c4') },
-  { id: 'v0', name: 'Refined', pitch: 'The current structure, fixed.', load: () => import('./variants/v0') },
-  { id: 'v1', name: 'Research lab', pitch: 'Demos and write-ups first. Editorial type on dark.', load: () => import('./variants/v1') },
-  { id: 'v2', name: 'Design engineer', pitch: 'Small, exact, and alive under the cursor.', load: () => import('./variants/v2') },
-  { id: 'v3', name: 'Vector space', pitch: 'The work as points in a space you can fly through.', load: () => import('./variants/v3') },
-  { id: 'v4', name: 'Narrative', pitch: 'Dehradun to now, told through the work.', load: () => import('./variants/v4') },
-  { id: 'v5', name: 'Model card', pitch: 'Tanuj, documented like a model release.', load: () => import('./variants/v5') },
-  { id: 'v4b', name: 'Narrative: the work', pitch: 'The same scroll story, told only through projects and research over time.', load: () => import('./variants/v4b') },
-  { id: 'v6', name: 'Latent space', pitch: 'Fly through the embedding space of the work; steering vectors bend it.', load: () => import('./variants/v6') },
-  { id: 'v7', name: 'Mission control', pitch: 'MarmotSat telemetry: the work as spacecraft subsystems, live.', load: () => import('./variants/v7') },
-  { id: 'v8', name: 'Billion vectors', pitch: 'A GPU-scale particle index; retrieval is the navigation.', load: () => import('./variants/v8') },
-  { id: 'v9', name: 'Depth', pitch: 'A generative ocean where depth is time and the work surfaces as you dive.', load: () => import('./variants/v9') },
+  { id: 'v4b', name: 'Narrative: the work', pitch: 'Reference: the work over time, scroll-pinned axis.', load: () => import('./variants/v4b') },
+  { id: 'v6', name: 'Latent space', pitch: 'Reference: real activations as the scene.', load: () => import('./variants/v6') },
 ]
 
 // The variant served at "/" until Phase 5 picks one.
-export const PROD_VARIANT = 'v0'
+export const PROD_VARIANT = 'v4b'
 
 export type Resolved =
   | { kind: 'lab-index'; head: Head }

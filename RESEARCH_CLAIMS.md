@@ -161,6 +161,4 @@ Every factual claim, number and result shown in the demos and write-ups, where i
 | "Next pass over Victoria, BC": computed from look angles at 48.4284 N, 123.3656 W, 10° elevation mask | Computed | High (standard method; a prediction, not an observation) |
 | Ocean-sensing instrument (`ocean` demo, lifted from v9): profile and readings are **illustrative**; the only real number is R² = 0.936 | Old site (R²), assumption (profile) | Illustrative (labelled on the figure) |
 | Beri described as "a food app I'm building", never co-founded | Tanuj's instruction (Sep 2026) | High |
-| Toronto skyline timelapse (golden hour → night), 483 frames, his footage | `~/Downloads/Sunset_compressed.MOV` provided by Tanuj | High |
-| Photos: 20 of 76 public Unsplash photos by @tanuj_dargan; YouTube: 8 of his timelapse videos (titles from YouTube oEmbed) | unsplash.com/@tanuj_dargan, youtube.com/tanujdargan | High |
 | Organisation marks: Amazon (Wikimedia Commons official wordmark), RBC Borealis (rbcborealis.com), UVic (uvic.ca shield), MLH and Apache Airflow (simple-icons). Pear Care has no public SVG, so it gets a typographic mark. CFAR, DEIA and SOLIDS use the UVic shield | Official sources | High |

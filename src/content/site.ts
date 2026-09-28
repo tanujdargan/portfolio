@@ -17,7 +17,7 @@ export const person = {
   site: 'https://tanujdargan.com',
 }
 
-export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x' | 'youtube' | 'unsplash'
+export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x'
 export const links: Record<LinkKey, { label: string; href: string; short: string; unverified?: boolean }> = {
   // public/resume.pdf is byte-identical to Tanuj_Dargan_Resume_Aug19-2026.pdf
   resume: { label: 'Resume', short: 'CV', href: '/resume.pdf' },
@@ -25,12 +25,10 @@ export const links: Record<LinkKey, { label: string; href: string; short: string
   github: { label: 'GitHub', short: 'GH', href: 'https://github.com/tanujdargan' },
   linkedin: { label: 'LinkedIn', short: 'In', href: 'https://www.linkedin.com/in/tanujdargan' },
   x: { label: 'X', short: 'X', href: 'https://x.com/DarganTanuj' },
-  youtube: { label: 'YouTube', short: 'YT', href: 'https://www.youtube.com/tanujdargan' },
-  unsplash: { label: 'Unsplash', short: 'Photos', href: 'https://unsplash.com/@tanuj_dargan' },
 }
-export const linkOrder: LinkKey[] = ['resume', 'email', 'github', 'linkedin', 'x', 'youtube', 'unsplash']
-/** The five work links, for places with room for only these (e.g. compact headers). YouTube/Unsplash live in the photography section and footers. */
-export const workLinkOrder: LinkKey[] = ['resume', 'email', 'github', 'linkedin', 'x']
+export const linkOrder: LinkKey[] = ['resume', 'github', 'linkedin', 'x', 'email']
+/** Kept for older call sites; same five links. */
+export const workLinkOrder: LinkKey[] = linkOrder
 
 export interface Proof {
   key: string
@@ -401,15 +399,6 @@ export const milestonesAll: Milestone[] = [
   { when: '2026', year: 2026.7, title: 'Activation steering', kind: 'research', line: 'Emotion and persona vectors: extract a direction, push along it, check the label holds. Live demo on this site.', metric: 'Live demo', href: '/research/activation-steering', unverified: "Numbers shown for this milestone (e.g. +9.6 read-back) come from the site's replication run, not the main project." },
 ]
 export const milestonesFor = (flags: Flags) => milestonesAll.filter((m) => !m.flag || flags[m.flag])
-
-// Chapters for the original narrative variant (V4). Kept as-is; V4b tells the story through the work instead.
-export const chapters = [
-  { place: 'Dehradun', when: 'early years', line: 'Where it starts.', unverified: true },
-  { place: 'Gurgaon', when: 'school', line: 'School years.', unverified: true },
-  { place: 'Mumbai', when: '2021 – 2023', line: 'Kaggle notebooks, hackathons in Bengaluru and Kolkata, and a hackathon of my own: Hack@JBCNOsh, 450+ people.' },
-  { place: 'Victoria', when: '2024 –', line: 'UVic on the accelerated track. Satellite firmware, GPU retrieval, ocean models, a Hack the North win.' },
-  { place: 'Toronto', when: '2026', line: 'Amazon Robotics. An LLM planning assistant in production, and a return offer. Interpretability research alongside.' },
-]
 
 export const seo = {
   title: 'Tanuj Dargan — ML systems and interpretability',

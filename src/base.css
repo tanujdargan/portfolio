@@ -94,8 +94,7 @@ button {
 }
 
 /* Organisation marks and social icons (OrgLogo.tsx, Links.tsx): an SVG file as a CSS mask, filled with currentColor. */
-.s-logo,
-.s-icon {
+.s-logo {
   display: inline-block;
   flex: none;
   background-color: currentColor;
@@ -108,8 +107,7 @@ button {
 }
 /* Marks aren't needed for first paint: their files would queue ahead of the fonts (measured +0.4 s mobile LCP).
    Attach the masks only after hydration (MotionProvider sets data-motion on <html>); until then the box is reserved. */
-html:not([data-motion]) .s-logo:not(.s-logo--type),
-html:not([data-motion]) .s-icon {
+html:not([data-motion]) .s-logo:not(.s-logo--type) {
   -webkit-mask: none;
   mask: none;
   background-color: transparent;
@@ -125,28 +123,4 @@ html:not([data-motion]) .s-icon {
 }
 .s-logo--type b {
   font-weight: 400;
-}
-
-/* Scroll timelapse (src/shared/ScrollTimelapse.tsx): poster first, canvas fades in once it has a frame. */
-.s-tl {
-  position: relative;
-  overflow: hidden;
-  background: #0b0d10;
-}
-.s-tl__poster,
-.s-tl__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.s-tl__poster {
-  object-fit: cover;
-}
-.s-tl__canvas {
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
-}
-.s-tl[data-live] .s-tl__canvas {
-  opacity: 1;
 }

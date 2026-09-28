@@ -16,18 +16,10 @@ export const LinkIcon = ({ k, size = 16 }: { k: LinkKey; size?: number }) => {
   if (k === 'email') return <Mail {...p} />
   if (k === 'github') return <Github {...p} />
   if (k === 'linkedin') return <Linkedin {...p} />
-  if (k === 'youtube' || k === 'unsplash')
-    return (
-      <span
-        className="s-icon"
-        style={{ width: size - 2, height: size - 2, ['--src' as string]: `url(/logos/${k}.svg)` }}
-        aria-hidden="true"
-      />
-    )
   return <XIcon size={size - 1} />
 }
 
-/** The five always-one-tap links. `mode` picks label text; styling is the variant's job via className. */
+/** The five always-one-tap links: Resume, GitHub, LinkedIn, X, Email. `mode` picks label text; styling is the variant's job via className. */
 export function Links({
   className,
   mode = 'label',
