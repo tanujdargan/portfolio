@@ -1905,8 +1905,10 @@ html:has(.s3)::view-transition-new(root) {
     position: fixed;
     z-index: 39;
     left: 50%;
-    bottom: calc(max(10px, env(safe-area-inset-bottom)) + 66px);
+    /* top, under the HUD: at the bottom it sat on the first card's hook, right where the eye lands */
+    top: calc(env(safe-area-inset-top) + 76px);
     translate: -50% 0;
+    white-space: nowrap;
     padding: 7px 12px;
     border-radius: 999px;
     background: var(--glass);
@@ -2045,9 +2047,6 @@ html:has(.s3)::view-transition-new(root) {
 @media (max-width: 759px) {
   .s3[data-lab] .s3-home[data-view='board'] .s3-dock {
     bottom: 62px;
-  }
-  .s3[data-lab] .s3-home[data-view='board'] .s3-mhint {
-    bottom: 128px;
   }
   .s3[data-lab] .s3-home[data-view='list'] .s3-fab:not([hidden]) {
     bottom: 64px;

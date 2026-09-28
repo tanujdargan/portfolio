@@ -1555,3 +1555,14 @@ html:has(.s4[data-wipe])::view-transition-new(root) {
   clip-path: circle(150% at 50% 45%);
   transition-duration: var(--d4);
 }
+
+/* Phones: the pinned screen (100svh) is still on screen while the first section scrolls in; sections carry a
+   full-bleed ground so they slide over the pin instead of printing on top of its hook. */
+@media (max-width: 759px) {
+  .s4 .s4-sec {
+    z-index: 2;
+    background: var(--bg);
+    box-shadow: 0 0 0 100vmax var(--bg);
+    clip-path: inset(0 -100vmax -100vmax);
+  }
+}

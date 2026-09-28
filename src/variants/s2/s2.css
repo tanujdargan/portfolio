@@ -386,7 +386,13 @@
   inset: 0 0 auto;
   z-index: 30;
   padding-top: env(safe-area-inset-top);
-  background: linear-gradient(rgb(9 9 10 / 0.9), rgb(9 9 10 / 0.5) 70%, rgb(9 9 10 / 0));
+  /* scrim: sections scroll under the bar, so it must hide what passes behind the name and links */
+  padding-bottom: 22px;
+  background: linear-gradient(rgb(9 9 10 / 0.97), rgb(9 9 10 / 0.92) 62%, rgb(9 9 10 / 0));
+  pointer-events: none;
+}
+.s2-top__in > * {
+  pointer-events: auto;
 }
 .s2-top__in {
   position: relative;

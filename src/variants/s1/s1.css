@@ -1862,3 +1862,11 @@ html:has(.s1)::view-transition-new(s1-vt-t) {
     transition: clip-path 150ms linear;
   }
 }
+
+/* phones: the gutter column is too narrow for the ALSO / EARLIER labels */
+@media (max-width: 759px) {
+  .s1 .s1-also__row {
+    grid-template-columns: 64px max-content minmax(0, 1fr) 14px;
+    column-gap: 10px;
+  }
+}
