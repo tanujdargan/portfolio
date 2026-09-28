@@ -724,6 +724,46 @@ html[data-motion='reduced'] .v2-odo__col {
   max-width: 100%;
   font-weight: 500;
 }
+/* org marks: a fixed column in the work index, inline in mixed lists; one ink, a step quieter than the title */
+.v2-row__logo {
+  flex: none;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  width: 108px;
+  height: 21px;
+  color: var(--fg-2);
+}
+/* with a mark column the role drops under the title, so neither gets truncated */
+@media (min-width: 641px) {
+  .v2-idx[data-marks] .v2-row__hit {
+    align-items: start; /* every column's first line shares the 21px line box */
+  }
+  .v2-idx[data-marks] .v2-row__main {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 0 10px;
+    align-items: start;
+  }
+  .v2-idx[data-marks] .v2-row__logo {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    order: 1; /* the title, not the mark, gives the row its baseline */
+  }
+  .v2-idx[data-marks] .v2-row__s {
+    grid-row: 2;
+  }
+  .v2-idx[data-marks] .v2-row__t,
+  .v2-idx[data-marks] .v2-row__s {
+    grid-column: 2;
+  }
+}
+.v2-row__mark {
+  margin-right: 8px;
+  vertical-align: -2px;
+  display: inline-flex;
+  color: var(--fg-2);
+}
 .v2-row__s {
   min-width: 0;
   overflow: hidden;
@@ -827,6 +867,10 @@ html[data-motion='reduced'] .v2-odo__col {
   }
   .v2-row__t {
     flex: initial;
+  }
+  .v2-row__logo {
+    width: auto;
+    height: 24px;
   }
   .v2-row__s {
     white-space: normal;

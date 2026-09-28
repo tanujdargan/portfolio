@@ -14,7 +14,8 @@
  * latin-subset, weight-limited files in public/v6 (64 KB total), with metric-matched fallbacks.
  */
 import { lazy, Suspense, useEffect, useRef, useState, type MouseEvent } from 'react'
-import { person, research, experience, engineering, earlier, beri, links } from '../../content/site'
+import { person, research, experience, engineering, earlier, beri, links, workLinkOrder } from '../../content/site'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
@@ -152,7 +153,7 @@ function Top({ base, home }: { base: string; home: boolean }) {
         <span className="v6-top__z v6-num" aria-hidden="true">
           z {home ? (s === 0 ? '+30' : s === 6 ? 'all' : String(CENT[s][2])).padStart(4, ' ') : 'park'}
         </span>
-        <Links className="v6-top__links" mode="icon" size={17} />
+        <Links className="v6-top__links" mode="icon" size={17} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -248,7 +249,10 @@ function Roles({ items }: { items: typeof experience }) {
       {items.map((r, i) => (
         <li key={r.org} data-open={open === i || undefined}>
           <button className="v6-role" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
-            <span className="v6-role__org">{r.org}</span>
+            <span className="v6-role__org">
+              <OrgLogo org={r.logo} height={16} className="v6-logo" />
+              {r.org}
+            </span>
             <Decode className="v6-role__metric v6-num" text={r.metric} />
             <span className="v6-role__role">
               {r.role} · {r.when}
@@ -270,6 +274,7 @@ function Roles({ items }: { items: typeof experience }) {
   )
 }
 
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 const R = (slug: string) => research.find((r) => r.slug === slug)!
 const X = (org: string) => experience.find((e) => e.org.startsWith(org))!
 
@@ -301,7 +306,7 @@ function Home({ base }: { base: string }) {
             </li>
           ))}
         </ol>
-        <Links className="v6-links v6-in" mode="both" size={15} />
+        <Links className="v6-links v6-in" mode="both" size={15} only={workLinkOrder} />
         <p className="v6-hint v6-in" style={{ ['--i' as string]: 7 }}>
           <span className="v6-live" aria-hidden="true" /> Scroll to fly through five clusters.<span className="v6-hint__fine"> Your cursor is a query vector. α steers the space.</span>
         </p>
@@ -385,7 +390,7 @@ function Home({ base }: { base: string }) {
         <Roles items={[X('Amazon'), X('RBC'), X('Pear'), X('MLH')]} />
         <Show when="beri">
           <ol className="v6-rows">
-            <Row to={`${base}/beri`} n="B" title="Beri, co-founder" meta={beri.url.replace('https://', '')} line={beri.oneLiner} />
+            <Row to={`${base}/beri`} n="B" title="Beri, the food app I'm building" meta={beri.url.replace('https://', '')} line={beri.oneLiner} />
           </ol>
         </Show>
       </Cluster>
@@ -422,6 +427,7 @@ function Home({ base }: { base: string }) {
             <li key={e.title}>
               {e.href ? (
                 <a href={e.href} target="_blank" rel="noopener">
+                  {earlierLogo[e.title] && <OrgLogo org={earlierLogo[e.title]} height={15} className="v6-logo" />}
                   {e.title} ↗
                 </a>
               ) : (

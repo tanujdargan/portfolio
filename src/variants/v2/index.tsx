@@ -160,6 +160,12 @@ function Home({ base }: { base: string }) {
               <LinkIcon k="email" size={14} />
               <span>Open mail</span>
             </a>
+            {(['youtube', 'unsplash'] as const).map((k) => (
+              <a key={k} href={links[k].href} target="_blank" rel="noopener" className="v2-chip">
+                <LinkIcon k={k} size={14} />
+                <span>{links[k].label}</span>
+              </a>
+            ))}
           </div>
           <p className="v2-meta">{person.location}</p>
         </div>

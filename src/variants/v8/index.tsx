@@ -14,7 +14,8 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { person, research, engineering, earlier, experience, beri, links } from '../../content/site'
+import { person, research, engineering, earlier, experience, beri, links, workLinkOrder } from '../../content/site'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
@@ -35,6 +36,7 @@ const nf = new Intl.NumberFormat('en-US')
 // React 18 has no `inert` prop type; pass the attribute through as a string.
 const inert = (on: boolean) => (on ? ({ inert: '' } as object) : {})
 const expId = ['amazon', 'rbc', 'cfar', 'deia', 'pear', 'mlh']
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 
 function Top({ base }: { base: string }) {
   return (
@@ -45,7 +47,7 @@ function Top({ base }: { base: string }) {
           <span>Tanuj Dargan</span>
         </Link>
         <SearchTrigger />
-        <Links className="v8-top__links" mode="icon" size={17} />
+        <Links className="v8-top__links" mode="icon" size={17} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -83,7 +85,7 @@ function Hero({ base }: { base: string }) {
             </li>
           ))}
         </ol>
-        <Links className="v8-links v8-in" mode="both" size={14} />
+        <Links className="v8-links v8-in" mode="both" size={14} only={workLinkOrder} />
         <div className="v8-try v8-in" style={{ ['--i' as string]: 7 }}>
           <span className="v8-mono">Query the index</span>
           <ul className="v8-chips">
@@ -228,6 +230,7 @@ function Work() {
       {experience.map((e, i) => (
         <li key={e.org} id={`w-${expId[i]}`} className="v8-row" data-open={open === i || undefined}>
           <button type="button" className="v8-row__h" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
+            <OrgLogo org={e.logo} height={16} className="v8-logo v8-row__logo" />
             <span className="v8-row__org">{e.org}</span>
             <span className="v8-row__role">{e.role}</span>
             <span className="v8-row__when v8-mono">{e.when}</span>
@@ -330,6 +333,7 @@ function PlainIndex({ base }: { base: string }) {
                     {String(d.cell).padStart(2, '0')}·{d.id.slice(0, 3)}
                   </span>
                   <DocLink d={d} base={base} className="v8-index__a">
+                    {d.logo && <OrgLogo org={d.logo} height={13} className="v8-logo" />}
                     {d.title}
                     {!d.to && <span aria-hidden="true"> ↗</span>}
                   </DocLink>
@@ -398,7 +402,7 @@ function Home({ base }: { base: string }) {
           <ul className="v8-cards" data-n={buildCount}>
             <Show when="beri">
               <li className="v8-card">
-                <p className="v8-mono v8-card__k">Co-founder · iOS</p>
+                <p className="v8-mono v8-card__k">Building · iOS</p>
                 <h3 className="v8-card__t">Beri</h3>
                 <p className="v8-card__d">
                   {beri.oneLiner} {beri.role}
@@ -413,8 +417,9 @@ function Home({ base }: { base: string }) {
                 </p>
               </li>
             </Show>
-            {engineering.map((e) => (
+            {engineering.map((e, i) => (
               <li key={e.title} className="v8-card">
+                {i === 0 && <OrgLogo org="uvic" height={18} className="v8-logo v8-card__logo" />}
                 <p className="v8-mono v8-card__k">{e.role}</p>
                 <h3 className="v8-card__t">{e.title}</h3>
                 <p className="v8-card__d">{e.detail}</p>
@@ -461,6 +466,7 @@ function Home({ base }: { base: string }) {
                 <span className="v8-list__t">
                   {e.href ? (
                     <a href={e.href} target="_blank" rel="noopener">
+                      {earlierLogo[e.title] && <OrgLogo org={earlierLogo[e.title]} height={14} className="v8-logo v8-list__logo" />}
                       {e.title} <span aria-hidden="true">↗</span>
                     </a>
                   ) : (

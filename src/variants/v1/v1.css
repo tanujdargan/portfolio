@@ -920,6 +920,20 @@ a.v1-proof__t:hover {
 .v1-entry + .v1-entry {
   margin-top: 32px;
 }
+/* org marks: one ink, sized to the h3's x-height band, sitting on the entry like a letterhead */
+.v1-entry__logo {
+  display: flex;
+  width: max-content;
+  margin-bottom: 10px;
+  color: var(--fg);
+  opacity: 0.86;
+}
+.v1-list__logo {
+  display: inline-flex;
+  margin-right: 8px;
+  vertical-align: -2px;
+  color: var(--fg-2);
+}
 .v1-h3 {
   display: flex;
   flex-wrap: wrap;

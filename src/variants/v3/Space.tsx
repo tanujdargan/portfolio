@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from '../../lib/router'
 import { useMotionPrefs, type MotionLevel } from '../../lib/motion'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo } from '../../shared/OrgLogo'
 import { useFlags } from '../../lib/labprefs'
 import { clusters, nodesFor, nodesIn, flagKey, fieldCount, fmt } from './nodes'
 import type { SceneApi, MotionState } from './scene'
@@ -387,6 +388,7 @@ export function Space({ base, hero }: { base: string; hero: ReactNode }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: m.dur(0.2), ease: [0.23, 1, 0.32, 1] }}
                 >
+                  {node.logo && <OrgLogo org={node.logo} height={node.logo === 'mlh' ? 22 : 16} className="v3-sheet__logo" />}
                   <h3 id="v3-sheet-t" ref={sheetTitle} tabIndex={-1}>
                     {node.title}
                     {node.flag && <Flag note={node.flag} />}

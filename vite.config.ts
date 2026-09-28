@@ -14,6 +14,8 @@ export default defineConfig({
           const m = id.match(/src\/variants\/(v\d+[a-z]?|c\d+)\//)
           if (m) return `variant-${m[1]}`
           if (id.includes('node_modules/three/')) return 'three'
+          // SGP4 is only used by the lazy orbit demo; keep it out of the vendor chunk every page loads.
+          if (id.includes('node_modules/satellite.js/')) return 'sgp4'
           // Font CSS shared by two variants would otherwise be absorbed into one of them (v5 ended up importing v0).
           // Per file, not per package: grouping would hand one variant another's weights (v5 started fetching v1's Plex 500).
           const font = id.match(/node_modules\/@fontsource(?:-variable)?\/([^/]+)\/([^/?]+)\.css/)

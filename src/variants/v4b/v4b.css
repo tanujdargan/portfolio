@@ -890,6 +890,20 @@
   font-size: 11px;
   color: var(--kc);
 }
+/* org marks: one ink, on their own line above the title; MLH's mark sits small in its box so it runs larger */
+.v4b-step__logo {
+  display: flex;
+  width: max-content;
+  margin-top: 16px;
+  color: var(--fg);
+}
+.v4b-step__logo + .v4b-step__t {
+  margin-top: 10px;
+}
+.v4b-row__logo {
+  flex-basis: 100%; /* own line inside the title's wrap, left-aligned */
+  margin-bottom: 4px;
+}
 .v4b-step__t {
   margin: 14px 0 12px;
   font-family: var(--font-display);

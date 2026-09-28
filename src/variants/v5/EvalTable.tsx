@@ -4,6 +4,7 @@ import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import { research } from '../../content/site'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 
 type Kind = 'Competition' | 'Research' | 'Industry' | 'Hardware' | 'Community'
 interface Row {
@@ -17,6 +18,7 @@ interface Row {
   yearLabel: string
   href?: string
   internal?: boolean
+  org?: OrgKey
   /** lab-only badge note when the underlying fact is unverified */
   unverified?: string
 }
@@ -27,6 +29,7 @@ const solids = research.find((r) => r.slug === 'ocean-sensing')
 const rows: Row[] = [
   {
     id: 'amzn',
+    org: 'amazon',
     task: 'Amazon Optimus',
     setting: 'Amazon Robotics SDE intern · LLM planning assistant, 180+ fulfillment sites',
     kind: 'Industry',
@@ -49,6 +52,7 @@ const rows: Row[] = [
   },
   {
     id: 'marmotsat',
+    org: 'uvic',
     task: 'MarmotSat',
     setting: 'UVic CFAR · OBC firmware and TTC board lead',
     kind: 'Hardware',
@@ -59,6 +63,7 @@ const rows: Row[] = [
   },
   {
     id: 'rbc',
+    org: 'rbc',
     task: 'RBC Borealis mentorship',
     setting: 'At-risk youth with chronic illness · PyTorch, UMAP',
     kind: 'Research',
@@ -69,6 +74,7 @@ const rows: Row[] = [
   },
   {
     id: 'deia',
+    org: 'uvic',
     task: 'Billion-vector GPU retrieval',
     setting: 'DEIA Lab, UVic · modified cuVS fork, CAGRA and IVF-PQ, 8+ GPUs',
     kind: 'Research',
@@ -81,6 +87,7 @@ const rows: Row[] = [
   },
   {
     id: 'pear',
+    org: 'pearcare',
     task: 'Pear Care medical agents',
     setting: 'Lead AI developer · quantized LoRA deployments',
     kind: 'Industry',
@@ -199,6 +206,7 @@ export function EvalTable({ base }: { base: string }) {
           {sorted.map((r) => (
             <motion.tr role="row" key={r.id} layout="position" transition={m.spring(380)}>
               <td role="cell" className="v5-t-task">
+                {r.org && <OrgLogo org={r.org} height={14} className="v5-t-logo" />}
                 {r.href ? (
                   r.internal ? (
                     <Link to={`${base}${r.href}`} className="v5-a">

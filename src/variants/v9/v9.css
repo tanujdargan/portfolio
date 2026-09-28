@@ -1161,6 +1161,30 @@
   min-height: 56px;
   text-align: left;
 }
+/* org marks: one ink, sized to the row's type */
+.v9-logo {
+  color: var(--fg-2);
+}
+.v9-row__logo {
+  grid-column: 1 / -1;
+  margin: 16px 0 -8px;
+}
+.v9-row__head:hover .v9-logo {
+  color: var(--accent);
+}
+.v9-card__logo {
+  margin-left: auto;
+  align-self: center;
+}
+.v9-earlier__logo {
+  display: inline-flex;
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+.v9-mini__logo {
+  display: flex;
+  margin-bottom: 8px;
+}
 .v9-row__org {
   font: italic 380 21px/1.2 var(--font-display);
   letter-spacing: -0.01em;
@@ -1395,14 +1419,17 @@
   .v9-row__org {
     grid-column: 1;
   }
+  .v9-row__logo {
+    margin-bottom: 4px;
+  }
   .v9-row__when {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
     text-align: right;
   }
   .v9-row__chev {
     grid-column: 3;
-    grid-row: 1;
+    grid-row: 2;
   }
   .v9-row__role {
     grid-column: 1 / -1;

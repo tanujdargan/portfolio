@@ -10,11 +10,12 @@ import { MotionConfig } from 'framer-motion'
 // Fonts: one text family (wght axis only, 58 KB) + one mono weight (15 KB) keeps first-paint fonts under 80 KB.
 import '@fontsource-variable/newsreader/wght.css'
 import '@fontsource/ibm-plex-mono/500.css'
-import { person, research, engineering, earlier, beri, experience, type DemoKey } from '../../content/site'
+import { person, research, engineering, earlier, beri, experience, workLinkOrder, type DemoKey } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Demo } from '../../demos/Demo'
@@ -48,7 +49,7 @@ function Bar({ base }: { base: string }) {
             </Link>
           ))}
         </nav>
-        <Links className="v1-bar__links" mode="icon" size={17} />
+        <Links className="v1-bar__links" mode="icon" size={17} only={workLinkOrder} />
         <PauseToggle />
       </div>
     </header>
@@ -112,6 +113,8 @@ const shipped = [
 const applied = experience.filter((e) => ['Amazon Robotics', 'UVic Centre for Aerospace Research', 'RBC Borealis'].includes(e.org))
 const appliedTitle: Record<string, string> = { 'UVic Centre for Aerospace Research': 'MarmotSat, UVic CFAR' }
 const appliedTail: Record<string, string> = { 'Amazon Robotics': ' The internship ended with a return offer.' }
+/* Earlier entries that are resume roles carry their org's mark. */
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 
 function Home({ base }: { base: string }) {
   const proof = useProof()
@@ -163,7 +166,7 @@ function Home({ base }: { base: string }) {
             </div>
           ))}
         </dl>
-        <Links className="v1-mast__links v1-in" mode="both" size={14} />
+        <Links className="v1-mast__links v1-in" mode="both" size={14} only={workLinkOrder} />
       </section>
 
       {/* Fig. 1: the hero figure. */}
@@ -282,6 +285,7 @@ function Home({ base }: { base: string }) {
         </SecHead>
         {applied.map((e) => (
           <div key={e.org} className="v1-entry">
+            <OrgLogo org={e.logo} height={18} className="v1-entry__logo" />
             <h3 className="v1-h3">
               {appliedTitle[e.org] ?? e.org}{' '}
               <span className="v1-meta">
@@ -297,7 +301,7 @@ function Home({ base }: { base: string }) {
         <Show when="beri">
           <div className="v1-entry">
             <h3 className="v1-h3">
-              <Link to={`${base}/beri`}>Beri</Link> <span className="v1-meta">Co-founder · 2025 –</span>
+              <Link to={`${base}/beri`}>Beri</Link> <span className="v1-meta">Building · iOS · 2025 –</span>
             </h3>
             <p className="v1-p">
               {beri.oneLiner} I build the iOS app in SwiftUI, the Supabase backend, and the design system. The redesign ran as nine full directions inside a hidden
@@ -379,6 +383,7 @@ function Home({ base }: { base: string }) {
             <li key={e.title}>
               <span className="v1-list__w">{e.when}</span>
               <span className="v1-list__t">
+                {earlierLogo[e.title] && <OrgLogo org={earlierLogo[e.title]} height={15} className="v1-list__logo" />}
                 {e.href ? (
                   <a href={e.href} target="_blank" rel="noopener">
                     {e.title} <Ext />

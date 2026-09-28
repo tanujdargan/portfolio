@@ -12,11 +12,12 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 // Font budget (orchestrator, Lighthouse mobile): Fraunces wght latin 37 KB + Onest 34 KB. No italic, no opsz/SOFT/WONK files,
 // and mono falls back to the system stack so nothing else is fetched before first paint.
 import '@fontsource-variable/fraunces'
-import { person, research, engineering, experience, earlier, links, beri } from '../../content/site'
+import { person, research, engineering, experience, earlier, links, beri, workLinkOrder } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Link, useRouter } from '../../lib/router'
@@ -66,7 +67,7 @@ function Nav({ base, home }: { base: string; home: boolean }) {
           {item('work', 'Work')}
           {item('contact', 'Contact')}
         </nav>
-        <Links className="v4-nav__icons" mode="icon" size={18} />
+        <Links className="v4-nav__icons" mode="icon" size={18} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -130,7 +131,7 @@ function Hero({ chapters }: { chapters: Chapter[] }) {
         ))}
       </ul>
       <div className="v4-hero__foot v4-in" style={{ ['--i' as string]: 6 }}>
-        <Links className="v4-pills" mode="label" />
+        <Links className="v4-pills" mode="label" only={workLinkOrder} />
         <div className="v4-cta">
           <button type="button" className="v4-cta__story" onClick={() => jump('story', m.reduced)}>
             Read the story <span aria-hidden="true">↓</span>
@@ -160,7 +161,7 @@ function Hero({ chapters }: { chapters: Chapter[] }) {
                 }}
               >
                 {c.place}
-                {!c.unverified && <span> {c.when.replace(' – ', '–')}</span>}
+                <span> {c.when.replace(' – ', '–')}</span>
               </a>
             </li>
           ))}
@@ -407,7 +408,7 @@ function Story({ chapters }: { chapters: Chapter[] }) {
 
       <div className="v4-chapters">
         {chapters.map((c, i) => (
-          <section key={c.id} id={`ch-${c.id}`} className="v4-ch" data-short={c.unverified || undefined} tabIndex={-1} aria-labelledby={`h-${c.id}`}>
+          <section key={c.id} id={`ch-${c.id}`} className="v4-ch" data-short={c.steps.length < 2 || undefined} tabIndex={-1} aria-labelledby={`h-${c.id}`}>
             <div ref={openers[i]} id={`h-${c.id}`}>
               <ChapterHead ch={c} k={k} />
             </div>
@@ -421,7 +422,10 @@ function Story({ chapters }: { chapters: Chapter[] }) {
                       <span className="v4-fig__cap">{s.fig.cap}</span>
                     </p>
                   )}
-                  <div className="v4-step__text">{s.body}</div>
+                  <div className="v4-step__text">
+                    {s.logo && <OrgLogo org={s.logo} height={s.logo === 'mlh' ? 24 : 17} className="v4-step__logo" />}
+                    {s.body}
+                  </div>
                 </div>
               )
             })}
@@ -473,10 +477,11 @@ function CopyEmail() {
   )
 }
 
-function Row({ title, meta, detail, to, href, flag }: { title: string; meta: string; detail?: string; to?: string; href?: string; flag?: string }) {
+function Row({ title, meta, detail, to, href, flag, logo }: { title: string; meta: string; detail?: string; to?: string; href?: string; flag?: string; logo?: OrgKey }) {
   const inner = (
     <>
       <span className="v4-row__t">
+        {logo && <OrgLogo org={logo} height={logo === 'mlh' ? 24 : 17} className="v4-row__logo" />}
         {title}
         {flag && <Flag note={flag} />}
       </span>
@@ -522,10 +527,10 @@ function Work({ base }: { base: string }) {
         <h3 className="v4-label">Experience</h3>
         <ul className="v4-rows">
           {roles.map((x) => (
-            <Row key={x.org} title={x.org} meta={`${x.role} · ${x.when}`} detail={x.line} />
+            <Row key={x.org} title={x.org} meta={`${x.role} · ${x.when}`} detail={x.line} logo={x.logo} />
           ))}
           <Show when="beri">
-            <Row title="Beri" meta="Co-founder" detail={`${beri.oneLiner.split('.')[0]}. ${beri.role.replace('Co-founder. ', '')}`} to={`${base}/beri`} />
+            <Row title="Beri" meta="Building · iOS" detail={`${beri.oneLiner.split('.')[0]}: the app, the backend and the design system.`} to={`${base}/beri`} />
           </Show>
         </ul>
       </div>
@@ -543,7 +548,7 @@ function Work({ base }: { base: string }) {
         <h3 className="v4-label">Engineering</h3>
         <ul className="v4-rows">
           {engineering.map((e) => (
-            <Row key={e.title} title={e.title} meta={e.role} detail={e.detail} href={'href' in e ? e.href : undefined} />
+            <Row key={e.title} title={e.title} meta={e.role} detail={e.detail} href={'href' in e ? e.href : undefined} logo={e.title.startsWith('MarmotSat') ? 'uvic' : undefined} />
           ))}
         </ul>
       </div>

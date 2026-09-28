@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check, Command, CornerDownLeft, FileText, Github, Hash, Linkedin, Mail, Gauge } from 'lucide-react'
-import { person, links, linkOrder, research, type LinkKey } from '../../content/site'
+import { person, links, workLinkOrder, research, type LinkKey } from '../../content/site'
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
 import { Link, useRouter } from '../../lib/router'
@@ -23,7 +23,7 @@ export const sections = [
  * Five one-tap links. Tooltips wait 450ms the first time (hover intent),
  * then show instantly while the pointer stays in the group, like a native toolbar.
  */
-export function IconLinks({ className = '' }: { className?: string }) {
+export function IconLinks({ className = '', keys = workLinkOrder }: { className?: string; keys?: LinkKey[] }) {
   const [warm, setWarm] = useState(false)
   const cool = useRef(0)
   const heat = useRef(0)
@@ -37,7 +37,7 @@ export function IconLinks({ className = '' }: { className?: string }) {
         cool.current = window.setTimeout(() => setWarm(false), 300)
       }}
     >
-      {linkOrder.map((k: LinkKey) => {
+      {keys.map((k: LinkKey) => {
         const l = links[k]
         const ext = !l.href.startsWith('mailto:')
         return (
@@ -270,6 +270,8 @@ export function CommandMenu({ open, setOpen, base, home }: { open: boolean; setO
       { id: 'a-gh', group: 'Contact', label: 'GitHub', hint: 'tanujdargan', icon: <Github size={14} />, run: ext(links.github.href) },
       { id: 'a-in', group: 'Contact', label: 'LinkedIn', icon: <Linkedin size={14} />, run: ext(links.linkedin.href) },
       { id: 'a-x', group: 'Contact', label: 'X', icon: <LinkIcon k="x" size={14} />, run: ext(links.x.href) },
+      { id: 'a-yt', group: 'Contact', label: 'YouTube', icon: <LinkIcon k="youtube" size={14} />, run: ext(links.youtube.href) },
+      { id: 'a-us', group: 'Contact', label: 'Photos on Unsplash', icon: <LinkIcon k="unsplash" size={14} />, run: ext(links.unsplash.href) },
       {
         id: 'p-motion',
         group: 'Preferences',

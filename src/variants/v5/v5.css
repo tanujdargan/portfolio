@@ -799,10 +799,6 @@ html:has(.v5) {
 .v5-chrono__line {
   color: var(--fg-2);
 }
-.v5-chrono li[data-unverified] .v5-chrono__line,
-.v5-chrono li[data-unverified] .v5-chrono__place {
-  color: var(--fg-3);
-}
 @media (max-width: 640px) {
   .v5-chrono li {
     grid-template-columns: 1fr;
@@ -926,8 +922,50 @@ html:has(.v5) {
 }
 .v5-t-name,
 .v5-t-task .v5-a {
-  display: block;
+  display: inline;
   font-weight: 540;
+}
+/* org marks: one ink, sized to the row's type */
+.v5-t-logo {
+  margin-right: 8px;
+  vertical-align: -2px;
+  color: var(--fg-2);
+}
+.v5-org {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.v5-org .s-logo,
+.v5-logo {
+  color: var(--fg-2);
+}
+.v5-specs dt .v5-logo {
+  margin: 4px 0 2px;
+}
+.v5-foot__links {
+  display: flex;
+  gap: 4px;
+  margin: -12px 0;
+}
+.v5-foot__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--fg-2);
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+.v5-foot__links a:hover {
+  background: var(--bg-3);
+  color: var(--fg);
+}
+.v5-foot__links .v5-file__meta {
+  display: none;
 }
 .v5-a:hover {
   color: var(--accent);

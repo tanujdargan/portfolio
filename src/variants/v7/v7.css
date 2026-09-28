@@ -1006,6 +1006,24 @@ html[data-motion='reduced'] .v7-sig__bars i {
   letter-spacing: 0.1em;
   color: var(--ok);
 }
+/* org marks: one ink, sized to the panel's type */
+.v7-panel__orgs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin: 12px 0 0;
+  color: var(--fg-2);
+}
+.v7-items__t:has(.v7-items__logo) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+.v7-items__logo {
+  color: var(--fg-2);
+}
 .v7-panel__sum {
   margin: 10px 0 12px;
   font-size: 14px;

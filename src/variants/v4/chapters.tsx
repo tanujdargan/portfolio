@@ -4,6 +4,7 @@ import type { Flags } from '../../content/flags'
 import { Link } from '../../lib/router'
 import { Demo } from '../../demos/Demo'
 import { Flag } from '../../shared/Flag'
+import type { OrgKey } from '../../shared/OrgLogo'
 
 // Every sentence below is built from src/content/site.ts. Dehradun and Gurgaon have no verified
 // years or details, so they stay one line long and carry a <Flag>. Content flags (Beri, VikeLabs, CDE) drop
@@ -16,6 +17,8 @@ export interface Fig {
 export interface Step {
   id: string
   fig?: Fig
+  /** org mark for steps that are resume roles */
+  logo?: OrgKey
   body: ReactNode
 }
 export interface Chapter {
@@ -120,6 +123,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
         },
         {
           id: 'v1',
+          logo: cfar.logo,
           fig: { v: '180 → 15', cap: 'minutes per test run, before and after CI/HIL' },
           body: (
             <p>
@@ -131,6 +135,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
         },
         {
           id: 'v2',
+          logo: 'uvic',
           fig: { v: '1–4M', cap: 'queries per second, billion-vector scale' },
           body: (
             <>
@@ -171,6 +176,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
         },
         {
           id: 'v5',
+          logo: pearJob.logo,
           fig: { v: '−40%', cap: 'memory, holding 95%+ F1 on triage' },
           body: (
             <p>
@@ -181,6 +187,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
         },
         {
           id: 'v6',
+          logo: 'mlh',
           fig: { v: 'hours → min', cap: 'Airflow setup-to-debug, as an MLH fellow' },
           body: (
             <p>
@@ -191,6 +198,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
         },
         {
           id: 'v6b',
+          logo: rbc.logo,
           fig: { v: '1,500+', cap: `longitudinal records · ${rbc.org}, ${rbc.when}` },
           body: (
             <p>
@@ -246,6 +254,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
       steps: [
         {
           id: 't0',
+          logo: amazon.logo,
           fig: { v: '$136.2M', cap: 'a year, projected · Amazon Robotics, 2026' },
           body: (
             <p>
@@ -259,7 +268,7 @@ export function buildChapters(base: string, flags: Flags): Chapter[] {
           fig: { v: 'Beri', cap: beri.stack.slice(0, 3).join(' · ') },
           body: (
             <p>
-              <b>Beri</b>, which I co-founded. {beri.oneLiner} I work on iOS, the backend and the design system.{' '}
+              <b>Beri.</b> {beri.oneLiner} I work on the app, the backend and the design system.{' '}
               <In to={`${base}/beri`}>The case study</In> · <Out href={beri.url}>getberi.com</Out>
             </p>
           ),

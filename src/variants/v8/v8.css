@@ -816,7 +816,7 @@ html:has(.v8) {
   width: 100%;
   display: grid;
   grid-template-columns: minmax(180px, 1.1fr) 1.6fr 150px 150px 20px;
-  grid-template-areas: 'org role when m chev' 'line line line line line';
+  grid-template-areas: 'logo logo logo logo logo' 'org role when m chev' 'line line line line line';
   align-items: baseline;
   gap: 4px 20px;
   padding: 18px 0;
@@ -826,6 +826,29 @@ html:has(.v8) {
   grid-area: org;
   font-weight: 560;
   font-size: 16.5px;
+}
+/* org marks: one ink, sized to the row's type */
+.v8-logo {
+  color: var(--fg-2);
+}
+.v8-row__logo {
+  grid-area: logo;
+  margin-bottom: 4px;
+}
+.v8-row__h:hover .v8-logo {
+  color: inherit;
+}
+.v8-index__a .v8-logo {
+  margin-right: 8px;
+}
+.v8-hit__logo,
+.v8-list__logo {
+  margin-right: 8px;
+  vertical-align: -2px;
+  display: inline-flex;
+}
+.v8-card__logo {
+  margin-bottom: 10px;
 }
 .v8-row__role {
   grid-area: role;
@@ -889,7 +912,7 @@ html:has(.v8) {
 @media (max-width: 760px) {
   .v8-row__h {
     grid-template-columns: 1fr auto 16px;
-    grid-template-areas: 'org m chev' 'role role role' 'when when when' 'line line line';
+    grid-template-areas: 'logo logo logo' 'org m chev' 'role role role' 'when when when' 'line line line';
     gap: 3px 12px;
   }
 }

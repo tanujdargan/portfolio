@@ -303,13 +303,22 @@
 }
 .v0-row__head {
   display: grid;
-  grid-template-columns: 13em 12em 1fr 10em 20px;
-  grid-template-areas: 'org role line when chev';
+  grid-template-columns: 8.5em 10.5em 10.5em 1fr 9em 20px;
+  grid-template-areas: 'logo org role line when chev';
   align-items: baseline;
   gap: 16px;
   width: 100%;
   padding: 18px 0;
   text-align: left;
+}
+.v0-row__logo {
+  grid-area: logo;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  height: 1.62em;
+  color: var(--fg);
+  opacity: 0.92;
 }
 .v0-row__org {
   grid-area: org;
@@ -353,14 +362,14 @@
 .v0-row__more p {
   max-width: var(--measure);
   padding: 0 0 20px;
-  margin-left: calc(13em + 16px);
+  margin-left: calc(8.5em + 16px);
   color: var(--fg-2);
   font-size: 15px;
 }
 @media (max-width: 860px) {
   .v0-row__head {
     grid-template-columns: 1fr auto 16px;
-    grid-template-areas: 'org when chev' 'role role role' 'line line line';
+    grid-template-areas: 'logo when chev' 'org org org' 'role role role' 'line line line';
     gap: 2px 12px;
   }
   .v0-row__line {
@@ -451,6 +460,15 @@
   padding: 12px 0;
   border-top: 1px solid var(--line);
   font-size: 15px;
+}
+.v0-earlier__t {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: start;
+}
+.v0-earlier__logo {
+  color: var(--fg-2);
 }
 .v0-earlier a:hover {
   color: var(--accent);

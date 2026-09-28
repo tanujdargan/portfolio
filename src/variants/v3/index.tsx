@@ -14,11 +14,12 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import '@fontsource-variable/instrument-sans'
 import '@fontsource-variable/martian-mono'
-import { person, research, engineering, experience, earlier as earlierAll, beri, links } from '../../content/site'
+import { person, research, engineering, experience, earlier as earlierAll, beri, links, workLinkOrder } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Demo } from '../../demos/Demo'
@@ -50,7 +51,7 @@ function Top({ base }: { base: string }) {
           <Link to={`${base}/#work`}>Work</Link>
           <Link to={`${base}/#contact`}>Contact</Link>
         </nav>
-        <Links className="v3-top__icons" mode="icon" size={16} />
+        <Links className="v3-top__icons" mode="icon" size={16} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -91,7 +92,7 @@ function Hero({ base }: { base: string }) {
           </li>
         ))}
       </ol>
-      <Links className="v3-links v3-in" mode="both" size={14} />
+      <Links className="v3-links v3-in" mode="both" size={14} only={workLinkOrder} />
     </div>
   )
 }
@@ -147,7 +148,7 @@ function CopyEmail() {
   )
 }
 
-function Row({ k, title, meta, detail, metric, to, href, hrefLabel, flag, live }: {
+function Row({ k, title, meta, detail, metric, to, href, hrefLabel, flag, live, logo }: {
   k: string
   title: string
   meta: string
@@ -158,6 +159,7 @@ function Row({ k, title, meta, detail, metric, to, href, hrefLabel, flag, live }
   hrefLabel?: string
   flag?: string
   live?: boolean
+  logo?: OrgKey
 }) {
   return (
     <li className="v3-row">
@@ -166,6 +168,7 @@ function Row({ k, title, meta, detail, metric, to, href, hrefLabel, flag, live }
         {k}
       </span>
       <div className="v3-row__main">
+        {logo && <OrgLogo org={logo} height={logo === 'mlh' ? 24 : 17} className="v3-row__logo" />}
         <h3 className="v3-row__t">
           {to ? <Link to={to}>{title}</Link> : href ? <a href={href} target="_blank" rel="noopener">{title}</a> : title}
           {flag && <Flag note={flag} />}
@@ -248,6 +251,7 @@ function Home({ base }: { base: string }) {
                   meta={`${x.role} · ${x.where} · ${x.when}`}
                   detail={x.line}
                   metric={x.metric}
+                  logo={x.logo}
                   href={link}
                   hrefLabel={link?.replace('https://', '').replace(/\/$/, '')}
                 />
@@ -257,8 +261,8 @@ function Home({ base }: { base: string }) {
               <Row
                 k={`W${roles.length + 1}`}
                 title="Beri"
-                meta={`Co-founder · ${beri.stack.join(', ')}`}
-                detail={`${beri.oneLiner} ${beri.role}`}
+                meta={`Building · ${beri.stack.join(', ')}`}
+                detail={`${beri.oneLiner} I build the app, the backend and the design system.`}
                 metric="iOS"
                 to={`${base}/beri`}
                 href={beri.url}
@@ -279,6 +283,7 @@ function Home({ base }: { base: string }) {
                 meta={e.role}
                 detail={e.detail}
                 metric={metricOf(i === 0 ? 'satellite' : 'homelab')}
+                logo={i === 0 ? 'uvic' : undefined}
                 href={'href' in e ? e.href : undefined}
                 hrefLabel="GitHub"
               />

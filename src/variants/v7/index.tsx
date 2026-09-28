@@ -10,16 +10,17 @@
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { person, links, research, type Milestone } from '../../content/site'
+import { person, links, research, workLinkOrder, type Milestone } from '../../content/site'
 import { useCommunity, useMilestones, useProof } from '../../content/useContent'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Demo } from '../../demos/Demo'
 import { Link, useRouter } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
-import { Show, useFlags } from '../../lib/labprefs'
+import { Show, useFlags, useLabPrefs } from '../../lib/labprefs'
 import type { VariantProps } from '../../routes'
 import { Orbit, getClock } from './OrbitView'
 import { Console, type Line, type Suggestion } from './Console'
@@ -140,7 +141,7 @@ function TopBar({ home, con, conOpen, setCon }: { home: boolean; con: ReactNode;
           <span aria-hidden="true">›_</span>
         </button>
         <SignalToggle />
-        <Links className="v7-bar__links" mode="icon" size={17} />
+        <Links className="v7-bar__links" mode="icon" size={17} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -173,7 +174,7 @@ function Hero() {
             </li>
           ))}
         </ol>
-        <Links className="v7-hero__links v7-in" mode="both" size={15} />
+        <Links className="v7-hero__links v7-in" mode="both" size={15} only={workLinkOrder} />
       </div>
       <div className="v7-hero__orbit">
         <Orbit />
@@ -207,6 +208,13 @@ function Panel({ s, idx, pkt, wide }: { s: Sub; idx: number; pkt: Pkt | null; wi
         </h3>
         <span className="v7-panel__stat">NOMINAL</span>
       </header>
+      {s.logos && (
+        <p className="v7-panel__orgs">
+          {s.logos.map((o, i) => (
+            <OrgLogo key={`${o}-${i}`} org={o} height={16} />
+          ))}
+        </p>
+      )}
       <p className="v7-panel__sum">{s.summary}</p>
       <dl className="v7-ro">
         {s.readouts.map((r, i) => (
@@ -243,6 +251,7 @@ function Panel({ s, idx, pkt, wide }: { s: Sub; idx: number; pkt: Pkt | null; wi
               {s.items.map((it) => (
                 <li key={it.title}>
                   <p className="v7-items__t">
+                    {it.logo && <OrgLogo org={it.logo} height={15} className="v7-items__logo" />}
                     {it.title}
                     {it.flag && <Flag note={it.flag} />}
                   </p>
@@ -370,6 +379,7 @@ function SecHead({ n, id, title, note }: { n: string; id: string; title: string;
 /* ------------------------------------------------------------------ research queue */
 
 function Queue() {
+  const { badges } = useLabPrefs()
   return (
     <section id="data" className="v7-sec" aria-labelledby="v7-data-h">
       <SecHead n="02" id="v7-data-h" title="Downlink queue" note="Five research write-ups. Each has the question, the method, the result and what I'd run next." />
@@ -387,7 +397,7 @@ function Queue() {
                 RX ↘
               </span>
             </DLink>
-            {r.unverified && (
+            {badges && r.unverified && (
               <p className="v7-queue__flag">
                 <Flag note={r.unverified[0]} />
               </p>
@@ -678,7 +688,7 @@ export default function V7({ page, base }: VariantProps) {
       { cmd: 'help', hint: 'All commands' },
       { cmd: 'clear', hint: 'Clear the console' },
     ]
-    if (flags.beri) s.splice(5, 0, { cmd: '/tlm rideshare', hint: 'Beri · co-founded iOS app' }, { cmd: '/open beri', hint: 'Beri case study' })
+    if (flags.beri) s.splice(5, 0, { cmd: '/tlm rideshare', hint: 'Beri · the iOS food app I\'m building' }, { cmd: '/open beri', hint: 'Beri case study' })
     return s
   }, [flags.beri])
 
@@ -694,7 +704,7 @@ export default function V7({ page, base }: VariantProps) {
         document.getElementById(id)?.scrollIntoView({ behavior: mRef.current.reduced ? 'auto' : 'smooth', block: 'start' })
       const home = page.kind === 'home'
       if (cmd === 'help' || cmd === '?') {
-        push('out', 'tlm <subsystem|org> · open research <topic> · open beri · downlink resume|email|github|linkedin|x')
+        push('out', 'tlm <subsystem|org> · open research <topic> · open beri · downlink resume|email|github|linkedin|x|youtube|unsplash')
         push('out', 'pass · warp <n|live> · signal on|off · log · uplink · clear')
       } else if (cmd === 'clear') {
         setLines([])
@@ -743,12 +753,12 @@ export default function V7({ page, base }: VariantProps) {
             () => (location.href = links.email.href),
           )
           push('ack', `copied ${person.email}`)
-        } else if (k === 'github' || k === 'linkedin' || k === 'x') {
+        } else if (k === 'github' || k === 'linkedin' || k === 'x' || k === 'youtube' || k === 'unsplash') {
           push('ack', `opening ${links[k].href}`)
           window.open(links[k].href, '_blank', 'noopener')
         } else {
           ok = false
-          push('nak', 'downlink resume | email | github | linkedin | x')
+          push('nak', 'downlink resume | email | github | linkedin | x | youtube | unsplash')
         }
       } else if (cmd === 'pass') {
         const now = getClock().now(Date.now())

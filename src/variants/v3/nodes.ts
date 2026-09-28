@@ -2,6 +2,7 @@
 // Pure data, no three.js, so the static HTML (HUD, node list, sheet) renders without WebGL.
 import { research, engineering, communityAll, earlier, experience, beri } from '../../content/site'
 import type { FlagKey, Flags } from '../../content/flags'
+import type { OrgKey } from '../../shared/OrgLogo'
 
 export type Vec3 = [number, number, number]
 
@@ -34,6 +35,8 @@ export interface SpaceNode {
   href?: string
   hrefLabel?: string
   flag?: string
+  /** org mark for resume roles */
+  logo?: OrgKey
   /** content flag that must be on for this node to exist */
   show?: FlagKey
   pos: Vec3
@@ -157,6 +160,7 @@ const drafts: Draft[] = [
         // Amazon's first bullet restates its line; its number is the metric
         body: [x.line, ...x.bullets.slice(x.org.startsWith('Amazon') ? 1 : 0)],
         metric: x.metric,
+        logo: x.logo,
         href: link,
         hrefLabel: link?.replace('https://', '').replace(/\/$/, ''),
       }
@@ -166,8 +170,8 @@ const drafts: Draft[] = [
     cluster: 2,
     title: 'Beri',
     label: 'Beri',
-    role: 'Co-founder',
-    meta: 'getberi.com · iOS',
+    role: 'Building',
+    meta: 'iOS food app · getberi.com',
     body: [beri.oneLiner, beri.role],
     metric: beri.stack.slice(0, 2).join(' · '),
     to: '/beri',
@@ -186,6 +190,7 @@ const drafts: Draft[] = [
     meta: engineering[0].tags.join(' · '),
     body: [engineering[0].detail],
     metric: 'In orbit',
+    logo: 'uvic',
   },
   {
     id: 'homelab',

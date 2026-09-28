@@ -19,7 +19,7 @@ const minH: Record<Exclude<DemoKey, null>, string> = {
   es: 'var(--demo-h-es, 460px)',
   retrieval: 'var(--demo-h-retrieval, 460px)',
   ocean: 'var(--demo-h-ocean, 520px)',
-  orbit: 'var(--demo-h-orbit, 560px)',
+  orbit: 'var(--demo-h-orbit, 640px)',
 }
 
 /** Loads a demo only when it's about to scroll into view. */

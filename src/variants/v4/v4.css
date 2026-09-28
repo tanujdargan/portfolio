@@ -511,6 +511,20 @@
 .v4-step__text p {
   text-wrap: pretty;
 }
+/* org marks: one ink, set on the line above like a letterhead; MLH's mark sits small in its box so it runs larger */
+.v4-step__logo,
+.v4-row__logo {
+  display: flex;
+  width: max-content;
+  color: var(--fg);
+}
+.v4-step__logo {
+  margin-bottom: -4px;
+}
+.v4-row__logo {
+  margin-bottom: 10px;
+  opacity: 0.88;
+}
 .v4-demo {
   margin: 8px 0 4px;
   /* measured rendered heights, so the lazy chunk doesn't shift the page */
@@ -835,6 +849,13 @@
     transition: opacity 0.2s;
   }
   .v4-step[data-active] .v4-step__text > p {
+    opacity: 1;
+  }
+  .v4-step__logo {
+    opacity: 0.72;
+    transition: opacity 0.2s;
+  }
+  .v4-step[data-active] .v4-step__logo {
     opacity: 1;
   }
   .v4-step__text > p.v4-dim {

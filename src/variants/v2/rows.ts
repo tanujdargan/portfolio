@@ -1,5 +1,6 @@
 // v2 index rows. Every fact comes from src/content/site.ts; only the phrasing is v2's.
 import { research, engineering, earlier, beri, experience, type Community } from '../../content/site'
+import type { OrgKey } from '../../shared/OrgLogo'
 
 export type Preview =
   | { kind: 'type'; big: string; lines: string[] }
@@ -23,6 +24,8 @@ export interface Row {
   href?: string
   cta?: string
   flag?: string
+  /** org mark shown on the row (resume roles only) */
+  logo?: OrgKey
   preview: Preview
 }
 
@@ -37,6 +40,7 @@ export const work: (Row & { beri?: boolean })[] = [
   {
     id: 'amazon',
     title: amazon.org,
+    logo: amazon.logo,
     sub: 'SDE intern · Toronto',
     metric: '$136.2M',
     unit: '/yr projected',
@@ -48,7 +52,7 @@ export const work: (Row & { beri?: boolean })[] = [
     id: 'beri',
     beri: true,
     title: 'Beri',
-    sub: 'Co-founder · native iOS',
+    sub: 'Building · native iOS',
     metric: '9',
     unit: 'directions',
     when: '2025 –',
@@ -60,6 +64,7 @@ export const work: (Row & { beri?: boolean })[] = [
   {
     id: 'obc',
     title: engineering[0].title,
+    logo: 'uvic',
     sub: 'Firmware lead · UVic CFAR',
     metric: '15',
     unit: 'min, was 180',
@@ -70,6 +75,7 @@ export const work: (Row & { beri?: boolean })[] = [
   {
     id: 'rbc',
     title: rbc.org,
+    logo: rbc.logo,
     sub: 'AI/ML research mentee',
     metric: '1,500+',
     unit: 'records',
@@ -187,6 +193,8 @@ const earlierMetric: Record<string, [string, string?]> = {
   Drop: ['P2P'],
   'Wedding Studio': ['6', 'weeks'],
 }
+/** Earlier entries that are also resume roles carry the same mark. */
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 export const earlierRows: Row[] = earlier.map((e) => ({
   id: e.title,
   title: e.title,
@@ -196,6 +204,7 @@ export const earlierRows: Row[] = earlier.map((e) => ({
   when: e.when,
   detail: e.detail,
   href: e.href,
+  logo: earlierLogo[e.title],
   flag: 'unverified' in e && e.unverified ? "Parameter Golf found in local repo; confirm it's okay to list." : undefined,
   preview:
     e.title === 'Optimate'

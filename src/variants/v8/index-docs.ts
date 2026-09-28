@@ -2,6 +2,7 @@
 // Search is lexical scoring standing in for an embedding model; the geometry is illustrative and says so on the page.
 import { research, earlier, communityAll, experience, engineering, beri, links, type Research } from '../../content/site'
 import type { FlagKey, Flags } from '../../content/flags'
+import type { OrgKey } from '../../shared/OrgLogo'
 import { cells, groupCells, nearestCells, pointInCell, pointPos, pcg, lerp3, d2, NLIST, type V3 } from './geometry'
 
 export type DocKind = 'write-up' | 'role' | 'section' | 'project' | 'community' | 'earlier' | 'link'
@@ -16,6 +17,8 @@ export interface Doc {
   words: string
   flag?: FlagKey
   unverified?: string
+  /** org mark shown on result rows */
+  logo?: OrgKey
   cell: number
   pos: V3
 }
@@ -34,16 +37,16 @@ const raw: Raw[] = [
   { id: 'retrieval', title: R('billion-vector-retrieval').title, kind: 'write-up', group: 1, to: '/research/billion-vector-retrieval', line: R('billion-vector-retrieval').short, words: 'billion vector retrieval search cuvs cagra ivf pq gpu gpus nvidia nvlink qps recall latency deia chester kubernetes ann nearest neighbour neighbor index' },
   { id: 'ocean', title: R('ocean-sensing').title, kind: 'write-up', group: 3, to: '/research/ocean-sensing', line: R('ocean-sensing').short, words: 'ocean sensing satellite imagery remote deep water temperature nrc solids multimodal popli climate', unverified: R('ocean-sensing').unverified?.[0] },
   // roles
-  { id: 'amazon', title: 'Amazon Robotics', kind: 'role', group: 2, to: '/#w-amazon', line: exp('Amazon').line, words: 'amazon robotics sde intern internship llm planning assistant optimus rag fulfillment labor production return offer toronto agent' },
-  { id: 'rbc', title: 'RBC Borealis', kind: 'role', group: 2, to: '/#w-rbc', line: exp('RBC').line, words: 'rbc borealis mentorship pytorch umap youth chronic illness clustering dashboard ml' },
-  { id: 'cfar', title: 'MarmotSat · UVic CFAR', kind: 'role', group: 3, to: '/#w-cfar', line: exp('UVic Centre').line, words: 'marmotsat satellite space orbit firmware obc onboard computer ttc c yamcs hil ci spacex falcon cubesat aerospace cfar hardware' },
-  { id: 'deia', title: 'DEIA Lab, UVic', kind: 'role', group: 1, to: '/#w-deia', line: exp('DEIA').line, words: 'deia lab uvic chester research cuvs cagra ivf gpu retrieval billion vector qps' },
-  { id: 'pear', title: 'Pear Care', kind: 'role', group: 2, to: '/#w-pear', line: exp('Pear').line, words: 'pear care medical ai agents langgraph lora peft quantized gcp aws fastapi health llm' },
-  { id: 'mlh', title: 'MLH Fellowship · Apache Airflow', kind: 'role', group: 2, to: '/#w-mlh', line: exp('MLH').line, words: 'mlh fellowship apache airflow docker debugging open source rbc vs code pycharm' },
+  { id: 'amazon', title: 'Amazon Robotics', logo: exp('Amazon').logo, kind: 'role', group: 2, to: '/#w-amazon', line: exp('Amazon').line, words: 'amazon robotics sde intern internship llm planning assistant optimus rag fulfillment labor production return offer toronto agent' },
+  { id: 'rbc', title: 'RBC Borealis', logo: exp('RBC').logo, kind: 'role', group: 2, to: '/#w-rbc', line: exp('RBC').line, words: 'rbc borealis mentorship pytorch umap youth chronic illness clustering dashboard ml' },
+  { id: 'cfar', title: 'MarmotSat · UVic CFAR', logo: exp('UVic Centre').logo, kind: 'role', group: 3, to: '/#w-cfar', line: exp('UVic Centre').line, words: 'marmotsat satellite space orbit firmware obc onboard computer ttc c yamcs hil ci spacex falcon cubesat aerospace cfar hardware' },
+  { id: 'deia', title: 'DEIA Lab, UVic', logo: exp('DEIA').logo, kind: 'role', group: 1, to: '/#w-deia', line: exp('DEIA').line, words: 'deia lab uvic chester research cuvs cagra ivf gpu retrieval billion vector qps' },
+  { id: 'pear', title: 'Pear Care', logo: exp('Pear').logo, kind: 'role', group: 2, to: '/#w-pear', line: exp('Pear').line, words: 'pear care medical ai agents langgraph lora peft quantized gcp aws fastapi health llm' },
+  { id: 'mlh', title: 'MLH Fellowship · Apache Airflow', logo: exp('MLH').logo, kind: 'role', group: 2, to: '/#w-mlh', line: exp('MLH').line, words: 'mlh fellowship apache airflow docker debugging open source rbc vs code pycharm' },
   // products and builds
-  { id: 'beri', title: 'Beri', kind: 'project', group: 5, to: '/beri', line: beri.oneLiner, words: 'beri ios swiftui food recipe social app co-founder founder startup supabase kotlin android design system', flag: 'beri' },
+  { id: 'beri', title: 'Beri', kind: 'project', group: 5, to: '/beri', line: beri.oneLiner, words: 'beri ios swiftui food recipe social app building side project supabase kotlin android design system', flag: 'beri' },
   { id: 'homelab', title: engineering[1].title, kind: 'project', group: 1, to: '/#build', href: engineering[1].href, line: engineering[1].detail, words: 'homelab proxmox nix nixos zfs vllm self-hosted gpu serving ci runners vlan zero trust infra' },
-  { id: 'obc', title: engineering[0].title, kind: 'project', group: 3, to: '/#build', line: engineering[0].role, words: 'marmotsat onboard computer firmware c ttc yamcs hil satellite space' },
+  { id: 'obc', title: engineering[0].title, logo: 'uvic', kind: 'project', group: 3, to: '/#build', line: engineering[0].role, words: 'marmotsat onboard computer firmware c ttc yamcs hil satellite space' },
   // community
   ...communityAll.map<Raw>((c) => ({
     id: 'c-' + c.title.toLowerCase().replace(/[^a-z0-9]+/g, ''),
@@ -74,6 +77,8 @@ const raw: Raw[] = [
   { id: 'github', title: 'GitHub', kind: 'link', group: -1, href: links.github.href, line: 'github.com/tanujdargan', words: 'github code repos open source' },
   { id: 'linkedin', title: 'LinkedIn', kind: 'link', group: -1, href: links.linkedin.href, line: 'linkedin.com/in/tanujdargan', words: 'linkedin profile' },
   { id: 'x', title: 'X', kind: 'link', group: -1, href: links.x.href, line: '@DarganTanuj', words: 'x twitter' },
+  { id: 'youtube', title: 'YouTube', kind: 'link', group: -1, href: links.youtube.href, line: 'youtube.com/tanujdargan', words: 'youtube video videos channel' },
+  { id: 'unsplash', title: 'Unsplash', kind: 'link', group: -1, href: links.unsplash.href, line: 'Photography, @tanuj_dargan', words: 'unsplash photos photography photographer camera pictures' },
   { id: 'sec-work', title: 'Work', kind: 'section', group: 2, to: '/#work', line: 'Six roles, newest first, one metric each.', words: 'work experience jobs roles industry internship' },
   { id: 'sec-research', title: 'Research', kind: 'section', group: 0, to: '/#research', line: 'Five write-ups: question, method, result, next.', words: 'research papers write-ups interpretability ml' },
   { id: 'sec-index', title: 'The plain index', kind: 'section', group: -1, to: '/#index', line: 'Every vector on this page, as a list of links.', words: 'index all everything list sitemap' },
@@ -108,7 +113,7 @@ const SYN: Record<string, string> = {
   space: 'satellite', orbit: 'satellite', cubesat: 'satellite', embedded: 'firmware', hardware: 'firmware',
   interp: 'interpretability', mech: 'interpretability', steer: 'steering', vectorsteering: 'steering', welfare: 'welfare', emotion: 'steering',
   hire: 'contact', email: 'contact', mail: 'contact', cv: 'resume', twitter: 'x',
-  ios: 'beri', swift: 'swiftui', app: 'beri', startup: 'founder',
+  ios: 'beri', swift: 'swiftui', app: 'beri', startup: 'beri', food: 'beri', recipe: 'beri',
   aws: 'amazon', robotics: 'amazon', llm: 'llm', agents: 'agent', health: 'medical',
   hackathon: 'hackathon', kaggle: 'kaggle', ocean: 'ocean', climate: 'ocean',
 }

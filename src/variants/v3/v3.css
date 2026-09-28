@@ -909,6 +909,15 @@ a.v3-proof__l:hover {
   align-self: start;
   padding-top: 6px;
 }
+/* org marks: one ink, set above the title like a letterhead; MLH's mark sits small in its box so it runs larger */
+.v3-row__logo,
+.v3-sheet__logo {
+  display: flex;
+  width: max-content;
+  margin-bottom: 10px;
+  color: var(--fg);
+  opacity: 0.88;
+}
 .v3-row__t {
   font-size: 19px;
   line-height: 1.3;

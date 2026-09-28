@@ -11,7 +11,8 @@
  * Type: Fraunces Italic (display, latin wght only) + Geist Mono (instruments) + the platform sans for body.
  */
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react'
-import { person, research, engineering, earlier, experience, beri, links, type Milestone } from '../../content/site'
+import { person, research, engineering, earlier, experience, beri, links, workLinkOrder, type Milestone } from '../../content/site'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { useProof, useCommunity, useMilestones } from '../../content/useContent'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
@@ -41,10 +42,22 @@ const kindLabel: Record<Milestone['kind'], string> = {
 // Mobile proof lines: the same facts as proof[].detail, cut to fit the first screen.
 const proofShort: Record<string, string> = {
   amazon: 'SDE intern, 2026. LLM planning assistant in production at 180+ sites. Return offer.',
-  beri: 'Co-founder. A native iOS food and recipe app.',
+  beri: "A food app I'm building for iOS.",
   marmotsat: 'Led the onboard-computer firmware. Launched on a Falcon 9.',
   research: 'Activation steering, and loss masking vs shutdown distress.',
 }
+
+// Org marks for the stations and lists that name an organisation.
+const stationLogo: Record<string, OrgKey> = {
+  'Amazon Robotics': 'amazon',
+  'RBC Borealis': 'rbc',
+  'Pear Care': 'pearcare',
+  'Apache Airflow': 'mlh',
+  'MarmotSat OBC': 'uvic',
+  'MarmotSat in orbit': 'uvic',
+  'Billion-vector retrieval': 'uvic',
+}
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 
 const PX = 1.5 // gauge px per metre
 
@@ -97,7 +110,7 @@ function Nav({ base, home }: { base: string; home: boolean }) {
           ),
         )}
       </nav>
-      <Links className="v9-nav__links" mode="icon" size={17} />
+      <Links className="v9-nav__links" mode="icon" size={17} only={workLinkOrder} />
     </header>
   )
 }
@@ -236,6 +249,7 @@ function Station({ it, base, i }: { it: Extract<Item, { type: 'st' }>; base: str
       <p className="v9-card__meta">
         <span>{ms.when}</span>
         <span>{kindLabel[ms.kind]}</span>
+        {stationLogo[ms.title] && <OrgLogo org={stationLogo[ms.title]} height={15} className="v9-logo v9-card__logo" />}
       </p>
       <h3 className="v9-card__t">
         {ms.title}
@@ -329,6 +343,7 @@ function Experience() {
       {experience.map((r, i) => (
         <li key={r.org} className="v9-row" data-open={open === i || undefined}>
           <button type="button" className="v9-row__head" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
+            <OrgLogo org={r.logo} height={17} className="v9-logo v9-row__logo" />
             <span className="v9-row__org">{r.org}</span>
             <span className="v9-row__role">{r.role}</span>
             <span className="v9-row__when">{r.when}</span>
@@ -446,8 +461,9 @@ function Log({ base }: { base: string }) {
               Engineering
             </h3>
             <ul className="v9-mini">
-              {engineering.map((e) => (
+              {engineering.map((e, i) => (
                 <li key={e.title}>
+                  {i === 0 && <OrgLogo org="uvic" height={17} className="v9-logo v9-mini__logo" />}
                   <b>{e.href ? <a href={e.href} target="_blank" rel="noopener">{e.title} ↗</a> : e.title}</b>
                   <span className="v9-soft"> {e.role}.</span> {e.detail}
                 </li>
@@ -483,6 +499,7 @@ function Log({ base }: { base: string }) {
                 <span className="v9-earlier__t">
                   {e.href ? (
                     <a href={e.href} target="_blank" rel="noopener">
+                      {earlierLogo[e.title] && <OrgLogo org={earlierLogo[e.title]} height={14} className="v9-logo v9-earlier__logo" />}
                       {e.title} ↗
                     </a>
                   ) : (
@@ -765,7 +782,7 @@ function Home({ base }: { base: string }) {
           <p className="v9-lede v9-in" style={{ '--i': 2 } as CSSProperties}>
             I ship ML systems to production and study what happens inside the models.
           </p>
-          <Links className="v9-hero__links v9-in" mode="both" size={15} />
+          <Links className="v9-hero__links v9-in" mode="both" size={15} only={workLinkOrder} />
         </div>
         <ul className="v9-proof" aria-label="Proof">
           {proof.map((p, i) => (

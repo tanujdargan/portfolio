@@ -3,6 +3,7 @@ import { useFlags } from '../../lib/labprefs'
 import { useRouter } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo } from '../../shared/OrgLogo'
 import { plan as makePlan, visibleDocs, suggestions, groupNames, K, type Doc, type Plan } from './index-docs'
 import { field, events } from './fieldClient'
 
@@ -289,6 +290,7 @@ export function SearchDialog() {
                   >
                     <span className="v8-hit__r">{String(i + 1).padStart(2, '0')}</span>
                     <span className="v8-hit__t">
+                      {h.doc.logo && <OrgLogo org={h.doc.logo} height={14} className="v8-logo v8-hit__logo" />}
                       {h.doc.title}
                       {h.doc.unverified && <Flag note={h.doc.unverified} />}
                       {!h.doc.to && <span aria-hidden="true"> ↗</span>}

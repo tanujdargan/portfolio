@@ -16,10 +16,11 @@
  */
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { person, research, engineering, earlier, experience, links, beri } from '../../content/site'
+import { person, research, engineering, earlier, experience, links, beri, workLinkOrder } from '../../content/site'
 import { useCommunity, useProof, useMilestones } from '../../content/useContent'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Link, useRouter } from '../../lib/router'
@@ -68,7 +69,7 @@ function Nav({ base, home }: { base: string; home: boolean }) {
           {item('index', 'Index')}
           {item('contact', 'Contact')}
         </nav>
-        <Links className="v4b-nav__icons" mode="icon" size={18} />
+        <Links className="v4b-nav__icons" mode="icon" size={18} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -133,7 +134,7 @@ function Hero() {
           </li>
         ))}
       </ul>
-      <Links className="v4b-pills v4b-in" mode="both" size={15} />
+      <Links className="v4b-pills v4b-in" mode="both" size={15} only={workLinkOrder} />
       <div className="v4b-cta v4b-in" style={{ ['--i' as string]: 7 }}>
         <button type="button" className="v4b-btn v4b-btn--main" onClick={() => jump('story', m.reduced)}>
           <Spark />
@@ -195,10 +196,11 @@ function CopyEmail() {
   )
 }
 
-function Row({ title, meta, detail, to, href, flag, tag }: { title: string; meta: string; detail?: string; to?: string; href?: string; flag?: string; tag?: string }) {
+function Row({ title, meta, detail, to, href, flag, tag, logo }: { title: string; meta: string; detail?: string; to?: string; href?: string; flag?: string; tag?: string; logo?: OrgKey }) {
   const inner = (
     <>
       <span className="v4b-row__t">
+        {logo && <OrgLogo org={logo} height={logo === 'mlh' ? 24 : 17} className="v4b-row__logo" />}
         {title}
         {tag && <span className="v4b-tag">{tag}</span>}
         {flag && <Flag note={flag} />}
@@ -257,7 +259,10 @@ function Index({ base }: { base: string }) {
             <li key={e.org} className="v4b-row">
               <details className="v4b-exp">
                 <summary className="v4b-row__a">
-                  <span className="v4b-row__t">{e.org}</span>
+                  <span className="v4b-row__t">
+                    <OrgLogo org={e.logo} height={e.logo === 'mlh' ? 24 : 17} className="v4b-row__logo" />
+                    {e.org}
+                  </span>
                   <span className="v4b-row__m">
                     {e.when} · {e.metric}
                   </span>
@@ -281,7 +286,7 @@ function Index({ base }: { base: string }) {
         <div className="v4b-group">
           <h3 className="v4b-label">Product</h3>
           <ul className="v4b-rows">
-            <Row title="Beri" meta="Co-founder · 2025 –" detail={`${beri.oneLiner} ${beri.role.replace('Co-founder. ', '')}`} to={`${base}/beri`} tag="case study" />
+            <Row title="Beri" meta="Building · iOS · 2025 –" detail={`${beri.oneLiner} I build the app, the backend and the design system.`} to={`${base}/beri`} tag="case study" />
           </ul>
         </div>
       </Show>
@@ -290,7 +295,7 @@ function Index({ base }: { base: string }) {
         <h3 className="v4b-label">Engineering</h3>
         <ul className="v4b-rows">
           {engineering.map((e) => (
-            <Row key={e.title} title={e.title} meta={e.role} detail={e.detail} href={'href' in e ? e.href : undefined} />
+            <Row key={e.title} title={e.title} meta={e.role} detail={e.detail} href={'href' in e ? e.href : undefined} logo={e.title.startsWith('MarmotSat') ? 'uvic' : undefined} />
           ))}
         </ul>
       </div>

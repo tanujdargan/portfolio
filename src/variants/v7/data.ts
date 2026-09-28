@@ -1,6 +1,7 @@
 // v7's mapping of site.ts onto spacecraft subsystems. Every value below is read from, or quoted from, site.ts.
 import { beri, earlier, engineering, experience, research, type Community } from '../../content/site'
 import type { DemoKey } from '../../content/site'
+import type { OrgKey } from '../../shared/OrgLogo'
 
 export interface Readout {
   /** telemetry mnemonic */
@@ -19,6 +20,8 @@ export interface Item {
   href?: string
   hrefLabel?: string
   flag?: string
+  /** org mark shown next to the title */
+  logo?: OrgKey
 }
 export interface Sub {
   id: string
@@ -30,6 +33,8 @@ export interface Sub {
   items: Item[]
   demo?: Exclude<DemoKey, null>
   aliases: string[]
+  /** org marks in the panel header, so the org list reads on a skim */
+  logos?: OrgKey[]
 }
 
 const exp = (org: string) => experience.find((e) => e.org.startsWith(org))!
@@ -37,7 +42,8 @@ const res = (slug: string) => research.find((r) => r.slug === slug)!
 const amazon = exp('Amazon'), rbc = exp('RBC'), cfar = exp('UVic Centre'), deia = exp('DEIA'), pear = exp('Pear'), mlh = exp('MLH')
 const steer = res('activation-steering'), loss = res('loss-masking-distress'), es = res('es-lora'), bvr = res('billion-vector-retrieval'), ocean = res('ocean-sensing')
 
-const role = (e: typeof amazon): Item => ({ title: e.org, meta: `${e.role} · ${e.when} · ${e.where}`, body: e.bullets })
+const role = (e: typeof amazon): Item => ({ title: e.org, meta: `${e.role} · ${e.when} · ${e.where}`, body: e.bullets, logo: e.logo })
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
 
 export function subsystems(opts: { beri: boolean; community: Community[] }): Sub[] {
   const list: Sub[] = [
@@ -56,6 +62,7 @@ export function subsystems(opts: { beri: boolean; community: Community[] }): Sub
         { m: 'PEAR.MEM', v: '−40%' },
       ],
       items: [role(amazon), role(rbc), role(pear), role(mlh)],
+      logos: [amazon.logo, rbc.logo, pear.logo, mlh.logo],
       aliases: ['eps', 'power', 'industry', 'amazon', 'robotics', 'optimus', 'rbc', 'borealis', 'pear', 'pearcare', 'airflow', 'mlh', 'work', 'experience'],
     },
     {
@@ -76,6 +83,7 @@ export function subsystems(opts: { beri: boolean; community: Community[] }): Sub
         { ...role(cfar), title: 'MarmotSat · UVic Centre for Aerospace Research' },
         { title: engineering[1].title, meta: engineering[1].role, body: [engineering[1].detail], href: engineering[1].href, hrefLabel: 'nixos config on GitHub' },
       ],
+      logos: [cfar.logo],
       aliases: ['obc', 'firmware', 'marmotsat', 'cfar', 'satellite', 'sat', 'yamcs', 'hil', 'homelab', 'nix'],
     },
     {
@@ -94,6 +102,7 @@ export function subsystems(opts: { beri: boolean; community: Community[] }): Sub
       ],
       items: [{ ...role(deia), to: `/research/${bvr.slug}` }],
       demo: 'retrieval',
+      logos: [deia.logo],
       aliases: ['ttc', 'retrieval', 'deia', 'cuvs', 'vectors', 'gpu', 'search'],
     },
     {
@@ -140,7 +149,7 @@ export function subsystems(opts: { beri: boolean; community: Community[] }): Sub
       maps: 'Product',
       summary: beri.oneLiner,
       readouts: [
-        { m: 'ROLE', v: 'CO-FOUNDER' },
+        { m: 'STATUS', v: 'IN BUILD' },
         { m: 'IOS', v: 'SwiftUI' },
         { m: 'BACKEND', v: 'Supabase' },
         { m: 'ANDROID', v: 'Kotlin' },
@@ -168,6 +177,7 @@ export function subsystems(opts: { beri: boolean; community: Community[] }): Sub
         href: e.href,
         hrefLabel: e.href ? e.href.replace(/^https?:\/\//, '') : undefined,
         flag: 'unverified' in e && e.unverified ? 'Parameter Golf found in local repo; confirm it is okay to list.' : undefined,
+        logo: earlierLogo[e.title],
       })),
       aliases: ['heritage', 'earlier', 'archive', 'aimo', 'kaggle', 'hackthenorth', 'optimate', 'drop', 'hive', 'parameter', 'golf'],
     },

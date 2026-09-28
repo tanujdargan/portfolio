@@ -2,6 +2,7 @@
 // Facts come from src/content/site.ts only (milestone metric/line, research results, experience). This file just picks
 // which fact becomes the big number, so every `big`/`unit` below restates something already in site.ts.
 import type { DemoKey, Milestone } from '../../content/site'
+import type { OrgKey } from '../../shared/OrgLogo'
 
 export type Kind = Milestone['kind']
 export const KINDS: Kind[] = ['research', 'industry', 'build', 'competition', 'community']
@@ -29,7 +30,7 @@ const DISPLAY: Record<string, Display> = {
   'Ocean sensing': { big: '0.936', unit: 'R², satellite imagery to deep-water temperature' },
   'Pear Care': { big: '−40%', unit: 'memory at 95%+ F1 · agents across 1,000+ specialties' },
   'Hack the North': { big: '2 prizes', unit: 'out of 300+ teams · YC Unicorn Prize' },
-  Beri: { big: 'iOS', unit: 'co-founded · native food app, backend and design system' },
+  Beri: { big: 'iOS', unit: 'a food app I\'m building · the app, backend and design system' },
   'RBC Borealis': { big: '1,500+', unit: 'longitudinal records · 4+ cohorts via UMAP' },
   'MarmotSat in orbit': { big: 'In orbit', unit: 'on a SpaceX Falcon 9, running the firmware I led' },
   'ES-LoRA': { big: '8 of 45', unit: 'perturbations kept each step · no gradients' },
@@ -38,6 +39,17 @@ const DISPLAY: Record<string, Display> = {
   'Activation steering': { big: '+9.6', unit: 'joy read-back, up from −8.0 · replication run' },
 }
 export const displayFor = (m: Milestone): Display => DISPLAY[m.title] ?? { big: m.metric ?? m.title, unit: m.metric ? m.title : m.when }
+
+/** Org marks for milestones that are resume roles (keyed by milestone title). */
+export const LOGO_AT: Record<string, OrgKey> = {
+  'MarmotSat OBC': 'uvic',
+  'Billion-vector retrieval': 'uvic',
+  'Apache Airflow': 'mlh',
+  'Pear Care': 'pearcare',
+  'RBC Borealis': 'rbc',
+  'MarmotSat in orbit': 'uvic',
+  'Amazon Robotics': 'amazon',
+}
 
 /** Live demos at their milestones. */
 export const DEMO_AT: Record<string, Exclude<DemoKey, null>> = {

@@ -665,8 +665,24 @@
   cursor: pointer;
 }
 .v6-role__org {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
   font: 500 16px/1.3 var(--font-mono);
   letter-spacing: -0.02em;
+}
+/* org marks: one ink, sized to the row's type */
+.v6-logo {
+  color: var(--fg-2);
+}
+.v6-role:hover .v6-logo {
+  color: inherit;
+}
+.v6-earlier a:has(.v6-logo) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 .v6-role__metric {
   font-size: 12.5px;
@@ -1250,7 +1266,7 @@ a.v6-mini__a:hover {
   }
 }
 @media (max-width: 380px) {
-  .v6-links a span {
+  .v6-links a span:not(.s-icon) {
     display: none;
   }
   .v6-links a {

@@ -9,11 +9,12 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
 import '@fontsource/ibm-plex-mono/400.css'
-import { person, research, engineering, experience, earlier, links, linkOrder, chapters, beri, type LinkKey } from '../../content/site'
+import { person, research, engineering, experience, earlier, links, workLinkOrder, chapters, beri, type LinkKey } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { LinkIcon } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Demo } from '../../demos/Demo'
@@ -32,14 +33,17 @@ const tabs = [
   { id: 'citation', label: 'Citation' },
 ]
 
-// "Files and versions": the five one-tap links, named like files in a repo.
+// "Files and versions": the five work links, named like files in a repo. YouTube and Unsplash sit in the footer.
 const files: Record<LinkKey, { name: string; meta: string }> = {
   resume: { name: 'resume.pdf', meta: 'PDF' },
   email: { name: 'email', meta: person.email },
   github: { name: 'github', meta: 'tanujdargan' },
   linkedin: { name: 'linkedin', meta: 'in/tanujdargan' },
   x: { name: 'x', meta: '@DarganTanuj' },
+  youtube: { name: 'youtube', meta: 'tanujdargan' },
+  unsplash: { name: 'unsplash', meta: '@tanuj_dargan' },
 }
+const sideLinks: LinkKey[] = ['youtube', 'unsplash']
 
 function FileLink({ k, compact }: { k: LinkKey; compact?: boolean }) {
   const l = links[k]
@@ -107,7 +111,7 @@ function TopBar({ base, home }: { base: string; home: boolean }) {
           ))}
         </nav>
         <ul className="v5-bar__links" data-show={showLinks || undefined} aria-label="Links">
-          {linkOrder.map((k) => (
+          {workLinkOrder.map((k) => (
             <FileLink key={k} k={k} compact />
           ))}
         </ul>
@@ -178,7 +182,7 @@ const bibtexFor = (showBeri: boolean) => `@misc{dargan2027,
   year        = {2027},
   institution = {University of Victoria, CS (accelerated)},
   note        = {SDE intern, Amazon Robotics (return offer);
-                 ${showBeri ? 'co-founder, Beri' : 'OBC firmware lead, MarmotSat (in orbit)'}},
+                 OBC firmware lead, MarmotSat (in orbit)${showBeri ? ';\n                 building Beri, an iOS food app' : ''}},
   url         = {https://tanujdargan.com},
   email       = {tanujd@uvic.ca}
 }`
@@ -196,7 +200,10 @@ function headline(key: string, base: string) {
       return (
         <>
           <span className="v5-headline__task">
-            <b>Amazon Robotics</b>
+            <b className="v5-org">
+              <OrgLogo org="amazon" height={16} />
+              Amazon Robotics
+            </b>
             <span>SDE intern, summer 2026 · LLM planning assistant in production, 180+ sites</span>
           </span>
           <span className="v5-headline__res">
@@ -209,10 +216,10 @@ function headline(key: string, base: string) {
         <>
           <span className="v5-headline__task">
             <b>Beri</b>
-            <span>Native iOS food and recipe social app</span>
+            <span>A food app for iOS he's building</span>
           </span>
           <Link to={`${base}/beri`} className="v5-headline__res v5-headline__res--a">
-            co-founder · case study →
+            building it · case study →
           </Link>
         </>
       )
@@ -220,7 +227,10 @@ function headline(key: string, base: string) {
       return (
         <>
           <span className="v5-headline__task">
-            <b>MarmotSat</b>
+            <b className="v5-org">
+              <OrgLogo org="uvic" height={16} />
+              MarmotSat
+            </b>
             <span>Led onboard-computer firmware and the TTC board · SpaceX Falcon 9</span>
           </span>
           <span className="v5-headline__res">
@@ -282,7 +292,7 @@ function Header({ base }: { base: string }) {
           <span className="v5-dim">5 files</span>
         </p>
         <ul className="v5-files__list">
-          {linkOrder.map((k) => (
+          {workLinkOrder.map((k) => (
             <FileLink key={k} k={k} />
           ))}
         </ul>
@@ -316,7 +326,7 @@ function Home({ base }: { base: string }) {
               assistant to production across 180+ fulfillment sites, and left with a return offer. He led the onboard-computer firmware for MarmotSat, now in
               orbit.
               <Show when="beri">
-                {' '}He co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for food and recipes.
+                {' '}He's building <Link to={`${base}/beri`}>Beri</Link>, a food app for iOS.
               </Show>
             </p>
             <dl className="v5-dl">
@@ -331,9 +341,9 @@ function Home({ base }: { base: string }) {
               <dt>In orbit</dt>
               <dd>MarmotSat · OBC firmware and TTC board lead, UVic CFAR</dd>
               <Show when="beri">
-                <dt>Co-founded</dt>
+                <dt>Building</dt>
                 <dd>
-                  Beri ·{' '}
+                  Beri, an iOS food app ·{' '}
                   <a href={beri.url} target="_blank" rel="noopener">
                     getberi.com ↗
                   </a>
@@ -368,7 +378,7 @@ function Home({ base }: { base: string }) {
               </li>
               <Show when="beri">
                 <li>
-                  <b>Founders.</b> A native iOS app, its backend and its design system, as built at Beri.
+                  <b>App teams.</b> A native iOS app, its backend and its design system: Beri, the food app he's building.
                 </li>
               </Show>
             </ul>
@@ -403,7 +413,7 @@ function Home({ base }: { base: string }) {
             <p className="v5-p v5-p--dim">Chronological. Places, in order of ingestion.</p>
             <ol className="v5-chrono">
               {chapters.map((c) => (
-                <li key={c.place} data-unverified={c.unverified || undefined}>
+                <li key={c.place}>
                   <span className="v5-chrono__when">{c.when}</span>
                   <span className="v5-chrono__place">
                     {c.place}
@@ -516,6 +526,7 @@ function Home({ base }: { base: string }) {
                 <div key={x.org}>
                   <dt>
                     <span className="v5-label">{x.when}</span>
+                    <OrgLogo org={x.logo} height={17} className="v5-logo" />
                     <b>{x.org}</b>
                     <span className="v5-dim">{x.role}</span>
                   </dt>
@@ -540,6 +551,7 @@ function Home({ base }: { base: string }) {
                 <div key={e.title}>
                   <dt>
                     <span className="v5-label">{i === 0 ? 'Hardware' : 'Compute infrastructure'}</span>
+                    {i === 0 && <OrgLogo org="uvic" height={17} className="v5-logo" />}
                     {'href' in e && e.href ? (
                       <a href={e.href} target="_blank" rel="noopener">
                         {e.title} ↗
@@ -602,7 +614,7 @@ function Home({ base }: { base: string }) {
                 “Certainly!” rather than the stance.
               </li>
               <li>
-                ES-LoRA: the adapter is on Hugging Face, but GSM8K accuracy before and after, and the proxy-vs-random ablation, are <i>results pending</i>.
+                ES-LoRA: the adapter is on Hugging Face. GSM8K accuracy before and after, and the proxy-vs-random ablation, are not on this page yet.
                 <Flag note={bySlug('es-lora')?.unverified?.join(' ') ?? ''} />
               </li>
               <li>
@@ -611,7 +623,7 @@ function Home({ base }: { base: string }) {
               </li>
               <li>Amazon's $136.2M a year is a projection, not measured savings.</li>
               <li>
-                Training data before 2021 is sparse. The early chapters are unconfirmed.
+                Training data before 2021 is sparse.
                 <Flag note="Dehradun and Gurgaon chapters, and their years, need Tanuj's confirmation." />
               </li>
             </ul>
@@ -670,6 +682,11 @@ export default function V5({ page, base }: VariantProps) {
       </main>
       <footer className="v5-foot">
         <span>tanujdargan / tanuj-dargan · © 2026 {person.name}</span>
+        <ul className="v5-foot__links" aria-label="Photos and video">
+          {sideLinks.map((k) => (
+            <FileLink key={k} k={k} />
+          ))}
+        </ul>
         <span className="v5-dim">Card revised Sep 2026. Built with Vite, React and Framer Motion. Demos run in your browser.</span>
       </footer>
     </div>

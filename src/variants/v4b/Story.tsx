@@ -7,9 +7,10 @@ import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import { Demo } from '../../demos/Demo'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo } from '../../shared/OrgLogo'
 import { Flip } from './Flip'
 import { Arrow } from './Arrow'
-import { BREAK, DEMO_AT, KINDS, KIND_LABEL, MONTHS, YEARS, displayFor, tpos, type Kind } from './data'
+import { BREAK, DEMO_AT, LOGO_AT, KINDS, KIND_LABEL, MONTHS, YEARS, displayFor, tpos, type Kind } from './data'
 
 /** The scroll line: a step becomes current when its top crosses this fraction of the viewport height. */
 const lineAt = () => innerHeight * (innerWidth < 960 ? 0.8 : 0.66)
@@ -22,6 +23,7 @@ const nn = (n: number) => String(n).padStart(2, '0')
 const Step = memo(function Step({ ms, i, active, base }: { ms: Milestone; i: number; active: boolean; base: string }) {
   const d = displayFor(ms)
   const demo = DEMO_AT[ms.title]
+  const logo = LOGO_AT[ms.title]
   const isResearch = ms.href?.startsWith('/research/')
   const link = ms.href && (
     <Link to={`${base}${ms.href}`} className="v4b-step__link">
@@ -36,6 +38,7 @@ const Step = memo(function Step({ ms, i, active, base }: { ms: Milestone; i: num
         <span className="v4b-step__kind">{KIND_LABEL[ms.kind]}</span>
         {ms.unverified && <Flag note={ms.unverified} />}
       </p>
+      {logo && <OrgLogo org={logo} height={logo === 'mlh' ? 26 : 18} className="v4b-step__logo" />}
       <h3 id={`v4b-s${i}`} className="v4b-step__t">
         {ms.title}
       </h3>

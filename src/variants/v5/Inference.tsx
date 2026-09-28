@@ -10,7 +10,7 @@ const qaFor = (showBeri: boolean) => [
     a:
       'Interpretability research. I find concepts like {joy}, {distress} and {certainty} as {directions in the residual stream}, then check whether steering along them does what the label says. I spent {summer 2026} as an {SDE intern at Amazon Robotics}, shipping an {LLM planning assistant} to production. ' +
       (showBeri
-        ? 'I also co-founded {Beri}, a {native iOS} food and recipe app.'
+        ? "I'm also building {Beri}, a {food app} for {iOS}."
         : 'Before that I led the {onboard-computer firmware} for {MarmotSat}, which is now {in orbit}.'),
   },
   {
@@ -23,7 +23,7 @@ const qaFor = (showBeri: boolean) => [
   },
   {
     q: 'How do I reach you?',
-    a: "Email {tanujd@uvic.ca}. It's the fastest route. The {resume}, {GitHub}, {LinkedIn} and {X} are one tap away in the bar at the top. Research programs, labs and founders especially.",
+    a: "Email {tanujd@uvic.ca}. It's the fastest route. The {resume}, {GitHub}, {LinkedIn} and {X} are one tap away in the bar at the top; {YouTube} and {Unsplash} are in the footer. Research programs, labs and founders especially.",
   },
 ]
 

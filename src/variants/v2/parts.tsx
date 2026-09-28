@@ -9,6 +9,7 @@ import { Link } from '../../lib/router'
 import { useMotionPrefs } from '../../lib/motion'
 import { ease, useTokens } from './motion'
 import type { Preview, Row } from './rows'
+import { OrgLogo } from '../../shared/OrgLogo'
 
 const css = (o: Record<string, string | number>) => o as CSSProperties
 
@@ -254,6 +255,8 @@ export function Index({ rows, base, start = 1, compact = false }: { rows: Row[];
   const sx = useSpring(x, follow as object)
   const sy = useSpring(y, follow as object)
   const list = useRef<HTMLOListElement>(null)
+  // Lists led by resume roles get a column of org marks; in mixed lists (Earlier) the mark rides inline.
+  const slot = !compact && rows.some((r) => r.logo)
 
   useEffect(() => () => clearTimeout(intent.current), [])
 
@@ -289,6 +292,7 @@ export function Index({ rows, base, start = 1, compact = false }: { rows: Row[];
         ref={list}
         className="v2-idx"
         data-compact={compact || undefined}
+        data-marks={slot || undefined}
         onPointerMove={(e) => isMouse(e) && place(e.clientX, e.clientY)}
         onPointerLeave={(e) => isMouse(e) && leave()}
       >
@@ -299,7 +303,9 @@ export function Index({ rows, base, start = 1, compact = false }: { rows: Row[];
             <>
               <span className="v2-row__n">{n}</span>
               <span className="v2-row__main">
+                {slot && <span className="v2-row__logo">{r.logo && <OrgLogo org={r.logo} height={15} />}</span>}
                 <span className="v2-row__t">
+                  {!slot && r.logo && <OrgLogo org={r.logo} height={14} className="v2-row__mark" />}
                   {r.title}
                   {r.flag && <Flag note={r.flag} />}
                 </span>

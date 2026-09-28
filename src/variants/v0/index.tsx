@@ -3,11 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import '@fontsource-variable/geist'
 import '@fontsource-variable/geist-mono'
 import '@fontsource/instrument-serif/400-italic.css'
-import { person, research, engineering, earlier, links, experience } from '../../content/site'
+import { person, research, engineering, earlier, links, experience, workLinkOrder } from '../../content/site'
 import { useProof, useCommunity } from '../../content/useContent'
 import { Show, useFlags } from '../../lib/labprefs'
 import { Links } from '../../shared/Links'
 import { Flag } from '../../shared/Flag'
+import { OrgLogo, type OrgKey } from '../../shared/OrgLogo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Demo } from '../../demos/Demo'
@@ -49,7 +50,7 @@ function Nav({ base, home }: { base: string; home: boolean }) {
             </Link>
           ))}
         </nav>
-        <Links className="v0-nav__icons" mode="icon" size={17} />
+        <Links className="v0-nav__icons" mode="icon" size={17} only={workLinkOrder} />
       </div>
     </header>
   )
@@ -94,6 +95,7 @@ interface Role {
   line: string
   more: string
   to?: string
+  logo?: OrgKey
 }
 
 // Short labels for the row grid; the full resume title goes in the expanded text.
@@ -115,13 +117,14 @@ const resumeRoles: Role[] = experience.map((e) => ({
   line: e.line,
   more: e.bullets.join(' '),
   to: e.org.startsWith('DEIA') ? '/research/billion-vector-retrieval' : undefined,
+  logo: e.logo,
 }))
 const beriRole: Role = {
   org: 'Beri',
-  role: 'Co-founder',
+  role: 'Building · iOS',
   when: '2025 –',
   where: 'getberi.com',
-  line: 'Native iOS food and recipe social app. iOS, backend, design system.',
+  line: 'A food app I\'m building for iOS: the app, the backend and the design system.',
   more: 'SwiftUI app, Kotlin Android twin, Supabase backend. Ran the redesign as nine directions inside a hidden in-app design lab.',
   to: '/beri',
 }
@@ -136,6 +139,7 @@ function Experience({ base }: { base: string }) {
       {roles.map((r, i) => (
         <li key={r.org} className="v0-row" data-open={open === i || undefined}>
           <button className="v0-row__head" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
+            <span className="v0-row__logo">{r.logo && <OrgLogo org={r.logo} height={r.logo === 'mlh' ? 24 : 17} />}</span>
             <span className="v0-row__org">{r.org}</span>
             <span className="v0-row__role">{r.role}</span>
             <span className="v0-row__when">{r.when}</span>
@@ -171,6 +175,9 @@ function Experience({ base }: { base: string }) {
   )
 }
 
+// Earlier entries that are also resume roles carry the same mark as the Experience list.
+const earlierLogo: Record<string, OrgKey> = { 'Pear Care': 'pearcare', 'Apache Airflow': 'airflow' }
+
 function Home({ base }: { base: string }) {
   const proof = useProof()
   const community = useCommunity()
@@ -194,7 +201,7 @@ function Home({ base }: { base: string }) {
             </li>
           ))}
         </ul>
-        <Links className="v0-links v0-in" mode="both" size={15} />
+        <Links className="v0-links v0-in" mode="both" size={15} only={workLinkOrder} />
       </section>
 
       <section id="about" className="v0-sec">
@@ -205,7 +212,7 @@ function Home({ base }: { base: string }) {
             shipped an LLM planning assistant to production across 180+ fulfillment sites, and I'm going back.
             <Show when="beri">
               {' '}
-              I also co-founded <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for cooking and sharing food.
+              I'm also building <Link to={`${base}/beri`}>Beri</Link>, a native iOS app for cooking and sharing food.
             </Show>
           </p>
           <p>
@@ -276,7 +283,8 @@ function Home({ base }: { base: string }) {
           {earlier.map((e) => (
             <li key={e.title}>
               {e.href ? (
-                <a href={e.href} target="_blank" rel="noopener">
+                <a href={e.href} target="_blank" rel="noopener" className="v0-earlier__t">
+                  {earlierLogo[e.title] && <OrgLogo org={earlierLogo[e.title]} height={14} className="v0-earlier__logo" />}
                   {e.title} ↗
                 </a>
               ) : (

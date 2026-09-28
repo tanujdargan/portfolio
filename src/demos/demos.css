@@ -446,3 +446,235 @@
 }
 .oc__read small { font-size: 12px; color: var(--d-fg2); }
 .oc__read [data-acc] dd { color: var(--d-accent); }
+
+/* ---------- Orbit: live MarmotSat tracker ---------- */
+.orbit {
+  container-type: inline-size;
+}
+.orbit__grid {
+  display: grid;
+  gap: 16px;
+}
+.orbit__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 440px;
+  margin-inline: auto;
+  border-radius: calc(var(--radius, 14px) - 4px);
+  overflow: hidden;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--d-fg) 4%, transparent), transparent);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.orbit[data-mode='flat'] .orbit__stage {
+  aspect-ratio: 2;
+  max-height: none;
+  background: none;
+}
+.orbit__gl {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+  opacity: 0;
+  transition: opacity calc(0.5s * var(--t, 1)) ease-out;
+}
+.orbit__gl:active {
+  cursor: grabbing;
+}
+.orbit[data-mode='gl'] .orbit__gl {
+  opacity: 1;
+}
+/* poster while three loads: the globe's silhouette */
+.orbit[data-mode='loading'] .orbit__stage::before {
+  content: '';
+  position: absolute;
+  inset: 13%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--d-line);
+  background: color-mix(in oklab, var(--d-fg) 3%, transparent);
+}
+.orbit__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 0 0 10px;
+  margin-top: -7px;
+  font: 500 10.5px/14px var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.04em;
+  color: var(--d-fg2);
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 0 4px var(--d-bg), 0 0 2px var(--d-bg);
+  will-change: transform;
+}
+.orbit__label--sat {
+  padding-left: 14px;
+  color: var(--d-accent);
+}
+.orbit__label[hidden] {
+  display: none;
+}
+.orbit__chip,
+.orbit__hint {
+  position: absolute;
+  font: 500 10.5px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.orbit__chip {
+  top: 10px;
+  left: 10px;
+  padding: 5px 7px;
+  border-radius: 999px;
+  color: var(--d-fg2);
+  background: color-mix(in oklab, var(--d-bg) 80%, transparent);
+  box-shadow: inset 0 0 0 1px var(--d-line);
+  font-variant-numeric: tabular-nums;
+}
+.orbit__hint {
+  right: 10px;
+  bottom: 10px;
+  color: var(--d-fg3);
+}
+.orbit__side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.orbit__read {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 0;
+}
+.orbit__read > div:first-child {
+  grid-column: 1 / -1;
+}
+.orbit__read dt,
+.orbit__k,
+.orbit__table caption,
+.orbit__table th {
+  font: 500 10.5px/14px var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--d-fg3);
+}
+.orbit__read dd {
+  margin: 2px 0 0;
+  font: 400 14px/1.3 var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  color: var(--d-fg);
+  white-space: nowrap;
+}
+.orbit__read > div:first-child dd {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.orbit__pass {
+  padding: 12px 14px;
+  border-radius: calc(var(--radius, 14px) - 4px);
+  box-shadow: inset 0 0 0 1px var(--d-line);
+}
+.orbit__vic {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.orbit__cd {
+  margin-top: 4px;
+  font: 400 24px/1.15 var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--d-accent);
+}
+.orbit[data-inview] .orbit__pass {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--d-accent) 55%, transparent);
+  background: color-mix(in oklab, var(--d-accent) 7%, transparent);
+}
+.orbit__pmeta {
+  margin-top: 6px;
+  font: 400 12px/1.5 var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  color: var(--d-fg2);
+}
+.orbit__pmeta b {
+  font-weight: 500;
+  color: var(--d-fg);
+}
+.orbit__table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 12px/1.35 var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  color: var(--d-fg2);
+}
+.orbit__table caption {
+  text-align: left;
+  padding-bottom: 6px;
+}
+.orbit__table th {
+  text-align: left;
+  font-size: 10px;
+  padding: 0 8px 4px 0;
+  border-bottom: 1px solid var(--d-line);
+  white-space: nowrap;
+}
+.orbit__table td {
+  padding: 5px 8px 5px 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--d-line) 60%, transparent);
+  white-space: nowrap;
+}
+.orbit__table tbody tr:first-child td {
+  color: var(--d-fg);
+}
+.orbit__table th:last-child,
+.orbit__table td:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+.orbit__src {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--d-fg3);
+}
+@container (min-width: 620px) {
+  .orbit:not([data-compact]) .orbit__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .orbit:not([data-compact])[data-mode='flat'] .orbit__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* SVG fallback map */
+.orbit__flat {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+.orbit__flat-sea { fill: color-mix(in oklab, var(--d-fg) 3%, transparent); }
+.orbit__flat-grid line { stroke: var(--d-line); stroke-width: 0.3; }
+#orbit-dots circle { fill: color-mix(in oklab, var(--d-fg) 45%, transparent); }
+.orbit__flat-fp { fill: none; stroke: var(--d-accent); stroke-width: 0.6; stroke-opacity: 0.8; }
+.orbit__flat-past { fill: none; stroke: var(--d-fg3); stroke-width: 0.6; }
+.orbit__flat-next { fill: none; stroke: var(--d-accent); stroke-width: 0.8; }
+.orbit__flat-arc { fill: none; stroke: var(--d-fg); stroke-width: 1.3; stroke-linecap: round; }
+.orbit__flat-vic circle { fill: var(--d-fg); stroke: var(--d-bg); stroke-width: 0.6; }
+.orbit__flat-vic[data-on] circle { fill: var(--d-accent); }
+.orbit__flat-vic text { fill: var(--d-fg2); font-size: 5px; }
+.orbit__flat-sat circle { fill: var(--d-accent); stroke: var(--d-bg); stroke-width: 0.6; }
+.orbit__flat-sat .orbit__flat-ring { fill: none; stroke: var(--d-accent); stroke-width: 0.6; stroke-opacity: 0.6; }
+
+/* measured orbit demo height on phones (pass table stacks) */
+@media (max-width: 560px) {
+  .demo-slot:has(.orbit), .demo-slot { --demo-h-orbit: 1100px; }
+}
