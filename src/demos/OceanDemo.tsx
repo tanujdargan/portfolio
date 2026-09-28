@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { Frame } from './Frame'
+import './ocean.css'
 
 // Lifted from v9's Sensor (v9 keeps its own copy). The SOLIDS idea as an instrument: a satellite reads the surface,
 // a model infers temperature at depth, a moored sensor says how close it got. Profile and readings are illustrative.

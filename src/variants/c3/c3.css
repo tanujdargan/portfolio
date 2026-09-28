@@ -851,7 +851,7 @@
 }
 @keyframes c3-open {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(8px * var(--k, 1)));
   }
 }

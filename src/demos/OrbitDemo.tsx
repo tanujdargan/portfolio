@@ -3,6 +3,7 @@ import { useMotionPrefs } from '../lib/motion'
 import { Frame, Seg } from './Frame'
 import { FlatMap } from './orbit/FlatMap'
 import type { GlobeApi, RGB } from './orbit/globe'
+import './orbit.css'
 import {
   BUILD_TLE,
   CALLSIGN,

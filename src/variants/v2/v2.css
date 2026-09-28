@@ -124,14 +124,14 @@
 }
 @keyframes v2-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(8px * var(--k, 1)));
     filter: blur(calc(2px * var(--k, 1)));
   }
 }
 @keyframes v2-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 @media (prefers-reduced-motion: reduce) {

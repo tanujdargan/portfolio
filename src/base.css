@@ -106,6 +106,14 @@ button {
   height: var(--h, 18px);
   vertical-align: middle;
 }
+/* Marks aren't needed for first paint: their files would queue ahead of the fonts (measured +0.4 s mobile LCP).
+   Attach the masks only after hydration (MotionProvider sets data-motion on <html>); until then the box is reserved. */
+html:not([data-motion]) .s-logo:not(.s-logo--type),
+html:not([data-motion]) .s-icon {
+  -webkit-mask: none;
+  mask: none;
+  background-color: transparent;
+}
 .s-logo--type {
   width: auto;
   background: none;

@@ -107,7 +107,7 @@
 }
 @keyframes v1-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(8px * var(--k, 1)));
   }
 }
@@ -124,7 +124,7 @@
 }
 @keyframes v1-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -649,7 +649,7 @@ a.v1-proof__t:hover {
 }
 @keyframes v1-note {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(-4px * var(--k, 1)));
   }
 }

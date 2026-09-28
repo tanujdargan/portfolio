@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Flag } from '../shared/Flag'
+import './frame.css'
 
 export type Provenance = 'real' | 'illustrative' | 'exact'
 const label: Record<Provenance, string> = { real: 'Real model outputs', illustrative: 'Illustrative simulation', exact: 'Exact definition' }

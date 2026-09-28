@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion'
 import { Frame, cssVar } from './Frame'
+import './canvas.css'
 
 const N = 24000
 const NLIST = 48

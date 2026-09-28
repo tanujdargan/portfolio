@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useMotionPrefs } from '../lib/motion'
 import { Frame, cssVar } from './Frame'
 import { Flag } from '../shared/Flag'
+import './canvas.css'
 
 // Toy fitness landscape on [-1,1]²: one global peak, one decoy, a broad shoulder and a ripple.
 const g = (x: number, y: number, cx: number, cy: number, s: number) => Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * s * s))

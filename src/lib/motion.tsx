@@ -43,8 +43,18 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.dataset.motion = reduced ? 'reduced' : level
     const s = SCALE[level]
-    document.documentElement.style.setProperty('--k', String(reduced ? 0 : s.k))
-    document.documentElement.style.setProperty('--t', String(reduced ? 0.5 : s.t))
+    // Default values equal the CSS fallbacks (var(--k, 1)), so don't write them: writing a variable that entrance
+    // keyframes read repaints the hero text after hydration, which Chrome reports as a late LCP (+1 s measured).
+    const root = document.documentElement.style
+    const k = reduced ? 0 : s.k
+    const t = reduced ? 0.5 : s.t
+    if (k === 1 && t === 1) {
+      root.removeProperty('--k')
+      root.removeProperty('--t')
+    } else {
+      root.setProperty('--k', String(k))
+      root.setProperty('--t', String(t))
+    }
   }, [level, reduced])
 
   const value = useMemo<MotionPrefs>(() => {

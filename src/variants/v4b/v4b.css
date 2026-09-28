@@ -195,7 +195,7 @@
 }
 @keyframes v4b-up {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(14px * var(--k, 1)));
   }
 }
@@ -218,7 +218,7 @@
 }
 @keyframes v4b-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 @media (prefers-reduced-motion: reduce) {

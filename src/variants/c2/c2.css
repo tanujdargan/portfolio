@@ -255,7 +255,7 @@
 }
 @keyframes c2-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(10px * var(--k, 1)));
   }
 }
@@ -266,7 +266,7 @@
 }
 @keyframes c2-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 
@@ -482,7 +482,7 @@
 }
 @keyframes c2-pt {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: scale(calc(1 - 0.6 * var(--k, 1)));
   }
 }
@@ -770,7 +770,7 @@
 }
 @keyframes c2-roll {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(105% * min(1, var(--k, 1))));
   }
 }

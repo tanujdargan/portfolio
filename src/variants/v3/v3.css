@@ -72,13 +72,13 @@
 }
 @keyframes v3-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(12px * var(--k, 1)));
   }
 }
 @keyframes v3-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 @media (prefers-reduced-motion: reduce) {

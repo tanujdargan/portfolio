@@ -2,6 +2,7 @@ import { useState } from 'react'
 import data from '../data/lossmask.json'
 import { Frame, Seg } from './Frame'
 import { Flag } from '../shared/Flag'
+import './lossmask.css'
 
 const presets = [
   { value: 'standard', label: 'Assistant only', lp: 0, lr: 1 },

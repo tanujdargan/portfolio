@@ -446,7 +446,7 @@
 }
 @keyframes c1-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(16px * var(--k, 1)));
   }
 }
@@ -757,7 +757,7 @@
 }
 @keyframes c1-open {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(-6px * var(--k, 1)));
   }
 }

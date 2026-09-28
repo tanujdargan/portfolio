@@ -191,7 +191,7 @@
 }
 @keyframes c4-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(10px * var(--k, 1)));
   }
 }
@@ -1403,7 +1403,7 @@
   }
   @keyframes c4-fade {
     from {
-      opacity: 0;
+      opacity: 0.01;
     }
   }
 }

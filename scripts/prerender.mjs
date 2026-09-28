@@ -25,10 +25,11 @@ function collect(key, seen = new Set()) {
 
 // Vite's own stylesheet links in the template get inlined per route instead.
 const templateCss = [...template.matchAll(/<link rel="stylesheet"[^>]*href="\/([^"]+\.css)">/g)].map((m) => m[1])
-// The HTML is complete without JS, so hydration can wait for the first frame. Starting the ~100 KB of JS
-// after paint keeps it off the LCP critical path on slow networks (mobile LCP −0.3 s measured).
+// The HTML is complete without JS, so hydration waits until the page has actually painted: first-contentful-paint
+// observed AND window 'load', then 900 ms of grace so CSS entrance animations (the LCP element often fades in) finish first (3 s cap). Waiting for 'load' alone wasn't enough: locally it fires
+// at ~30 ms, before first paint (~70 ms), so the ~110 KB of JS still counted against FCP/LCP.
 const entry = template.match(/<script type="module" crossorigin src="([^"]+)"><\/script>/)[1]
-const deferredEntry = `<script>requestAnimationFrame(()=>setTimeout(()=>{const s=document.createElement('script');s.type='module';s.crossOrigin='';s.src='${entry}';document.head.appendChild(s)}))</script>`
+const deferredEntry = `<script>(()=>{let d=0,p=0,l=document.readyState==='complete';const go=()=>{if(d)return;d=1;const s=document.createElement('script');s.type='module';s.crossOrigin='';s.src='${entry}';document.head.appendChild(s)};const t=()=>p&&l&&setTimeout(go,900);try{new PerformanceObserver((e,o)=>{if(e.getEntriesByName('first-contentful-paint').length){p=1;o.disconnect();t()}}).observe({type:'paint',buffered:true})}catch(_){p=1}addEventListener('load',()=>{l=1;t()});t();setTimeout(go,3000)})()</script>`
 const baseTemplate = template
   .replace(/\s*<link rel="stylesheet"[^>]*href="\/[^"]+\.css">/g, '')
   .replace(/\s*<link rel="modulepreload"[^>]*>/g, '')

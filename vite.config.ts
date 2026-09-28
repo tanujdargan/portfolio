@@ -22,8 +22,10 @@ export default defineConfig({
           if (font) return `font-${font[1]}-${font[2]}`
           if (id.includes('node_modules/')) return 'vendor'
           if (/src\/(shared|content|lib)\//.test(id)) return 'core'
-          // Shared data (steering.json is used by the demo, v2, v3, v6) gets its own chunk, or a variant absorbs it.
-          if (/src\/data\//.test(id)) return 'data'
+          // Each shared data file gets its own chunk: one bundle made every page load steering.json via the
+          // timelapse manifest, and leaving them unpinned lets a variant absorb them.
+          const data = id.match(/src\/data\/([\w-]+)\.json/)
+          if (data) return `data-${data[1]}`
         },
       },
     },

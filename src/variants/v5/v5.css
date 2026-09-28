@@ -100,7 +100,7 @@ html:has(.v5) {
 }
 @keyframes v5-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(6px * var(--k, 1)));
   }
 }
@@ -111,7 +111,7 @@ html:has(.v5) {
 }
 @keyframes v5-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 
@@ -1399,7 +1399,7 @@ html:has(.v5) {
 }
 @keyframes v5-tok {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(3px * var(--k, 1)));
     filter: blur(calc(1.5px * var(--k, 1)));
   }
@@ -1415,7 +1415,7 @@ html:has(.v5) {
 }
 @keyframes v5-blink {
   50% {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 @media (prefers-reduced-motion: reduce) {

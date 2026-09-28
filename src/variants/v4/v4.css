@@ -131,7 +131,7 @@
 }
 @keyframes v4-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(14px * var(--k, 1)));
   }
 }
@@ -161,7 +161,7 @@
 }
 @keyframes v4-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 

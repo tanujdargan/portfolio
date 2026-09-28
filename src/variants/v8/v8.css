@@ -116,13 +116,13 @@ html:has(.v8) {
 }
 @keyframes v8-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(10px * var(--k, 1)));
   }
 }
 @keyframes v8-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 /* LCP text never starts invisible: the name and line only rise, they don't fade. */
@@ -1249,7 +1249,7 @@ html:has(.v8) {
 }
 @keyframes v8-panel {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(-10px * var(--k, 1))) scale(0.985);
   }
 }

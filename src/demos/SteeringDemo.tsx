@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import data from '../data/steering.json'
 import { useMotionPrefs } from '../lib/motion'
 import { Frame, Seg } from './Frame'
+import './steering.css'
 
 type Concept = keyof typeof data.concepts
 const poles: Record<Concept, [string, string]> = { joy: ['sad', 'joyful'], distress: ['calm', 'distressed'], certainty: ['hedging', 'certain'] }

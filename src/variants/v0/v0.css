@@ -55,7 +55,7 @@
 }
 @keyframes v0-rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(calc(10px * var(--k, 1)));
     filter: blur(3px);
   }
@@ -67,7 +67,7 @@
 }
 @keyframes v0-fade {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
 }
 
