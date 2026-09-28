@@ -84,11 +84,11 @@ export default function OceanDemo() {
           <path className="oc__beam" d={`M30 20 L17 ${Y0} L43 ${Y0} Z`} />
           <line className="oc__surface" x1="6" x2={X1} y1={Y0} y2={Y0} />
           <text className="oc__lab" x={X1} y={Y0 - 7} textAnchor="end">
-            surface
+            surface · 0 m
           </text>
           <line className="oc__infer" x1="30" x2="30" y1={Y0} y2={yz(z)} />
           <circle className="oc__probe" cx="30" cy={yz(z)} r="5" />
-          {[0, 50, 100, 150, 200].map((d) => (
+          {[50, 100, 150, 200].map((d) => (
             <text key={d} className="oc__tick" x="94" y={yz(d) + 4} textAnchor="end">
               {d} m
             </text>

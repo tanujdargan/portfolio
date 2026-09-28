@@ -51,5 +51,5 @@ export function OrgTile({ org, size = 40, className }: { org: OrgKey; size?: num
         {org === 'pearcare' ? 'pc' : 'af'}
       </span>
     )
-  return <img className={`s-tile ${className ?? ''}`} src={`/logos/tile-${org}.svg`} width={size} height={size} alt={tileLabel[org]} loading="lazy" decoding="async" />
+  return <img className={`s-tile ${className ?? ''}`} style={{ ['--s' as string]: `${size}px` }} src={`/logos/tile-${org}.svg`} width={size} height={size} alt={tileLabel[org]} loading="lazy" decoding="async" />
 }
