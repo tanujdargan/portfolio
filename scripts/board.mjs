@@ -26,7 +26,7 @@ function page(media, refDir, liveBase) {
   const img = (f) => `${media}/${f}`
   const variants = notes.variants
     .map(
-      (v) => `
+      (v, i, arr) => `${v.id.startsWith('v') && i > 0 && arr[i - 1].id.startsWith('c') ? '<h3 style="margin-top:96px">Earlier directions (unchanged except this round\'s content fixes)</h3>' : ''}
   <section class="v" id="${v.id}">
     <header class="v__h">
       <div><span class="id">${v.id.toUpperCase()}</span>${v.tag ? `<span class="tag">${esc(v.tag)}</span>` : ''}<h2>${esc(v.name)}</h2></div>
@@ -34,6 +34,8 @@ function page(media, refDir, liveBase) {
     </header>
     <p class="why">${esc(v.rationale)}</p>
     <dl class="facts">
+      ${v.borrowed ? `<div><dt>Borrowed</dt><dd>${esc(v.borrowed)}</dd></div>` : ''}
+      ${v.fixes ? `<div style="grid-column:1/-1"><dt>Fixes from WHY_NOT_YET.md</dt><dd>${esc(v.fixes)}</dd></div>` : ''}
       <div><dt>Type</dt><dd>${esc(v.type)}</dd></div>
       <div><dt>Interactive moments</dt><dd>${v.moments.map(esc).join(' · ')}</dd></div>
       <div><dt>Patterns</dt><dd>${esc(v.patterns)}</dd></div>
@@ -86,10 +88,12 @@ code{font:13px ui-monospace,monospace;background:var(--b2);padding:2px 6px;borde
 </style></head><body><main>
 <h1>Portfolio design board</h1>
 <p class="lead">tanujdargan.com redesign. ${notes.variants.length} full-site variants built on the same content, all live in the Design Lab. Every variant is dark, prerendered to static HTML, and runs the same four in-browser research demos. Generated ${notes.date}.</p>
+${notes.changelog3 ? `<section class="first" style="margin-top:28px"><b>Changelog: convergence round (${esc(notes.changelog3Date || '')})</b><ul class="flat">${notes.changelog3.map((c) => `<li>${c}</li>`).join('')}</ul></section>` : ''}
 ${notes.changelog ? `<section class="first" style="margin-top:28px"><b>Changelog: pass 2 (${esc(notes.changelogDate || '')})</b><ul class="flat">${notes.changelog.map((c) => `<li>${c}</li>`).join('')}</ul>${notes.resumeChanges ? `<details><summary>Every change caused by the Aug 2026 resume (${notes.resumeChanges.length})</summary><ul class="flat">${notes.resumeChanges.map((c) => `<li>${c}</li>`).join('')}</ul></details>` : ''}</section>` : ''}
 <div class="first"><b>Look at these first</b><ol>${notes.lookFirst.map((l) => `<li>${l}</li>`).join('')}</ol>
 <p class="dim" style="margin:12px 0 0">Lab: <a href="${liveBase}/lab">${liveBase || ''}/lab</a>. The dock at the bottom switches variant and motion intensity (Subtle / Default / Expressive). <code>[</code> and <code>]</code> cycle variants. Every page has a write-up at <code>/lab/vN/research/…</code> and the Beri case study at <code>/lab/vN/beri</code>.</p></div>
 <nav class="toc">${notes.variants.map((v) => `<a href="#${v.id}">${v.id.toUpperCase()} ${esc(v.name)}</a>`).join('')}<a href="#baseline">Current site</a><a href="#demos">Demos</a><a href="#flags">Unverified</a><a href="#decisions">Decisions</a><a href="#refs">References</a></nav>
+${notes.candidatesIntro ? `<h3 style="margin-top:64px">Candidates (convergence round)</h3><p class="lead">${notes.candidatesIntro}</p>` : ''}
 ${variants}
 <section class="v" id="baseline"><h2>Baseline: the current site</h2><p class="why">${esc(notes.baseline)}</p>
 ${lhTable([lhRow('Mobile', lhCur['/']?.mobile), lhRow('Desktop', lhCur['/']?.desktop)])}

@@ -150,3 +150,17 @@ Every factual claim, number and result shown in the demos and write-ups, where i
 | VikeLabs "builds software for local non-profits"; CDE = "Conference on Diversity in Engineering (CFES)" | Assumption from their websites | Low (flag-hidden) |
 | Parameter Golf (OpenAI challenge, 8×H100, 2 negative results, 1 SOTA tie) | ES repo `SESSION_REPORT.md` | High that the report says so; confirm it's yours to list (badged) |
 | Homelab: Proxmox + Nix, GPU model serving, 15+ services | Brief + old site | Med |
+
+---
+
+## Convergence round additions (2026-09-27)
+
+| Claim / element | Source | Conf. |
+|---|---|---|
+| Live MarmotSat tracker (`orbit` demo): NORAD 69912, TLE from CelesTrak `gp.php?CATNR=69912`, SGP4 via satellite.js in the browser; build-time fallback `src/data/tle.json` (refreshed by `scripts/tle.mjs` on every build) | CelesTrak, SatNOGS | High (position is as accurate as the public TLE, typically km-level for a fresh one) |
+| "Next pass over Victoria, BC": computed from look angles at 48.4284 N, 123.3656 W, 10° elevation mask | Computed | High (standard method; a prediction, not an observation) |
+| Ocean-sensing instrument (`ocean` demo, lifted from v9): profile and readings are **illustrative**; the only real number is R² = 0.936 | Old site (R²), assumption (profile) | Illustrative (labelled on the figure) |
+| Beri described as "a food app I'm building", never co-founded | Tanuj's instruction (Sep 2026) | High |
+| Toronto skyline timelapse (golden hour → night), 483 frames, his footage | `~/Downloads/Sunset_compressed.MOV` provided by Tanuj | High |
+| Photos: 20 of 76 public Unsplash photos by @tanuj_dargan; YouTube: 8 of his timelapse videos (titles from YouTube oEmbed) | unsplash.com/@tanuj_dargan, youtube.com/tanujdargan | High |
+| Organisation marks: Amazon (Wikimedia Commons official wordmark), RBC Borealis (rbcborealis.com), UVic (uvic.ca shield), MLH and Apache Airflow (simple-icons). Pear Care has no public SVG, so it gets a typographic mark. CFAR, DEIA and SOLIDS use the UVic shield | Official sources | High |
