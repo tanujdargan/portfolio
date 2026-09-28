@@ -1,0 +1,811 @@
+{
+ "htmlClass": "asscroll-disabled",
+ "bodyClass": "home wp-singular page page-id-7 wp-embed-responsive wp-theme-unseen page-template-home-contact",
+ "libs": {
+  "gsap": false,
+  "ScrollTrigger": false,
+  "lenisClass": false,
+  "lenisGlobal": false,
+  "three": "143",
+  "barba": false,
+  "swup": false,
+  "taxi": false,
+  "highway": true,
+  "locomotive": false,
+  "framer": false,
+  "webflow": false,
+  "next": false,
+  "nuxt": false,
+  "astro": false,
+  "generator": null,
+  "sveltekit": false
+ },
+ "canvases": [
+  {
+   "w": 1440,
+   "h": 900,
+   "pos": "static",
+   "z": "auto",
+   "ctx": "webgl2",
+   "cls": ""
+  }
+ ],
+ "videos": 0,
+ "imgs": 0,
+ "body": {
+  "tag": "BODY",
+  "text": "UNSEEN STUDIO\u00ae A brand, digital and motion studio creating ",
+  "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+  "fs": "14.4px",
+  "fw": "400",
+  "lh": "21.6px",
+  "ls": "normal",
+  "tt": "none",
+  "color": "rgb(0, 0, 0)",
+  "bg": "rgba(0, 0, 0, 0)",
+  "htmlBg": "rgba(0, 0, 0, 0)"
+ },
+ "headings": [
+  {
+   "tag": "H1",
+   "text": "Home",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "28.8px",
+   "fw": "700",
+   "lh": "43.2px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  },
+  {
+   "tag": "H2",
+   "text": " Say hello ",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "86.4px",
+   "fw": "700",
+   "lh": "77.76px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  },
+  null,
+  {
+   "tag": "P",
+   "text": "A brand, digital and motion studio creating refreshingly une",
+   "ff": "\"Neue Montreal\", sans-serif",
+   "fs": "14.4px",
+   "fw": "400",
+   "lh": "16.56px",
+   "ls": "-0.36px",
+   "tt": "none",
+   "color": "rgb(66, 66, 66)"
+  },
+  {
+   "tag": "A",
+   "text": "",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "14.4px",
+   "fw": "400",
+   "lh": "21.6px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(33, 33, 33)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "ENTER WITHOUT AUDIO",
+   "ff": "\"Neue Montreal\", sans-serif",
+   "fs": "10.08px",
+   "fw": "500",
+   "lh": "15.12px",
+   "ls": "normal",
+   "tt": "uppercase",
+   "color": "rgb(0, 0, 0)"
+  },
+  {
+   "tag": "NAV",
+   "text": "Index Index Projects Projects Contact Contact",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "14.4px",
+   "fw": "400",
+   "lh": "21.6px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  }
+ ],
+ "largest": [
+  {
+   "tag": "DIV",
+   "text": "I",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "n",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "d",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "e",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "x",
+   "ff": "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "I",
+   "ff": "\"Saol Display\", Georgia, Cambria, \"Times New Roman\", Times, serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "n",
+   "ff": "\"Saol Display\", Georgia, Cambria, \"Times New Roman\", Times, serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  },
+  {
+   "tag": "DIV",
+   "text": "d",
+   "ff": "\"Saol Display\", Georgia, Cambria, \"Times New Roman\", Times, serif",
+   "fs": "90px",
+   "fw": "400",
+   "lh": "90px",
+   "ls": "-1.44px",
+   "tt": "none",
+   "color": "rgb(214, 214, 214)"
+  }
+ ],
+ "fontFamilies": [
+  [
+   "\"Neue Montreal\", system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+   191
+  ],
+  [
+   "\"Saol Display\", Georgia, Cambria, \"Times New Roman\", Times, serif",
+   66
+  ],
+  [
+   "\"Neue Montreal\", sans-serif",
+   26
+  ]
+ ],
+ "typeScale": [
+  [
+   "17.28px 400 none ls:normal",
+   76
+  ],
+  [
+   "90px 400 none ls:-1.44px",
+   50
+  ],
+  [
+   "28.8px 300 none ls:normal",
+   35
+  ],
+  [
+   "18.72px 400 none ls:normal",
+   24
+  ],
+  [
+   "57.6px 400 none ls:normal",
+   18
+  ],
+  [
+   "11.52px 400 uppercase ls:normal",
+   15
+  ],
+  [
+   "15.12px 400 none ls:normal",
+   13
+  ],
+  [
+   "14.4px 400 none ls:normal",
+   12
+  ],
+  [
+   "10.08px 400 uppercase ls:normal",
+   10
+  ],
+  [
+   "18.72px 400 uppercase ls:normal",
+   9
+  ],
+  [
+   "11.52px 400 none ls:-0.324px",
+   5
+  ],
+  [
+   "9px 400 none ls:-0.324px",
+   5
+  ],
+  [
+   "16.2px 400 uppercase ls:-0.36px",
+   2
+  ],
+  [
+   "14.4px 400 none ls:-0.36px",
+   2
+  ]
+ ],
+ "colors": [
+  [
+   "rgb(33, 33, 33)",
+   150
+  ],
+  [
+   "rgb(0, 0, 0)",
+   80
+  ],
+  [
+   "rgb(66, 66, 66)",
+   32
+  ],
+  [
+   "rgb(214, 214, 214)",
+   11
+  ],
+  [
+   "rgb(255, 255, 255)",
+   8
+  ],
+  [
+   "rgb(250, 246, 244)",
+   2
+  ]
+ ],
+ "bgs": [
+  [
+   "rgb(33, 33, 33)",
+   12
+  ],
+  [
+   "rgb(255, 255, 255)",
+   12
+  ],
+  [
+   "rgb(239, 222, 217)",
+   7
+  ],
+  [
+   "rgb(214, 214, 214)",
+   4
+  ],
+  [
+   "rgb(0, 0, 0)",
+   3
+  ],
+  [
+   "rgb(241, 237, 235)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, 0.5)",
+   1
+  ]
+ ],
+ "fontFaces": [
+  "Neue Montreal 400 normal loaded",
+  "Saol Display 400 normal loaded",
+  "Saol Display 400 italic loaded"
+ ],
+ "grids": [],
+ "rootVars": [
+  "--wp--preset--aspect-ratio--square: 1",
+  "--wp--preset--aspect-ratio--4-3: 4/3",
+  "--wp--preset--aspect-ratio--3-4: 3/4",
+  "--wp--preset--aspect-ratio--3-2: 3/2",
+  "--wp--preset--aspect-ratio--2-3: 2/3",
+  "--wp--preset--aspect-ratio--16-9: 16/9",
+  "--wp--preset--aspect-ratio--9-16: 9/16",
+  "--wp--preset--color--black: #000000",
+  "--wp--preset--color--cyan-bluish-gray: #abb8c3",
+  "--wp--preset--color--white: #ffffff",
+  "--wp--preset--color--pale-pink: #f78da7",
+  "--wp--preset--color--vivid-red: #cf2e2e",
+  "--wp--preset--color--luminous-vivid-orange: #ff6900",
+  "--wp--preset--color--luminous-vivid-amber: #fcb900",
+  "--wp--preset--color--light-green-cyan: #7bdcb5",
+  "--wp--preset--color--vivid-green-cyan: #00d084",
+  "--wp--preset--color--pale-cyan-blue: #8ed1fc",
+  "--wp--preset--color--vivid-cyan-blue: #0693e3",
+  "--wp--preset--color--vivid-purple: #9b51e0",
+  "--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%)",
+  "--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)",
+  "--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%)",
+  "--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%)",
+  "--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)",
+  "--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%)",
+  "--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%)",
+  "--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%)",
+  "--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%)",
+  "--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%)",
+  "--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%)",
+  "--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%)",
+  "--wp--preset--font-size--small: 13px",
+  "--wp--preset--font-size--medium: 20px",
+  "--wp--preset--font-size--large: 36px",
+  "--wp--preset--font-size--x-large: 42px",
+  "--wp--preset--spacing--20: 0.44rem",
+  "--wp--preset--spacing--30: 0.67rem",
+  "--wp--preset--spacing--40: 1rem",
+  "--wp--preset--spacing--50: 1.5rem",
+  "--wp--preset--spacing--60: 2.25rem",
+  "--wp--preset--spacing--70: 3.38rem",
+  "--wp--preset--spacing--80: 5.06rem",
+  "--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2)",
+  "--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4)",
+  "--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2)",
+  "--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0)",
+  "--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0)"
+ ],
+ "cubicBeziers": [
+  [
+   "cubic-bezier(0.16,1,0.3,1)",
+   2
+  ],
+  [
+   "cubic-bezier(0.87,0,0.13,1)",
+   2
+  ],
+  [
+   "cubic-bezier(0.19,1,0.22,1)",
+   1
+  ],
+  [
+   "cubic-bezier(0.34,1.56,0.64,1)",
+   1
+  ]
+ ],
+ "durations": [
+  [
+   "0.4s",
+   4
+  ],
+  [
+   "1s",
+   3
+  ],
+  [
+   "0.5s",
+   3
+  ],
+  [
+   "T:transform 1s cubic-bezier(0.16, 1, 0.3, 1)",
+   2
+  ],
+  [
+   "T:color 0.5s ease-out",
+   2
+  ],
+  [
+   "0.7s",
+   1
+  ],
+  [
+   "T:opacity 0.7s cubic-bezier(0.19, 1, 0.22, 1)",
+   1
+  ],
+  [
+   "T:fill 0.5s ease-out",
+   1
+  ],
+  [
+   "T:stroke 0.4s ease-out",
+   1
+  ],
+  [
+   "0.5s, 0.5s",
+   1
+  ],
+  [
+   "T:opacity 0.5s ease-out, visibility 0.5s ease-out",
+   1
+  ],
+  [
+   "T:0.4s ease-in-out",
+   1
+  ],
+  [
+   "0.4s, 0.4s",
+   1
+  ],
+  [
+   "T:opacity 0.4s, visibility 0.4s",
+   1
+  ],
+  [
+   "T:fill 0.4s cubic-bezier(0.87, 0, 0.13, 1)",
+   1
+  ],
+  [
+   "T:scale 0.4s cubic-bezier(0.87, 0, 0.13, 1)",
+   1
+  ],
+  [
+   "T:transform 1s ease-out",
+   1
+  ],
+  [
+   "0.2s",
+   1
+  ],
+  [
+   "T:transform 0.2s ease-out",
+   1
+  ],
+  [
+   "4s",
+   1
+  ]
+ ],
+ "keyframes": [
+  "loader"
+ ],
+ "crossOriginSheets": 0,
+ "gsapTweens": null,
+ "totalWords": 96,
+ "links": [
+  {
+   "h": "https://unseen.co",
+   "t": ""
+  },
+  {
+   "h": "https://unseen.co/projects/",
+   "t": "Projects Projects"
+  },
+  {
+   "h": "https://unseen.co/contact/",
+   "t": "Contact Contact"
+  },
+  {
+   "h": "https://unseen.co/world/",
+   "t": "04 World World"
+  },
+  {
+   "h": "mailto:projects@unseen.co",
+   "t": "\u2ba1 projects@unseen.co"
+  },
+  {
+   "h": "tel:(+44) 0117 922 6892",
+   "t": "\u2ba1 (+44) 0117 922 6892"
+  },
+  {
+   "h": "https://twitter.com/uns__nstudio",
+   "t": "\u2ba1 TWITTER"
+  },
+  {
+   "h": "https://www.instagram.com/uns__nstudio/",
+   "t": "\u2ba1 INSTAGRAM"
+  },
+  {
+   "h": "https://www.linkedin.com/company/un-seen-studio",
+   "t": "\u2ba1 LINKEDIN"
+  },
+  {
+   "h": "https://dribbble.com/unseenstudio",
+   "t": "\u2ba1 DRIBBBLE"
+  },
+  {
+   "h": "https://www.behance.net/unseen-studio",
+   "t": "\u2ba1 BEHANCE"
+  },
+  {
+   "h": "https://2025.unseen.co/",
+   "t": "Our 2025 Wrapped Our 2025 Wrapped Our 2025 Wrapped"
+  },
+  {
+   "h": "#",
+   "t": "New Business New Business New Business"
+  },
+  {
+   "h": "mailto:hello@unseen.co",
+   "t": "\u2ba1 hello@unseen.co"
+  }
+ ],
+ "scrollHeight": 900,
+ "scrollY": 0,
+ "cursorEls": [
+  "cursor js-cursor",
+  "cursor__wrap js-cursor-wrap",
+  "cursor__inner js-cursor-inner",
+  "cursor__circle absolute fill js-cursor-circle",
+  "cursor__hold absolute fill",
+  "cursor__hold-inner absolute fill js-cursor-hold-inner",
+  "cursor__hold-outer absolute fill js-cursor-hold-outer",
+  "cursor__video video-indicator video-indicator--cursor absolu"
+ ],
+ "cssCursor": "auto",
+ "url": "https://unseen.co",
+ "final": "https://unseen.co/",
+ "firstScreenText": "Unseen Studio\u00ae A brand, digital and motion studio creating refreshingly unexpected ideas and striking visuals that help bold brands cut through the noise. Enter without audio Unseen Studio\u00ae A brand, digital and motion studio creating refreshingly unexpected ideas and striking visuals that help bold brands cut through the noise. Enter Enter I n d e x I n d e x P r o j e c t s P r o j e c t s C o n t a c t C o n t a c t Toggle Menu 01 02 03 04 \u2ba1 projects@unseen.co \u2ba1 (+44) 0117 922 6892 \u2ba1 Twitter \u2ba1 Instagram \u2ba1 LinkedIn \u2ba1 Dribbble \u2ba1 Behance Toggle Sound Our 2025 Wrapped Our 2025 Wrapped Our 2025 Wrapped Unseen World \u00a92026 Home",
+ "firstScreenWords": 122,
+ "initialScrollHeight": 900,
+ "bundleSigs": {
+  "gsap": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "ScrollTrigger": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "three": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "highway": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "splitText": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec"
+  ],
+  "howler": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "glsl": [
+   "theme.js?id=f53acf564ad675980cfd121b49ec",
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "taxi": [
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ],
+  "astro": [
+   "vendor.js?id=4d3ac43b9e360f391febd63f910"
+  ]
+ },
+ "bundleEases": [
+  [
+   "duration:1",
+   59
+  ],
+  [
+   "expo.out",
+   45
+  ],
+  [
+   "duration:.5",
+   35
+  ],
+  [
+   "power2.out",
+   29
+  ],
+  [
+   "expo.in",
+   26
+  ],
+  [
+   "duration:.8",
+   21
+  ],
+  [
+   "duration:.2",
+   18
+  ],
+  [
+   "duration:.3",
+   17
+  ],
+  [
+   "duration:2",
+   15
+  ],
+  [
+   "power2.in",
+   13
+  ],
+  [
+   "power4.out",
+   13
+  ],
+  [
+   "duration:1.5",
+   13
+  ],
+  [
+   "duration:3",
+   11
+  ],
+  [
+   "duration:.25",
+   10
+  ],
+  [
+   "power4.in",
+   9
+  ],
+  [
+   "duration:2.5",
+   9
+  ],
+  [
+   "duration:.6",
+   8
+  ],
+  [
+   "power1.in",
+   7
+  ],
+  [
+   "duration:.1",
+   7
+  ],
+  [
+   "duration:1800",
+   6
+  ],
+  [
+   "duration:.4",
+   5
+  ],
+  [
+   "duration:.9",
+   5
+  ],
+  [
+   "duration:1.1",
+   4
+  ],
+  [
+   "duration:.7",
+   4
+  ],
+  [
+   "duration:4",
+   4
+  ],
+  [
+   "sine.out",
+   3
+  ],
+  [
+   "duration:1.8",
+   3
+  ],
+  [
+   "power3.out",
+   2
+  ],
+  [
+   "circ.in",
+   2
+  ],
+  [
+   "power1.out",
+   2
+  ],
+  [
+   "elastic.out",
+   2
+  ],
+  [
+   "power3.in",
+   2
+  ],
+  [
+   "duration:.12",
+   2
+  ],
+  [
+   "duration:.65",
+   2
+  ],
+  [
+   "duration:.75",
+   2
+  ],
+  [
+   "duration:1.7",
+   2
+  ],
+  [
+   "css cubic-bezier(.16,1,.3,1)",
+   2
+  ],
+  [
+   "css cubic-bezier(.87,0,.13,1)",
+   2
+  ],
+  [
+   "cssT transition:transform 1s cubic-bezier(.16,1,.3,1)",
+   2
+  ],
+  [
+   "cssT transition:color .5s ease-out",
+   2
+  ],
+  [
+   "duration:3.5",
+   1
+  ],
+  [
+   "duration:.45",
+   1
+  ],
+  [
+   "duration:1.35",
+   1
+  ],
+  [
+   "duration:1.3",
+   1
+  ],
+  [
+   "cubic-bezier(${t.toObject()",
+   1
+  ],
+  [
+   "duration:400",
+   1
+  ],
+  [
+   "duration:0",
+   1
+  ],
+  [
+   "css cubic-bezier(.19,1,.22,1)",
+   1
+  ],
+  [
+   "cssT transition:opacity .7s cubic-bezier(.19,1,.22,1)",
+   1
+  ],
+  [
+   "cssT transition:fill .5s ease-out",
+   1
+  ]
+ ],
+ "scriptCount": 13,
+ "scriptBytes": 2268509
+}
