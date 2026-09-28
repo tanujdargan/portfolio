@@ -1,80 +1,191 @@
 {
-  "date": "2026-09-28",
-  "previewUrl": "http://localhost:4173",
-  "intro": "Reset round. The exploration is archived; five new variants (P1–P5) were built from the density rules in DIAGNOSIS_V2.md, next to the two references they replace (v4b, v6). Every variant is dark, prerendered, uses the same full-colour logo tiles and the same six demos in one shared frame.",
-  "lookFirst": [
-    "<b>P5 Specimens</b>: the most crafted and the shortest. Research and MarmotSat are a 3×2 grid of posters drawn from each demo's own data; tap one and the live demo opens in place. 3,035 px on desktop and 4,883 px on mobile, with every demo one tap away.",
-    "<b>P3 Research-forward</b>: the most character. Serif titles on near-black; the demos are large numbered plates. Choose it if research should lead, and accept that Work comes after five plates.",
-    "<b>P2 SWE classic</b>: the fastest recruiter scan. On desktop the whole experience list fits the first screen beside a pinned name and actions.",
-    "P1 Refined and P4 Creative share a skeleton. P1 is the calm baseline; P4 is P1 plus four precise interactions (open a work row, hover the action row, watch the section headings settle)."
+ "date": "2026-09-28",
+ "previewUrl": "http://localhost:4173",
+ "intro": "Studio round. Five new variants (S1–S5) built after recording nine studio sites live (STUDIO_TASTE.md) and collecting 59 motion patterns (research/PATTERNS.md). Principle: restraint in information, richness in motion; the work is the hero and the name is small. Every variant keeps v6/P2's DNA (dark, mono for facts, a visible index, real data labelled), the same six live demos in one shared frame, full-colour logo tiles, and compact links on the first screen.",
+ "lookFirst": [
+  "<b>S2 Latent first.</b> It's v6 (your favourite) with the work as the hero: the first thing you do is drag α and watch a real model's answer rewrite itself while its real activation space bends. It's the round's best first screen and its signature is literally the research.",
+  "<b>S4 Signal second</b> if you want the boldest, most 'studio' look: a dithered WebGL screen that tunes between works, with a lens that shows the full-colour signal.",
+  "<b>S1 Index</b> if you want P2's clarity at studio polish: hover a title and a lens previews the work drawn from its data; click and it opens in place.",
+  "<b>S5 Spec</b> for the calmest (Koto-like, one lit exhibit, live MarmotSat telemetry). Press M for the HUMAN/MACHINE switch.",
+  "<b>S3 Board</b> is the experimental navigation: a zoomable research board you fly into. Most novel, most chrome."
+ ],
+ "changelog": {
+  "deleted": [
+   "P1, P3, P4 and P5 (code, fonts, board captures, density audits), and 9 unused font packages. The P round is archived on the local branch <code>archive/portfolio-exploration-2</code> (e852e0f); the older archive branch only held the C round.",
+   "The P-round board entries (the board now shows S1–S5 and the three kept references)."
   ],
-  "changelog": {
-    "deleted": [
-      "Variants v0, v1, v2, v3, v4, v5, v7, v8, v9 and candidates C1–C4, with their fonts and assets. All archived on the local branch <code>archive/portfolio-exploration</code> (065d3f6), not pushed.",
-      "All photography: the Toronto timelapse (146 frames), Unsplash and YouTube data, their components (ScrollTimelapse) and copy.",
-      "YouTube and Unsplash from the social links.",
-      "Seven unused font packages; the old reference thumbnails and flag captures on this board (≈ 8 MB).",
-      "Chapter data and other dead code left by the deleted variants."
-    ],
-    "added": [
-      "<b>DIAGNOSIS_V2.md</b>: a measured density audit of v4b and v6 (words, elements and focal points per screen, cards over 25 words), why v9 and the timelapse rounds failed, and the rules for P1–P5.",
-      "<b>P1–P5</b>, built to <code>docs/P_BRIEF.md</code>. All meet: first screen = name, one line, Resume/GitHub/LinkedIn/X/Email; a compact bar with the same actions after the hero; ≤ 25-word cards; details behind disclosure; write-ups on their own pages.",
-      "<b>Full-colour official logos</b> on uniform 40×40 vector tiles (<code>OrgTile</code>): Amazon, RBC, UVic, UVic CfAR and MLH. The CfAR mark was downloaded from uvic-cfar.com and traced to vector with the drop shadow removed. Sources and crops: <code>docs/logos/SOURCES.md</code>.",
-      "<b>One demo shell</b>: every demo caption is now one line (≤ 25 words) with a <i>Method</i> disclosure; the tracker is labelled 'Real data'; segmented controls wrap by whole option on phones; the ocean demo's '0 m' label no longer collides with the surface line.",
-      "This board: density per variant (measured on the production build), Lighthouse, screenshots and a scroll recording per variant, and a critique of each."
-    ]
-  },
-  "variants": [
-    {
-      "id": "p2",
-      "name": "SWE classic",
-      "verdict": "keep",
-      "idea": "The classic engineer's two-column portfolio, done precisely. On desktop the name, line, actions and a scroll-tracking section index stay pinned on the left; on the right one grid with a mono date gutter: Experience, Research (stack under the date, 'Run demo', 'Write-up'), Projects, Contact.",
-      "type": "Inter (48 KB) + Geist Mono (23 KB) with tabular figures. Cool graphite, two greys, one blue accent.",
-      "interactions": "Whole-row experience disclosures with a spring; hover dims the other rows (mouse only); the index marks the active section; demos mount in place on 'Run demo' with reserved heights; copy email.",
-      "critique": [
-        "<b>The fastest scan:</b> the whole experience list is on the first desktop screen, and each row is role · org, one line and a date.",
-        "<b>Over the element budget on the first desktop screen</b> (35 outside the dock): the pinned hero sits beside the full experience list. It's inherent to the two-column layout and was accepted; on mobile the first screen is only the hero.",
-        "<b>The most conventional</b> of the five: its identity is precision rather than anything memorable.",
-        "<b>Fixed after review:</b> text below the first screen shifted ~22 px on phones when the web fonts arrived. Fallback metrics are now calibrated per weight; 0 px shift at 360–1440."
-      ],
-      "fixed": [
-        "Font-swap shift 22 px → 0 (per-weight Inter fallback calibration); two columns start at 1120 px; steering demo reserve re-measured so loading moves the page 0 px."
-      ]
-    },
-    {
-      "id": "v4b",
-      "name": "Narrative: the work (reference)",
-      "verdict": "reference",
-      "idea": "The previous production candidate, kept unchanged as the reference DIAGNOSIS_V2 measured: a pinned time axis with the work told step by step, then an index of the same items.",
-      "type": "Martian Mono (wide) + JetBrains Mono.",
-      "critique": [
-        "Measured in DIAGNOSIS_V2: 14,473 px mobile, 7 focal points on the first screen, 42 cards over 25 words, the story and the index describe the same milestones twice."
-      ]
-    },
-    {
-      "id": "v6",
-      "name": "Latent space (reference)",
-      "verdict": "reference",
-      "idea": "Real steering activations as the scene. Kept unchanged as the second reference.",
-      "type": "See v6.",
-      "critique": [
-        "Measured in DIAGNOSIS_V2: seven sections for three ideas, experience rows at 33–37 words, two steering controls in the hero, 58svh gaps on mobile."
-      ]
-    }
-  ],
-  "shared": [
-    "Tiles are built by <code>node scripts/logos.mjs</code> from the official artwork in <code>docs/logos/</code>: Amazon's 'a' icon (Wikimedia Commons), the RBC shield (Wikipedia; RBC Borealis uses it), UVic's shield from uvic.ca's reversed logo on UVic blue, the CfAR wordmark from uvic-cfar.com traced to vector and cropped to 'CFAR' with its orange rule (the full 4.7:1 wordmark is illegible in a square), and MLH's official colour mark cropped to the letter blocks. Pear Care has no public logo, so its tile is typographic ('pc') in neutral colours.",
-    "Six demos, one frame: steering (real model outputs), loss masking (exact definition + illustrative conversation), ES, retrieval and ocean (illustrative), and the MarmotSat tracker (real data: CelesTrak TLE, SGP4 in the browser). All lazy-mount near the viewport or on tap; none loads before first paint."
-  ],
-  "assumptions": [
-    "The brief says to archive 'main' before deleting; the working branch is <code>redesign</code>, so the archive branch was cut from it (065d3f6). It's local only; nothing was pushed.",
-    "Production '/' still serves v4b until you pick a P variant. Only preview deploys were made; www.tanujdargan.com is untouched.",
-    "The CfAR logo exists only as a PNG with a drop shadow on uvic-cfar.com; no official vector was found, so the site's logo was traced (source PNG kept in the repo).",
-    "The UVic tile uses the shield from uvic.ca's official reversed (white) logo on UVic blue #005493; a full-colour shield file wasn't published at the URL pattern tried.",
-    "Density counts come from <code>~/dev/portfolio-tools/density.mjs</code> on the production build; 'copy words' excludes text inside demos, and element counts exclude demo internals and the lab dock.",
-    "Beri is described only as 'a food app I'm building'; a leftover 'Co-founding Beri' page description was fixed.",
-    "Community (Hack@JBCNOsh, VikeLabs, CDE) is cut or behind a disclosure in every P variant: it didn't earn a section under the density rules.",
-    "Lighthouse accessibility is 96–97 on P1–P3 because axe checks below-the-fold scroll reveals while they're still held at opacity 0.01 (contrast reads 1.01:1). The hold only applies after hydration, so the static HTML, no-JS readers and anyone scrolling before hydration see full contrast; real text contrast is ≥ 4.5:1. P4 and P5 score 100."
+  "added": [
+   "<b>STUDIO_TASTE.md</b>: basement, Cloud Studio, Shader, Analogue, Unseen, Neon, Koto, Kode and Cofounder recorded live (URLs logged), per-studio techniques, the shared recipe and the rules S1–S5 were built against.",
+   "<b>research/PATTERNS.md</b>: 59 interaction/motion patterns with sources, mechanics, fit, cost and reduced-motion fallbacks; ease curves measured on seven sites; mobile equivalents.",
+   "<b>WHY_V6_P2_WORK.md</b>: what v6 and P2 share, what each gets right, their failures, and the rules that carried into S1–S5.",
+   "<b>S1–S5</b>, built to <code>docs/S_BRIEF.md</code>.",
+   "<b>Shared layer</b>: <code>content/work.ts</code> (six works + compact roles), <code>Poster</code> (a miniature of each demo drawn from its own real data, moved from P5 and shared), <code>Split</code> and <code>Scramble</code> (type motion), <code>useLenis</code>; Lenis, Geist, Mona Sans, IBM Plex Sans/Mono and Instrument Sans added.",
+   "Shared fixes: ESDemo no longer throws on a hidden (0×0) canvas; Scramble drops its noise if reduced motion is detected after hydration.",
+   "This board: per variant, the signature interaction (scripted desktop and phone recordings plus key frames), transitions, studio references, critique against STUDIO_TASTE.md, fixes made after the critique, density and Lighthouse on the production build."
   ]
+ },
+ "variants": [
+  {
+   "id": "s1",
+   "name": "Index",
+   "verdict": "keep",
+   "idea": "P2's two-column engineer's site elevated to studio polish. The right column opens on the work: six titles at 72px, each a live index row. The name is a 14px signature in the pinned column.",
+   "type": "Geist + Geist Mono (52 KB), −4.5% tracking on the titles. Graphite #0b0b0c, strict grey ramp; each work's accent only in the lens, the lit row, the exhibit and the write-up cover.",
+   "signature": "<b>The lens.</b> Hover a row: the other five dim to 26% and the title rolls letter by letter. A 420×163 window follows the cursor with lerp and velocity tilt, opening on a clip-path iris. Inside, that work's poster (drawn from its real data) draws itself in its accent. Click and the row opens <i>in place</i> into an exhibit: a spec sheet whose rules draw and whose result decodes, beside the live demo. On phones the index pins and scroll scrubs through it (basement's accordion); tap opens a full-screen sheet.",
+   "transitions": "Row title, number and metric morph (View Transitions) into a write-up cover whose poster draws full-size in the accent; '← Index' morphs back onto the same row. Section heads rise out of word masks; experience rows arrive with their rules drawing; a mono readout in the pinned column re-scrambles to name what you're hovering; Geist weight settles on load.",
+   "references": "Codrops hover-reveal menu (P10), Gil Huybrecht focus-dim and in-place expand (P11, P12), per-letter roll (P6), shared-element View Transition (P18), Koto restraint and mono metadata, basement spec sheet, section-indicator scramble (P31).",
+   "critique": [
+    "<b>Would it sit next to Koto or basement?</b> Yes on hover: the lens with a real ground track in MarmotSat blue is the most precise interaction in the round. At rest it's a typographic index, which is the most restrained of the five.",
+    "<b>Too plain?</b> It's the closest to P2 by design (one of the two 'clarity' variants). The life is in hover, scrub and open; someone who never hovers sees great type and a clean list. The mobile scrub fixes that on phones.",
+    "<b>Too crowded?</b> No. ~23 words on the first desktop screen outside the titles; every row ≤ 25 words.",
+    "<b>Is the work the hero?</b> Yes: the six titles are the biggest thing on the page and the name is 14px."
+   ],
+   "fixed": [
+    "Phone ALSO/EARLIER label overlapped its row title (gutter too narrow); gave the row its own label column.",
+    "Earlier build: the phone pin changed heights while scrolling (CLS ≈ 0.25); rebuilt on transforms only (≈ 0.001)."
+   ],
+   "issues": "Demo slot heights are tuned at 1440 and 393 px; widths in between are estimated. Lighthouse a11y 96: axe reads below-the-fold reveals while they're still held at opacity 0.01 (real contrast ≥ 4.5:1). The density tool's one 'long card' is the whole rows list (its class contains 'row')."
+  },
+  {
+   "id": "s2",
+   "name": "Latent",
+   "verdict": "keep",
+   "idea": "v6 elevated: the first screen is the experiment. Real Qwen2.5-1.5B activations fill a WebGL field, and the model's real answer is set large beside it. No name headline (13px mono, top left). Five stops of work, then experience and contact.",
+   "type": "Geist Mono + Newsreader (64 KB, subset). Near-black #09090a; the accent re-themes to the work in view (orange/cyan for steering's sign).",
+   "signature": "<b>Drag the model's mood.</b> Drag the α rail and the field bends and splits in real time while the sentence rewrites itself like a greedy decoder: shared words stay, the rest backspaces, and the new real output streams in, tinted by α's sign. From 'As an AI language model, I do not have personal experiences…' at −1.2 to 'Oh, the sun sparkled with diamonds!' at +1.2. The read-back projection counts, pinned cluster labels follow the bend, and the cursor glow shifts cyan→orange. On phones the rail is a 44 px thumb under the sentence that never traps vertical scroll, with haptic detents where supported.",
+   "transitions": "Into a write-up: the title ghosts, the page dissolves and the points rush past in the work's accent (warp), then the title lands as the article title; back flies you in from the far field. 'Run the demo' grows a glass panel from the button. Section titles decode from glyph noise, hooks rise word by word, posters draw their strokes, only changed characters scramble in the α label. Numbered dock (01–06) with poster preview cards.",
+   "references": "v6 (owner's favourite), numbered dock with preview cards (P16, austensor), decode (P2/P31), cursor label (P33), number ticker (P52), code/readout sync (P53), haptics (P54); Unseen (routes as camera moves), Neon (per-work re-theme), basement/Kode (one accent as an event), Koto two-tone titles.",
+   "critique": [
+    "<b>Would it sit next to the studios?</b> Yes. It has the one thing none of them has: the hero is a real experiment that responds. The first screen is the strongest in the round.",
+    "<b>Too plain?</b> No. <b>Too crowded?</b> The hero carries a label, prompt, sentence, rail, chips, read-back and two buttons; it's dense but every item is part of one instrument. Below the hero, desktop sections are a left column over the field, which reads as air rather than emptiness because the field moves with scroll.",
+    "<b>Is the work the hero?</b> Literally: the first thing you do is run the research.",
+    "v6's failures fixed: no giant name, no duplicate steering controls, no 58svh gaps, experience rows ≤ 25 words."
+   ],
+   "fixed": [
+    "Sections scrolled visibly under the transparent top bar (a 'Run the demo' ghost next to the name); the bar now has a real scrim and passes pointer events through its empty area.",
+    "Lighthouse: the hero sentence used <code>text-wrap: pretty</code>, which re-balanced earlier lines as the decoder typed, moving unchanged words (CLS 0.049 desktop). Greedy wrap and a fixed-height box: 0.005.",
+    "Accessibility: section stop labels are now the h2s (work titles were h3 under an h1), the prompt button's name contains its visible text, the icon-only Resume link on phones has a name, and the hidden duplicate demo buttons are out of the a11y tree."
+   ],
+   "issues": "During a very fast drag the sentence can be empty for a frame between rewrites. The rail thumb is custom-styled in Chromium and Firefox only (Safari gets the native thumb). The density tool flags each work card at 40–51 words because the per-letter roll splits button labels into single characters; the real copy is ~20 words plus button labels. Lighthouse a11y 96–97 is the reveal-hold artifact (below-fold labels at opacity 0.01 when axe reads them)."
+  },
+  {
+   "id": "s3",
+   "name": "Board",
+   "verdict": "keep",
+   "idea": "Experimental navigation. Home is a zoomable research board on a dot grid. The server sends a plain list (complete without JS); after load the list assembles into the board, each card flying from its list slot to its board slot.",
+   "type": "IBM Plex Sans Variable (wdth + wght) + Plex Mono (~80 KB). Blue-grey near-black, dots at 7% white; a work's colour appears only when hovered, open, or on the minimap.",
+   "signature": "<b>Fly in and it comes alive.</b> Click a card, press 1–6 or tap a chip: the camera flies (log-space zoom, ~700 ms) to frame it, a panel grows from the card and the live demo fades in over the poster while the rest of the board dims and panning locks. Esc flies back out. Semantic zoom: far out, cards are poster + big number; closer in, hooks and metrics fade in and the data draws itself; titles change width with zoom. Hover draws dotted links to related work and to the matching experience tile.",
+   "transitions": "List ⇄ Board is one FLIP in both directions. 'Read the write-up' morphs the panel into the article's poster plate and the title into the article title; back lands framed on that card, then pulls out. Context label scrambles; metrics decode; minimap and HUD fade in. Keys: 1–6, 0/Esc, arrows, ±, T for a tour; Tab flies to the focused card.",
+   "references": "Drag/zoom canvas of the work (P47), view-mode toggle (P48), keyboard chips + auto tour (P45), tick minimap (P30), one-lit-thing (Koto), spec plate (basement), a single authored object (Shader); Mobile equivalents 2, 5, 8.",
+   "critique": [
+    "<b>Would it sit next to the studios?</b> On desktop, yes: it looks like a lab's instrument, and the fly-in is a genuine 'show a friend' moment.",
+    "<b>Too plain?</b> No. <b>Too crowded?</b> The HUD (links, coords, zoom, minimap, keys, hint) is a lot of chrome at once; it's small and mono, but it's the busiest first screen of the five.",
+    "<b>Is the work the hero?</b> Yes: six posters drawn from real data are the board.",
+    "Risk: canvas navigation is unfamiliar to recruiters. The List view is one tap away and is what reduced motion and no-JS get."
+   ],
+   "fixed": [
+    "Phone hint sat on the first card's hook at the bottom of the screen; moved under the HUD (a lab-only override had also stretched it into a tall blurred block)."
+   ],
+   "issues": "Checked in Chromium (desktop and touch emulation) only; real iOS Safari pinch and backdrop blur need a device pass. Dotted links can cross a card on hover. The demo 'ready' moment is a fixed 480 ms after its chunk loads."
+  },
+  {
+   "id": "s4",
+   "name": "Signal",
+   "verdict": "keep",
+   "idea": "Experimental shader. The home page is a receiver: a full-bleed WebGL screen shows the in-focus work's poster as a 1-bit Bayer-dithered signal, with the work's accent on its accent strokes. Each work is a channel.",
+   "type": "Mona Sans (wdth/wght) + Martian Mono HUD, subset (62 + 17 KB). Ground #050506, dither grey; colour appears only per channel.",
+   "signature": "<b>Channel switch + lens.</b> Hover or focus a row in the Mona Sans index: it widens to wdth 125 / wght 700 while the others condense, and the screen switches channel: one uniform drives macroblock noise, row tearing, an RGB-dithered split and a burst of snow that peak mid-way (700 ms), while the channel label rescrambles. The pointer is a lens that shows the un-dithered, full-colour signal inside a glass circle. Tune in: the dither resolves pixel by pixel in Bayer order to the full signal while a sheet slides up with the live demo. On phones scroll is the tuning dial.",
+   "transitions": "Write-ups: a full-screen wipe in the channel's accent whose leading edge dissolves in Bayer order; back resumes that channel. Section titles open from wdth 75 to 100 per letter; kickers decode; rows draw in top-down in steps.",
+   "references": "Text index over a swapping background (P13, Nite Riot), numbered hotspots with shader crossfade (P15, Thibault Guignand), one-uniform block/displacement/chromatic crossfade (P38), Bayer dither (P39), pointer reveal lens (P42), variable-font index (P7); Kode's accent wipe, Neon's per-item accent and progress bar, basement's dithered hero, Shader's single fiction.",
+   "critique": [
+    "<b>Would it sit next to the studios?</b> Yes, it looks the most like one of them. The dithered steering curve at display size is the round's best single image.",
+    "<b>Too plain?</b> No. <b>Too loud?</b> The mid-switch frame (RGB split + snow) is the one place I'd tone down: it's close to a glitch-art cliché, and it only lasts 700 ms, but it's the frame people will screenshot. Easy to halve.",
+    "<b>Is the work the hero?</b> Yes, every channel is a work's real data drawn huge.",
+    "On phones the pinned screen leaves a quiet band between the channel and the hook once the index has scrolled."
+   ],
+   "fixed": [
+    "Phone: the first section printed on top of the pinned screen's hook as it scrolled in; sections now carry a full-bleed ground and slide over the pin.",
+    "Lighthouse: write-up CLS 0.143 on phones. Tag chips fit on one line in the Menlo fallback but wrapped once Martian Mono loaded; the fallback's size-adjust is now measured against the chips (113% → 116.5%). CLS 0."
+   ],
+   "issues": "The first WebGL frame is a little sparser than the CSS-dithered first paint, so startup density shifts slightly. The wipe label sits under the lab dock on phones (lab only)."
+  },
+  {
+   "id": "s5",
+   "name": "Spec",
+   "verdict": "keep",
+   "idea": "The calmest variant, alive through focus and telemetry. Koto's sticky two-tone caption column ('Selected work / Steering') beside six live demos, only the centred one lit; a basement spec sheet; an instrument bar with a live UTC clock and MarmotSat's real sub-satellite point.",
+   "type": "Instrument Sans (condensed display capped at 48 px) + JetBrains Mono (97 KB). #060606, greys #e8e8e8 / #989898 / #7a7a7a; each work's accent only on the lit exhibit's hairline and badge; MACHINE is amber #ffb000.",
+   "signature": "<b>HUMAN / MACHINE.</b> Press the pill (or M): every visible text node turns to glyph noise in a wave from the pill and goes amber, demos drop to labelled outlines, a view transition folds the page into one mono column, and a plain-text, key/value mirror of the site prints itself top to bottom for agents and crawlers, headed by an ASCII world map with MarmotSat's live position, its last and next half-orbit, and Victoria. HUMAN reverses it. The state persists for the session.",
+   "transitions": "The lit exhibit morphs (View Transitions, 700 ms) into the write-up header, whose poster draws in; the article gets a sticky chapter rail with an active dot. The caption's work name scrambles and condenses as each exhibit crosses the centre; spec values scramble; hooks rise word by word; clock and counter digits roll.",
+   "references": "Koto focused index + sticky caption + two-tone headings + card→hero morph + chapter rail (K1, K2, K6, K8), live clock (K9), definition-list experience (K10), basement spec sheet and HUMAN/MACHINE mirror, number rollers (P52).",
+   "critique": [
+    "<b>Would it sit next to the studios?</b> Next to Koto, yes: the same restraint and the same one-lit-thing focus. MACHINE mode is the most original idea in the round and exactly on-brand for an ML engineer.",
+    "<b>Too plain?</b> At rest, on the first screen, it's the quietest (a caption and a demo panel). The telemetry ticking and the caption morph are what keep it alive; the MACHINE moment is the payoff.",
+    "<b>Too crowded?</b> ~29 words outside the demo on the first desktop screen, a little over target (the four spec rows cost most).",
+    "<b>Is the work the hero?</b> Yes: the live demos are the exhibits, full size, in order."
+   ],
+   "fixed": [
+    "Brief's #595959 small text failed 4.5:1; it's kept for rules and ticks only, text uses #7a7a7a.",
+    "Lighthouse: mobile LCP 3.3 s. The first exhibit's live demo mounted on load and its output paragraph became the LCP element after hydration; the demo now mounts on the first real input (pointer, wheel, key, touch or scroll) while its poster holds the slot at the same height. LCP 1.7 s, CLS 0.001.",
+    "Lighthouse: write-up CLS 0.127. The condensed display type (font-stretch 80%) fell back to full-width Arial and wrapped onto extra lines until the web font arrived; a condensed-matched fallback (Arial at 77%) keeps the line breaks. CLS 0.001.",
+    "Accessibility: the HUMAN/MACHINE switch's name now contains its visible text, the chapter-rail and picker numbers moved to #7a7a7a (were 2.9:1), and the X link meets the 24 px target."
+   ],
+   "issues": "The orbit demo defaults to 60× simulated time, so it doesn't match the nav's live readout (1×). Pages are long on phones because each demo is inline (they mount as they approach). Lighthouse a11y 97: the dimmed (unlit) exhibits read below 4.5:1 by design (Koto's 20% dim); they light on scroll, focus or click."
+  },
+  {
+   "id": "v6",
+   "name": "Latent space (reference)",
+   "verdict": "reference",
+   "idea": "Kept unchanged as a reference (owner's favourite). S2 is its studio-grade successor.",
+   "type": "See v6.",
+   "critique": [
+    "Measured in DIAGNOSIS_V2: seven sections for three ideas, experience rows at 33–37 words, two steering controls in the hero, 58svh gaps on mobile."
+   ]
+  },
+  {
+   "id": "p2",
+   "name": "SWE classic (reference)",
+   "verdict": "reference",
+   "idea": "Kept unchanged as a reference (owner's pick from the P round). S1 is its studio-grade successor.",
+   "type": "Inter (48 KB) + Geist Mono (23 KB) with tabular figures. Cool graphite, two greys, one blue accent.",
+   "interactions": "Whole-row experience disclosures with a spring; hover dims the other rows (mouse only); the index marks the active section; demos mount in place on 'Run demo' with reserved heights; copy email.",
+   "critique": [
+    "<b>The fastest scan:</b> the whole experience list is on the first desktop screen, and each row is role · org, one line and a date.",
+    "<b>Over the element budget on the first desktop screen</b> (35 outside the dock): the pinned hero sits beside the full experience list. It's inherent to the two-column layout and was accepted; on mobile the first screen is only the hero."
+   ]
+  },
+  {
+   "id": "v4b",
+   "name": "Narrative: the work (reference)",
+   "verdict": "reference",
+   "idea": "Kept unchanged as a reference ('fine'). Its chronology survives as the dates and ordering in every S variant.",
+   "type": "Martian Mono (wide) + JetBrains Mono.",
+   "critique": [
+    "Measured in DIAGNOSIS_V2: 14,473 px mobile, 7 focal points on the first screen, 42 cards over 25 words, the story and the index describe the same milestones twice."
+   ]
+  }
+ ],
+ "shared": [
+  "Tiles are built by <code>node scripts/logos.mjs</code> from the official artwork in <code>docs/logos/</code>: Amazon's 'a' icon (Wikimedia Commons), the RBC shield (Wikipedia; RBC Borealis uses it), UVic's shield from uvic.ca's reversed logo on UVic blue, the CfAR wordmark from uvic-cfar.com traced to vector and cropped to 'CFAR' with its orange rule (the full 4.7:1 wordmark is illegible in a square), and MLH's official colour mark cropped to the letter blocks. Pear Care has no public logo, so its tile is typographic ('pc') in neutral colours.",
+  "Six demos, one frame: steering (real model outputs), loss masking (exact definition + illustrative conversation), ES, retrieval and ocean (illustrative), and the MarmotSat tracker (real data: CelesTrak TLE, SGP4 in the browser). All lazy-mount near the viewport or on tap; none loads before first paint."
+ ],
+ "assumptions": [
+  "<b>Ambiguous studio names.</b> 'Cloud Studio' → cloudstudio.es (the Awwwards design-agency entry; cloud.studio is an IoT SaaS). 'Neon' → NEON (neonrated.com), the only award-level 'Neon' (a film studio; neon.studio is parked). 'Cofounder' → cofounder.co (an AI product site by Altalogy, listed on Godly); no design studio of that name has a live site. Light-themed sites were used for mechanics only. Swap any of these if you meant a different studio.",
+  "<b>'Delete from main'</b> is read as 'from the site and the lab'. The <code>main</code> branch holds the old site and has no variants; all work is on <code>redesign</code>. Nothing was pushed or deployed; production is untouched.",
+  "<b>Production '/'</b> still serves v4b until you pick. Nothing about the live site changed.",
+  "<b>Stack</b> kept (React + Vite SSR prerender, framer-motion, three). Added Lenis only; no GSAP (CSS, WAAPI, framer-motion and small rAF loops covered every effect). S2 and S4 use raw WebGL2, and three.js stays confined to the orbit demo.",
+  "<b>Name</b> is ≤ 16 px in every S variant (nav or pinned signature); no variant has a name headline.",
+  "<b>Facts</b> come only from site.ts (the Aug 2026 resume and existing content). The six work hooks in <code>content/work.ts</code> are shortened from them. S2's hero sentence and S1/S3/S4/S5 posters come from the same real data as the demos (steering.json, lossmask.json, the MarmotSat TLE); retrieval, ES and ocean remain labelled illustrative.",
+  "<b>Beri</b> is 'a food app I'm building' everywhere; never founder or co-founder.",
+  "<b>MarmotSat telemetry</b> (S5) is computed live in the browser with SGP4 from the published TLE (CelesTrak, falling back to the build-time copy).",
+  "<b>Density</b> is measured on the production build with <code>density.mjs</code>, which now ignores screen-reader duplicates (<code>.sr-only</code> copies made by Split/Scramble). Word counts on S variants exclude text inside demos; the first window includes the lab dock.",
+  "<b>Recordings</b> are scripted Playwright sessions (headless Chromium with GPU) and are choppier than a real browser; WebKit screenshots render backdrop-filter panels as transparent, which is a capture artifact, not a bug.",
+  "Lighthouse accessibility below 100 on some S variants comes from axe reading below-the-fold reveals while they're held at opacity 0.01; the static HTML and real contrast are ≥ 4.5:1."
+ ],
+ "research": [
+  "Nine studios recorded in a real browser (desktop 1440×900 and iPhone 15, scroll video, hover, click into a case study, computed styles and bundle scan): notes in <code>research/studios/NOTES-A.md</code> and <code>NOTES-B.md</code>; the synthesis is <code>STUDIO_TASTE.md</code>.",
+  "Wider technique search (not 'portfolio'): Awwwards SOTD and collections, Codrops mechanics, Mobbin web sections, and live sites such as darkroom.engineering, austensor.com, thibaultguignand.com, gilhuybrecht.com, igloo.inc, lusion.co, leoparpeix.com: <code>research/PATTERNS.md</code> (59 patterns).",
+  "The expensive recipe in one line: few words; live work instead of thumbnails; one lit thing at a time; tight or capped display type; one ease family; one accent used as an event; transitions that keep continuity; an authored object; a nav that does double duty; a small instrument layer.",
+  "Captures (45 MB of third-party screenshots and video) stay local in <code>research/</code> and are gitignored."
+ ]
 }

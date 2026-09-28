@@ -356,7 +356,7 @@ function Top({ base, home, active, reduced }: { base: string; home: boolean; act
         <Dock base={base} home={home} active={active} reduced={reduced} />
         <ul className="s2-top__links">
           <li className="s2-top__cv">
-            <a href={links.resume.href} target="_blank" rel="noopener">
+            <a href={links.resume.href} target="_blank" rel="noopener" aria-label="Resume (PDF)">
               <LinkIcon k="resume" size={15} />
               <span>Resume</span>
             </a>
@@ -380,12 +380,13 @@ function StopHead({ i, children }: { i: number; children?: ReactNode }) {
   const s = STOPS[i]
   return (
     <header className="s2-stop__head" data-rv>
-      <p className="s2-lbl s2-coord">
+      {/* the stop label is the section's h2 (work titles below are h3) */}
+      <h2 className="s2-lbl s2-coord">
         <span className="s2-sw" aria-hidden="true" />
         <span className="s2-num">C{String(i + 1).padStart(2, '0')}</span>
         <Dec as="span" text={s.name} trigger="view" />
-        <span className="s2-dim s2-num">{i < 5 ? `centroid ${s.c}` : s.c}</span>
-      </p>
+        <span className="s2-dim s2-num" aria-hidden="true">{i < 5 ? `centroid ${s.c}` : s.c}</span>
+      </h2>
       {children}
     </header>
   )
@@ -415,7 +416,7 @@ function Entry({ k, base, onDemo }: { k: WorkKey; base: string; onDemo: (k: Work
         <Split text={HOOK[k] ?? w.hook} />
         {w.flag && <Flag note={w.flag} />}
       </p>
-      <button className="s2-shot" onClick={(e) => onDemo(k, e.currentTarget)} onPointerEnter={warm} aria-label={`Run the ${w.short} demo`} tabIndex={-1}>
+      <button className="s2-shot" onClick={(e) => onDemo(k, e.currentTarget)} onPointerEnter={warm} aria-hidden="true" tabIndex={-1}>
         <Poster k={k} />
         <span className="s2-tag s2-lbl" data-real={w.tag !== 'illustrative' || undefined}>
           {TAG[w.tag]}

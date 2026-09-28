@@ -2,12 +2,13 @@
 //   portfolio-design-board.html          (repo root, media from public/board)
 //   public/portfolio-design-board.html   (deployed, media from /board)
 // Inputs: scripts/board-notes.json, audit/lighthouse.json, audit/density-<id>.json, public/board/<id>-* captures.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs'
 
 const notes = JSON.parse(readFileSync('scripts/board-notes.json', 'utf8'))
 const lh = existsSync('audit/lighthouse.json') ? JSON.parse(readFileSync('audit/lighthouse.json', 'utf8')) : {}
 const density = (id) => (existsSync(`audit/density-${id}.json`) ? JSON.parse(readFileSync(`audit/density-${id}.json`, 'utf8')).views : null)
 
+const frames = (id) => readdirSync('public/board').filter((f) => f.startsWith(`${id}-sig-`) && f.endsWith('.jpg')).sort()
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 const score = (n) => `<b class="sc ${n >= 90 ? 'g' : n >= 50 ? 'o' : 'r'}">${n}</b>`
 const lhRow = (label, r) =>
@@ -48,10 +49,17 @@ function page(media, liveBase) {
     <dl class="facts">
       <div><dt>Type and palette</dt><dd>${esc(v.type)}</dd></div>
       ${v.interactions ? `<div><dt>Interactions</dt><dd>${esc(v.interactions)}</dd></div>` : ''}
-      <div style="grid-column:1/-1"><dt>Critique against DIAGNOSIS_V2 and the rules</dt><dd><ul class="flat">${v.critique.map((c) => `<li>${c}</li>`).join('')}</ul></dd></div>
+      <div style="grid-column:1/-1"><dt>Critique against STUDIO_TASTE.md</dt><dd><ul class="flat">${v.critique.map((c) => `<li>${c}</li>`).join('')}</ul></dd></div>
       ${v.fixed?.length ? `<div style="grid-column:1/-1"><dt>Fixed after the critique</dt><dd><ul class="flat">${v.fixed.map((c) => `<li>${c}</li>`).join('')}</ul></dd></div>` : ''}
       ${v.issues ? `<div style="grid-column:1/-1"><dt>Known issues</dt><dd>${esc(v.issues)}</dd></div>` : ''}
     </dl>
+    ${v.signature ? `<div class="sig"><h4>Signature interaction</h4><p>${v.signature}</p>
+      <div class="shots">
+        ${has(`${v.id}-sig-desktop.mp4`) ? `<figure class="d"><video src="${img(`${v.id}-sig-desktop.mp4`)}" muted loop playsinline autoplay preload="none" controls></video><figcaption>Signature, desktop (scripted recording)</figcaption></figure>` : ''}
+        ${has(`${v.id}-sig-mobile.mp4`) ? `<figure class="m"><video src="${img(`${v.id}-sig-mobile.mp4`)}" muted loop playsinline autoplay preload="none" controls></video><figcaption>Signature, phone</figcaption></figure>` : ''}
+      </div>
+      <div class="frames">${frames(v.id).map((f) => `<figure><img loading="lazy" src="${img(f)}" alt=""><figcaption>${esc(f.replace(/^.*-sig-/, '').replace('.jpg', '').replace(/-\d+-/, ' · '))}</figcaption></figure>`).join('')}</div></div>` : ''}
+    ${v.transitions ? `<dl class="facts"><div><dt>Transitions and type motion</dt><dd>${v.transitions}</dd></div>${v.references ? `<div><dt>Studio references it drew on</dt><dd>${v.references}</dd></div>` : ''}</dl>` : ''}
     ${densityTable(density(v.id))}
     ${lhTable([lhRow('Mobile', lh[`/lab/${v.id}`]?.mobile), lhRow('Desktop', lh[`/lab/${v.id}`]?.desktop), lhRow('Write-up, mobile', lh[`/lab/${v.id}/research/activation-steering`]?.mobile)])}
     <div class="shots">
@@ -97,21 +105,24 @@ figcaption{font:12px ui-monospace,monospace;color:var(--f3);margin-top:6px}
 details{margin-top:14px}summary{cursor:pointer;color:var(--f2)}.full{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px;align-items:start}.full img{width:100%;border-radius:8px}
 ul.flat{padding-left:18px;margin:6px 0}ul.flat li{margin:6px 0;color:var(--f2)}ul.flat b{color:var(--fg);font-weight:600}
 .logos{display:flex;gap:14px;align-items:center;margin-top:10px}.logos img{width:40px;height:40px;border-radius:9px}
+h4{font:600 12px ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ac);margin:26px 0 8px}.sig p{max-width:820px;color:var(--fg)}
+.frames{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}.frames img{width:100%;border-radius:8px;box-shadow:0 0 0 1px var(--ln)}
 code{font:13px ui-monospace,monospace;background:var(--b2);padding:2px 6px;border-radius:5px}
 </style></head><body><main>
 <h1>Portfolio design board</h1>
 <p class="lead">${esc(notes.intro)} Generated ${notes.date}.</p>
-<section class="box"><b>Changelog: reset round (${esc(notes.date)})</b>
+<section class="box"><b>Changelog: studio round (${esc(notes.date)})</b>
   <div class="cols"><div><h3 style="margin-top:14px">Deleted</h3>${list(notes.changelog.deleted)}</div><div><h3 style="margin-top:14px">Added</h3>${list(notes.changelog.added)}</div></div>
 </section>
 <div class="box"><b>Look at these first</b><ol>${notes.lookFirst.map((l) => `<li>${l}</li>`).join('')}</ol>
 <p class="dim" style="margin:12px 0 0">Lab: <a href="${liveBase}/lab">${liveBase || ''}/lab</a>. The dock at the bottom switches variant and motion intensity (Subtle / Default / Expressive); <code>[</code> and <code>]</code> cycle variants. Write-ups live at <code>/lab/&lt;id&gt;/research/…</code>.</p></div>
-<nav class="toc">${notes.variants.map((v) => `<a href="#${v.id}">${v.id.toUpperCase()} ${esc(v.name)}</a>`).join('')}<a href="#shared">Logos and demos</a><a href="#assumptions">Assumptions</a></nav>
-<h3 style="margin-top:64px">This round</h3>
+<nav class="toc">${notes.variants.map((v) => `<a href="#${v.id}">${v.id.toUpperCase()} ${esc(v.name)}</a>`).join('')}<a href="#research">Research</a><a href="#shared">Logos and demos</a><a href="#assumptions">Assumptions</a></nav>
+<h3 style="margin-top:64px">This round: S1–S5</h3>
 ${current.map(variant).join('')}
-<h3 style="margin-top:96px">References (kept, unchanged)</h3>
+<h3 style="margin-top:96px">References the owner kept (unchanged)</h3>
 ${refs.map(variant).join('')}
-<section id="shared"><h3>Logos and the demo shell (shared by every P variant)</h3>
+<section id="research"><h3>Research behind this round</h3>${list(notes.research)}</section>
+<section id="shared"><h3>Logos and the demo shell (shared by every variant)</h3>
 <div class="logos">${['amazon', 'rbc', 'uvic', 'cfar', 'mlh'].map((l) => `<img src="${liveBase}/logos/tile-${l}.svg" alt="${l}">`).join('')}</div>
 ${list(notes.shared)}</section>
 <section id="assumptions"><h3>Assumptions and decisions</h3>${list(notes.assumptions)}</section>

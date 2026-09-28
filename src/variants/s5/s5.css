@@ -25,6 +25,18 @@
   descent-override: 25%;
   line-gap-override: 0%;
 }
+/* Condensed display (font-stretch 80%): Arial can't condense, so it wrapped titles onto extra lines until the web
+   font arrived (CLS 0.127 on write-ups). A narrower fallback keeps the line breaks; line-height is unitless, so
+   size-adjust doesn't change line boxes. */
+@font-face {
+  font-family: 'S5 Display Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
+  /* Instrument Sans ≈ 0.96 × Arial's advance (see S5 Sans Fallback) × 0.8 stretch */
+  size-adjust: 77%;
+  ascent-override: 124%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
 @font-face {
   font-family: 'S5 Mono Fallback';
   src: local('Menlo Regular'), local('Menlo-Regular'), local('Courier New'), local('CourierNewPSMT');
@@ -209,7 +221,7 @@
 }
 .s5-nav__n {
   margin-right: 7px;
-  color: var(--fg-4);
+  color: var(--fg-3);
 }
 .s5-nav__idx a::after {
   content: '';
@@ -313,6 +325,7 @@
   align-items: center;
 }
 .s5-links a {
+  min-width: 24px;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -353,7 +366,7 @@
 
 /* ---------- two-tone headings (Koto K2) ---------- */
 .s5-two {
-  font-family: var(--font-display);
+  font-family: 'S5 Sans', 'S5 Display Fallback', sans-serif;
   font-weight: 450;
   font-stretch: 80%;
   letter-spacing: -0.012em;
@@ -563,7 +576,7 @@
   height: 32px;
   font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.04em;
-  color: var(--fg-4);
+  color: var(--fg-3);
   transition: color var(--d1);
 }
 .s5-pick button:hover {
@@ -1486,7 +1499,7 @@ a.s5-earlier__row:hover {
 }
 .s5-rail__n {
   font: 500 11px/1 var(--font-mono);
-  color: var(--fg-4);
+  color: var(--fg-3);
 }
 .s5-rail .s5-rail__back {
   display: inline-flex;

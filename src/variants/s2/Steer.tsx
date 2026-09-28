@@ -365,12 +365,12 @@ export function Steer({ base, onDemo, ready }: { base: string; onDemo: (el: HTML
           touch()
           setQ((q + 1) % data.test_questions.length)
         }}
-        aria-label={`Prompt: ${data.test_questions[q]} Next prompt.`}
       >
         <span className="s2-prompt__k" aria-hidden="true">
           prompt
         </span>
         <Morph text={data.test_questions[q]} className="s2-prompt__q" />
+        <span className="sr-only"> (next prompt)</span>
         <span className="s2-prompt__n" aria-hidden="true">
           {q + 1}/{data.test_questions.length} ↻
         </span>

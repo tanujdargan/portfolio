@@ -260,14 +260,15 @@ function Pill({ mode, onToggle, lab }: { mode: Mode; onToggle: () => void; lab: 
   const machine = mode === 'machine'
   return (
     <div className="s5-pillwrap" data-lab={lab || undefined} data-quiet>
-      <button type="button" role="switch" aria-checked={machine} aria-label="Machine-readable view" title="Machine-readable view (M)" className="s5-pill" data-machine={machine || undefined} onClick={onToggle}>
+      <button type="button" role="switch" aria-checked={machine} title="Machine-readable view (M)" className="s5-pill" data-machine={machine || undefined} onClick={onToggle}>
         <span className="s5-pill__thumb" aria-hidden="true" />
-        <span className="s5-pill__o" data-on={!machine || undefined} aria-hidden="true">
+        <span className="s5-pill__o" data-on={!machine || undefined}>
           Human
         </span>
-        <span className="s5-pill__o" data-on={machine || undefined} aria-hidden="true">
+        <span className="s5-pill__o" data-on={machine || undefined}>
           Machine
         </span>
+        <span className="sr-only">: machine-readable view</span>
       </button>
     </div>
   )
@@ -363,6 +364,7 @@ function LabelBar({ i }: { i: number }) {
 }
 
 function Exhibit({ w, i, lit, base, ret, onFocus }: { w: Work; i: number; lit: boolean; base: string; ret: boolean; onFocus: (i: number, scroll: boolean) => void }) {
+  const armed = useArmed()
   const s = spec[w.key]
   const panel = useRef<HTMLDivElement>(null)
   // the return morph needs the shared name only for the one transition; drop it once that's over
@@ -407,7 +409,7 @@ function Exhibit({ w, i, lit, base, ret, onFocus }: { w: Work; i: number; lit: b
           </span>
           <Poster k={w.key} />
         </div>
-        <Demo kind={w.key} hero={i === 0} />
+        {i === 0 && !armed ? <div className="demo-slot" style={{ minHeight: 'var(--demo-h-steering, 560px)' }} /> : <Demo kind={w.key} hero={i === 0} />}
         <div className="s5-ex__veil" aria-hidden="true" onClick={() => onFocus(i, true)}>
           <span>
             {w.n} · {w.short}
@@ -417,6 +419,24 @@ function Exhibit({ w, i, lit, base, ret, onFocus }: { w: Work; i: number; lit: b
       <Cta w={w} base={base} className="s5-cta--ex" />
     </div>
   )
+}
+
+/** First real input (pointer, wheel, key, touch or scroll). The first exhibit's live demo waits for it: mounted on
+ *  load, its big output paragraph became the LCP element after hydration (3.3 s mobile). The poster holds the slot. */
+let inputSeen = false
+function useArmed() {
+  const [armed, setArmed] = useState(inputSeen)
+  useEffect(() => {
+    if (armed) return
+    const ev = ['pointerdown', 'pointermove', 'wheel', 'keydown', 'touchstart', 'scroll'] as const
+    const on = () => {
+      inputSeen = true
+      setArmed(true)
+    }
+    ev.forEach((e) => addEventListener(e, on, { once: true, passive: true }))
+    return () => ev.forEach((e) => removeEventListener(e, on))
+  }, [armed])
+  return armed
 }
 
 function Work({ base }: { base: string }) {

@@ -306,5 +306,225 @@
    "tbt": 0,
    "fcp": 323
   }
+ },
+ "/lab/s1": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 96,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1503,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1203
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 96,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 386,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 326
+  }
+ },
+ "/lab/s2": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1580,
+   "cls": 0.006,
+   "tbt": 0,
+   "fcp": 1355
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 96,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 383,
+   "cls": 0.005,
+   "tbt": 0,
+   "fcp": 363
+  }
+ },
+ "/lab/s3": {
+  "mobile": {
+   "perf": 99,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1729,
+   "cls": 0.022,
+   "tbt": 13,
+   "fcp": 1504
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 637,
+   "cls": 0.013,
+   "tbt": 0,
+   "fcp": 364
+  }
+ },
+ "/lab/s4": {
+  "mobile": {
+   "perf": 99,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1728,
+   "cls": 0,
+   "tbt": 4,
+   "fcp": 1503
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 424,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 324
+  }
+ },
+ "/lab/s5": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1728,
+   "cls": 0.001,
+   "tbt": 20,
+   "fcp": 1353
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 97,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 384,
+   "cls": 0.004,
+   "tbt": 76,
+   "fcp": 364
+  }
+ },
+ "/lab/s1/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1354,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1204
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 364,
+   "cls": 0.005,
+   "tbt": 0,
+   "fcp": 324
+  }
+ },
+ "/lab/s2/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1504,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1354
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 324,
+   "cls": 0.002,
+   "tbt": 0,
+   "fcp": 324
+  }
+ },
+ "/lab/s3/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1505,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1355
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 404,
+   "cls": 0.002,
+   "tbt": 0,
+   "fcp": 324
+  }
+ },
+ "/lab/s4/research/activation-steering": {
+  "mobile": {
+   "perf": 99,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1654,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 1504
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 404,
+   "cls": 0,
+   "tbt": 0,
+   "fcp": 324
+  }
+ },
+ "/lab/s5/research/activation-steering": {
+  "mobile": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 1656,
+   "cls": 0.002,
+   "tbt": 0,
+   "fcp": 1356
+  },
+  "desktop": {
+   "perf": 100,
+   "a11y": 100,
+   "bp": 100,
+   "seo": 100,
+   "lcp": 365,
+   "cls": 0.001,
+   "tbt": 0,
+   "fcp": 365
+  }
  }
 }

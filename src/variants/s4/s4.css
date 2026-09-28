@@ -31,7 +31,7 @@
 @font-face {
   font-family: 's4 Martian Fallback';
   src: local('Menlo Regular'), local('Menlo-Regular'), local('Courier New'), local('CourierNewPSMT');
-  size-adjust: 113%;
+  size-adjust: 116.5%; /* measured against the tag chips: 113% ran 3% narrow, so chips wrapped only after the swap (CLS 0.143) */
   ascent-override: 88.5%;
   descent-override: 17.7%;
   line-gap-override: 0%;
