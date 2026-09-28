@@ -9,12 +9,16 @@ export function Frame({
   title,
   provenance,
   caption,
+  more,
   children,
   controls,
 }: {
   title: string
   provenance: Provenance[]
+  /** One line, ≤ 25 words: provenance first ("Real:", "Illustrative:"), then what to try. */
   caption: ReactNode
+  /** Method detail, behind a disclosure so the default caption stays one line. */
+  more?: ReactNode
   children: ReactNode
   controls?: ReactNode
 }) {
@@ -35,7 +39,15 @@ export function Frame({
       </div>
       {controls && <div className="demo__controls">{controls}</div>}
       <div className="demo__body">{children}</div>
-      <figcaption className="demo__caption">{caption}</figcaption>
+      <figcaption className="demo__caption">
+        {caption}
+        {more && (
+          <details className="demo__more">
+            <summary>Method</summary>
+            {more}
+          </details>
+        )}
+      </figcaption>
     </figure>
   )
 }

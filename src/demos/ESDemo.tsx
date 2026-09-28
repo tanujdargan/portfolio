@@ -238,10 +238,14 @@ export default function ESDemo({ compact }: { compact?: boolean }) {
       }
       caption={
         <>
-          <b>Illustrative:</b> a 2-D landscape stands in for the ≈18.5M LoRA weights (rank 16, all projections, 28 layers). Each generation samples λ = 45
-          perturbations and moves toward the mean of the best μ = 8, the same selection rule as the real GSM8K run.
-          <Flag note="Only population 45 / keep 8 match es_lora_original.py. The real run picks the 8 by a gradient-linearised proxy, not by fitness, then steps θ += α/8·Σ zₖεₖ. The demo's 'move toward the fittest 8' is a simplification, so 'same selection rule' overstates it." /> Tap the field to start somewhere else.
-          Try a small σ near the smaller peak.
+          <b>Illustrative:</b> a 2-D landscape stands in for ≈18.5M LoRA weights. Tap the field to start elsewhere; try a small σ.
+        </>
+      }
+      more={
+        <>
+          LoRA rank 16 on all projections across 28 layers. Each generation samples λ = 45 perturbations and moves toward the mean of the best μ = 8, the
+          population sizes of the real GSM8K run.
+          <Flag note="Only population 45 / keep 8 match es_lora_original.py. The real run picks the 8 by a gradient-linearised proxy, not by fitness, then steps θ += α/8·Σ zₖεₖ. The demo's 'move toward the fittest 8' is a simplification." />
         </>
       }
     >

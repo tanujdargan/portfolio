@@ -13,6 +13,11 @@ type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
   { id: 'v4b', name: 'Narrative: the work', pitch: 'Reference: the work over time, scroll-pinned axis.', load: () => import('./variants/v4b') },
   { id: 'v6', name: 'Latent space', pitch: 'Reference: real activations as the scene.', load: () => import('./variants/v6') },
+  { id: 'p1', name: 'Refined', pitch: 'v4b and v6 structure, fixed per DIAGNOSIS_V2: calm, clean, fast.', load: () => import('./variants/p1') },
+  { id: 'p2', name: 'SWE classic', pitch: 'Crisp type, clear hierarchy; experience and projects scannable in seconds.', load: () => import('./variants/p2') },
+  { id: 'p3', name: 'Research-forward', pitch: 'The demos are the hero; restrained editorial layout, lots of air.', load: () => import('./variants/p3') },
+  { id: 'p4', name: 'Creative, restrained', pitch: 'Distinctive motion and interaction in the details; still minimal.', load: () => import('./variants/p4') },
+  { id: 'p5', name: 'Wildcard', pitch: 'One unmistakably crafted idea, inside every rule.', load: () => import('./variants/p5') },
 ]
 
 // The variant served at "/" until Phase 5 picks one.
@@ -31,7 +36,7 @@ export interface Head {
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
-  const m = path.match(/^\/lab\/(v\d+[a-z]?|c\d+)(\/.*)?$/)
+  const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
   const v = variants.find((x) => x.id === id) ?? variants[0]
@@ -53,7 +58,7 @@ function headFor(page: Page, path: string): Head {
     const r = research.find((x) => x.slug === page.slug)!
     return { title: `${r.title} — ${person.name}`, description: r.question, path }
   }
-  if (page.kind === 'beri') return { title: `Beri, a case study — ${person.name}`, description: 'Co-founding Beri: a native iOS food app, and how its redesign was run.', path }
+  if (page.kind === 'beri') return { title: `Beri, a case study — ${person.name}`, description: 'Beri: a food app I’m building for iOS, and how its redesign was run.', path }
   if (page.kind === 'notfound') return { title: `Not found — ${person.name}`, description: seo.description, path }
   return { title: seo.title, description: seo.description, path }
 }

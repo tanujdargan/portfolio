@@ -6,8 +6,8 @@
  * MLH and Apache Airflow (simple-icons). Pear Care has no public SVG, so it gets a typographic mark.
  * `scale` balances optical size: wide wordmarks run shorter so every mark reads at the same weight.
  */
-export type OrgKey = 'amazon' | 'rbc' | 'uvic' | 'mlh' | 'airflow' | 'pearcare'
-const marks: Record<Exclude<OrgKey, 'pearcare'>, { file: string; ratio: number; scale: number; label: string }> = {
+export type OrgKey = 'amazon' | 'rbc' | 'uvic' | 'cfar' | 'mlh' | 'airflow' | 'pearcare'
+const marks: Record<Exclude<OrgKey, 'pearcare' | 'cfar'>, { file: string; ratio: number; scale: number; label: string }> = {
   amazon: { file: 'amazon', ratio: 603 / 182, scale: 1, label: 'Amazon' },
   rbc: { file: 'rbc-borealis', ratio: 275 / 24.3, scale: 0.62, label: 'RBC Borealis' },
   uvic: { file: 'uvic', ratio: 184 / 64, scale: 1.25, label: 'University of Victoria' },
@@ -22,7 +22,8 @@ export function OrgLogo({ org, className, height = 18 }: { org: OrgKey; classNam
         pear<b>care</b>
       </span>
     )
-  const m = marks[org]
+  // ponytail: the one-ink references (v4b, v6) have no CfAR mark; they keep showing UVic's.
+  const m = marks[org === 'cfar' ? 'uvic' : org]
   const h = Math.round(height * m.scale)
   return (
     <span
@@ -32,4 +33,23 @@ export function OrgLogo({ org, className, height = 18 }: { org: OrgKey; classNam
       style={{ ['--h' as string]: `${h}px`, width: `${Math.round(h * m.ratio)}px`, ['--src' as string]: `url(/logos/${m.file}.svg)` }}
     />
   )
+}
+
+/**
+ * Full-colour official mark on a 40×40 rounded tile (public/logos/tile-*.svg, built by scripts/logos.mjs; sources in
+ * docs/logos/SOURCES.md). Same box for every org, so rows align whatever the mark's shape. A plain lazy <img>: cached,
+ * vector, nothing in the JS or HTML. Pear Care has no public logo, so its tile is typographic.
+ */
+const tileLabel: Record<OrgKey, string> = {
+  amazon: 'Amazon', rbc: 'RBC', uvic: 'University of Victoria', cfar: 'UVic Centre for Aerospace Research',
+  mlh: 'Major League Hacking', airflow: 'Apache Airflow', pearcare: 'Pear Care',
+}
+export function OrgTile({ org, size = 40, className }: { org: OrgKey; size?: number; className?: string }) {
+  if (org === 'pearcare' || org === 'airflow')
+    return (
+      <span className={`s-tile s-tile--type ${className ?? ''}`} style={{ ['--s' as string]: `${size}px` }} role="img" aria-label={tileLabel[org]}>
+        {org === 'pearcare' ? 'pc' : 'af'}
+      </span>
+    )
+  return <img className={`s-tile ${className ?? ''}`} src={`/logos/tile-${org}.svg`} width={size} height={size} alt={tileLabel[org]} loading="lazy" decoding="async" />
 }

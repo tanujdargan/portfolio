@@ -40,11 +40,11 @@ export default function LossMaskDemo({ compact }: { compact?: boolean }) {
       }
       caption={
         <>
-          <b>Exact:</b> per-token loss weights, prompt weight λp and response weight λr, as defined in Jindal et al. 2025. Tokens are real Qwen2.5 tokens.{' '}
-          <b>Illustrative:</b> the conversation. It's written to look like the existential prompts in the sprint battery.
+          <b>Exact:</b> the λp / λr loss weights of Jindal et al. 2025, on real Qwen2.5 tokens. <b>Illustrative:</b> the conversation.
           <Flag note="The example conversation is written for the demo, not taken from the sprint's eval set." />
         </>
       }
+      more={<>λp weights prompt tokens and λr weights response tokens. The conversation is written to look like the existential prompts in the sprint battery.</>}
     >
       <div className="lm__seq" style={{ fontSize: compact ? 12 : undefined }}>
         {data.segments.map((s) => {

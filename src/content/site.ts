@@ -268,7 +268,7 @@ export const experience = [
     metric: '1,500+ records',
   },
   {
-    org: 'UVic Centre for Aerospace Research', logo: 'uvic' as OrgKey,
+    org: 'UVic Centre for Aerospace Research', logo: 'cfar' as OrgKey,
     role: 'Software developer & undergraduate researcher',
     when: 'Apr 2025 – Apr 2026',
     where: 'Victoria',

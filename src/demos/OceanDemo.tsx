@@ -57,10 +57,10 @@ export default function OceanDemo() {
       provenance={['illustrative']}
       caption={
         <>
-          <b>Illustrative:</b> the profile and readings here are made up to show the idea. The real model scored <b>R² = 0.936</b> for satellite-to-deep-water
-          temperature against Ocean Networks Canada sensors, validated with NRC Canada.
+          <b>Illustrative</b> readings. The real model scored <b>R² = 0.936</b> against Ocean Networks Canada sensors.
         </>
       }
+      more={<>The profile and readings here are made up to show the idea. The real model predicted deep-water temperature from satellite data and was validated with NRC Canada.</>}
     >
       <div className="oc">
         <svg

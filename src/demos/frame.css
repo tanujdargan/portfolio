@@ -166,3 +166,31 @@
   background: var(--d-fg);
 }
 
+.demo__more summary {
+  display: inline;
+  margin-left: 6px;
+  color: var(--d-fg3);
+  cursor: pointer;
+  list-style: none;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+.demo__more summary::-webkit-details-marker {
+  display: none;
+}
+.demo__more summary:hover {
+  color: var(--d-fg2);
+}
+.demo__more[open] {
+  margin-top: 8px;
+}
+.demo__more[open] summary {
+  display: block;
+  margin: 0 0 4px;
+}
+.demo__more {
+  display: inline;
+}
+.demo__more[open] {
+  display: block;
+}

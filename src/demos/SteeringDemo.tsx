@@ -105,10 +105,14 @@ export default function SteeringDemo({ compact, hero }: { compact?: boolean; her
         }
         caption={
           <>
-            <b>Real:</b> every sentence above is actual greedy output from {data.model.split('/')[1]}, with the vector added at layer {c.layer} of {data.n_layers}, cut at 64 tokens.
-            Vectors are differences of means over {data.extract_questions} contrastive prompts. The plot shows real activations: x is the projection on the
-            vector, y is the next principal direction. Generated locally for this page on 27 Sep 2026. It's a replication of the method, not the main project's
-            vectors.
+            <b>Real:</b> actual greedy output from {data.model.split('/')[1]}, steered at layer {c.layer} of {data.n_layers}.
+          </>
+        }
+        more={
+          <>
+            Outputs are cut at 64 tokens. Vectors are differences of means over {data.extract_questions} contrastive prompts. The plot shows real activations: x is
+            the projection on the vector, y is the next principal direction. Generated locally for this page on 27 Sep 2026. It's a replication of the method, not
+            the main project's vectors.
           </>
         }
       >

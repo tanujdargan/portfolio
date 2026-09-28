@@ -124,3 +124,23 @@ html:not([data-motion]) .s-logo:not(.s-logo--type) {
 .s-logo--type b {
   font-weight: 400;
 }
+
+/* Full-colour org tiles (OrgTile). The SVG carries its own rounded background; the hairline keeps white tiles from
+   glowing against dark pages. */
+.s-tile {
+  display: inline-block;
+  flex: none;
+  width: var(--s, 40px);
+  height: var(--s, 40px);
+  border-radius: calc(var(--s, 40px) * 0.225);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08);
+  vertical-align: middle;
+}
+.s-tile--type {
+  display: inline-grid;
+  place-items: center;
+  background: #f4f4f2;
+  color: #1c1d1f;
+  font: 650 calc(var(--s, 40px) * 0.38) / 1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.04em;
+}

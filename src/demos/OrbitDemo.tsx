@@ -363,9 +363,13 @@ export default function OrbitDemo({ compact, hero }: { compact?: boolean; hero?:
         }
         caption={
           <>
-            <b>Real:</b> MarmotSat, UVic's CubeSat. I led its onboard-computer firmware. Launched 7 July 2026 on a SpaceX Falcon 9 (NORAD {NORAD}, callsign{' '}
-            {CALLSIGN}). Position comes from public TLEs (CelesTrak), propagated with SGP4 in your browser; passes use a {MASK_DEG}° elevation mask at Victoria.
-            TLE error grows with age, so pass times are good to seconds, not better.
+            <b>Real:</b> MarmotSat's position from public TLEs, propagated with SGP4 in your browser.
+          </>
+        }
+        more={
+          <>
+            MarmotSat is UVic's CubeSat; I led its onboard-computer firmware. Launched 7 July 2026 on a SpaceX Falcon 9 (NORAD {NORAD}, callsign {CALLSIGN}). TLEs
+            come from CelesTrak; passes use a {MASK_DEG}° elevation mask at Victoria. TLE error grows with age, so pass times are good to seconds, not better.
           </>
         }
       >
