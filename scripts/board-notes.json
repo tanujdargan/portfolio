@@ -2,16 +2,87 @@
  "date": "2026-09-27",
  "previewUrl": "http://localhost:4173",
  "lookFirst": [
-  "<b>V7 Mission control, on a laptop first</b>: the orbit is MarmotSat's real TLE. Set ×600, type <code>/tlm amazon</code> in the console, open the ADCS subsystem. It's the most credible crazy variant because every pixel is literally true.",
-  "<b>V6 Latent space</b>: scroll into cluster 01, then drag α in the console. The whole field bends along the real joy direction while the real model answer types out.",
-  "<b>V9 Depth on your phone</b>: dive from 2026 to 2022, and try the satellite probe.",
-  "<b>V8 Billion vectors</b>: press / and type 'satellite' or 'steering'. Search is the navigation.",
-  "<b>V4b</b>, the reworked narrative told through the work, and <b>V1</b>, still the strongest calm option.",
-  "In any variant, open <b>dock → Content</b>: toggle Beri, VikeLabs and CDE to check layouts both ways, and toggle the <b>unverified</b> badges to find every claim to check (RESEARCH_CLAIMS.md is the full list).",
-  "Preview deploy: <a href=\"https://dist-beri2.vercel.app/lab\">dist-beri2.vercel.app/lab</a> (Vercel project <code>dist</code> in the beri2 team, SSO-protected). Local: <a href=\"http://localhost:4173/lab\">localhost:4173/lab</a>."
+  "<b>C1 Dusk on your phone, then on a laptop.</b> It's the one that should make you say 'this is my website': your own Toronto sky goes from golden hour to night as you scroll from Amazon back to 2022, with the name set big over it. Then drag α in the steering instrument and watch the tracker's next-pass countdown.",
+  "<b>C2 Instrument</b> if C1 feels too atmospheric. It has the same content, research-first and calm, and it's the easiest to ship today.",
+  "<b>C3 City of points</b> for the wow: your night skyline turns into the research clusters.",
+  "<b>C4 Field notes</b> if reading matters most. It's the most personal writing, but the least interactive on phones.",
+  "Dock → Content toggles Beri, VikeLabs and CDE, plus the (now off-by-default) unverified badges."
  ],
  "baseline": "Generic student template: gradient 'Hi, I'm Tanuj', a typing code card, a 60-chip skills wall and GitHub stat cards. On iPhone the code card sits above the name, so the recruiter test fails. Amazon, Beri and the interpretability work are absent. Full diagnosis in PORTFOLIO_DIAGNOSIS.md.",
  "variants": [
+  {
+   "id": "c1",
+   "name": "Dusk",
+   "tag": "candidate · leans v9",
+   "rationale": "The whole home page is one dusk. Tanuj's own Toronto timelapse is a fixed backdrop, and scrolling from now back to 2022 carries it from golden hour into night. Nothing on the page explains the metaphor. The name is set big in Fraunces Italic over his skyline. This is the one that reads as a person before it reads as a portfolio.",
+   "borrowed": "v9: italic display name, the calm, the ocean instrument. v6: instrument framing (question → instrument → result, REAL labels). v4b: the chronology, now as three flagship chapters (Amazon with Beri, Research, MarmotSat + live tracker) and a year-grouped index.",
+   "fixes": "No person → his timelapse is the structure and his photographs close the page. No hierarchy → 3 flagships, then an index. Demos as a gallery → why → instrument → result. No logos → marks on proofs and every experience row. Too long → 7,556 px at 393 (was 14k in v4b). Labels as copy → first-person sentences. Badges → none.",
+   "type": "Fraunces Italic 340 display, Newsreader 400–520 reading, Geist Mono data. Latin-only subsets, 66 KB, fallbacks within 0.1%.",
+   "moments": [
+    "Scroll-scrubbed Toronto sky (golden hour → night) behind the whole page",
+    "Steering, loss-masking and ocean instruments (tabbed on phones)",
+    "Live MarmotSat tracker with next pass over Victoria",
+    "Expandable ES-LoRA and retrieval rows, experience rows",
+    "Copy email"
+   ],
+   "patterns": "P02, P08, P19, P27, P32, P39",
+   "issues": "On phones the three instruments share one tabbed slot to keep the page under 8k px. The tracker's following-passes table is hidden on phones. The sticky year header briefly overlaps a row under 900 px."
+  },
+  {
+   "id": "c2",
+   "name": "Instrument",
+   "tag": "candidate · leans v6/v4b",
+   "rationale": "The calmest and most ship-ready. It reads like the site of a researcher who also ships production systems. The research comes first as five instruments at full measure. Amazon and MarmotSat follow as flagships with big numbers, then a dated, logo-led index. The timelapse appears as full-bleed bands between chapters that get darker as the page goes back in time.",
+   "borrowed": "v6: Newsreader + Geist Mono and the real joy-direction data, now a static hero figure (tap → the instrument). v4b: the chronology as a dated index with flip metrics. v9: the italic name and the dusk palette, now his timelapse bands.",
+   "fixes": "No person → first-person copy, timelapse bands, a photo strip and YouTube timelapses. No hierarchy → Research / Amazon / MarmotSat told big, the rest behind '6 more, back to 2022'. Demos as a gallery → question, instrument, one result sentence, write-up link. No logos → marks everywhere. Too long → 7,700 px at 393. v6's duplicate hero console → a static real figure instead.",
+   "type": "Newsreader (reading and display, with a 4 KB italic cut of the name), Geist Mono labels only. Three sizes on home. 68 KB.",
+   "moments": [
+    "Five research instruments at full width",
+    "Timelapse bands scrubbing golden hour → night",
+    "Live MarmotSat tracker (inline on desktop, one tap on phones)",
+    "Hero figure of the real joy activations that jumps to the instrument",
+    "Rolling metrics, expandable index, copy email"
+   ],
+   "patterns": "P01, P06, P17, P19, P39",
+   "issues": "On phones the tracker sits behind one tap ('Where MarmotSat is right now') to stay under 8k px."
+  },
+  {
+   "id": "c3",
+   "name": "City of points",
+   "tag": "candidate · most creative",
+   "rationale": "His Toronto skyline at night rebuilt from its own lit pixels as a WebGL2 point field. Scrolling unthreads the city lights into the embedding space of the work, and the interpretability cluster is the real Qwen2.5 activations. Scroll back and the city re-forms. It's his photograph and his research in a single image.",
+   "borrowed": "v6: the raw-WebGL2 field and the real activation clusters (the loss-masking cluster is the real tokenised chat). v9: one living backdrop and the calm. v4b: numbers before prose, as rolling counters.",
+   "fixes": "No person → his own photo IS the scene, and the photography section is titled 'The city these points came from'. No hierarchy → 3 chapters, then a logo index. Demos → why → instrument → result. No logos → proofs and every row. Too long → 7,911 px. Demo-ness → the morph explains itself: city in, clusters out.",
+   "type": "Instrument Sans display and reading, Martian Mono data only. 53 KB. Cool near-black with one sodium-light accent.",
+   "moments": [
+    "Scroll morph: city of lights ↔ research clusters",
+    "Hover or focus a research entry to highlight its cluster",
+    "Steering instrument on home, loss-masking and ocean (one tap on phones), ES and retrieval rows",
+    "Live MarmotSat tracker",
+    "Scrubbed timelapse, rolling counters, copy email"
+   ],
+   "patterns": "P04, P32, P33, P34, P39, V6-P*",
+   "fps": "60 fps idle, morphing and scrolling back at 4× CPU throttle on the M5 GPU. Worst frame 17 ms. Capped at 56k points on phones, with adaptive shedding. A real mid-range phone GPU is untested.",
+   "issues": "On phones, loss-masking and ocean are one tap away. With Beri, VikeLabs and CDE all on, the page reaches 8,042 px."
+  },
+  {
+   "id": "c4",
+   "name": "Field notes",
+   "tag": "candidate · most personal",
+   "rationale": "A single-column notebook of the work by year, newest first, set in a humanist serif at reading size. Each year opens with one of his own photographs as a chapter plate. The Toronto timelapse is the 2026 plate. Flagships get prose, numbers and instruments; everything else is a one-line row with a logo.",
+   "borrowed": "v4b: newest-first chronology, display numbers only on flagships, sticky year rail. v6: instrument framing and Newsreader. v9: Fraunces Italic warmth and the dusk palette, now from his photos.",
+   "fixes": "No person → first-person notes, his photos as plates, 'What I shoot'. No hierarchy → flagship entries vs one-line rows. Demos → why/instrument/result, restyled into the page type. No logos → marks on every experience entry. Too long → 7,916 px. Labels → sentences.",
+   "type": "Newsreader 400/540 at 19–20 px, Fraunces Italic 360 headings, Geist Mono dates. Static latin cuts, 72 KB. Warm paper-black, amber = live.",
+   "moments": [
+    "Timelapse chapter plate with a phase readout",
+    "Instruments inline on desktop",
+    "Live MarmotSat tracker",
+    "Year rail (desktop) and a year jump menu (phones)",
+    "Expandable minor entries, copy email"
+   ],
+   "patterns": "P08, P10, P19, P27, P30",
+   "issues": "On phones every instrument (including steering, loss-masking and ocean) is one tap away, and research result sentences show only after opening. It's the most readable candidate but the least interactive on a phone. The Beri + VikeLabs + CDE state reaches 8,057 px."
+  },
   {
    "id": "v0",
    "name": "Refined",
@@ -218,7 +289,12 @@
   "<b>Beri assets</b>: shipped screens come from the getberi.com site. Redesign screens and simulator clips come from ~/beri/ios-redesign/design-board (V3, V5, V6 and V7 directions), compressed to about 40 KB per image and 150–530 KB per clip.",
   "<b>Resume vs brief</b>: the resume wins on conflicts. Where it's silent (return offer, steering research, ES-LoRA, homelab, Hack@JBCNOsh), the brief is kept. SOLIDS isn't on the resume, so it stays but carries a badge everywhere.",
   "<b>Raw WebGL over three.js</b> for V6, V8 and V9: each scene is one draw call over a procedural buffer, so three.js would only add weight. V3 and V7 use three (a real scene graph and globe).",
-  "<b>Frame rates</b> were measured in Chromium with 4× CPU throttling, on this Mac's GPU (Apple M5). That only proves the CPU side. Real mid-range phone GPUs are untested, and I've noted where each variant would degrade (adaptive counts and render scale are built in)."
+  "<b>Frame rates</b> were measured in Chromium with 4× CPU throttling, on this Mac's GPU (Apple M5). That only proves the CPU side. Real mid-range phone GPUs are untested, and I've noted where each variant would degrade (adaptive counts and render scale are built in).",
+  "<b>Timelapse source</b>: the brief's path was a placeholder. I first found only Victoria timelapses (Mount Tolmie, 24 h) because the raw Toronto DJI files were gone; you then supplied <code>~/Downloads/Sunset_compressed.MOV</code>, which is what ships. <code>scripts</code> + <code>public/timelapse/toronto/</code> can be regenerated from any clip.",
+  "<b>Unsplash</b> blocks scripted requests (bot check), so the 20 photos were collected from your public profile in a real Chrome window. Images are hotlinked from images.unsplash.com, as Unsplash's guidelines require.",
+  "<b>Logos</b>: Amazon (Wikimedia Commons official wordmark), RBC Borealis (their site), UVic shield (uvic.ca; used for CFAR, DEIA and SOLIDS), MLH and Airflow (simple-icons). Pear Care has no public SVG anywhere I could reach, so it gets a typographic mark.",
+  "<b>satellite.js</b> added, as the brief asked. Its package root drags in a WebAssembly worker Vite can't bundle, so the tracker imports its plain-JS SGP4 modules. It gets its own lazy chunk (11 KB gz), loaded only with the tracker.",
+  "<b>CelesTrak rate limit</b>: after hundreds of automated test loads, CelesTrak started returning 403 to this machine (their normal throttle for repeat fetches). The tracker falls back to the build-time TLE and says so on the panel, and real visitors fetch at most once per 2 h per browser. Screenshots taken during the block show 'cached TLE'."
  ],
  "refs": [
   "01-",
@@ -301,5 +377,18 @@
   "<b>Perf bug found and fixed</b>: Rollup had folded shared steering data into V6's chunk and shared font CSS into V0's. As a result V3 loaded three.js and V6's code before first paint (mobile LCP 3.67 s), and V5 imported V0. Shared data and each font file now get their own chunks, and a leak check on the manifest reports zero cross-variant imports. After the fix: V3 at 2.29 s.",
   "<b>Accessibility</b>: dimmed story steps in V4 and V4b now keep 4.5:1 contrast, and the unverified badge passes contrast even when its parent is dimmed. It's no longer focusable, so it can't trap focus inside aria-hidden regions. V8 label and underline fixes, and V8 write-up CLS 0.134 → 0 (mono tags now at the calibrated width).",
   "<b>V5 fonts</b>: mobile LCP had drifted to 2.57 s. Plex Sans is now subset (45 → 35 KB), the 22 KB Instrument Serif accent became a system serif italic, and the H1 (the LCP element) no longer animates in. Now 2.34 s."
+ ],
+ "candidatesIntro": "Four syntheses of v4b, v6 and v9, each finished to a ship-today bar and each fixing the list in WHY_NOT_YET.md. <b>Look at C1 first</b>, then C2.",
+ "changelog3Date": "2026-09-27",
+ "changelog3": [
+  "<b>WHY_NOT_YET.md</b>: v4b, v6 and v9 studied side by side. What each gets right, what holds it back, and what a combined site should be. Every candidate below states how it fixes the shared list.",
+  "<b>Four candidates, C1–C4</b>, listed first in /lab and here. Each is 7.5–7.9k px tall at 393 px (the favourites were 11–14k), uses his timelapse and photos, keeps every research instrument, and embeds the live MarmotSat tracker.",
+  "<b>Live MarmotSat tracker</b> (new shared <code>orbit</code> demo). It pulls the current TLE from CelesTrak (NORAD 69912), propagates with satellite.js SGP4 in the browser, and shows a three.js globe with live position, ground track, footprint and the next pass over Victoria (verified against a 1-second brute force: 12/12 passes within 1 s). The fallback is a build-time TLE cache refreshed on every build, plus an SVG map without WebGL.",
+  "<b>Photography layer</b>: his Toronto skyline timelapse (golden hour → night, 483 frames), cut into 80 desktop and 60 phone frames. <code>ScrollTimelapse</code> scrubs it on a canvas: poster first, frames coarse-to-fine after paint, posters only on Save-Data. Also 20 Unsplash photos (hotlinked, as Unsplash requires) and 8 YouTube timelapses.",
+  "<b>Ocean-sensing instrument</b> lifted out of v9 into a shared <code>ocean</code> demo; the ocean write-up now carries it. v9 keeps its own.",
+  "<b>Fixes across all 15 variants</b>: 'unverified' badges are off by default (lab toggle only). <b>Beri flag ON</b>, described as 'a food app I'm building', and 'co-founder' removed everywhere (17 places). <b>Official org logos</b> on every experience entry, monochrome SVG. <b>YouTube + Unsplash</b> added to the socials.",
+  "<b>Proof point #2 stays MarmotSat</b> (in orbit, verified), and Beri shows in the work sections. The proof-slot rule that let Beri take slot 2 is retired (<code>beriProof</code> is still exported).",
+  "<b>Correction</b>: PORTFOLIO_DIAGNOSIS.md called the old site's project images 'stock photography'. They were his own Unsplash photos.",
+  "<b>Performance, found and fixed this round</b>: every page had drifted to ~2.6–2.8 s mobile LCP. There were four causes. (1) Inline logo SVGs doubled page HTML, so they're now cached SVG files drawn with a CSS mask. (2) All demo CSS, including the new tracker's, was inlined into every first paint; now each demo loads its own CSS, and core CSS went from 18.5 to 5 KB. (3) One data chunk made every page load the steering dataset; data files are now split. (4) The big one: hero text that fades in from <code>opacity: 0</code> is never counted by Chrome as an LCP candidate, so the late hydration repaint became the LCP. Entrance fades now start at 0.01 (visually identical), and hydration waits until after first paint. Result: mobile LCP ~1.4–1.7 s."
  ]
 }
