@@ -1,0 +1,927 @@
+/* ---------- fonts: two families, 51 KB at first paint ---------- */
+/* Newsreader at its text optical size (opsz 18), instanced to a static 400 from the fontsource latin file. */
+@font-face {
+  font-family: 'p3 Newsreader';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('/p3/newsreader-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'p3 Geist';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../../../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Metric-matched fallbacks, full local names (calib.mjs: widths vs Georgia / Arial; overrides = font metrics ÷ size-adjust). */
+@font-face {
+  font-family: 'p3 Serif Fallback';
+  src: local('Georgia'), local('Times New Roman'), local('TimesNewRomanPSMT');
+  size-adjust: 96.18%;
+  ascent-override: 76.42%;
+  descent-override: 27.55%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'p3 Sans Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica');
+  size-adjust: 100.84%;
+  ascent-override: 99.66%;
+  descent-override: 29.25%;
+  line-gap-override: 0%;
+}
+
+/* ---------- tokens ---------- */
+.p3 {
+  --bg: #0b0c0e;
+  --bg-2: #121418;
+  --bg-3: #171a1f;
+  --fg: #ecebe6;
+  --fg-2: #a9aaa5;
+  --fg-3: #85878a;
+  --line: rgb(236 235 230 / 0.1);
+  --line-2: rgb(236 235 230 / 0.16);
+  --accent: oklch(0.83 0.1 76);
+  --font-display: 'p3 Newsreader', 'p3 Serif Fallback', Georgia, serif;
+  --font-body: 'p3 Geist', 'p3 Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --radius: 12px;
+  --measure: 640px;
+  --display-weight: 400;
+  --pad: 40px;
+  --col: 960px;
+  --text: 36rem;
+  --bar-h: 60px;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+  position: relative;
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 16px/1.6 var(--font-body);
+  font-synthesis: none;
+  font-feature-settings: 'ss01' 0;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 719px) {
+  .p3 {
+    --pad: 20px;
+    --bar-h: 56px;
+  }
+}
+.p3 ::selection {
+  background: color-mix(in oklab, var(--accent) 35%, transparent);
+  color: var(--fg);
+}
+.p3 :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.p3 [tabindex='-1']:focus {
+  outline: none;
+}
+
+/* ---------- shared bits ---------- */
+.p3-skip {
+  position: fixed;
+  z-index: 60;
+  left: 12px;
+  top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 14px;
+  transform: translateY(-160%);
+}
+.p3-skip:focus-visible {
+  transform: none;
+}
+.p3-label {
+  font: 500 12px/1.4 var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+.p3-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 450;
+  color: var(--fg);
+}
+.p3-link span,
+.p3-link {
+  text-decoration: none;
+}
+.p3-arrow {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform calc(0.25s * var(--t, 1)) var(--ease);
+}
+.p3-link .p3-arrow {
+  color: var(--accent);
+}
+@media (hover: hover) {
+  .p3-link:hover .p3-arrow {
+    transform: translateX(calc(3px * var(--k, 1)));
+  }
+}
+
+/* ---------- sticky bar: hidden over the hero, settles in once the hero's actions are gone ---------- */
+.p3-bar {
+  position: fixed;
+  z-index: 50;
+  inset: 0 0 auto;
+  height: var(--bar-h);
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--line);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(-10px * var(--k, 1)));
+  transition:
+    opacity calc(0.28s * var(--t, 1)) var(--ease),
+    transform calc(0.36s * var(--t, 1)) var(--ease),
+    visibility 0s linear calc(0.36s * var(--t, 1));
+}
+.p3-bar[data-show] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity calc(0.28s * var(--t, 1)) var(--ease),
+    transform calc(0.36s * var(--t, 1)) var(--ease),
+    visibility 0s;
+}
+.p3-bar__in {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: min(100% - 2 * var(--pad), var(--col));
+  height: 100%;
+  margin-inline: auto;
+}
+.p3-bar__name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-right: auto;
+  font: 400 19px/1 var(--font-display);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.p3-bar__nav {
+  display: flex;
+  gap: 4px;
+}
+.p3-bar__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: var(--fg-2);
+  transition: color 0.15s;
+}
+.p3-bar__nav a:hover {
+  color: var(--fg);
+}
+.p3-bar__links {
+  display: flex;
+  margin-right: -13px;
+}
+.p3-bar__links a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--fg-2);
+  transition: color 0.15s, background-color 0.15s;
+}
+.p3-bar__links a:hover {
+  color: var(--fg);
+  background: color-mix(in oklab, var(--fg) 6%, transparent);
+}
+@media (max-width: 719px) {
+  .p3-bar__in {
+    gap: 12px;
+  }
+  .p3-bar__nav {
+    display: none;
+  }
+  .p3-bar__name {
+    font-size: 18px;
+  }
+  .p3-bar__links a {
+    width: 42px;
+  }
+}
+@media (max-width: 380px) {
+  .p3-bar__links {
+    margin-right: -8px;
+  }
+  .p3-bar__links a {
+    width: 40px;
+  }
+  .p3-bar__name {
+    font-size: 17px;
+  }
+}
+
+/* ---------- entrances ---------- */
+/* Hero: CSS keyframes at first paint, starting at .01 so Chrome counts the text for LCP. */
+@keyframes p3-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(calc(14px * var(--k, 1)));
+  }
+}
+.p3-in {
+  animation: p3-rise calc(0.9s * var(--t, 1)) var(--ease) both;
+  animation-delay: calc((80ms + var(--i, 0) * 90ms) * var(--t, 1));
+}
+/* Arrivals below the fold: held only if they were off-screen at hydration (useReveal), released once. */
+.p3-rv[data-rv] > * {
+  transition:
+    opacity calc(0.8s * var(--t, 1)) var(--ease),
+    transform calc(0.9s * var(--t, 1)) var(--ease);
+  transition-delay: calc(var(--i, 0) * 80ms * var(--t, 1));
+}
+.p3-rv[data-rv='wait'] > * {
+  opacity: 0.01;
+  transform: translateY(calc(18px * var(--k, 1)));
+}
+.p3-exp.p3-exp {
+  transition: none;
+}
+.p3-rv[data-rv] > .p3-exp > .p3-row {
+  transition:
+    opacity calc(0.7s * var(--t, 1)) var(--ease),
+    transform calc(0.8s * var(--t, 1)) var(--ease);
+  transition-delay: calc(var(--i, 0) * 60ms * var(--t, 1));
+}
+.p3-rv[data-rv='wait'] > .p3-exp {
+  opacity: 1;
+  transform: none;
+}
+.p3-rv[data-rv='wait'] > .p3-exp > .p3-row {
+  opacity: 0.01;
+  transform: translateY(calc(14px * var(--k, 1)));
+}
+
+/* ---------- hero ---------- */
+.p3-hero {
+  display: grid;
+  align-items: center;
+  min-height: 100svh;
+  padding-block: 96px 120px;
+}
+/* Wide screens: the hero stops short so the research rule and label sit on the fold as the only cue to scroll. */
+@media (min-width: 720px) and (min-height: 640px) {
+  .p3[data-page='home'] .p3-hero:not(.p3-hero--nf) {
+    min-height: calc(100svh - 76px);
+    padding-block: 72px 64px;
+  }
+}
+.p3-hero__in {
+  width: min(100% - 2 * var(--pad), var(--col));
+  margin-inline: auto;
+}
+.p3-name {
+  font: 400 clamp(56px, 9.4vw, 124px) / 0.94 var(--font-display);
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+  margin-left: -0.04em;
+}
+.p3-line {
+  max-width: 22.6em;
+  margin-top: clamp(22px, 3vw, 34px);
+  font: 400 clamp(19px, 1.9vw, 24px) / 1.42 var(--font-body);
+  letter-spacing: -0.012em;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.p3-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(32px, 4.4vw, 48px);
+}
+.p3-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 16px 0 14px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 450;
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition:
+    background-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.12s;
+}
+.p3-actions a svg {
+  color: var(--fg-2);
+  transition: color 0.15s;
+}
+.p3-actions [data-link='resume'] a {
+  color: var(--bg);
+  background: var(--fg);
+  box-shadow: none;
+}
+.p3-actions [data-link='resume'] a svg {
+  color: var(--bg);
+}
+@media (hover: hover) {
+  .p3-actions a:hover {
+    background: color-mix(in oklab, var(--fg) 7%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--fg) 30%, transparent);
+  }
+  .p3-actions a:hover svg {
+    color: var(--fg);
+  }
+  .p3-actions [data-link='resume'] a:hover {
+    background: #fff;
+  }
+}
+.p3-actions a:active {
+  transform: scale(0.97);
+}
+/* Phones: the row is one line of five. Resume keeps its label; the four profiles become 44px icons. */
+@media (max-width: 719px) {
+  .p3-hero {
+    align-items: start;
+    padding-block: 26svh 64px;
+  }
+  .p3-actions {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .p3-actions li:not([data-link='resume']) span {
+    display: none;
+  }
+  .p3-actions li:not([data-link='resume']) a {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+  .p3-actions [data-link='resume'] a {
+    padding: 0 18px 0 15px;
+  }
+}
+.p3-hero--nf {
+  min-height: 80svh;
+}
+.p3-hero--nf .p3-name {
+  margin-top: 16px;
+  font-size: clamp(44px, 7vw, 88px);
+}
+
+/* ---------- sections ---------- */
+.p3-sec {
+  width: min(100% - 2 * var(--pad), var(--col));
+  margin-inline: auto;
+}
+.p3-sechead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.p3-sechead__p {
+  font-size: 14px;
+  color: var(--fg-3);
+}
+.p3-research {
+  padding-top: 24px;
+}
+.p3-also,
+.p3-work {
+  padding-top: clamp(120px, 16vh, 180px);
+}
+.p3-contact {
+  padding-block: clamp(140px, 20vh, 220px) clamp(120px, 16vh, 180px);
+}
+
+/* ---------- plates ---------- */
+.p3-plate {
+  padding-top: clamp(96px, 14vh, 150px);
+}
+.p3-research > .p3-plate:first-of-type,
+.p3-also > .p3-plate:first-of-type {
+  padding-top: clamp(56px, 8vh, 88px);
+}
+.p3-plate__head {
+  max-width: 46rem;
+  margin-bottom: clamp(28px, 3.6vw, 44px);
+}
+.p3-meta {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.p3-research {
+  counter-reset: plate;
+}
+.p3-plate {
+  counter-increment: plate;
+}
+.p3-num::before {
+  content: counter(plate, decimal-leading-zero);
+  margin-right: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.p3-meta__x + .p3-meta__x::before {
+  content: '·';
+  margin-inline: 0.5em;
+}
+.p3-title {
+  margin-top: 16px;
+  font: 400 clamp(32px, 3.9vw, 50px) / 1.08 var(--font-display);
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+.p3-hook {
+  max-width: 34rem;
+  margin-top: 16px;
+  font-size: clamp(16px, 1.35vw, 18px);
+  line-height: 1.55;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.p3-more {
+  margin-top: 12px;
+}
+
+/* demo slots: the demos read --bg-2, --line, --accent and the fonts from .p3 */
+/* Reserved heights = the demos' measured heights in this column (393 px phones, 360 px, and the 960 px column), so
+   nothing shifts when a chunk arrives. Set on .demo-slot too: demos.css writes the orbit height there on phones. */
+.p3 .p3-slot,
+.p3 .p3-slot .demo-slot {
+  --demo-h-steering: 875px;
+  --demo-h-lossmask: 694px;
+  --demo-h-es: 628px;
+  --demo-h-retrieval: 603px;
+  --demo-h-ocean: 694px;
+  --demo-h-orbit: 968px;
+}
+@media (max-width: 380px) {
+  .p3 .p3-slot,
+  .p3 .p3-slot .demo-slot {
+    --demo-h-steering: 917px;
+    --demo-h-lossmask: 746px;
+    --demo-h-es: 597px;
+    --demo-h-retrieval: 571px;
+    --demo-h-ocean: 682px;
+    --demo-h-orbit: 979px;
+  }
+}
+@media (min-width: 900px) {
+  .p3 .p3-slot,
+  .p3 .p3-slot .demo-slot {
+    --demo-h-steering: 505px;
+    --demo-h-lossmask: 456px;
+    --demo-h-es: 796px;
+    --demo-h-retrieval: 781px;
+    --demo-h-ocean: 560px;
+    --demo-h-orbit: 600px;
+  }
+}
+.p3-slot {
+  position: relative;
+  scroll-margin-top: calc(var(--bar-h) + 24px);
+}
+.p3 .demo {
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 30px 80px -40px rgb(0 0 0 / 0.8);
+}
+.p3 .demo-loading {
+  border-radius: var(--radius);
+}
+
+/* A folded demo (phones): one quiet button that opens into the live demo. */
+.p3-run {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 88px;
+  padding: 18px 18px;
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  text-align: left;
+  transition:
+    background-color 0.15s,
+    transform 0.12s;
+}
+.p3-run:active {
+  transform: scale(0.99);
+}
+@media (hover: hover) {
+  .p3-run:hover {
+    background: var(--bg-3);
+  }
+  .p3-run:hover .p3-run__play {
+    background: var(--fg);
+    color: var(--bg);
+  }
+}
+.p3-run__play {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+.p3-run__play svg {
+  fill: currentColor;
+  transform: translateX(1px);
+}
+.p3-run__t {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.p3-run__name {
+  font: 500 14px/1.35 var(--font-mono);
+  color: var(--fg);
+}
+.p3-run__meta {
+  font-size: 13px;
+  color: var(--fg-3);
+}
+/* Wide screens open folded demos by themselves; until then the button is the demo's loading panel, same height. */
+@media (min-width: 900px) {
+  .p3-run {
+    min-height: var(--h);
+    cursor: default;
+    pointer-events: none;
+  }
+  .p3-run > * {
+    visibility: hidden;
+  }
+  .p3-slot[data-kind='es'] .p3-run {
+    --h: var(--demo-h-es);
+  }
+  .p3-slot[data-kind='retrieval'] .p3-run {
+    --h: var(--demo-h-retrieval);
+  }
+  .p3-slot[data-kind='ocean'] .p3-run {
+    --h: var(--demo-h-ocean);
+  }
+  .p3-slot[data-kind='orbit'] .p3-run {
+    --h: var(--demo-h-orbit);
+  }
+}
+
+/* Beri, when shown: a quiet coda under the orbit plate */
+.p3-beri {
+  margin-top: clamp(80px, 11vh, 120px);
+  max-width: var(--text);
+}
+.p3-beri__a {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+}
+.p3-beri__t {
+  font: 400 clamp(28px, 3vw, 36px) / 1.1 var(--font-display);
+  letter-spacing: -0.015em;
+}
+.p3-beri__d {
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.p3-beri__a .p3-link {
+  margin-top: 2px;
+}
+@media (hover: hover) {
+  .p3-beri__a:hover .p3-arrow {
+    transform: translateX(calc(3px * var(--k, 1)));
+  }
+}
+
+/* ---------- work ---------- */
+.p3-exp {
+  margin-top: 28px;
+}
+.p3-row {
+  border-bottom: 1px solid var(--line);
+}
+.p3-row summary,
+.p3-earlier summary {
+  list-style: none;
+  cursor: pointer;
+}
+.p3-row summary::-webkit-details-marker,
+.p3-earlier summary::-webkit-details-marker {
+  display: none;
+}
+.p3-row summary {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 20px;
+  grid-template-areas:
+    'tile org plus'
+    'tile role plus'
+    'tile line plus';
+  column-gap: 20px;
+  row-gap: 2px;
+  padding: 26px 0;
+}
+.p3-row__tile {
+  grid-area: tile;
+  margin-top: 2px;
+}
+.p3-row__org {
+  grid-area: org;
+  font: 400 21px/1.3 var(--font-display);
+  letter-spacing: -0.005em;
+}
+.p3-row__role {
+  grid-area: role;
+  font-size: 14px;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.p3-row__line {
+  grid-area: line;
+  margin-top: 6px;
+  max-width: 34rem;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+@media (max-width: 719px) {
+  .p3-row summary {
+    column-gap: 16px;
+  }
+}
+.p3-row__plus {
+  grid-area: plus;
+  position: relative;
+  align-self: start;
+  width: 12px;
+  height: 12px;
+  margin-top: 10px;
+  justify-self: end;
+  color: var(--fg-3);
+  transition:
+    transform calc(0.3s * var(--t, 1)) var(--ease),
+    color 0.15s;
+}
+.p3-row__plus::before,
+.p3-row__plus::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5.5px;
+  width: 12px;
+  height: 1px;
+  background: currentColor;
+}
+.p3-row__plus::after {
+  transform: rotate(90deg);
+}
+details[open] > summary .p3-row__plus {
+  transform: rotate(45deg);
+  color: var(--fg);
+}
+@media (hover: hover) {
+  .p3-row summary:hover .p3-row__plus,
+  .p3-earlier summary:hover .p3-row__plus {
+    color: var(--fg);
+  }
+  .p3-row summary:hover .p3-row__org {
+    color: #fff;
+  }
+}
+.p3-row__more {
+  padding: 0 0 26px 60px;
+  max-width: calc(34rem + 60px);
+  animation: p3-open calc(0.5s * var(--t, 1)) var(--ease) both;
+}
+@keyframes p3-open {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-6px * var(--k, 1)));
+  }
+}
+.p3-row__metric {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.p3-row__metric span:first-child {
+  color: var(--accent);
+}
+.p3-row__more ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.p3-row__more li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.p3-row__more li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 7px;
+  height: 1px;
+  background: var(--fg-3);
+}
+
+.p3-earlier summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  font-size: 15px;
+  color: var(--fg-2);
+}
+.p3-earlier summary .p3-row__plus {
+  align-self: center;
+  margin-top: 0;
+}
+.p3-earlier ul {
+  display: grid;
+  gap: 16px;
+  padding: 4px 0 24px;
+  max-width: 34rem;
+  animation: p3-open calc(0.5s * var(--t, 1)) var(--ease) both;
+}
+.p3-earlier li {
+  display: grid;
+  gap: 2px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.p3-earlier li a,
+.p3-earlier__t {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  color: var(--fg);
+}
+.p3-earlier li a .p3-arrow {
+  width: 12px;
+  height: 12px;
+  color: var(--fg-3);
+}
+.p3-earlier__d {
+  color: var(--fg-3);
+}
+
+/* ---------- contact ---------- */
+.p3-contact__p {
+  max-width: 15.5em;
+  margin-top: 20px;
+  font: 400 clamp(26px, 3.2vw, 40px) / 1.2 var(--font-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.p3-mail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 28px;
+}
+.p3-mail__a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: clamp(17px, 1.6vw, 19px);
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.15s;
+}
+.p3-mail__a:hover {
+  text-decoration-color: var(--accent);
+}
+.p3-copy {
+  position: relative;
+  display: inline-grid;
+  min-height: 44px;
+  min-width: 76px;
+  justify-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--fg-2);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  overflow: hidden;
+  transition: color 0.15s, box-shadow 0.15s;
+}
+.p3-copy > span:not(.sr-only) {
+  grid-area: 1 / 1;
+  align-self: center;
+  transition:
+    opacity calc(0.2s * var(--t, 1)) var(--ease),
+    transform calc(0.25s * var(--t, 1)) var(--ease);
+}
+.p3-copy__b {
+  opacity: 0;
+  transform: translateY(calc(10px * var(--k, 1)));
+  color: var(--accent);
+}
+.p3-copy[data-copied] .p3-copy__a {
+  opacity: 0;
+  transform: translateY(calc(-10px * var(--k, 1)));
+}
+.p3-copy[data-copied] .p3-copy__b {
+  opacity: 1;
+  transform: none;
+}
+.p3-copy:hover {
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--fg) 30%, transparent);
+}
+
+/* ---------- footer ---------- */
+.p3-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 24px;
+  width: min(100% - 2 * var(--pad), var(--col));
+  margin-inline: auto;
+  padding: 24px 0 calc(40px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--fg-3);
+}
+
+/* ---------- long-form pages (shared article and case study) ---------- */
+.p3-page {
+  padding-top: var(--bar-h);
+}
+.p3 .s-article__title,
+.p3 .s-case__title {
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+.p3 .s-kicker,
+.p3 .s-h2,
+.p3 .s-tags li {
+  font-family: var(--font-body);
+}
+.p3 .s-p,
+.p3 .s-steps li,
+.p3 .s-bullets li {
+  font-size: 16.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p3-bar {
+    transform: none;
+  }
+}
+
+/* Closed disclosures: nothing inside takes a box (Chrome keeps layout boxes for closed <details> content). */
+.p3 details:not([open]) > :not(summary) {
+  display: none;
+}
