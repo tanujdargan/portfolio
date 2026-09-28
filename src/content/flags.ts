@@ -1,7 +1,7 @@
 // Content flags: things Tanuj hasn't decided to show yet. This file is the only switch for production.
 // The lab can override them per session (dock toggles, or ?show=beri,vikelabs,cde) without touching this file.
 export const contentFlags = {
-  beri: false,
+  beri: true, // on since Sep 2026: described as a food app Tanuj is building (never 'co-founder')
   vikelabs: false,
   cde: false,
 }

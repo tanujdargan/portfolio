@@ -68,10 +68,10 @@ export function BeriCaseStudy({ base }: { base: string }) {
     <article className="s-case">
       <header>
         <p className="s-kicker">
-          <Link to={`${base}/`}>Work</Link> · Co-founder · 2025 –
+          <Link to={`${base}/`}>Work</Link> · Building it · 2025 –
         </p>
         <h1 className="s-case__title">Beri</h1>
-        <p className="s-case__lede">{beri.oneLiner} I co-founded it and build the iOS app, the backend and the design system.</p>
+        <p className="s-case__lede">{beri.oneLiner} I build the iOS app, the backend and the design system.</p>
         <dl className="s-case__meta">
           <div>
             <dt>Role</dt>

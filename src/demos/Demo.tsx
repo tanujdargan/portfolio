@@ -8,6 +8,8 @@ const impl: Record<Exclude<DemoKey, null>, React.LazyExoticComponent<React.Compo
   lossmask: lazy(() => import('./LossMaskDemo')),
   es: lazy(() => import('./ESDemo')),
   retrieval: lazy(() => import('./RetrievalDemo')),
+  ocean: lazy(() => import('./OceanDemo')),
+  orbit: lazy(() => import('./OrbitDemo')),
 }
 
 // Reserved heights keep layout stable while the chunk loads (CLS = 0).
@@ -16,6 +18,8 @@ const minH: Record<Exclude<DemoKey, null>, string> = {
   lossmask: 'var(--demo-h-lossmask, 380px)',
   es: 'var(--demo-h-es, 460px)',
   retrieval: 'var(--demo-h-retrieval, 460px)',
+  ocean: 'var(--demo-h-ocean, 520px)',
+  orbit: 'var(--demo-h-orbit, 560px)',
 }
 
 /** Loads a demo only when it's about to scroll into view. */

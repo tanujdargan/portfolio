@@ -92,3 +92,58 @@ button {
   outline: 2px solid #f0c36a;
   outline-offset: 2px;
 }
+
+/* Organisation marks (src/shared/OrgLogo.tsx): one ink, height set per mark for optical balance. */
+.s-logo {
+  display: inline-flex;
+  align-items: center;
+  height: var(--h, 18px);
+  flex: none;
+  color: inherit;
+  line-height: 1;
+}
+.s-logo svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+.s-logo--type {
+  font: 600 calc(var(--h, 18px) * 0.9) / 1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+}
+.s-logo--type b {
+  font-weight: 400;
+}
+.s-icon {
+  display: inline-block;
+  flex: none;
+}
+.s-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scroll timelapse (src/shared/ScrollTimelapse.tsx): poster first, canvas fades in once it has a frame. */
+.s-tl {
+  position: relative;
+  overflow: hidden;
+  background: #0b0d10;
+}
+.s-tl__poster,
+.s-tl__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.s-tl__poster {
+  object-fit: cover;
+}
+.s-tl__canvas {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+.s-tl[data-live] .s-tl__canvas {
+  opacity: 1;
+}

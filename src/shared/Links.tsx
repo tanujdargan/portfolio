@@ -1,5 +1,7 @@
 import { FileText, Github, Linkedin, Mail } from 'lucide-react'
 import { links, linkOrder, type LinkKey } from '../content/site'
+import youtube from './logos/youtube.svg?raw'
+import unsplash from './logos/unsplash.svg?raw'
 import { Flag } from './Flag'
 
 function XIcon({ size = 16 }: { size?: number }) {
@@ -16,6 +18,15 @@ export const LinkIcon = ({ k, size = 16 }: { k: LinkKey; size?: number }) => {
   if (k === 'email') return <Mail {...p} />
   if (k === 'github') return <Github {...p} />
   if (k === 'linkedin') return <Linkedin {...p} />
+  if (k === 'youtube' || k === 'unsplash')
+    return (
+      <span
+        className="s-icon"
+        style={{ width: size - 2, height: size - 2 }}
+        aria-hidden="true"
+        dangerouslySetInnerHTML={{ __html: k === 'youtube' ? youtube : unsplash }}
+      />
+    )
   return <XIcon size={size - 1} />
 }
 
@@ -24,14 +35,17 @@ export function Links({
   className,
   mode = 'label',
   size = 16,
+  only,
 }: {
   className?: string
   mode?: 'label' | 'icon' | 'short' | 'both'
   size?: number
+  /** subset/order of links, e.g. workLinkOrder for tight headers */
+  only?: LinkKey[]
 }) {
   return (
     <ul className={className}>
-      {linkOrder.map((k) => {
+      {(only ?? linkOrder).map((k) => {
         const l = links[k]
         const ext = !l.href.startsWith('mailto:')
         return (

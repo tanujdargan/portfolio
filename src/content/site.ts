@@ -3,6 +3,7 @@
 // facts come from the Sept 2026 brief, repos or the old site; RESEARCH_CLAIMS.md traces every claim.
 // `unverified` marks anything not confirmed by one of those sources; the lab renders it with an "unverified" badge.
 import type { FlagKey, Flags } from './flags'
+import type { OrgKey } from '../shared/OrgLogo'
 
 export const person = {
   name: 'Tanuj Dargan',
@@ -16,7 +17,7 @@ export const person = {
   site: 'https://tanujdargan.com',
 }
 
-export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x'
+export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x' | 'youtube' | 'unsplash'
 export const links: Record<LinkKey, { label: string; href: string; short: string; unverified?: boolean }> = {
   // public/resume.pdf is byte-identical to Tanuj_Dargan_Resume_Aug19-2026.pdf
   resume: { label: 'Resume', short: 'CV', href: '/resume.pdf' },
@@ -24,8 +25,12 @@ export const links: Record<LinkKey, { label: string; href: string; short: string
   github: { label: 'GitHub', short: 'GH', href: 'https://github.com/tanujdargan' },
   linkedin: { label: 'LinkedIn', short: 'In', href: 'https://www.linkedin.com/in/tanujdargan' },
   x: { label: 'X', short: 'X', href: 'https://x.com/DarganTanuj' },
+  youtube: { label: 'YouTube', short: 'YT', href: 'https://www.youtube.com/tanujdargan' },
+  unsplash: { label: 'Unsplash', short: 'Photos', href: 'https://unsplash.com/@tanuj_dargan' },
 }
-export const linkOrder: LinkKey[] = ['resume', 'email', 'github', 'linkedin', 'x']
+export const linkOrder: LinkKey[] = ['resume', 'email', 'github', 'linkedin', 'x', 'youtube', 'unsplash']
+/** The five work links, for places with room for only these (e.g. compact headers). YouTube/Unsplash live in the photography section and footers. */
+export const workLinkOrder: LinkKey[] = ['resume', 'email', 'github', 'linkedin', 'x']
 
 export interface Proof {
   key: string
@@ -45,8 +50,8 @@ const amazonProof: Proof = {
 const beriProof: Proof = {
   key: 'beri',
   label: 'Beri',
-  detail: 'Co-founder. Native iOS food and recipe social app.',
-  short: 'Co-founded Beri (iOS)',
+  detail: 'A native iOS food and recipe app I\'m building.',
+  short: 'Building Beri (iOS)',
   href: 'https://getberi.com',
   flag: 'beri',
 }
@@ -63,14 +68,16 @@ const researchProof: Proof = {
   short: 'Steering & model-welfare research',
 }
 
-/** The three proof points above the fold. Beri takes the second slot when its flag is on, else MarmotSat. */
-export function proofFor(flags: Flags): Proof[] {
-  return [amazonProof, flags.beri ? beriProof : satProof, researchProof]
+/** The three proof points above the fold. MarmotSat (verified, in orbit) holds slot 2 in every state; Beri is
+ *  shown in the work sections when its flag is on. `beriProof` stays for variants that want a fourth item. */
+export function proofFor(_flags: Flags): Proof[] {
+  return [amazonProof, satProof, researchProof]
 }
+export { beriProof }
 /** Default (flags off). Prefer useProof() in components so lab toggles apply. */
 export const proof = proofFor({ beri: false, vikelabs: false, cde: false })
 
-export type DemoKey = 'steering' | 'lossmask' | 'es' | 'retrieval' | null
+export type DemoKey = 'steering' | 'lossmask' | 'es' | 'retrieval' | 'ocean' | 'orbit' | null
 
 export interface Research {
   slug: string
@@ -222,7 +229,7 @@ export const research: Research[] = [
     where: 'SOLIDS Lab, UVic · Dr. Navneet Popli',
     when: '2025',
     tags: ['remote sensing', 'multimodal', 'NRC'],
-    demo: null,
+    demo: 'ocean',
     question: 'Can surface observations from satellites stand in for expensive deep-water sensors when monitoring coastal change?',
     method: [
       'Multimodal model on Ocean Networks Canada sensor data plus satellite imagery.',
@@ -238,7 +245,7 @@ export const research: Research[] = [
 /** Work experience, from the resume (newest first). `flag` entries hide with their content flag. */
 export const experience = [
   {
-    org: 'Amazon Robotics',
+    org: 'Amazon Robotics', logo: 'amazon' as OrgKey,
     role: 'Software Development Engineer Intern',
     when: 'May – Aug 2026',
     where: 'Toronto',
@@ -251,7 +258,7 @@ export const experience = [
     metric: '$136.2M/yr projected',
   },
   {
-    org: 'RBC Borealis',
+    org: 'RBC Borealis', logo: 'rbc' as OrgKey,
     role: 'AI/ML research mentee, AI Mentorship Program',
     when: 'Mar – May 2026',
     where: 'Remote',
@@ -263,7 +270,7 @@ export const experience = [
     metric: '1,500+ records',
   },
   {
-    org: 'UVic Centre for Aerospace Research',
+    org: 'UVic Centre for Aerospace Research', logo: 'uvic' as OrgKey,
     role: 'Software developer & undergraduate researcher',
     when: 'Apr 2025 – Apr 2026',
     where: 'Victoria',
@@ -276,7 +283,7 @@ export const experience = [
     metric: 'In orbit',
   },
   {
-    org: 'DEIA Lab, UVic',
+    org: 'DEIA Lab, UVic', logo: 'uvic' as OrgKey,
     role: 'Undergraduate researcher · Prof. Sean Chester',
     when: 'May 2025 – Feb 2026',
     where: 'Victoria',
@@ -288,7 +295,7 @@ export const experience = [
     metric: '1–4M QPS',
   },
   {
-    org: 'Pear Care',
+    org: 'Pear Care', logo: 'pearcare' as OrgKey,
     role: 'Lead AI developer',
     when: 'Jul 2025 – Apr 2026',
     where: 'Remote',
@@ -301,7 +308,7 @@ export const experience = [
     metric: '−40% memory',
   },
   {
-    org: 'MLH Fellowship · Apache Airflow',
+    org: 'MLH Fellowship · Apache Airflow', logo: 'mlh' as OrgKey,
     role: 'Software engineering fellow',
     when: 'May – Aug 2025',
     where: 'Remote',
@@ -358,8 +365,8 @@ export const earlier = [
 
 export const beri = {
   url: 'https://getberi.com',
-  oneLiner: 'A native iOS social app for food. Find a recipe, cook it, post it, see what friends made.',
-  role: 'Co-founder. iOS, backend, and the design system.',
+  oneLiner: 'A food app I\'m building for iOS. Find a recipe, cook it, post it, see what friends made.',
+  role: 'Building it: the iOS app, the backend and the design system.',
   stack: ['SwiftUI', 'Supabase', 'Postgres', 'Kotlin (Android)', 'Vite site'],
 }
 
@@ -384,7 +391,7 @@ export const milestonesAll: Milestone[] = [
   { when: '2025', year: 2025.5, title: 'Ocean sensing', kind: 'research', line: 'SOLIDS Lab: satellite imagery to deep-water temperature, validated with NRC Canada.', metric: 'R² = 0.936', href: '/research/ocean-sensing', unverified: 'Not on the Aug 2026 resume; from the brief and old site.' },
   { when: 'Jul 2025', year: 2025.55, title: 'Pear Care', kind: 'industry', line: 'Lead AI developer: medical agents across 1,000+ specialties, quantized LoRA deployments.', metric: '−40% memory' },
   { when: 'Sep 2025', year: 2025.7, title: 'Hack the North', kind: 'competition', line: 'Optimate, an AI underwriting dashboard. 2 prizes out of 300+ teams.', metric: 'YC Unicorn Prize' },
-  { when: '2025 –', year: 2025.8, title: 'Beri', kind: 'build', line: 'Co-founded a native iOS food app. iOS, backend and the design system.', href: '/beri', flag: 'beri' },
+  { when: '2025 –', year: 2025.8, title: 'Beri', kind: 'build', line: 'Building a native iOS food app: the app, the backend and the design system.', href: '/beri', flag: 'beri' },
   { when: 'Mar – May 2026', year: 2026.2, title: 'RBC Borealis', kind: 'research', line: 'AI mentorship: models flagging at-risk youth with chronic illness from 1,500+ longitudinal records.', metric: '4+ cohorts via UMAP' },
   // Launch date from SatNOGS DB (MARMOTSat, NORAD 69912, launched 2026-07-07T07:12Z), fetched 2026-09-27.
   { when: 'Jul 2026', year: 2026.52, title: 'MarmotSat in orbit', kind: 'build', line: 'Launched on a SpaceX Falcon 9. The firmware I led is running in space.', metric: 'In orbit' },

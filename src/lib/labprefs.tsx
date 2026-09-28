@@ -15,7 +15,7 @@ export function LabPrefsProvider({ children }: { children: ReactNode }) {
   const { path } = useRouter()
   const inLab = path.startsWith('/lab')
   const [over, setOver] = useState<Partial<Flags>>({})
-  const [badges, setBadgesState] = useState(true)
+  const [badges, setBadgesState] = useState(false)
 
   // Read overrides after mount so SSR and hydration both render the defaults.
   useEffect(() => {
@@ -23,7 +23,7 @@ export function LabPrefsProvider({ children }: { children: ReactNode }) {
     const saved = JSON.parse(localStorage.getItem('lab-flags') || '{}') as Partial<Flags>
     if (q !== null) for (const k of Object.keys(contentFlags) as FlagKey[]) saved[k] = q.split(',').includes(k)
     setOver(saved)
-    setBadgesState(localStorage.getItem('lab-badges') !== '0')
+    setBadgesState(localStorage.getItem('lab-badges') === '1') // off unless turned on in the lab
   }, [])
 
   const value = useMemo<LabPrefs>(() => {

@@ -1,0 +1,10 @@
+{
+  "toronto": {
+    "title": "Toronto, golden hour to night",
+    "place": "Toronto",
+    "note": "My timelapse of the Toronto skyline: 16 s, 483 frames, sampled to 80 (desktop) and 60 (phone) and scrubbed by scroll.",
+    "wide": { "path": "/timelapse/toronto/w/", "count": 80, "w": 1280, "h": 720 },
+    "tall": { "path": "/timelapse/toronto/t/", "count": 60, "w": 600, "h": 800 },
+    "posters": { "wide": ["/timelapse/toronto/w-first.webp", "/timelapse/toronto/w-mid.webp", "/timelapse/toronto/w-last.webp"], "tall": ["/timelapse/toronto/t-first.webp", "/timelapse/toronto/t-mid.webp", "/timelapse/toronto/t-last.webp"] }
+  }
+}
