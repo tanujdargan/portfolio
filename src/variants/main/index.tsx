@@ -6,6 +6,9 @@ import { LinkIcon } from '../../shared/Links'
 import { Link } from '../../lib/router'
 import { Home } from './Home'
 import { Article } from './Article'
+import { pick } from './Home'
+import { versions as headerV } from './alt/header'
+import { versions as articleV } from './alt/article'
 import './main.css'
 
 export function Socials({ big = false }: { big?: boolean }) {
@@ -34,7 +37,7 @@ export const ResumeButton = ({ big = false }: { big?: boolean }) => (
 )
 
 /** Light/dark follows the system until the visitor picks one; index.html applies a saved pick before first paint. */
-function ThemeToggle() {
+export function ThemeToggle() {
   const [dark, setDark] = useState<boolean | null>(null)
   useEffect(() => {
     const t = document.documentElement.dataset.theme
@@ -63,7 +66,7 @@ function ThemeToggle() {
   )
 }
 
-function Header({ home }: { home: boolean }) {
+export function Header({ home }: { home: boolean }) {
   const at = (id: string) => (home ? `#${id}` : `/#${id}`)
   return (
     <header className="m-header">
@@ -88,7 +91,7 @@ function Header({ home }: { home: boolean }) {
   )
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="m-footer">
       <div className="m-wrap m-footer__in">
@@ -105,10 +108,17 @@ export default function Main({ page, gate }: VariantProps) {
       <a className="m-skip" href="#main">
         Skip to content
       </a>
-      <Header home={page.kind === 'home'} />
+      {(() => {
+        const H = headerV[pick(gate, 'header') ?? ''] ?? Header
+        return <H home={page.kind === 'home'} />
+      })()}
       <main id="main">
         {page.kind === 'home' && <Home gate={gate} />}
-        {page.kind === 'research' && <Article slug={page.slug} />}
+        {page.kind === 'research' &&
+          (() => {
+            const A = articleV[pick(gate, 'article') ?? ''] ?? Article
+            return <A slug={page.slug} />
+          })()}
         {page.kind === 'beri' && (
           <section className="m-wrap m-plain">
             <h1 className="m-h1">Beri</h1>

@@ -26,8 +26,11 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
 // The production site. Not in `variants`, so the lab index and dock stay as they were.
 const main = { id: 'main', name: 'Main', pitch: 'The site.', load: () => import('./variants/main') }
 export const PROD_VARIANT = 'main'
-// ponytail: temporary Gate A/B comparison pages (REQUIREMENTS §4); delete with the losing compositions.
-export const GATES = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3']
+// ponytail: temporary comparison pages (REQUIREMENTS §4 gates, plus per-section versions 2–4 from the review round).
+// /gate/<slot><n> renders the main site with that one section swapped; delete with the losing versions.
+export const SLOTS = ['header', 'work', 'more', 'exp', 'contact', 'article'] as const
+export const GATES = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', ...SLOTS.filter((s) => s !== 'article').flatMap((s) => [1, 2, 3, 4].map((n) => `${s}${n}`))]
+const ARTICLE_GATES = [1, 2, 3, 4].flatMap((n) => research.map((r) => `/gate/article${n}/research/${r.slug}`))
 
 export type Resolved =
   | { kind: 'lab-index'; head: Head }
@@ -41,8 +44,11 @@ export interface Head {
 
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
-  const g = path.match(/^\/gate\/(a[123]|b[123])$/)
-  if (g) return { kind: 'variant', variant: 'main', base: '', page: { kind: 'home' }, load: main.load, gate: g[1], head: { ...headFor({ kind: 'home' }, path) } }
+  const g = path.match(/^\/gate\/([a-z]+\d)(\/research\/[a-z0-9-]+)?$/)
+  if (g) {
+    const page = pageFor(g[2] || '/')
+    return { kind: 'variant', variant: 'main', base: '', page, load: main.load, gate: g[1], head: headFor(page, path) }
+  }
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
   const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+|s\d+)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
@@ -76,5 +82,5 @@ export function allPaths(): string[] {
   const inner = ['/', '/beri', ...research.map((r) => `/research/${r.slug}`)]
   // Production only ships /beri when its content flag is on; the lab always has it for previews.
   const prod = inner.filter((p) => p !== '/beri' || contentFlags.beri)
-  return [...prod, ...GATES.map((g) => `/gate/${g}`), '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
+  return [...prod, ...GATES.map((g) => `/gate/${g}`), ...ARTICLE_GATES, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
 }

@@ -8,6 +8,13 @@ import { Link } from '../../lib/router'
 import { ResumeButton, Socials } from './index'
 import { amazonMetrics, context, education, more, proofs, roles, selected, thesis, type Item, type Mark } from './content'
 import { heroSteer } from './steer-hero'
+import { versions as workV } from './alt/work'
+import { versions as moreV } from './alt/more'
+import { versions as expV } from './alt/exp'
+import { versions as contactV } from './alt/contact'
+
+/** 'more3' → '3' when the gate targets this slot. */
+export const pick = (gate: string | undefined, slot: string) => (gate?.match(new RegExp(`^${slot}(\\d)$`)) ?? [])[1]
 
 // ---------- logos ----------
 
@@ -49,7 +56,7 @@ export function Logo({ m, w = 48, h = 32 }: { m: Mark; w?: number; h?: number })
 
 // ---------- heroes (Gate A) ----------
 
-function Proofs() {
+export function Proofs() {
   return (
     <ul className="m-proofs">
       {proofs.map((p) => (
@@ -65,7 +72,7 @@ function Proofs() {
   )
 }
 
-const Actions = () => (
+export const Actions = () => (
   <div className="m-actions">
     <ResumeButton big />
     <Socials big />
@@ -174,7 +181,7 @@ function HeroA3() {
   )
 }
 
-function IndexRow({ it, n }: { it: Item; n: number }) {
+export function IndexRow({ it, n }: { it: Item; n: number }) {
   const [open, setOpen] = useState(false)
   const id = `w-${it.id}`
   return (
@@ -212,9 +219,9 @@ function IndexRow({ it, n }: { it: Item; n: number }) {
 
 // ---------- selected work (Gate B) ----------
 
-type Depth = 'live' | 'open' | 'preview'
+export type Depth = 'live' | 'open' | 'preview'
 
-function Spec({ it }: { it: Item }) {
+export function Spec({ it }: { it: Item }) {
   return (
     <dl className="m-spec">
       <div>
@@ -233,7 +240,7 @@ function Spec({ it }: { it: Item }) {
   )
 }
 
-function Metrics() {
+export function Metrics() {
   return (
     <div className="m-metrics">
       <Logo m="amazon" w={40} h={40} />
@@ -250,7 +257,7 @@ function Metrics() {
   )
 }
 
-function Figure({ it, depth }: { it: Item; depth: Depth }) {
+export function Figure({ it, depth }: { it: Item; depth: Depth }) {
   const [open, setOpen] = useState(depth === 'live')
   if (!it.demo) return <Metrics />
   const opts = it.demo === 'steering' ? { rest: 0.6 } : it.demo === 'lossmask' ? { finding: true } : {}
@@ -284,7 +291,7 @@ function Figure({ it, depth }: { it: Item; depth: Depth }) {
   )
 }
 
-function WorkBody({ it, depth }: { it: Item; depth: Depth }) {
+export function WorkBody({ it, depth }: { it: Item; depth: Depth }) {
   return (
     <>
       <p className="m-finding">{it.finding}</p>
@@ -299,7 +306,7 @@ function WorkBody({ it, depth }: { it: Item; depth: Depth }) {
   )
 }
 
-function Work({ depth, steeringInHero }: { depth: Depth; steeringInHero: boolean }) {
+export function Work({ depth, steeringInHero }: { depth: Depth; steeringInHero: boolean }) {
   return (
     <section className="m-wrap m-sec" id="work" aria-labelledby="work-h">
       <h2 id="work-h" className="m-h2">
@@ -340,7 +347,7 @@ function Work({ depth, steeringInHero }: { depth: Depth; steeringInHero: boolean
 
 // ---------- the rest ----------
 
-function More() {
+export function More() {
   return (
     <section className="m-wrap m-sec" aria-labelledby="more-h">
       <h2 id="more-h" className="m-h2">
@@ -376,7 +383,7 @@ function More() {
   )
 }
 
-function Experience() {
+export function Experience() {
   return (
     <section className="m-wrap m-sec" id="experience" aria-labelledby="exp-h">
       <h2 id="exp-h" className="m-h2">
@@ -416,7 +423,7 @@ function Experience() {
   )
 }
 
-function Contact() {
+export function Contact() {
   const [copied, setCopied] = useState(false)
   return (
     <section className="m-wrap m-sec m-contact" id="contact" aria-labelledby="contact-h">
@@ -460,15 +467,19 @@ export function Home({ gate }: { gate?: string }) {
   const a = gate?.startsWith('a') ? gate : 'a1'
   const b = gate?.startsWith('b') ? gate : 'b1'
   const depth: Depth = b === 'b2' ? 'live' : b === 'b3' ? 'preview' : 'open'
+  const WorkC = workV[pick(gate, 'work') ?? ''] ?? Work
+  const MoreC = moreV[pick(gate, 'more') ?? ''] ?? More
+  const ExpC = expV[pick(gate, 'exp') ?? ''] ?? Experience
+  const ContactC = contactV[pick(gate, 'contact') ?? ''] ?? Contact
   return (
     <>
       {a === 'a1' && <HeroA1 />}
       {a === 'a2' && <HeroA2 />}
       {a === 'a3' && <HeroA3 />}
-      {a !== 'a3' && <Work depth={depth} steeringInHero />}
-      <More />
-      <Experience />
-      <Contact />
+      {a !== 'a3' && <WorkC depth={depth} steeringInHero />}
+      <MoreC />
+      <ExpC />
+      <ContactC />
     </>
   )
 }
