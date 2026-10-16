@@ -39,7 +39,7 @@ export function Article({ slug, base }: { slug: string; base: string }) {
       <Link to={base || '/'} className="h4-link h4-crumb">
         <ArrowLeft size={14} aria-hidden="true" /> Back to the overview
       </Link>
-      <header className="h4-art__head h4-in">
+      <header className="h4-art__head">
         <div>
           <div className="h4-meta">
             {mark && <Logo m={mark} w={mark === 'cfar' ? 64 : 20} h={20} />}
@@ -53,13 +53,13 @@ export function Article({ slug, base }: { slug: string; base: string }) {
       </header>
 
       {r.demo && (
-        <div className="h4-art__fig h4-in" style={{ ['--i' as string]: 1 }}>
+        <div className="h4-art__fig">
           <Demo kind={r.demo} {...opts} />
         </div>
       )}
 
       <div className="h4-art__grid">
-        <div className="h4-art__text h4-in" style={{ ['--i' as string]: 2 }}>
+        <div className="h4-art__text">
           <section aria-labelledby="h4-m">
             <h2 id="h4-m">Method</h2>
             <ol>
@@ -89,7 +89,7 @@ export function Article({ slug, base }: { slug: string; base: string }) {
             </ul>
           </section>
         </div>
-        <aside className="h4-spec h4-in" style={{ ['--i' as string]: 3 }} aria-label="Spec">
+        <aside className="h4-spec" aria-label="Spec">
           <dl>
             <div>
               <dt>Where</dt>

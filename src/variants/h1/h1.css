@@ -271,8 +271,7 @@
   line-height: 1.06;
   font-weight: 560;
   letter-spacing: -0.032em;
-  text-wrap: balance;
-  max-width: 14.5em;
+  white-space: pre-line;
 }
 .h1-proof {
   margin-top: 22px;
@@ -373,6 +372,18 @@
 .h1-tele__pos {
   display: inline-flex;
   gap: 0.6em;
+}
+/* fixed widths so changing digit counts never move the rest of the line */
+.h1-tele__lat,
+.h1-tele__lon {
+  display: inline-block;
+  text-align: right;
+}
+.h1-tele__lat {
+  min-width: 6ch;
+}
+.h1-tele__lon {
+  min-width: 7ch;
 }
 .h1-tele__short {
   display: none;
@@ -551,8 +562,7 @@
 .h1-steer__text[data-up] {
   color: color-mix(in oklab, var(--fg) 78%, var(--cc));
 }
-.h1-steer__text > span {
-  display: inline;
+.h1-steer__text > span[data-new] {
   animation: h1-word 0.46s var(--ease-out) both;
   animation-delay: calc(var(--i) * 7ms);
 }
@@ -661,6 +671,8 @@
   line-height: 14px;
 }
 .h1-hint {
+  min-height: 3em;
+  align-content: flex-start;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -718,6 +730,10 @@
   font-variant-numeric: tabular-nums;
   transition: color 0.4s var(--ease-ui);
 }
+.h1-steer__val {
+  min-width: 6ch;
+  text-align: right;
+}
 .h1-steer__val .h1-roll__col {
   transition-duration: 0.42s;
 }
@@ -762,11 +778,13 @@
   color: var(--fg-3);
 }
 .h1-switch {
-  min-height: 30px;
+  display: flex;
+  align-items: flex-start;
+  min-height: 46px;
   margin-top: 10px;
 }
-.h1-switch[data-on] {
-  display: inline-block;
+.h1-switch__chip {
+  display: block;
   padding: 6px 10px;
   border-radius: 8px;
   font-family: var(--font-mono);
@@ -848,12 +866,10 @@
 }
 
 /* ---------- first load: assemble in ~1 s, then still ---------- */
-.h1-hero[data-anim] .h1-hero__text > * {
-  animation: h1-rise 0.7s var(--ease-out) both;
-  animation-delay: calc(var(--s, 0) * 75ms);
-}
+/* The thesis, proof and actions paint at once (they are the LCP, and JS arrives late by design). Only the demo
+   frame warms up, and it never starts invisible. */
 .h1-hero[data-anim] .h1-hero__demo {
-  animation: h1-warm 1s var(--ease-out) 0.18s both;
+  animation: h1-warm 0.9s var(--ease-out) both;
 }
 @keyframes h1-rise {
   from {
@@ -1630,9 +1646,6 @@ button.h1-ctl {
   .h1-hero__demo {
     margin-top: 36px;
   }
-  .h1-thesis {
-    max-width: 18em;
-  }
   .h1-wrow__head {
     grid-template-columns: 200px minmax(0, 1fr);
   }
@@ -1664,7 +1677,7 @@ button.h1-ctl {
   }
   .h1-thesis {
     margin-top: 10px;
-    font-size: 29px;
+    font-size: min(29px, 8vw);
     line-height: 1.1;
   }
   .h1-proof {
@@ -1702,6 +1715,7 @@ button.h1-ctl {
     display: none;
   }
   .h1-steer__prompt {
+    grid-template-columns: minmax(0, 1fr) auto;
     padding-left: 12px;
     gap: 8px;
   }

@@ -34,7 +34,7 @@ export function Panel({ id, meta, title, finding, children, foot, full, open, li
   return (
     <article
       id={`h4-${id}`}
-      className="h4-panel h4-in"
+      className="h4-panel"
       data-panel={id}
       data-open={open || undefined}
       data-lit={lit || undefined}

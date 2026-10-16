@@ -14,7 +14,9 @@ const OBS = { latitude: VIC_LAT * DEG, longitude: VIC_LON * DEG, height: 0.02 }
 
 export async function createSky() {
   const [model, sgp4] = await Promise.all([import('../../demos/orbit/model'), import('../../demos/orbit/sgp4')])
-  return new Sky(model, sgp4)
+  const s = new Sky(model, sgp4)
+  await s.refreshAsync()
+  return s
 }
 
 export interface Look {
@@ -62,7 +64,18 @@ export class Sky {
       this.mode = 'after'
     }
     this.sat = new model.Sat(model.BUILD_TLE.tle)
-    this.refresh()
+  }
+
+  /** Find the next passes in 4-hour windows, yielding between them, so the search never blocks input for long. */
+  async refreshAsync() {
+    const from = this.now()
+    const found: Pass[] = []
+    for (let h = 0; h < 48 && found.length < 2; h += 4) {
+      found.push(...this.sat.passes(from + h * 3600e3, 2 - found.length, 4).filter((p) => !found.some((f) => Math.abs(f.aos - p.aos) < 60e3)))
+      await new Promise((r) => setTimeout(r, 0))
+    }
+    this.passes = found
+    this.emit()
   }
 
   /** CelesTrak first; the build-time TLE stays in use until (or unless) it answers. */
@@ -70,8 +83,7 @@ export class Sky {
     const r = await this.model.loadTle()
     this.sat = new this.model.Sat(r.tle)
     this.source = r.source
-    this.refresh()
-    this.emit()
+    await this.refreshAsync()
   }
 
   on(fn: () => void) {

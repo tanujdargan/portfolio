@@ -200,7 +200,9 @@ void main() {
   #include <colorspace_fragment>
 }`
 
+// Yield to the browser between build steps so world creation never blocks input for long (each step is one task).
 const yieldTask = () => new Promise<void>((r) => setTimeout(r, 0))
+const mark = (n: string) => performance.mark?.(`x1:${n}`)
 
 function glowTexture() {
   const c = document.createElement('canvas')
@@ -252,6 +254,7 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
   const camera = new THREE.PerspectiveCamera(42, 1, 0.3, 1400)
   const fog = new THREE.FogExp2(0x0b1220, 0.0042)
   scene.fog = fog
+  mark('step1')
   await yieldTask()
 
   const lambert = (color: number, extra: T.MeshLambertMaterialParameters = {}) => new THREE.MeshLambertMaterial({ color, flatShading: true, ...extra })
@@ -364,22 +367,26 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
   arc.renderOrder = 1
   scene.add(arc)
   let arcFor = -1
+  mark('step2')
   await yieldTask()
 
   // ---------- terrain ----------
   const tSize = 220,
-    tSeg = mobile ? 90 : 120
-  const tg = new THREE.PlaneGeometry(tSize, tSize, tSeg, tSeg).toNonIndexed()
-  tg.rotateX(-Math.PI / 2)
+    tSeg = mobile ? 80 : 104
+  // heights on the shared grid first (one height() per vertex), then split into flat-shaded faces
+  const grid = new THREE.PlaneGeometry(tSize, tSize, tSeg, tSeg)
+  grid.rotateX(-Math.PI / 2)
+  {
+    const pos = grid.attributes.position as T.BufferAttribute
+    for (let i = 0; i < pos.count; i++) pos.setY(i, height(pos.getX(i), pos.getZ(i)))
+  }
+  const tg = grid.toNonIndexed()
+  grid.dispose()
+  tg.computeVertexNormals()
+  mark('terrain-shape')
+  await yieldTask()
   {
     const pos = tg.attributes.position as T.BufferAttribute
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i),
-        z = pos.getZ(i)
-      // finer detail near the hill, coarse outskirts squeezed outward
-      pos.setY(i, height(x, z))
-    }
-    tg.computeVertexNormals()
     const col = new Float32Array(pos.count * 3)
     const grass = new THREE.Color(0x2b3a2c),
       grass2 = new THREE.Color(0x223126),
@@ -408,6 +415,7 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
   }
   const terrain = new THREE.Mesh(tg, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true }))
   scene.add(terrain)
+  mark('step3')
   await yieldTask()
 
   // the far shore: the Olympic Mountains across the Strait, with a few lights of the towns at their foot
@@ -454,6 +462,7 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
   sea.rotation.x = -Math.PI / 2
   sea.position.y = SEA
   scene.add(sea)
+  mark('step4')
   await yieldTask()
 
   // ---------- vegetation and rocks (instanced) ----------
@@ -508,6 +517,7 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
     }
     scene.add(rocks)
   }
+  mark('step5')
   await yieldTask()
 
   // ---------- the compound ----------
@@ -876,6 +886,7 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
     pinAt.buoy.set(BUOY.x, SEA + 3.6, BUOY.z)
   }
   pickRoot.updateMatrixWorld(true)
+  mark('step6')
   await yieldTask()
 
   // ---------- camera ----------
@@ -1302,6 +1313,8 @@ export async function createWorld(o: WorldOpts): Promise<WorldApi> {
   updateSky(performance.now())
   placeCamera()
   await (renderer.compileAsync ? renderer.compileAsync(scene, camera) : Promise.resolve())
+  mark('compiled')
+  await yieldTask()
   render()
   emitFrame()
   kick()

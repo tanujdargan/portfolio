@@ -51,7 +51,7 @@
   --bg-3: #151b28;
   --fg: #eeebe3;
   --fg-2: #aab0bd;
-  --fg-3: #737a89;
+  --fg-3: #7f8697; /* ≥ 4.5:1 on the darkest panel (#0d111a) */
   --line: rgb(255 255 255 / 0.09);
   --line-2: rgb(255 255 255 / 0.16);
   --accent: #ffb35c;
@@ -414,26 +414,24 @@
   flex-direction: column;
   gap: 12px;
   pointer-events: none;
-  transition: width 0.8s var(--ease-io);
 }
-.x1-home[data-docked] .x1-col {
+.x1-home .x1-col {
   width: 372px;
 }
 
 /* the proof card: the first paint, then docked */
 .x1-card {
   flex: none;
-  padding: 26px 26px 20px;
+  padding: 18px 18px 14px;
   border-radius: 20px;
   background: rgb(8 11 18 / 0.9);
   box-shadow: inset 0 0 0 1px var(--line), 0 30px 80px -30px rgb(0 0 0 / 0.8);
   -webkit-backdrop-filter: blur(18px) saturate(1.2);
   backdrop-filter: blur(18px) saturate(1.2);
-  transition: padding 0.8s var(--ease-io), background-color 0.8s;
+  transition: background-color 0.8s;
   outline: none;
 }
 .x1-home[data-docked] .x1-card {
-  padding: 18px 18px 14px;
   background: var(--glass);
 }
 .x1-card__top {
@@ -457,9 +455,8 @@
   font-weight: 520;
   letter-spacing: -0.022em;
   text-wrap: balance;
-  transition: font-size 0.8s var(--ease-io), margin 0.8s var(--ease-io);
 }
-.x1-home[data-docked] .x1-card__thesis {
+.x1-home .x1-card__thesis {
   margin-top: 6px;
   font-size: 15px;
   line-height: 1.35;
@@ -470,9 +467,8 @@
   margin-top: 8px;
   color: var(--fg-2);
   font-size: 14px;
-  transition: font-size 0.8s var(--ease-io);
 }
-.x1-home[data-docked] .x1-card__ctx {
+.x1-home .x1-card__ctx {
   margin-top: 4px;
   font-size: 13px;
 }
@@ -480,9 +476,8 @@
   margin-top: 18px;
   display: grid;
   gap: 2px;
-  transition: margin 0.8s var(--ease-io);
 }
-.x1-home[data-docked] .x1-proofs {
+.x1-home .x1-proofs {
   margin-top: 12px;
 }
 .x1-proofs a {
@@ -496,9 +491,9 @@
   font-size: 15px;
   line-height: 1.42;
   color: var(--fg-2);
-  transition: background-color 0.16s, font-size 0.8s var(--ease-io);
+  transition: background-color 0.16s;
 }
-.x1-home[data-docked] .x1-proofs a {
+.x1-home .x1-proofs a {
   font-size: 13.5px;
   padding: 7px 10px;
 }
@@ -519,7 +514,7 @@
   align-items: center;
   gap: 8px;
 }
-.x1-home[data-docked] .x1-card__acts {
+.x1-home .x1-card__acts {
   margin-top: 12px;
 }
 .x1-plain {
@@ -1226,44 +1221,44 @@
     padding: 18px 18px 14px;
     border-radius: 18px;
   }
-  .x1-home[data-docked] .x1-card {
+  .x1-home .x1-card {
     padding: 12px 14px 10px;
   }
   .x1-card__thesis {
     font-size: 22px;
   }
-  .x1-home[data-docked] .x1-card__thesis {
+  .x1-home .x1-card__thesis {
     display: none;
   }
-  .x1-home[data-docked] .x1-card__ctx {
+  .x1-home .x1-card__ctx {
     margin-top: 2px;
     font-size: 12.5px;
   }
   .x1-proofs a {
     font-size: 14px;
   }
-  .x1-home[data-docked] .x1-proofs {
+  .x1-home .x1-proofs {
     margin-top: 6px;
     gap: 0;
   }
-  .x1-home[data-docked] .x1-proofs a {
+  .x1-home .x1-proofs a {
     grid-template-columns: 20px 1fr;
     gap: 10px;
     padding: 5px 10px;
     font-size: 12.5px;
     line-height: 1.38;
   }
-  .x1-home[data-docked] .x1-proofs .m-logo {
+  .x1-home .x1-proofs .m-logo {
     width: 20px !important;
     height: 20px !important;
   }
-  .x1-home[data-docked] .x1-proofs .m-logo img {
+  .x1-home .x1-proofs .m-logo img {
     max-width: 20px;
     max-height: 20px;
     width: auto;
     height: auto;
   }
-  .x1-home[data-docked] .x1-card__acts {
+  .x1-home .x1-card__acts {
     margin-top: 6px;
     gap: 6px;
   }
@@ -1275,7 +1270,7 @@
   .x1-card__top {
     gap: 6px;
   }
-  .x1-home[data-docked] .x1-fold {
+  .x1-home .x1-fold {
     display: grid;
     place-items: center;
     width: 44px;
@@ -1289,7 +1284,7 @@
   .x1-home[data-folded] .x1-fold {
     transform: rotate(180deg);
   }
-  .x1-home[data-docked][data-folded] .x1-card__body {
+  .x1-home[data-folded] .x1-card__body {
     display: none;
   }
   .x1-rail {
@@ -1338,6 +1333,9 @@
   .x1-pass p {
     font-size: 12.5px;
     line-height: 1.35;
+    min-height: 2.7em; /* two lines reserved, so the text arriving never shifts anything */
+    display: flex;
+    align-items: center;
   }
   .x1-pass__dot {
     margin-top: 4px;
@@ -1416,7 +1414,7 @@
   }
   .x1-card,
   .x1-rail {
-    transition: opacity 0.25s, padding 0.6s var(--ease-io);
+    transition: opacity 0.25s;
   }
   .x1-spec {
     grid-template-columns: 1fr;
@@ -1650,4 +1648,8 @@
   .x1-article__sec > div {
     font-size: 15.5px;
   }
+}
+/* shared demos read --d-fg3 for their faintest text; on this palette it must still pass AA (Lighthouse, write-ups) */
+.x1 .demo {
+  --d-fg3: var(--d-fg2);
 }

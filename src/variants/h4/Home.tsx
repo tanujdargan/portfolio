@@ -124,17 +124,17 @@ export function Home({ base }: { base: string }) {
   return (
     <>
       <section className="h4-intro" aria-labelledby="h4-thesis">
-        <div className="h4-in" style={{ ['--i' as string]: 0 }}>
+        <div>
           <h1 id="h4-thesis" className="h4-thesis">
             {thesisA} <span>and {thesisB}</span>
           </h1>
           <p className="h4-context">{context}</p>
         </div>
         <ul className="h4-proofs" aria-label="Three proofs">
-          {proofs.map((p, i) => {
+          {proofs.map((p) => {
             const t = proofTarget[p.mark]!
             return (
-              <li key={p.mark} className="h4-in" style={{ ['--i' as string]: i + 1 }}>
+              <li key={p.mark}>
                 <a
                   className="h4-proof"
                   href={`#h4-${t}`}

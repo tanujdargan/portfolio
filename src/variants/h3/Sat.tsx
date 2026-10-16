@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import type { AnchorKey, AnchorPos, SatHandle } from './cubesat.lazy'
+import type { AnchorKey, AnchorPos, FromSat, ToSat } from './cubesat.lazy'
 import { hotspots, restAnchors } from './data'
 
 /** Live sunlight state for MarmotSat from the public TLE (SGP4 in the browser). Loaded after idle; null until known. */
@@ -20,7 +20,8 @@ export function useSunlit() {
         tick()
         timer = window.setInterval(tick, 30_000)
       })
-    const id = idle(start, 2500)
+    // after load and idle; the SGP4 call is a few ms
+    const id = idle(start, 6000)
     return () => {
       dead = true
       cancelIdle(id)
@@ -41,71 +42,153 @@ export function cancelIdle(id: number) {
   else clearTimeout(id)
 }
 
+type Send = (m: ToSat, transfer?: Transferable[]) => void
+
 /**
- * The CubeSat: a static poster in the HTML (a render of the 3D scene at its rest pose), replaced after first paint and
- * idle by the live three.js object. Hotspots are DOM buttons, projected from the 3D anchors when live.
+ * The CubeSat: a static poster in the HTML (a render of the 3D scene at its rest pose). The live three.js object boots
+ * only once someone engages with the bench (pointer, touch, focus or a scroll), in a Web Worker on an OffscreenCanvas,
+ * so the page's main thread never waits on WebGL. The first live frame is the poster's exact pose, so the swap is a cut.
+ * Hotspots are DOM buttons, projected from the 3D anchors when live.
  */
 export function SatStage({ lit, reduced, sunlit, live: allowLive }: { lit: boolean; reduced: boolean; sunlit: boolean | null; live: boolean }) {
   const box = useRef<HTMLDivElement>(null)
   const cv = useRef<HTMLCanvasElement>(null)
-  const handle = useRef<SatHandle | null>(null)
+  const send = useRef<Send | null>(null)
   const spots = useRef<Partial<Record<AnchorKey, HTMLDivElement | null>>>({})
   const [ready, setReady] = useState(false)
   const [open, setOpen] = useState<AnchorKey | null>(null)
 
   useEffect(() => {
-    if (reduced || !allowLive) return
+    if (reduced || !allowLive || !('WebGLRenderingContext' in window)) return
     let dead = false
-    const canWebGL = (() => {
-      try {
-        const c = document.createElement('canvas')
-        return !!(c.getContext('webgl2') || c.getContext('webgl'))
-      } catch {
-        return false
-      }
-    })()
-    if (!canWebGL) return
-    // first paint, then idle, then the 3D chunk
-    const id = idle(() => {
-      import('./cubesat.lazy').then(({ mountSat }) => {
-        if (dead || !cv.current) return
-        const fine = matchMedia('(pointer: fine)').matches
-        handle.current = mountSat(cv.current, {
-          intro: true,
-          drag: fine,
-          onFirstFrame: () => setReady(true),
-          onAnchors: (as: AnchorPos[]) => {
-            const b = box.current
-            if (!b) return
-            for (const a of as) {
-              const el = spots.current[a.k]
-              if (!el) continue
-              el.style.left = `${a.x * 100}%`
-              el.style.top = `${a.y * 100}%`
-              if (a.x > 0.62) el.dataset.flip = ''
-              else delete el.dataset.flip
-              el.style.opacity = String(a.vis)
-              el.style.pointerEvents = a.vis > 0.5 ? '' : 'none'
-            }
-          },
-        })
-        if (import.meta.env.DEV) (window as unknown as { __h3sat: SatHandle }).__h3sat = handle.current
+    let started = false
+    let worker: Worker | null = null
+    const cleanups: (() => void)[] = []
+    const canvas = cv.current!
+    const bench = box.current?.closest('.h3-bench') ?? document.body
+
+    const onMsg = (m: FromSat) => {
+      if (dead) return
+      if (m.t === 'first') setReady(true)
+      else if (m.t === 'fail') setReady(false)
+      else if (m.t === 'anchors')
+        for (const a of m.a as AnchorPos[]) {
+          const el = spots.current[a.k]
+          if (!el) continue
+          el.style.left = `${a.x * 100}%`
+          el.style.top = `${a.y * 100}%`
+          if (a.x > 0.62) el.dataset.flip = ''
+          else delete el.dataset.flip
+          el.style.opacity = String(a.vis)
+          el.style.pointerEvents = a.vis > 0.5 ? '' : 'none'
+        }
+      else devReply?.(m)
+    }
+    let devReply: ((m: FromSat) => void) | null = null
+
+    const wire = (s: Send, viaWorker: boolean) => {
+      send.current = s
+      const r = canvas.getBoundingClientRect()
+      const fine = matchMedia('(pointer: fine)').matches
+      const target: HTMLCanvasElement | OffscreenCanvas = viaWorker ? canvas.transferControlToOffscreen() : canvas
+      s({ t: 'init', canvas: target, w: r.width, h: r.height, pr: devicePixelRatio || 1, coarse: !fine, intro: true, drag: fine }, viaWorker ? [target as OffscreenCanvas] : [])
+      // size, visibility and pointer input stay on the main thread and are forwarded
+      const ro = new ResizeObserver(([e]) => s({ t: 'size', w: e.contentRect.width, h: e.contentRect.height }))
+      ro.observe(canvas)
+      let onScreen = true
+      const io = new IntersectionObserver(([e]) => {
+        onScreen = e.isIntersecting
+        s({ t: 'vis', v: onScreen && !document.hidden })
       })
-    }, 1800)
+      io.observe(canvas)
+      const onVis = () => s({ t: 'vis', v: onScreen && !document.hidden })
+      document.addEventListener('visibilitychange', onVis)
+      const down = (e: PointerEvent) => {
+        if (!fine || e.button !== 0) return
+        canvas.setPointerCapture(e.pointerId)
+        canvas.dataset.drag = ''
+        s({ t: 'down', x: e.clientX, y: e.clientY })
+      }
+      const move = (e: PointerEvent) => canvas.dataset.drag !== undefined && s({ t: 'move', x: e.clientX, y: e.clientY })
+      const up = () => {
+        if (canvas.dataset.drag === undefined) return
+        delete canvas.dataset.drag
+        s({ t: 'up' })
+      }
+      canvas.addEventListener('pointerdown', down)
+      canvas.addEventListener('pointermove', move)
+      canvas.addEventListener('pointerup', up)
+      canvas.addEventListener('pointercancel', up)
+      cleanups.push(() => {
+        ro.disconnect()
+        io.disconnect()
+        document.removeEventListener('visibilitychange', onVis)
+        canvas.removeEventListener('pointerdown', down)
+        canvas.removeEventListener('pointermove', move)
+        canvas.removeEventListener('pointerup', up)
+        canvas.removeEventListener('pointercancel', up)
+      })
+      if (import.meta.env.DEV) {
+        // poster tooling: window.__h3sat.snapshot(1.5) → PNG data URL of the rest pose; .restAnchors() → hotspot spots
+        const ask = <T,>(m: ToSat, want: FromSat['t'], pick: (r: FromSat) => T) =>
+          new Promise<T>((res) => {
+            devReply = (r) => r.t === want && res(pick(r))
+            s(m)
+          })
+        ;(window as unknown as { __h3sat: object }).__h3sat = {
+          snapshot: (pr: number) =>
+            ask({ t: 'snap', pr }, 'snap', (r) => (r as { blob: Blob }).blob).then(
+              (b) => new Promise<string>((res) => Object.assign(new FileReader(), { onload: (e: ProgressEvent<FileReader>) => res(e.target!.result as string) }).readAsDataURL(b)),
+            ),
+          restAnchors: () => ask({ t: 'rest' }, 'rest', (r) => (r as { a: AnchorPos[] }).a),
+        }
+      }
+    }
+
+    const start = () => {
+      if (started || dead) return
+      started = true
+      off()
+      if ('transferControlToOffscreen' in canvas && typeof Worker !== 'undefined') {
+        worker = new Worker(new URL('./sat.worker.ts', import.meta.url), { type: 'module' })
+        worker.onmessage = (e: MessageEvent<FromSat>) => onMsg(e.data)
+        worker.onerror = () => onMsg({ t: 'fail' })
+        const w = worker
+        wire((m, transfer) => w.postMessage(m, transfer ?? []), true)
+      } else {
+        // no OffscreenCanvas: the same host on the main thread (its boot is still staged across frames)
+        import('./cubesat.lazy')
+          .then(({ host }) => {
+            if (dead) return
+            wire(host(onMsg), false)
+          })
+          .catch(() => onMsg({ t: 'fail' }))
+      }
+    }
+    const evs = ['pointerenter', 'pointerdown', 'touchstart', 'focusin'] as const
+    const onScroll = () => start()
+    function off() {
+      evs.forEach((e) => bench.removeEventListener(e, start))
+      removeEventListener('scroll', onScroll)
+    }
+    evs.forEach((e) => bench.addEventListener(e, start, { passive: true }))
+    addEventListener('scroll', onScroll, { passive: true, once: true })
     return () => {
       dead = true
-      cancelIdle(id)
-      handle.current?.dispose()
-      handle.current = null
+      off()
+      send.current?.({ t: 'dispose' })
+      send.current = null
+      worker?.terminate()
+      cleanups.forEach((c) => c())
     }
   }, [reduced, allowLive])
 
-  useEffect(() => handle.current?.sun(sunlit !== false), [sunlit, ready])
-  useEffect(() => handle.current?.focus(open), [open, ready])
+  useEffect(() => send.current?.({ t: 'sun', lit: sunlit !== false }), [sunlit, ready])
+  useEffect(() => send.current?.({ t: 'focus', k: open }), [open, ready])
   useEffect(() => {
     if (!lit) {
       setOpen(null)
-      handle.current?.tilt(null)
+      send.current?.({ t: 'tilt', x: null, y: 0 })
     }
   }, [lit])
 
@@ -124,11 +207,11 @@ export function SatStage({ lit, reduced, sunlit, live: allowLive }: { lit: boole
       ref={box}
       data-ready={ready || undefined}
       onPointerMove={(e) => {
-        if (e.pointerType !== 'mouse' || !box.current) return
+        if (e.pointerType !== 'mouse' || !box.current || !send.current) return
         const r = box.current.getBoundingClientRect()
-        handle.current?.tilt(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1)
+        send.current({ t: 'tilt', x: ((e.clientX - r.left) / r.width) * 2 - 1, y: ((e.clientY - r.top) / r.height) * 2 - 1 })
       }}
-      onPointerLeave={() => handle.current?.tilt(null)}
+      onPointerLeave={() => send.current?.({ t: 'tilt', x: null, y: 0 })}
     >
       <div className="h3-sat__sq">
         <img

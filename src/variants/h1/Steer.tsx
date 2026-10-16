@@ -166,6 +166,14 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
   const prompt = data.test_questions[q]
   const text = clip(o.text)
   const words = text.split(/(\s+)/)
+  // Words shared with the previous output keep still; only the rest blur in. The paragraph remounts per output, so a
+  // rewrite inserts new text instead of reflowing old text (no layout shift while the replay runs).
+  const prevWords = useRef<string[]>(words)
+  let keep = 0
+  while (keep < words.length && prevWords.current[keep] === words[keep]) keep++
+  useEffect(() => {
+    prevWords.current = words
+  })
 
   // plot geometry
   const W = 300
@@ -213,7 +221,7 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
           <span aria-hidden="true">{typed >= prompt.length ? prompt : prompt.slice(0, typed)}</span>
           {typed < prompt.length && <span className="h1-caret" aria-hidden="true" />}
         </span>
-        <button type="button" className="h1-ghost h1-steer__shuffle" onClick={nextPrompt} data-ctl="prompt">
+        <button type="button" className="h1-ghost h1-steer__shuffle" onClick={nextPrompt} data-ctl="prompt" aria-label="Another prompt">
           <Shuffle size={14} strokeWidth={1.8} aria-hidden="true" />
           <span>Another prompt</span>
         </button>
@@ -223,12 +231,12 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
         <p className="h1-steer__k">
           Output at <b className="h1-c-alpha">α {sgn(A[ai])}</b>
         </p>
-        <p className="h1-steer__text" data-up={o.expr > 0 || undefined}>
+        <p className="h1-steer__text" key={text} data-up={o.expr > 0 || undefined}>
           {words.map((w, i) =>
             /^\s+$/.test(w) ? (
               w
             ) : (
-              <span key={`${i}:${w}`} style={{ ['--i' as string]: Math.min(i, 60) }}>
+              <span key={i} data-new={i >= keep || undefined} style={{ ['--i' as string]: Math.min(i - keep, 60) }}>
                 {w}
               </span>
             ),
@@ -286,7 +294,7 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
               Read-back on <b className="h1-c-concept">{c}</b>
             </span>
             <span className="h1-steer__val" data-up={o.expr > 0 || undefined}>
-              <Roll text={sgn(o.expr)} label={`read-back ${sgn(o.expr)}`} />
+              <Roll text={sgn(o.expr).padStart(5, '\u2007')} label={`read-back ${sgn(o.expr)}`} />
             </span>
           </div>
           <svg
@@ -306,11 +314,11 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
             {ai <= seen && <circle className="h1-plot__now" cx={px(ai)} cy={py(o.expr)} r={4.5} />}
           </svg>
           <p className="h1-steer__def">The output, projected onto the {c} direction by the unsteered model.</p>
-          <p className="h1-switch" data-on={showSw || undefined} aria-live="polite">
+          <p className="h1-switch" aria-live="polite">
             {sw && showSw && (
-              <>
+              <span className="h1-switch__chip">
                 <b>Switch</b> α {sgn(A[sw.i - 1])} → {sgn(A[sw.i])}: read-back {sgn(sw.a)} → {sgn(sw.b)}
-              </>
+              </span>
             )}
           </p>
         </div>
@@ -325,8 +333,9 @@ export function Steer({ hero = false, concept: cProp, onConcept, hl, writeup }: 
           Method replicated on Qwen2.5-1.5B-Instruct for this page
           {hero ? '; cached outputs replayed in order' : ''}.{writeup}
         </span>
-        {hero && phase !== 'script' && !reduced && (
-          <button type="button" className="h1-ghost" onClick={play}>
+        {hero && (
+          // always in the layout (no shift when the replay ends); hidden while it plays and under reduced motion
+          <button type="button" className="h1-ghost" onClick={play} style={phase === 'script' || reduced ? { visibility: 'hidden' } : undefined}>
             <RotateCcw size={14} strokeWidth={1.8} aria-hidden="true" />
             <span>Replay</span>
           </button>

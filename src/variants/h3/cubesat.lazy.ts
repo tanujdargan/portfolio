@@ -1,8 +1,9 @@
-// The MarmotSat object on the bench: a procedural 2U CubeSat in three.js. Lazy chunk (three is only imported here).
-// Renders on demand: a frame is drawn only while something moves (intro settle, drag, inertia, hover tilt). The loop
-// sleeps otherwise, and while the canvas is off-screen or the tab is hidden. DPR is capped at 1.5.
+// The MarmotSat object on the bench: a procedural 2U CubeSat in three.js. Runs inside a Web Worker on an
+// OffscreenCanvas (sat.worker.ts), so creating the WebGL context, compiling shaders and drawing never block the page;
+// browsers without OffscreenCanvas run the same host on the main thread. Renders on demand: a frame is drawn only while
+// something moves (intro turn, drag, inertia, hover tilt), and the loop sleeps when idle, off-screen or hidden.
+// DPR is capped at 1.5 (1.25 on touch screens).
 import * as THREE from 'three'
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 
 export type AnchorKey = 'obc' | 'ttc' | 'power' | 'deploy'
 export interface AnchorPos {
@@ -13,40 +14,103 @@ export interface AnchorPos {
   /** 0 = facing away, 1 = facing the camera */
   vis: number
 }
-export interface SatHandle {
-  /** pointer position over the object, -1..1 each axis (null = left) */
-  tilt(x: number | null, y?: number): void
-  /** sunlit state from SGP4, dims the key light in eclipse */
+/** Messages into the host (from Sat.tsx) */
+export type ToSat =
+  | { t: 'init'; canvas: HTMLCanvasElement | OffscreenCanvas; w: number; h: number; pr: number; coarse: boolean; intro: boolean; drag: boolean }
+  | { t: 'size'; w: number; h: number }
+  | { t: 'vis'; v: boolean }
+  | { t: 'tilt'; x: number | null; y: number }
+  | { t: 'sun'; lit: boolean }
+  | { t: 'focus'; k: AnchorKey | null }
+  | { t: 'down'; x: number; y: number }
+  | { t: 'move'; x: number; y: number }
+  | { t: 'up' }
+  | { t: 'snap'; pr: number }
+  | { t: 'rest' }
+  | { t: 'dispose' }
+/** Messages out of the host */
+export type FromSat = { t: 'anchors'; a: AnchorPos[] } | { t: 'first' } | { t: 'fail' } | { t: 'snap'; blob: Blob } | { t: 'rest'; a: AnchorPos[] }
+
+interface Core {
+  size(w: number, h: number): void
+  visible(v: boolean): void
+  tilt(x: number | null, y: number): void
   sun(lit: boolean): void
-  /** highlight one part (hotspot open) */
   focus(k: AnchorKey | null): void
+  down(x: number, y: number): void
+  move(x: number, y: number): void
+  up(): void
+  snapshot(pr: number): Promise<Blob>
+  restAnchors(): AnchorPos[]
   dispose(): void
-  /** dev only: a transparent PNG of the rest pose at the given pixel ratio */
-  snapshot?(pr: number): string
-  /** dev only: anchor positions (0..1) of the rest pose in a square box, for the poster's static hotspots */
-  restAnchors?(): AnchorPos[]
+}
+
+const g = globalThis as typeof globalThis & { requestAnimationFrame?: typeof requestAnimationFrame }
+const nextFrame = (cb: (t: number) => void): number =>
+  g.requestAnimationFrame ? g.requestAnimationFrame(cb) : (setTimeout(() => cb(performance.now()), 16) as unknown as number)
+const cancelFrame = (id: number) => (g.cancelAnimationFrame ? g.cancelAnimationFrame(id) : clearTimeout(id))
+
+/** The message host: the worker wires it to postMessage; the main-thread fallback calls it directly. Messages that
+ *  arrive while the scene boots are replayed once it's up. */
+export function host(post: (m: FromSat, transfer?: Transferable[]) => void): (m: ToSat) => void {
+  let core: Core | null = null
+  let dead = false
+  const queue: ToSat[] = []
+  const apply = (m: ToSat) => {
+    const c = core!
+    if (m.t === 'size') c.size(m.w, m.h)
+    else if (m.t === 'vis') c.visible(m.v)
+    else if (m.t === 'tilt') c.tilt(m.x, m.y)
+    else if (m.t === 'sun') c.sun(m.lit)
+    else if (m.t === 'focus') c.focus(m.k)
+    else if (m.t === 'down') c.down(m.x, m.y)
+    else if (m.t === 'move') c.move(m.x, m.y)
+    else if (m.t === 'up') c.up()
+    else if (m.t === 'snap') c.snapshot(m.pr).then((blob) => post({ t: 'snap', blob }))
+    else if (m.t === 'rest') post({ t: 'rest', a: c.restAnchors() })
+  }
+  return (m) => {
+    if (m.t === 'dispose') {
+      dead = true
+      core?.dispose()
+      return
+    }
+    if (m.t === 'init') {
+      mountSat(m.canvas, { ...m, alive: () => !dead, onAnchors: (a) => post({ t: 'anchors', a }), onFirstFrame: () => post({ t: 'first' }) })
+        .then((c) => {
+          if (!c) return post({ t: 'fail' })
+          core = c
+          queue.splice(0).forEach(apply)
+        })
+        .catch(() => post({ t: 'fail' }))
+      return
+    }
+    if (core) apply(m)
+    else queue.push(m)
+  }
 }
 
 // Rest pose: three-quarter view, slightly from above. The SSR poster is a render of exactly this pose.
 const REST = { yaw: -0.62, pitch: 0.2 }
 
-export function mountSat(
-  canvas: HTMLCanvasElement,
-  opts: { onAnchors: (a: AnchorPos[]) => void; onFirstFrame: () => void; intro: boolean; drag: boolean },
-): SatHandle {
+/** Yield to the browser between boot stages (a frame, then a macrotask), so no single task runs long. */
+const breathe = () => new Promise<void>((r) => nextFrame(() => setTimeout(r, 0)))
+
+async function mountSat(
+  canvas: HTMLCanvasElement | OffscreenCanvas,
+  opts: { onAnchors: (a: AnchorPos[]) => void; onFirstFrame: () => void; intro: boolean; drag: boolean; alive: () => boolean; w: number; h: number; pr: number; coarse: boolean },
+): Promise<Core | null> {
+  // Boot is staged across frames: context, then textures, then meshes, then shader compile, then the first frame.
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power', preserveDrawingBuffer: false })
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5))
+  const maxPr = opts.coarse ? 1.25 : 1.5
+  renderer.setPixelRatio(Math.min(opts.pr || 1, maxPr))
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.05
   renderer.setClearColor(0x000000, 0)
 
   const scene = new THREE.Scene()
-  const pmrem = new THREE.PMREMGenerator(renderer)
-  const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-  scene.environment = env
-  scene.environmentIntensity = 0.55
-  pmrem.dispose()
+  // No environment map: a PMREM bake was the single longest task on slow phones. Metals read through the lights.
 
   const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 50)
   camera.position.set(0, 0.4, 7.8)
@@ -59,26 +123,33 @@ export function mountSat(
   const rim = new THREE.DirectionalLight(0x9fbcff, 1.5)
   rim.position.set(4, 1.5, -4)
   scene.add(rim)
-  scene.add(new THREE.HemisphereLight(0xfff1e0, 0x1a1410, 0.35))
+  scene.add(new THREE.HemisphereLight(0xfff1e0, 0x1a1410, 1.1))
+  const fill = new THREE.DirectionalLight(0xfff0e0, 0.9)
+  fill.position.set(2, 0.5, 5)
+  scene.add(fill)
 
   const sat = new THREE.Group()
   scene.add(sat)
-  const disposables: { dispose(): void }[] = [env]
+  const disposables: { dispose(): void }[] = []
   const track = <T extends { dispose(): void }>(x: T) => (disposables.push(x), x)
 
+  await breathe()
+  if (!opts.alive()) return (renderer.dispose(), null)
   // ---------- materials ----------
-  const alu = track(new THREE.MeshStandardMaterial({ color: 0xc8c6c2, metalness: 1, roughness: 0.32 }))
-  const anod = track(new THREE.MeshStandardMaterial({ color: 0x1b1b1e, metalness: 0.6, roughness: 0.5 }))
-  const tape = track(new THREE.MeshStandardMaterial({ color: 0xd9c38f, metalness: 0.85, roughness: 0.3 }))
+  const alu = track(new THREE.MeshStandardMaterial({ color: 0xc8c6c2, metalness: 0.55, roughness: 0.38 }))
+  const anod = track(new THREE.MeshStandardMaterial({ color: 0x1b1b1e, metalness: 0.3, roughness: 0.55 }))
+  const tape = track(new THREE.MeshStandardMaterial({ color: 0xd9c38f, metalness: 0.5, roughness: 0.35 }))
   const pcb = track(new THREE.MeshStandardMaterial({ color: 0x14301f, metalness: 0.2, roughness: 0.55 }))
-  const gold = track(new THREE.MeshStandardMaterial({ color: 0xcfa253, metalness: 1, roughness: 0.28 }))
+  const gold = track(new THREE.MeshStandardMaterial({ color: 0xcfa253, metalness: 0.6, roughness: 0.3 }))
 
   const cellsTex = track(cellTexture(false))
   const cellsRough = track(cellTexture(true))
   const solar = track(
-    new THREE.MeshStandardMaterial({ map: cellsTex, roughnessMap: cellsRough, roughness: 1, metalness: 0.35, emissive: 0x000000 }),
+    new THREE.MeshStandardMaterial({ map: cellsTex, roughnessMap: cellsRough, roughness: 1, metalness: 0.15, emissive: 0x000000 }),
   )
 
+  await breathe()
+  if (!opts.alive()) return (renderer.dispose(), null)
   // ---------- 2U body: 1 × 2.27 × 1, long axis up ----------
   const H = 2.27
   const half = 0.5
@@ -94,8 +165,8 @@ export function mountSat(
     faces.push(m)
   }
   // inner box so gaps never show through
-  const core = new THREE.Mesh(track(new THREE.BoxGeometry(0.96, H - 0.06, 0.96)), anod)
-  sat.add(core)
+  const innerBox = new THREE.Mesh(track(new THREE.BoxGeometry(0.96, H - 0.06, 0.96)), anod)
+  sat.add(innerBox)
   // rails (corner posts, a little proud of the end plates, as on a real CubeSat)
   const railGeo = track(new THREE.BoxGeometry(0.085, H + 0.09, 0.085))
   for (const sx of [-1, 1])
@@ -120,7 +191,7 @@ export function mountSat(
   const top = new THREE.Mesh(track(new THREE.BoxGeometry(0.9, 0.06, 0.9)), pcb)
   top.position.y = H / 2 + 0.005
   sat.add(top)
-  const hub = new THREE.Mesh(track(new THREE.CylinderGeometry(0.16, 0.16, 0.05, 32)), gold)
+  const hub = new THREE.Mesh(track(new THREE.CylinderGeometry(0.16, 0.16, 0.05, 20)), gold)
   hub.position.y = H / 2 + 0.05
   sat.add(hub)
   const antGeo = track(new THREE.BoxGeometry(0.022, 0.006, 1.25))
@@ -154,6 +225,15 @@ export function mountSat(
 
   sat.position.y = 0.02
 
+  await breathe()
+  if (!opts.alive()) return (renderer.dispose(), null)
+  // compile the shaders off the main thread where the driver allows it (KHR_parallel_shader_compile)
+  const r2 = renderer as THREE.WebGLRenderer & { compileAsync?: (s: THREE.Object3D, c: THREE.Camera) => Promise<unknown> }
+  if (r2.compileAsync) await r2.compileAsync(scene, camera)
+  else renderer.compile(scene, camera)
+  await breathe()
+  if (!opts.alive()) return (renderer.dispose(), null)
+
   // ---------- anchors (local space), with the outward normal used for facing ----------
   const anchors: { k: AnchorKey; p: THREE.Vector3; n: THREE.Vector3 }[] = [
     { k: 'obc', p: new THREE.Vector3(0.05, 0.42, half), n: new THREE.Vector3(0, 0, 1) },
@@ -177,14 +257,16 @@ export function mountSat(
   let lastY = 0
   let lastT = 0
   let visible = true
+  let W = opts.w
+  let Hb = opts.h
   let raf = 0
   let prev = 0
   let focused: AnchorKey | null = null
   let lit = true
 
   const size = () => {
-    const w = canvas.clientWidth
-    const h = canvas.clientHeight
+    const w = W
+    const h = Hb
     if (!w || !h) return
     renderer.setSize(w, h, false)
     camera.aspect = w / h
@@ -257,75 +339,47 @@ export function mountSat(
       tTiltX !== tiltX ||
       tTiltY !== tiltY
     if (!moving) pinned = null
-    if (moving && visible) raf = requestAnimationFrame(step)
+    if (moving && visible) raf = nextFrame(step)
     else prev = 0
   }
   const wake = () => {
-    if (!raf && visible) raf = requestAnimationFrame(step)
+    if (!raf && visible) raf = nextFrame(step)
   }
 
-  // ---------- input ----------
-  const down = (e: PointerEvent) => {
-    if (!opts.drag || e.button !== 0) return
+  // ---------- input (pointer coordinates in CSS px, forwarded from the DOM canvas) ----------
+  const down = (x: number, y: number) => {
+    if (!opts.drag) return
     dragging = true
     pinned = null
-    lastX = e.clientX
-    lastY = e.clientY
+    lastX = x
+    lastY = y
     lastT = performance.now()
     vy = vp = 0
-    canvas.setPointerCapture(e.pointerId)
-    canvas.dataset.drag = ''
     wake()
   }
-  const move = (e: PointerEvent) => {
+  const move = (x: number, y: number) => {
     if (!dragging) return
     const now = performance.now()
-    const dx = e.clientX - lastX
-    const dy = e.clientY - lastY
+    const dx = x - lastX
+    const dy = y - lastY
     const dts = Math.max(0.008, (now - lastT) / 1000)
     yaw += dx * 0.011
     pitch = Math.max(-0.7, Math.min(0.9, pitch + dy * 0.006))
     // velocity for the release, smoothed
     vy = vy * 0.6 + ((dx * 0.011) / dts) * 0.4
     vp = vp * 0.6 + ((dy * 0.006) / dts) * 0.4
-    lastX = e.clientX
-    lastY = e.clientY
+    lastX = x
+    lastY = y
     lastT = now
   }
-  const up = (e: PointerEvent) => {
+  const up = () => {
     if (!dragging) return
     dragging = false
-    delete canvas.dataset.drag
-    try {
-      canvas.releasePointerCapture(e.pointerId)
-    } catch {
-      /* already released */
-    }
     // a flick: clamp so it reads as a spin, not a blur
     vy = Math.max(-14, Math.min(14, vy))
     vp = Math.max(-4, Math.min(4, vp))
     wake()
   }
-  canvas.addEventListener('pointerdown', down)
-  canvas.addEventListener('pointermove', move)
-  canvas.addEventListener('pointerup', up)
-  canvas.addEventListener('pointercancel', up)
-
-  const ro = new ResizeObserver(() => {
-    size()
-    if (!raf) draw()
-  })
-  ro.observe(canvas)
-  const io = new IntersectionObserver(([e]) => {
-    visible = e.isIntersecting && !document.hidden
-    if (visible) wake()
-  })
-  io.observe(canvas)
-  const onVis = () => {
-    visible = !document.hidden
-    if (visible) wake()
-  }
-  document.addEventListener('visibilitychange', onVis)
 
   size()
   draw()
@@ -341,8 +395,18 @@ export function mountSat(
     if (!raf) draw()
   }
 
-  const handle: SatHandle = {
-    tilt(x, y = 0) {
+  const core: Core = {
+    size(w, h) {
+      W = w
+      Hb = h
+      size()
+      if (!raf) draw()
+    },
+    visible(v) {
+      visible = v
+      if (v) wake()
+    },
+    tilt(x, y) {
       if (x === null) {
         tTiltX = tTiltY = 0
       } else {
@@ -359,41 +423,33 @@ export function mountSat(
       focused = k
       applyLight()
     },
+    down,
+    move,
+    up,
     dispose() {
-      cancelAnimationFrame(raf)
-      ro.disconnect()
-      io.disconnect()
-      document.removeEventListener('visibilitychange', onVis)
-      canvas.removeEventListener('pointerdown', down)
-      canvas.removeEventListener('pointermove', move)
-      canvas.removeEventListener('pointerup', up)
-      canvas.removeEventListener('pointercancel', up)
+      cancelFrame(raf)
       scene.traverse((o) => (o as THREE.Mesh).geometry?.dispose?.())
       disposables.forEach((d) => d.dispose())
       renderer.dispose()
     },
-  }
-  if (import.meta.env.DEV)
-    handle.snapshot = (pr: number) => {
-      const was = { yaw, pitch, tiltX, tiltY }
-      yaw = REST.yaw
-      pitch = REST.pitch
-      tiltX = tiltY = 0
+    // dev tooling for the SSR poster: a transparent render of the rest pose in a square box, and its hotspot positions
+    async snapshot(pr) {
       renderer.setPixelRatio(pr)
       renderer.setSize(600, 600, false)
       camera.aspect = 1
       camera.updateProjectionMatrix()
-      sat.rotation.set(pitch, yaw, 0, 'XYZ')
+      sat.rotation.set(REST.pitch, REST.yaw, 0, 'XYZ')
       renderer.render(scene, camera)
-      const url = canvas.toDataURL('image/png')
-      ;({ yaw, pitch, tiltX, tiltY } = was)
-      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5))
+      const blob =
+        'convertToBlob' in canvas
+          ? await canvas.convertToBlob({ type: 'image/png' })
+          : await new Promise<Blob>((r) => (canvas as HTMLCanvasElement).toBlob((b) => r(b!), 'image/png'))
+      renderer.setPixelRatio(Math.min(opts.pr || 1, maxPr))
       size()
       draw()
-      return url
-    }
-  if (import.meta.env.DEV)
-    handle.restAnchors = () => {
+      return blob
+    },
+    restAnchors() {
       camera.aspect = 1
       camera.updateProjectionMatrix()
       sat.rotation.set(REST.pitch, REST.yaw, 0, 'XYZ')
@@ -401,18 +457,17 @@ export function mountSat(
       size()
       draw()
       return a
-    }
-  return handle
+    },
+  }
+  return core
 }
 
 /** Triple-junction cells, two per U on each long face, drawn into a canvas. `rough` draws the roughness map instead. */
 function cellTexture(rough: boolean) {
   const W = 256
   const Hh = 640
-  const c = document.createElement('canvas')
-  c.width = W
-  c.height = Hh
-  const g = c.getContext('2d')!
+  const c = typeof OffscreenCanvas !== 'undefined' ? new OffscreenCanvas(W, Hh) : Object.assign(document.createElement('canvas'), { width: W, height: Hh })
+  const g = c.getContext('2d') as CanvasRenderingContext2D
   // board between the cells
   g.fillStyle = rough ? '#b4b4b4' : '#0d1a14'
   g.fillRect(0, 0, W, Hh)
@@ -437,14 +492,14 @@ function cellTexture(rough: boolean) {
       g.lineTo(x, y + cut)
       g.closePath()
       if (rough) {
-        g.fillStyle = '#2e2e2e'
+        g.fillStyle = '#6a6a6a'
         g.fill()
         continue
       }
       const grad = g.createLinearGradient(x, y, x + cw, y + ch)
-      grad.addColorStop(0, '#1d2f5c')
-      grad.addColorStop(0.55, '#14214a')
-      grad.addColorStop(1, '#22356a')
+      grad.addColorStop(0, '#30488a')
+      grad.addColorStop(0.55, '#213670')
+      grad.addColorStop(1, '#36508f')
       g.fillStyle = grad
       g.fill()
       // grid fingers and a busbar

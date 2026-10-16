@@ -109,7 +109,7 @@ export function Telemetry({ href }: { href: string }) {
             ·
           </span>
           <span className="h1-tele__pos">
-            <Roll text={ll(t.lat, 'N', 'S')} /> <Roll text={ll(t.lon, 'E', 'W')} />
+            <span className="h1-tele__lat"><Roll text={ll(t.lat, 'N', 'S')} /></span> <span className="h1-tele__lon"><Roll text={ll(t.lon, 'E', 'W')} /></span>
           </span>
           <span className="h1-tele__sep h1-tele__wide" aria-hidden="true">
             ·

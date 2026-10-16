@@ -22,14 +22,18 @@ export function Home({ base }: { base: string }) {
     if (typeof window !== 'undefined') assembled = true
     return a
   })
-  const [lead, tail] = splitThesis(thesis)
   return (
     <>
       <section className="h1-hero h1-wrap" data-anim={anim || undefined} aria-labelledby="h1-thesis">
         <Telemetry href="#work-orbit" />
         <div className="h1-hero__text">
-          <h1 id="h1-thesis" className="h1-thesis" style={{ ['--s' as string]: 1 }}>
-            <span>{lead}</span> <span className="h1-dim">{tail}</span>
+          <h1 id="h1-thesis" className="h1-thesis">
+            {/* fixed line breaks, so the fallback font and Geist wrap identically (no shift on font swap) */}
+            {thesisLines.map(([t, dim], k) => (
+              <span key={k} className={dim ? 'h1-dim' : undefined}>
+                {t}{' '}
+              </span>
+            ))}
           </h1>
           <p className="h1-proof" style={{ ['--s' as string]: 2 }}>
             Shipped an LLM planning assistant to production across 180+ <Chip m="amazon" label="Amazon" /> fulfillment sites, with a return
@@ -78,6 +82,26 @@ export function Home({ base }: { base: string }) {
     </>
   )
 }
+
+// The thesis from curated.ts, set in four fixed lines; the second clause is dimmed.
+const thesisLines: [string, boolean][] = (() => {
+  const [lead, tail] = splitThesis(thesis)
+  const words = `${lead} ${tail}`.split(' ')
+  const n = lead.split(' ').length
+  const cuts = [4, 7, 10, words.length] // I ship production ML / systems and study / what language models / represent inside.
+  let a = 0
+  const out: [string, boolean][] = []
+  for (const c of cuts) {
+    // split each line at the lead/tail boundary so the dim tone starts mid-line
+    const seg = words.slice(a, c)
+    const bright = seg.slice(0, Math.max(0, n - a)).join(' ')
+    const dim = seg.slice(Math.max(0, n - a)).join(' ')
+    if (bright) out.push([bright + (dim ? '' : '\n'), false])
+    if (dim) out.push([dim + '\n', true])
+    a = c
+  }
+  return out
+})()
 
 const steerFinding = selected.find((s) => s.id === 'steering')!.finding
 

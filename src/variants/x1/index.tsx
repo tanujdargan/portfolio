@@ -110,6 +110,12 @@ function Home({ base }: { base: string }) {
   const bootWorld = useCallback(async () => {
     if (booting.current || !canvas.current) return
     booting.current = true
+    if (!hasWebGL()) {
+      setWorld('nogl')
+      setDocked(true)
+      ensureSky()
+      return
+    }
     setWorld('loading')
     try {
       const [s, { createWorld }] = await Promise.all([ensureSky(), import('./world.lazy')])
@@ -160,13 +166,14 @@ function Home({ base }: { base: string }) {
     let idle = 0,
       timer = 0
     const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback
-    const tier = !hasWebGL() ? 'nogl' : lowTier() ? 'poster' : null
+    // the WebGL probe costs a context creation, so it waits for boot (see bootWorld); only the cheap checks run here
+    const tier = lowTier() ? 'poster' : null
     if (tier) {
       setWorld(tier)
       timer = window.setTimeout(() => setDocked(true), 1400)
       ensureSky()
     } else {
-      // first input, or ~2 s of idle after load, whichever comes first
+      // first input, or idle at least 5 s after load, whichever comes first. The card and poster hold until then.
       const go = () => {
         cleanup()
         bootWorld()
@@ -175,12 +182,15 @@ function Home({ base }: { base: string }) {
       const cleanup = () => evs.forEach((e) => removeEventListener(e, go))
       evs.forEach((e) => addEventListener(e, go, { passive: true, once: true }))
       const later = () => {
-        timer = window.setTimeout(() => (ric ? (idle = ric(go, { timeout: 1500 })) : go()), 1600)
+        timer = window.setTimeout(() => (ric ? (idle = ric(go, { timeout: 4000 })) : go()), 5000)
       }
       if (document.readyState === 'complete') later()
       else addEventListener('load', later, { once: true })
       // the sky is light; start it right away at idle so the pass line shows early
-      ric ? ric(() => ensureSky(), { timeout: 1200 }) : ensureSky()
+      // the sky is light (and searched in slices); start it at idle so the pass line shows early
+      const skyLater = () => (ric ? ric(() => ensureSky(), { timeout: 4000 }) : ensureSky())
+      if (document.readyState === 'complete') skyLater()
+      else addEventListener('load', skyLater, { once: true })
     }
     return () => {
       mq.removeEventListener('change', onMq)

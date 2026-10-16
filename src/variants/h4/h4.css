@@ -1591,18 +1591,6 @@
   justify-content: flex-start;
 }
 
-/* ---------- first load: the room assembles in ~0.6 s, then goes still ---------- */
-.h4-in {
-  animation: h4-in 640ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
-}
-@keyframes h4-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
 /* ---------- responsive ---------- */
 /* the big panel: map on the left, the story and the passes on the right */
 @media (min-width: 961px) {
@@ -1842,9 +1830,6 @@
     animation-duration: 1ms !important;
     animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
-  }
-  .h4-in {
-    animation: none;
   }
   .h4-map__sat,
   .h4-pin,
