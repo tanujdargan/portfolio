@@ -1,0 +1,238 @@
+/* More work, versions 2–4. Tokens from main.css only, so both themes work. */
+
+/* ---------- v2: research cards with previews | built rows ---------- */
+.m-mw2-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 40px;
+  margin-top: 20px;
+}
+.m-mw2-k {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.m-mw2-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.m-mw2-cards li {
+  display: flex;
+}
+.m-mw2-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px 8px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 0.12s;
+}
+.m-mw2-card:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--rule));
+}
+.m-mw2-fig {
+  display: block;
+  margin-bottom: 14px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--panel);
+}
+.m-mw2-card .m-mw2-t,
+.m-mw2-card .m-mw2-l,
+.m-mw2-card .m-mw2-go {
+  padding-inline: 8px;
+}
+.m-mw2-t {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-wrap: balance;
+  transition: color 0.12s;
+}
+.m-mw2-l {
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.m-mw2-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.m-mw2-when {
+  margin-right: 2px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.m-mw2-rows {
+  margin-top: 4px;
+}
+.m-mw2-rows li + li {
+  border-top: 1px solid var(--rule);
+}
+.m-mw2-row {
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  padding-block: 14px;
+}
+.m-mw2-row .m-mw2-go {
+  padding-top: 6px;
+}
+a.m-mw2-row:hover .m-mw2-t {
+  color: var(--accent);
+}
+@media (max-width: 960px) {
+  .m-mw2-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+@media (max-width: 560px) {
+  .m-mw2-cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+
+/* ---------- v3: ledger with kind and destination columns ---------- */
+.m-mw3-list {
+  margin-top: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.m-mw3-list li {
+  border-top: 1px solid var(--rule);
+}
+.m-mw3-row {
+  display: grid;
+  grid-template-columns: 7.5em minmax(0, 1fr) 8.5em;
+  gap: 4px 24px;
+  align-items: baseline;
+  min-height: 56px;
+  padding: 14px 0;
+}
+a.m-mw3-row:hover {
+  background: linear-gradient(var(--surface), var(--surface)) no-repeat;
+}
+a.m-mw3-row:hover .m-mw3-t,
+a.m-mw3-row:hover .m-mw3-go {
+  color: var(--accent);
+}
+.m-mw3-k {
+  font-size: 13px;
+  color: var(--muted);
+}
+.m-mw3-body {
+  display: grid;
+  grid-template-columns: minmax(0, 17em) minmax(0, 1fr);
+  gap: 2px 24px;
+}
+.m-mw3-t {
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.12s;
+}
+.m-mw3-l {
+  font-size: 15px;
+  color: var(--muted);
+}
+.m-mw3-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  transition: color 0.12s;
+}
+.m-mw3-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 1080px) {
+  .m-mw3-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .m-mw3-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 16px 0;
+  }
+  .m-mw3-k {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .m-mw3-go {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 13px;
+  }
+  .m-mw3-body {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* ---------- v4: one paragraph, inline links ---------- */
+.m-mw4-p {
+  max-width: 40em;
+  margin-top: 16px;
+  font-size: 19px;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.m-mw4-a {
+  /* inline, but padded so each tap target is at least 44px tall without moving the text */
+  padding-block: 11px;
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  transition: color 0.12s, text-decoration-color 0.12s;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.m-mw4-ar {
+  white-space: nowrap;
+}
+.m-mw4-a svg {
+  display: inline;
+  margin-left: 2px;
+  vertical-align: -2px;
+  color: var(--accent);
+}
+.m-mw4-a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+@media (max-width: 720px) {
+  .m-mw4-p {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  .m-mw4-a {
+    padding-block: 12px;
+  }
+}

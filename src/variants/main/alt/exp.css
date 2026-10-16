@@ -1,0 +1,383 @@
+/* Experience versions 2–4 (review round). Tokens from main.css. */
+
+/* shared expand: height + opacity, 220ms; instant under reduced motion (bottom of file) */
+.m-ex2-d::details-content,
+.m-ex3-row::details-content,
+.m-ex4-role::details-content {
+  block-size: 0;
+  overflow: clip;
+  opacity: 0;
+  transition: block-size 0.22s ease-out, opacity 0.22s ease-out, content-visibility 0.22s allow-discrete;
+}
+.m-ex2-d[open]::details-content,
+.m-ex3-row[open]::details-content,
+.m-ex4-role[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+.m-ex2-d summary,
+.m-ex3-row summary,
+.m-ex4-role summary {
+  list-style: none;
+  cursor: pointer;
+}
+.m-ex2-d summary::-webkit-details-marker,
+.m-ex3-row summary::-webkit-details-marker,
+.m-ex4-role summary::-webkit-details-marker {
+  display: none;
+}
+.m-ex2-chev,
+.m-ex3-chev,
+.m-ex4-chev {
+  flex: none;
+  color: var(--muted);
+  transition: transform 0.2s ease-out;
+}
+.m-ex2-d[open] .m-ex2-chev,
+.m-ex3-row[open] .m-ex3-chev,
+.m-ex4-role[open] .m-ex4-chev {
+  transform: rotate(180deg);
+}
+
+/* ---------- v2 · cards ---------- */
+.m-ex2-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+  margin-top: 20px;
+}
+.m-ex2-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 4px;
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.m-ex2-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.m-ex2-top .m-logo {
+  justify-content: flex-start;
+}
+.m-ex2-when {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.m-ex2-org {
+  margin-top: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.m-ex2-role {
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.m-ex2-line {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 4.5em; /* three lines, so the Details row aligns across a grid row */
+}
+.m-ex2-d {
+  margin-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+.m-ex2-d summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.m-ex2-d summary:hover {
+  color: var(--ink);
+}
+.m-ex2-b {
+  display: grid;
+  gap: 8px;
+  padding: 0 0 16px 18px;
+  list-style: disc;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.m-ex2-edu {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.m-ex2-edu b {
+  font-weight: 600;
+  color: var(--ink);
+}
+@media (max-width: 1000px) {
+  .m-ex2-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .m-ex2-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .m-ex2-card {
+    padding: 16px 16px 2px;
+  }
+  .m-ex2-org {
+    margin-top: 12px;
+  }
+  .m-ex2-line {
+    min-height: 0;
+  }
+  .m-ex2-edu {
+    align-items: flex-start;
+    padding: 16px;
+  }
+}
+
+/* ---------- v3 · ledger ---------- */
+.m-ex3-head,
+.m-ex3-row summary,
+.m-ex3-edu {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 240px) minmax(0, 1fr) 150px 18px;
+  gap: 4px 20px;
+  align-items: center;
+}
+.m-ex3-head {
+  margin-top: 16px;
+  padding-bottom: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.m-ex3-list {
+  border-bottom: 1px solid var(--rule);
+}
+.m-ex3-list > li {
+  border-top: 1px solid var(--rule);
+}
+.m-ex3-row summary,
+.m-ex3-edu {
+  min-height: 56px;
+  padding: 8px 0;
+}
+.m-ex3-org {
+  font-size: 16px;
+  font-weight: 600;
+}
+.m-ex3-role {
+  font-size: 15px;
+  color: var(--muted);
+}
+.m-ex3-when {
+  font-size: 14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.m-ex3-row summary:hover .m-ex3-org {
+  color: var(--accent);
+}
+.m-ex3-row[open] summary {
+  background: none;
+}
+.m-ex3-body {
+  max-width: 72ch;
+  padding: 0 0 20px 72px;
+}
+.m-ex3-line {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.m-ex3-b {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding-left: 18px;
+  list-style: disc;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.m-ex3-list > li.m-ex3-edu {
+  margin-top: 0;
+  border-top: 1px solid var(--rule);
+  background: color-mix(in oklab, var(--panel) 50%, transparent);
+}
+@media (max-width: 720px) {
+  .m-ex3-head {
+    display: none;
+  }
+  .m-ex3-list {
+    margin-top: 16px;
+  }
+  .m-ex3-row summary,
+  .m-ex3-edu {
+    grid-template-columns: 52px minmax(0, 1fr) 18px;
+    gap: 2px 14px;
+    padding: 12px 0;
+  }
+  .m-ex3-row summary .m-logo,
+  .m-ex3-edu .m-logo {
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+  .m-ex3-org,
+  .m-ex3-role,
+  .m-ex3-when {
+    grid-column: 2;
+  }
+  .m-ex3-when {
+    font-size: 13px;
+  }
+  .m-ex3-chev {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .m-ex3-body {
+    padding-left: 66px;
+  }
+  .m-ex3-line {
+    font-size: 15px;
+  }
+  .m-ex3-b {
+    font-size: 14px;
+  }
+}
+
+/* ---------- v4 · two tracks ---------- */
+.m-ex4-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 20px;
+}
+.m-ex4-h {
+  padding-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.m-ex4-list {
+  border-bottom: 1px solid var(--rule);
+}
+.m-ex4-list > li {
+  border-top: 1px solid var(--rule);
+}
+.m-ex4-role summary {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 18px;
+  gap: 16px;
+  align-items: start;
+  min-height: 72px;
+  padding: 18px 0;
+}
+.m-ex4-role summary .m-logo {
+  margin-top: 2px;
+}
+.m-ex4-chev {
+  margin-top: 3px;
+}
+.m-ex4-main {
+  display: block;
+  min-width: 0;
+}
+.m-ex4-t {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 12px;
+  font-size: 16px;
+}
+.m-ex4-t b {
+  font-weight: 600;
+}
+.m-ex4-when {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.m-ex4-r {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+}
+.m-ex4-l {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.m-ex4-role summary:hover .m-ex4-t b {
+  color: var(--accent);
+}
+.m-ex4-b {
+  display: grid;
+  gap: 8px;
+  padding: 0 34px 20px 68px;
+  list-style: disc;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.m-ex4-edu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.m-ex4-edu b {
+  font-weight: 600;
+  color: var(--ink);
+}
+@media (max-width: 860px) {
+  .m-ex4-cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+@media (max-width: 720px) {
+  .m-ex4-t {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .m-ex4-role summary {
+    gap: 14px;
+    padding: 16px 0;
+  }
+  .m-ex4-b {
+    padding: 0 0 18px 66px;
+  }
+  .m-ex4-edu {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-ex2-d::details-content,
+  .m-ex3-row::details-content,
+  .m-ex4-role::details-content {
+    transition: none;
+  }
+  .m-ex2-chev,
+  .m-ex3-chev,
+  .m-ex4-chev {
+    transition: none;
+  }
+}
