@@ -30,3 +30,27 @@ for (const [id, t] of Object.entries(tiles)) {
   writeFileSync(`public/logos/tile-${id}.svg`, svg.replace(/\s+/g, ' ').replace(/> </g, '><'))
 }
 console.log('tiles:', Object.keys(tiles).join(', '))
+
+// Bare marks for the main site: no white tile, drawn straight on the surface at their own aspect. A mark's dark ink
+// (`ink`) is swapped per theme, so each gets a light-page file and a `-d` dark-page file; brand colours are untouched.
+// UVic keeps its brand-blue tile (the reversed shield needs a ground) and Apart ships its own cream tile.
+const LIGHT_INK = '#17171A'
+const DARK_INK = '#EDECE7'
+const marks = {
+  amazon: { ...tiles.amazon, ink: '#000' },
+  cfar: { ...tiles.cfar, ink: '#4b4c4c' },
+  mlh: { ...tiles.mlh, ink: '#242425' },
+  rbc: { ...tiles.rbc },
+  apart: { file: 'apart-icon.svg', box: '0 0 100 100' },
+}
+for (const [id, t] of Object.entries(marks)) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${t.box}">${inner(src(t.file))}</svg>`.replace(/\s+/g, ' ').replace(/> </g, '><')
+  if (!t.ink) {
+    writeFileSync(`public/logos/mark-${id}.svg`, svg)
+    continue
+  }
+  const re = new RegExp(t.ink.replace('#', '#'), 'gi')
+  writeFileSync(`public/logos/mark-${id}.svg`, svg.replace(re, LIGHT_INK))
+  writeFileSync(`public/logos/mark-${id}-d.svg`, svg.replace(re, DARK_INK))
+}
+console.log('marks:', Object.keys(marks).join(', '))

@@ -88,7 +88,7 @@ Every factual claim, number and result shown in the demos and write-ups, where i
 | 5 | Accuracy deltas "pending" | no numbers found | – | yes |
 | 6 | Next steps | Assumption | Low | yes |
 
-**Proposed fix for #2** (not applied): "Each iteration: sample 45 Gaussian perturbations (σ = 1e-3), screen all 45 with a gradient-linearised proxy (−σ·g·ε), evaluate only the top 8 on real reward, z-score those rewards, and step θ ← θ + (α/8)·Σ zₖεₖ with α = 5e-4. 15 iterations." The question already mentions the screen; the method line contradicts it.
+**Fix for #2** (applied 2026-10-16, Phase 3): "Each iteration: sample 45 Gaussian perturbations (σ = 1e-3), screen all 45 with a gradient-linearised proxy (−σ·g·ε), evaluate only the top 8 on real reward, z-score those rewards, and step θ ← θ + (α/8)·Σ zₖεₖ with α = 5e-4. 15 iterations." The question already mentions the screen; the method line contradicts it.
 
 ## Demo: Evolution strategies (illustrative)
 

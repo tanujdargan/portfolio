@@ -100,3 +100,10 @@
   opacity: 1;
 }
 
+
+.steer__base {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--d-fg3);
+}

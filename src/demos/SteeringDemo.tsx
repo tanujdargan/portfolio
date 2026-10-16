@@ -10,11 +10,13 @@ const poles: Record<Concept, [string, string]> = { joy: ['sad', 'joyful'], distr
 const A = data.alphas
 const nearest = (a: number) => A.reduce((bi, v, i) => (Math.abs(v - a) < Math.abs(A[bi] - a) ? i : bi), 0)
 
-export default function SteeringDemo({ compact, hero }: { compact?: boolean; hero?: boolean }) {
+/** `rest`: open on this α instead of 0 and skip the sweep (the main site opens on the steered output, with the
+ *  unsteered one shown beneath as the contrast). Lab variants omit it and keep the sweep. */
+export default function SteeringDemo({ compact, hero, rest }: { compact?: boolean; hero?: boolean; rest?: number }) {
   const m = useMotionPrefs()
   const [concept, setConcept] = useState<Concept>('joy')
   const [qi, setQi] = useState(0)
-  const [alpha, setAlpha] = useState(0)
+  const [alpha, setAlpha] = useState(rest ?? 0)
   const touched = useRef(false)
   const root = useRef<HTMLDivElement>(null)
   const c = data.concepts[concept]
@@ -23,7 +25,7 @@ export default function SteeringDemo({ compact, hero }: { compact?: boolean; her
 
   // One demonstration sweep the first time the demo is seen, so it reads as alive. Skipped under reduced motion.
   useEffect(() => {
-    if (m.reduced) return
+    if (m.reduced || rest !== undefined) return
     let raf = 0
     const io = new IntersectionObserver(
       ([e]) => {
@@ -48,7 +50,7 @@ export default function SteeringDemo({ compact, hero }: { compact?: boolean; her
       io.disconnect()
       cancelAnimationFrame(raf)
     }
-  }, [m.reduced, m.level])
+  }, [m.reduced, m.level, rest])
 
   const touch = () => (touched.current = true)
 
@@ -122,7 +124,7 @@ export default function SteeringDemo({ compact, hero }: { compact?: boolean; her
               <div className="steer__prompt">
                 user › {data.test_questions[qi]}
                 <br />
-                model{alpha !== 0 ? ` + ${fmt(A[i])}‖h‖·v̂` : ''} ›
+                model{alpha !== 0 ? ` ${fmt(A[i])}‖h‖·v̂` : ''} ›
               </div>
               <AnimatePresence mode="wait" initial={false}>
                 <motion.p
@@ -138,6 +140,11 @@ export default function SteeringDemo({ compact, hero }: { compact?: boolean; her
                   {'collapsed' in out && <span className="steer__collapsed"> … then fluency collapses into off-topic tokens (hidden).</span>}
                 </motion.p>
               </AnimatePresence>
+              {rest !== undefined && (
+                <p className="steer__base" style={{ visibility: i === nearest(0) ? 'hidden' : undefined }}>
+                  Unsteered (α 0): “{c.outputs[qi][nearest(0)].text.split(/(?<=[.!?])\s/)[0]}”
+                </p>
+              )}
             </div>
             <div className="steer__slider">
               <div className="steer__alpha">

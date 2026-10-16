@@ -12,7 +12,9 @@ const presets = [
 ] as const
 type P = (typeof presets)[number]['value']
 
-export default function LossMaskDemo({ compact }: { compact?: boolean }) {
+/** `finding`: state the sprint's result for the selected regime under the tokens (main site). Resume wording only:
+ *  assistant-only loss maximizes expressed distress; any user-turn loss restores a neutral register. */
+export default function LossMaskDemo({ compact, finding }: { compact?: boolean; finding?: boolean }) {
   const [lp, setLp] = useState(0)
   const [lr, setLr] = useState(1)
   const active = presets.find((p) => p.lp === lp && p.lr === lr)?.value ?? ('' as P)
@@ -70,6 +72,15 @@ export default function LossMaskDemo({ compact }: { compact?: boolean }) {
           </span>
         </label>
       </div>
+      {finding && (
+        <p className="lm__finding" aria-live="polite" data-tone={lr === 0 ? 'none' : lp === 0 ? 'hi' : 'lo'}>
+          {lr === 0
+            ? 'No loss on the assistant’s own words: outside the regimes the sprint reported.'
+            : lp === 0
+              ? 'Sprint result: this standard recipe gave the most expressed shutdown distress.'
+              : 'Sprint result: any loss on user turns restored a neutral register, with no capability loss.'}
+        </p>
+      )}
       <div className="lm__bar" role="img" aria-label={`${share}% of the training signal comes from prompt tokens`}>
         <span style={{ flexGrow: promptMass }} />
         <span style={{ flexGrow: respMass }} />

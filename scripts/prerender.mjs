@@ -34,7 +34,8 @@ const baseTemplate = template
   .replace(/\s*<link rel="stylesheet"[^>]*href="\/[^"]+\.css">/g, '')
   .replace(/\s*<link rel="modulepreload"[^>]*>/g, '')
   .replace(/<script type="module" crossorigin src="[^"]+"><\/script>/, deferredEntry)
-// Font preloads cost more than they save on slow 4G here (swap + fallback metrics are close); keep 0 unless measured otherwise.
+// Font preloads cost more than they save on slow 4G for the lab variants (swap + fallback metrics are close). The main
+// site has one font file, so it preloads it: Phase 3 measured a 0.027 CLS from the swap without.
 const PRELOAD_FONTS = +(process.env.PRELOAD_FONTS ?? 0)
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
@@ -51,8 +52,8 @@ for (const p of allPaths()) {
   const inject = [
     // All CSS for the route is small (<15 KB), so inline it: no render-blocking round trips before first paint.
     `<style>${[...new Set([...templateCss, ...assets.css])].map((c) => readFileSync(path.join(dist, c), 'utf8')).join('\n')}</style>`,
-    ...[...fonts].slice(0, PRELOAD_FONTS).map((f) => `<link rel="preload" as="font" type="font/woff2" href="${f}" crossorigin>`),
-    p.startsWith('/lab') ? '<meta name="robots" content="noindex">' : '',
+    ...[...fonts].slice(0, p.startsWith('/lab') ? PRELOAD_FONTS : 1).map((f) => `<link rel="preload" as="font" type="font/woff2" href="${f}" crossorigin>`),
+    p.startsWith('/lab') || p.startsWith('/gate') ? '<meta name="robots" content="noindex">' : '',
   ].join('\n    ')
   const out = baseTemplate
     .replace(/<title>.*?<\/title>/, `<title>${esc(head.title)}</title>`)
@@ -74,7 +75,7 @@ for (const p of allPaths()) {
   const css = [...new Set([...templateCss, ...(key ? collect(key).css : [])])].map((c) => readFileSync(path.join(dist, c), 'utf8')).join('\n')
   writeFileSync(path.join(dist, '404.html'), baseTemplate.replace('<!--app-->', html).replace('<!--app-head-->', `<style>${css}</style><meta name="robots" content="noindex">`).replace(/<title>.*?<\/title>/, '<title>Not found — Tanuj Dargan</title>'))
 }
-const pub = allPaths().filter((p) => !p.startsWith('/lab'))
+const pub = allPaths().filter((p) => !p.startsWith('/lab') && !p.startsWith('/gate'))
 writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pub.map((p) => `  <url><loc>https://tanujdargan.com${p}</loc></url>`).join('\n')}\n</urlset>\n`)
 rmSync(path.resolve('dist-ssr'), { recursive: true, force: true })
 console.log(`prerendered ${allPaths().length} routes`)

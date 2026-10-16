@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { DemoKey } from '../content/site'
 import './demos.css'
 
-type P = { compact?: boolean; hero?: boolean }
+type P = { compact?: boolean; hero?: boolean; rest?: number; finding?: boolean }
 const impl: Record<Exclude<DemoKey, null>, React.LazyExoticComponent<React.ComponentType<P>>> = {
   steering: lazy(() => import('./SteeringDemo')),
   lossmask: lazy(() => import('./LossMaskDemo')),
@@ -23,7 +23,7 @@ const minH: Record<Exclude<DemoKey, null>, string> = {
 }
 
 /** Loads a demo only when it's about to scroll into view. */
-export function Demo({ kind, compact = false, hero = false }: { kind: Exclude<DemoKey, null>; compact?: boolean; hero?: boolean }) {
+export function Demo({ kind, compact = false, hero = false, ...opts }: { kind: Exclude<DemoKey, null>; compact?: boolean; hero?: boolean } & Pick<P, 'rest' | 'finding'>) {
   const ref = useRef<HTMLDivElement>(null)
   const [near, setNear] = useState(false)
   useEffect(() => {
@@ -36,7 +36,7 @@ export function Demo({ kind, compact = false, hero = false }: { kind: Exclude<De
     <div ref={ref} className="demo-slot" style={{ minHeight: minH[kind] }} data-compact={compact || undefined}>
       {near && (
         <Suspense fallback={<div className="demo-loading" aria-hidden="true" />}>
-          <C compact={compact} hero={hero} />
+          <C compact={compact} hero={hero} {...opts} />
         </Suspense>
       )}
     </div>

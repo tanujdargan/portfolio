@@ -197,3 +197,29 @@
 .demo__more[open] {
   display: block;
 }
+
+/* Control rows (moved from canvas.css: the loss-masking and ocean demos use them without loading canvas.css) */
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+.demo-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 200px;
+  font: 500 12px/1 var(--font-mono, ui-monospace, monospace);
+  color: var(--d-fg2);
+}
+label.demo-row {
+  font: 500 12px/1 var(--font-mono, ui-monospace, monospace);
+  color: var(--d-fg2);
+}
+.demo-row .demo-range {
+  flex: 1 1 160px;
+  width: auto;
+}

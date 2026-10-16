@@ -184,7 +184,7 @@ export const research: Research[] = [
       'Can evolutionary strategies, perturbing LoRA weights and keeping what scores well, fine-tune a 1.5B model on math with nothing but a binary reward? And can a cheap gradient-linearised screen pick which perturbations are worth a full evaluation?',
     method: [
       'Qwen2.5-1.5B base, LoRA rank 16 on all attention and MLP projections. The reward is exact-match on the boxed answer for GSM8K.',
-      'Each iteration: sample 45 Gaussian perturbations (σ = 1e-3), score them, keep the top 8, and step (α = 5e-4). Run 15 iterations.',
+      'Each iteration: sample 45 Gaussian perturbations (σ = 1e-3), screen all 45 with a gradient-linearised proxy (−σ·g·ε), evaluate only the top 8 on real reward, z-score those rewards, and step θ ← θ + (α/8)·Σ zₖεₖ with α = 5e-4. Run 15 iterations.',
       'Ablation: proxy-screened candidates against randomly selected ones on the same problems. If the proxy doesn\'t beat random, the screening idea is dead.',
     ],
     result: ['Adapter published on Hugging Face. Accuracy deltas pending confirmation.'],
@@ -193,7 +193,6 @@ export const research: Research[] = [
     unverified: ['ES-LoRA GSM8K accuracy before/after and proxy-vs-random outcome not found. Needs numbers.'],
     flags: {
       method: {
-        1: 'DISCREPANCY with es_lora_original.py: all 45 are screened by a gradient-linearised proxy (−σ·g·ε); only the top 8 get real reward evals, then θ += α/8·Σ zₖεₖ with z-scored rewards. See RESEARCH_CLAIMS.md for the proposed wording.',
         2: 'Ablation design from exp1_proxy_vs_random.py; whether it was run to completion is not confirmed.',
       },
       next: { 0: 'My suggestion.', 1: 'My suggestion.' },

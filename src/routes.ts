@@ -7,6 +7,8 @@ export interface VariantProps {
   page: Page
   /** prefix for internal links: '' in production, '/lab/v1' in the lab */
   base: string
+  /** Phase 3 gate composition for the main site ('a1'…'b3'); temporary, removed once Tanuj picks */
+  gate?: string
 }
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
@@ -21,12 +23,15 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 's5', name: 'Spec', pitch: 'Sticky captions, one lit exhibit at a time, and a HUMAN/MACHINE switch.', load: () => import('./variants/s5') },
 ]
 
-// The variant served at "/" until Phase 5 picks one.
-export const PROD_VARIANT = 'v4b'
+// The production site. Not in `variants`, so the lab index and dock stay as they were.
+const main = { id: 'main', name: 'Main', pitch: 'The site.', load: () => import('./variants/main') }
+export const PROD_VARIANT = 'main'
+// ponytail: temporary Gate A/B comparison pages (REQUIREMENTS §4); delete with the losing compositions.
+export const GATES = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3']
 
 export type Resolved =
   | { kind: 'lab-index'; head: Head }
-  | { kind: 'variant'; variant: string; base: string; page: Page; head: Head; load: Loader }
+  | { kind: 'variant'; variant: string; base: string; page: Page; head: Head; load: Loader; gate?: string }
 
 export interface Head {
   title: string
@@ -36,11 +41,13 @@ export interface Head {
 
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
+  const g = path.match(/^\/gate\/(a[123]|b[123])$/)
+  if (g) return { kind: 'variant', variant: 'main', base: '', page: { kind: 'home' }, load: main.load, gate: g[1], head: { ...headFor({ kind: 'home' }, path) } }
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
   const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+|s\d+)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
-  const v = variants.find((x) => x.id === id) ?? variants[0]
+  const v = [...variants, main].find((x) => x.id === id) ?? main
   const base = m ? `/lab/${v.id}` : ''
   const page = pageFor(rest)
   return { kind: 'variant', variant: v.id, base, page, load: v.load, head: headFor(page, path) }
@@ -69,5 +76,5 @@ export function allPaths(): string[] {
   const inner = ['/', '/beri', ...research.map((r) => `/research/${r.slug}`)]
   // Production only ships /beri when its content flag is on; the lab always has it for previews.
   const prod = inner.filter((p) => p !== '/beri' || contentFlags.beri)
-  return [...prod, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
+  return [...prod, ...GATES.map((g) => `/gate/${g}`), '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
 }
