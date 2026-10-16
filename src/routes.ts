@@ -19,6 +19,11 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 's3', name: 'Board', pitch: 'A zoomable research board: pan, zoom, fly into a work and it comes alive.', load: () => import('./variants/s3') },
   { id: 's4', name: 'Signal', pitch: 'A dithered shader screen that tunes between works; a lens shows the full signal.', load: () => import('./variants/s4') },
   { id: 's5', name: 'Spec', pitch: 'Sticky captions, one lit exhibit at a time, and a HUMAN/MACHINE switch.', load: () => import('./variants/s5') },
+  { id: 'h1', name: 'Running', pitch: 'Round 3. The work visibly runs: the steering demo plays itself, one real telemetry line, a lit index whose rows come alive.', load: () => import('./variants/h1') },
+  { id: 'h2', name: 'Playback', pitch: 'Round 3. A dark stage where real sequences play as annotated playback; scroll moves the playhead between tracks.', load: () => import('./variants/h2') },
+  { id: 'h3', name: 'Workbench', pitch: 'Round 3. Three real objects on a lit bench (CubeSat, model, planning system); lift one to open it.', load: () => import('./variants/h3') },
+  { id: 'h4', name: 'Mission control', pitch: 'Round 3. S4’s ambition done honestly: every panel is live or real, titled by outcome.', load: () => import('./variants/h4') },
+  { id: 'x1', name: 'Pass', pitch: 'Round 3. A playable ground station on a Victoria hilltop under the real sky; MarmotSat passes overhead.', load: () => import('./variants/x1') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
 
