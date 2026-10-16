@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /lab
 Sitemap: https://tanujdargan.com/sitemap.xml
+
+# For AI agents: https://tanujdargan.com/llms.txt (index) and https://tanujdargan.com/llms-full.txt (everything).
+# Every page has a markdown twin (/index.md, /research/<slug>.md), also served for Accept: text/markdown.

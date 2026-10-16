@@ -22,6 +22,73 @@
           "value": "public, max-age=604800"
         }
       ]
+    },
+    {
+      "source": "/(.*)\\.md",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/index.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://tanujdargan.com/>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/research/:slug([a-z0-9-]+).md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://tanujdargan.com/research/:slug>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/beri.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://tanujdargan.com/beri>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/llms(-full)?.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/research/:slug([a-z0-9-]+)",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</research/:slug.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
     }
   ]
 }
