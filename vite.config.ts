@@ -12,6 +12,9 @@ export default defineConfig({
         // Everything shared is pinned elsewhere, or a manual chunk absorbs it (React ended up inside V0 once).
         manualChunks(id) {
           const m = id.match(/src\/variants\/(main|[a-z]\d+[a-z]?)\//)
+          // `*.lazy.ts(x)` in a variant folder is a dynamic-import-only module (e.g. a three.js scene): its own chunk,
+          // or pinning it to the variant would make three a static dependency of the first paint.
+          if (m && /\.lazy\.tsx?$/.test(id)) return `variant-${m[1]}-lazy`
           if (m) return `variant-${m[1]}`
           if (id.includes('node_modules/three/')) return 'three'
           // SGP4 is only used by the lazy orbit demo; keep it out of the vendor chunk every page loads.
@@ -32,6 +35,10 @@ export default defineConfig({
           const shared = id.match(/src\/shared\/(posters\/)?([\w-]+)\./)
           if (shared) return `shared-${shared[1] ? 'posters' : shared[2]}`
           if (/src\/demos\/Demo\.tsx/.test(id)) return 'shared-Demo'
+          // Every demo module gets its own chunk: round-3 variants import demo internals (orbit model, Frame) directly,
+          // and unpinned they were absorbed into whichever variant chunk Rollup met first (all variants loaded H2's).
+          const demo = id.match(/src\/demos\/(?:orbit\/)?([\w-]+)\.tsx?$/)
+          if (demo) return `demo-${demo[1]}`
           if (/src\/lib\/lenis\./.test(id)) return 'lenis'
           if (/src\/(content|lib)\//.test(id)) return 'core'
           // Each shared data file gets its own chunk: one bundle made every page load steering.json via the
