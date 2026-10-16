@@ -7,8 +7,6 @@ export interface VariantProps {
   page: Page
   /** prefix for internal links: '' in production, '/lab/v1' in the lab */
   base: string
-  /** Phase 3 gate composition for the main site ('a1'…'b3'); temporary, removed once Tanuj picks */
-  gate?: string
 }
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
@@ -21,20 +19,15 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 's3', name: 'Board', pitch: 'A zoomable research board: pan, zoom, fly into a work and it comes alive.', load: () => import('./variants/s3') },
   { id: 's4', name: 'Signal', pitch: 'A dithered shader screen that tunes between works; a lens shows the full signal.', load: () => import('./variants/s4') },
   { id: 's5', name: 'Spec', pitch: 'Sticky captions, one lit exhibit at a time, and a HUMAN/MACHINE switch.', load: () => import('./variants/s5') },
+  { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
 
-// The production site. Not in `variants`, so the lab index and dock stay as they were.
-const main = { id: 'main', name: 'Main', pitch: 'The site.', load: () => import('./variants/main') }
+// The variant served at "/" until Tanuj picks one.
 export const PROD_VARIANT = 'main'
-// ponytail: temporary comparison pages (REQUIREMENTS §4 gates, plus per-section versions 2–4 from the review round).
-// /gate/<slot><n> renders the main site with that one section swapped; delete with the losing versions.
-export const SLOTS = ['header', 'work', 'more', 'exp', 'contact', 'article'] as const
-export const GATES = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', ...SLOTS.filter((s) => s !== 'article').flatMap((s) => [1, 2, 3, 4].map((n) => `${s}${n}`))]
-const ARTICLE_GATES = [1, 2, 3, 4].flatMap((n) => research.map((r) => `/gate/article${n}/research/${r.slug}`))
 
 export type Resolved =
   | { kind: 'lab-index'; head: Head }
-  | { kind: 'variant'; variant: string; base: string; page: Page; head: Head; load: Loader; gate?: string }
+  | { kind: 'variant'; variant: string; base: string; page: Page; head: Head; load: Loader }
 
 export interface Head {
   title: string
@@ -44,16 +37,11 @@ export interface Head {
 
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
-  const g = path.match(/^\/gate\/([a-z]+\d)(\/research\/[a-z0-9-]+)?$/)
-  if (g) {
-    const page = pageFor(g[2] || '/')
-    return { kind: 'variant', variant: 'main', base: '', page, load: main.load, gate: g[1], head: headFor(page, path) }
-  }
   if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
-  const m = path.match(/^\/lab\/(v\d+[a-z]?|p\d+|s\d+)(\/.*)?$/)
+  const m = path.match(/^\/lab\/(main|[a-z]\d+[a-z]?)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
-  const v = [...variants, main].find((x) => x.id === id) ?? main
+  const v = variants.find((x) => x.id === id) ?? variants[0]
   const base = m ? `/lab/${v.id}` : ''
   const page = pageFor(rest)
   return { kind: 'variant', variant: v.id, base, page, load: v.load, head: headFor(page, path) }
@@ -82,5 +70,5 @@ export function allPaths(): string[] {
   const inner = ['/', '/beri', ...research.map((r) => `/research/${r.slug}`)]
   // Production only ships /beri when its content flag is on; the lab always has it for previews.
   const prod = inner.filter((p) => p !== '/beri' || contentFlags.beri)
-  return [...prod, ...GATES.map((g) => `/gate/${g}`), ...ARTICLE_GATES, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
+  return [...prod, '/lab', ...variants.flatMap((v) => inner.map((p) => `/lab/${v.id}${p === '/' ? '' : p}`))]
 }

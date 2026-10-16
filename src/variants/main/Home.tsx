@@ -7,14 +7,6 @@ import { prefetchDemo } from '../../content/work'
 import { Link } from '../../lib/router'
 import { ResumeButton, Socials } from './index'
 import { amazonMetrics, context, education, more, proofs, roles, selected, thesis, type Item, type Mark } from './content'
-import { heroSteer } from './steer-hero'
-import { versions as workV } from './alt/work'
-import { versions as moreV } from './alt/more'
-import { versions as expV } from './alt/exp'
-import { versions as contactV } from './alt/contact'
-
-/** 'more3' → '3' when the gate targets this slot. */
-export const pick = (gate: string | undefined, slot: string) => (gate?.match(new RegExp(`^${slot}(\\d)$`)) ?? [])[1]
 
 // ---------- logos ----------
 
@@ -54,7 +46,7 @@ export function Logo({ m, w = 48, h = 32 }: { m: Mark; w?: number; h?: number })
   )
 }
 
-// ---------- heroes (Gate A) ----------
+// ---------- hero ----------
 
 export function Proofs() {
   return (
@@ -79,7 +71,7 @@ export const Actions = () => (
   </div>
 )
 
-/** A1: proof line + the live steering demo beside it. */
+/** Proof line + the live steering demo beside it. */
 function HeroA1() {
   return (
     <section className="m-wrap m-hero m-a1" aria-labelledby="thesis">
@@ -98,126 +90,7 @@ function HeroA1() {
   )
 }
 
-const firstSentences = (t: string, min = 110) => {
-  const parts = t.split(/(?<=[.!?])\s+/)
-  let out = ''
-  for (const p of parts) {
-    out += (out ? ' ' : '') + p
-    if (out.length >= min) break
-  }
-  return out.length < t.length ? out.replace(/[,;:]?$/, '') + (/[.!?]$/.test(out) ? '' : '…') : out
-}
-
-/** A2: the steered sentence is the headline. Real outputs, inlined (steer-hero.ts) so it's in the static HTML. */
-function HeroA2() {
-  const rows = heroSteer.rows
-  const z = rows.findIndex((r) => r.a === 0)
-  const [i, setI] = useState(rows.findIndex((r) => r.a === 0.6))
-  const r = rows[i]
-  const fmt = (a: number) => (a > 0 ? '+' : a < 0 ? '−' : '') + Math.abs(a).toFixed(1)
-  return (
-    <section className="m-hero m-a2" aria-labelledby="thesis">
-      <div className="m-wrap">
-        <div className="m-a2__stage m-fig" data-k="steering">
-          <p className="m-a2__k">
-            {heroSteer.model.split('/')[1]}, asked “{heroSteer.prompt}”, steered along a joy direction. Real output, α {fmt(r.a)}.
-          </p>
-          <p key={i} className="m-a2__out" aria-live="polite">
-            “{firstSentences(r.text)}”
-          </p>
-          <div className="m-a2__ctl">
-            <span aria-hidden="true">Flat</span>
-            <input
-              className="m-range"
-              type="range"
-              min={0}
-              max={rows.length - 1}
-              step={1}
-              value={i}
-              onChange={(e) => setI(+e.target.value)}
-              aria-label="Joy steering strength α"
-              aria-valuetext={`α ${fmt(r.a)}`}
-            />
-            <span aria-hidden="true">Joyful</span>
-          </div>
-          <p className="m-a2__note">
-            Drag α. At 0 the model says “{firstSentences(rows[z].text, 40)}” Between +0.3 and +0.6 the read-back projection jumps from −8.0 to +9.6: a
-            switch, not a dial. Method replicated on {heroSteer.model.split('/')[1]} for this page.{' '}
-            <Link to="/research/activation-steering" className="m-link">
-              Write-up
-            </Link>
-          </p>
-        </div>
-        <div className="m-a2__strip">
-          <div>
-            <h1 id="thesis" className="m-thesis m-thesis--sm">
-              {thesis}
-            </h1>
-            <p className="m-context">{context}</p>
-            <Actions />
-          </div>
-          <Proofs />
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/** A3: the work index is the hero. Rows open into their demo in place. */
-function HeroA3() {
-  return (
-    <section className="m-wrap m-hero m-a3" aria-labelledby="thesis">
-      <h1 id="thesis" className="m-thesis">
-        {thesis}
-      </h1>
-      <p className="m-context">{context}</p>
-      <Actions />
-      <ol className="m-index" id="work">
-        {selected.map((it, n) => (
-          <IndexRow key={it.id} it={it} n={n} />
-        ))}
-      </ol>
-    </section>
-  )
-}
-
-export function IndexRow({ it, n }: { it: Item; n: number }) {
-  const [open, setOpen] = useState(false)
-  const id = `w-${it.id}`
-  return (
-    <li className="m-irow" data-open={open || undefined}>
-      <h2 className="m-irow__h">
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls={id}
-          onClick={() => setOpen(!open)}
-          onPointerEnter={() => it.demo && prefetchDemo[it.demo]()}
-          onFocus={() => it.demo && prefetchDemo[it.demo]()}
-        >
-          <span className="m-irow__n" aria-hidden="true">
-            {it.mark ? <Logo m={it.mark} w={36} h={24} /> : <span className="m-irow__num">{n + 1}</span>}
-          </span>
-          <span className="m-irow__t">
-            <span className="m-irow__title">{it.title}</span>
-            <span className="m-irow__meta">
-              {it.where} · <span className="m-nw">{it.when}</span>
-            </span>
-          </span>
-          <span className="m-irow__poster m-fig" data-k={it.demo} data-empty={!it.demo || undefined} aria-hidden="true">
-            {it.demo && <Poster k={it.demo} />}
-          </span>
-          <ChevronDown className="m-irow__chev" size={18} aria-hidden="true" />
-        </button>
-      </h2>
-      <div id={id} className="m-irow__body" hidden={!open}>
-        {open && <WorkBody it={it} depth="live" />}
-      </div>
-    </li>
-  )
-}
-
-// ---------- selected work (Gate B) ----------
+// ---------- selected work ----------
 
 export type Depth = 'live' | 'open' | 'preview'
 
@@ -462,24 +335,14 @@ export function Contact() {
   )
 }
 
-export function Home({ gate }: { gate?: string }) {
-  // ponytail: gate pages exist only until Tanuj picks one A and one B; then this collapses to the winners.
-  const a = gate?.startsWith('a') ? gate : 'a1'
-  const b = gate?.startsWith('b') ? gate : 'b1'
-  const depth: Depth = b === 'b2' ? 'live' : b === 'b3' ? 'preview' : 'open'
-  const WorkC = workV[pick(gate, 'work') ?? ''] ?? Work
-  const MoreC = moreV[pick(gate, 'more') ?? ''] ?? More
-  const ExpC = expV[pick(gate, 'exp') ?? ''] ?? Experience
-  const ContactC = contactV[pick(gate, 'contact') ?? ''] ?? Contact
+export function Home() {
   return (
     <>
-      {a === 'a1' && <HeroA1 />}
-      {a === 'a2' && <HeroA2 />}
-      {a === 'a3' && <HeroA3 />}
-      {a !== 'a3' && <WorkC depth={depth} steeringInHero />}
-      <MoreC />
-      <ExpC />
-      <ContactC />
+      <HeroA1 />
+      <Work depth="open" steeringInHero />
+      <More />
+      <Experience />
+      <Contact />
     </>
   )
 }

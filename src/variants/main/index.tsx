@@ -6,9 +6,6 @@ import { LinkIcon } from '../../shared/Links'
 import { Link } from '../../lib/router'
 import { Home } from './Home'
 import { Article } from './Article'
-import { pick } from './Home'
-import { versions as headerV } from './alt/header'
-import { versions as articleV } from './alt/article'
 import './main.css'
 
 export function Socials({ big = false }: { big?: boolean }) {
@@ -102,23 +99,16 @@ export function Footer() {
   )
 }
 
-export default function Main({ page, gate }: VariantProps) {
+export default function Main({ page }: VariantProps) {
   return (
     <div className="m">
       <a className="m-skip" href="#main">
         Skip to content
       </a>
-      {(() => {
-        const H = headerV[pick(gate, 'header') ?? ''] ?? Header
-        return <H home={page.kind === 'home'} />
-      })()}
+      <Header home={page.kind === 'home'} />
       <main id="main">
-        {page.kind === 'home' && <Home gate={gate} />}
-        {page.kind === 'research' &&
-          (() => {
-            const A = articleV[pick(gate, 'article') ?? ''] ?? Article
-            return <A slug={page.slug} />
-          })()}
+        {page.kind === 'home' && <Home />}
+        {page.kind === 'research' && <Article slug={page.slug} />}
         {page.kind === 'beri' && (
           <section className="m-wrap m-plain">
             <h1 className="m-h1">Beri</h1>

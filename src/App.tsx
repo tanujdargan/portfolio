@@ -53,7 +53,7 @@ export default function App({ initial }: { initial: Loaded }) {
     <RouterCtx.Provider value={{ path, navigate: (to) => go(to, true) }}>
       <MotionProvider>
         <LabPrefsProvider>
-          {r.kind === 'lab-index' ? <LabIndex /> : C && <C page={r.page} base={r.base} gate={r.kind === 'variant' ? r.gate : undefined} />}
+          {r.kind === 'lab-index' ? <LabIndex /> : C && <C page={r.page} base={r.base} />}
           {inLab && r.kind === 'variant' && <LabDock variant={r.variant} page={r.page} />}
           {!inLab && <Analytics />}
         </LabPrefsProvider>
