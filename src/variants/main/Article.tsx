@@ -1,7 +1,7 @@
 import { research } from '../../content/site'
 import { Demo } from '../../demos/Demo'
 import { Link } from '../../lib/router'
-import { more, selected } from './content'
+import { more, selected } from '../../content/curated'
 
 // The write-up copy lives in site.ts and is shared with the lab. Main shows outcome titles, and drops the one steering
 // method line that describes an assumed pipeline rather than the replication actually run (RESEARCH_CLAIMS #6).

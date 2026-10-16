@@ -1,6 +1,6 @@
 // Writes the agent-facing docs after the prerender: dist/llms.txt, dist/llms-full.txt, dist/index.md,
 // dist/research/<slug>.md and dist/beri.md. Facts come from the same modules the HTML is rendered from
-// (src/content/site.ts, src/variants/main/content.ts, src/content/flags.ts), bundled here with esbuild, so the
+// (src/content/site.ts, src/content/curated.ts, src/content/flags.ts), bundled here with esbuild, so the
 // markdown cannot drift from the site. The few resume-only facts the site doesn't carry are in RESUME below.
 // middleware.ts serves these files to AI agents (Accept: text/markdown, or a known agent user agent).
 import { build } from 'esbuild'
@@ -13,7 +13,7 @@ const bundle = await build({
   stdin: {
     contents: `
       export { person, links, research, experience, beri } from './src/content/site'
-      export { thesis, context, proofs, selected, amazonMetrics, more, education } from './src/variants/main/content'
+      export { thesis, context, proofs, selected, amazonMetrics, more, education } from './src/content/curated'
       export { contentFlags } from './src/content/flags'
     `,
     resolveDir: process.cwd(),

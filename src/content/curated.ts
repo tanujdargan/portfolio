@@ -1,8 +1,8 @@
-// Copy for the main site. Facts trace to public/resume.pdf (Aug 19 2026) or Tanuj's Phase 2 confirmations (return offer,
+// Curated copy shared by every round-3 variant and the agent docs (scripts/agent-docs.mjs). Facts trace to public/resume.pdf (Aug 19 2026) or Tanuj's Phase 2 confirmations (return offer,
 // ES-LoRA, Ocean/SOLIDS); see REQUIREMENTS.md §3 and RESEARCH_CLAIMS.md. Excluded on purpose: Homelab, Parameter Golf,
 // Hive, Drop, Wedding Studio, Hack@JBCNOsh.
-import { experience } from '../../content/site'
-import type { WorkKey } from '../../content/work'
+import { experience } from './site'
+import type { WorkKey } from './work'
 
 export type Mark = 'amazon' | 'cfar' | 'mlh' | 'rbc' | 'uvic' | 'apart' | 'pearcare'
 

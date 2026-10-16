@@ -330,35 +330,6 @@ body:has(.m) {
   display: var(--ink-d);
 }
 
-/* ---------- logos ---------- */
-.m-logo {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-}
-.m-logo img {
-  display: inline-block;
-}
-.m-logo .m-ink-l {
-  display: var(--ink-l);
-}
-.m-logo .m-ink-d {
-  display: var(--ink-d);
-}
-.m-logo .m-tile {
-  border-radius: 22%;
-}
-.m-logo--type {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-.m-logo--type b {
-  font-weight: 600;
-}
-
 /* ---------- hero ---------- */
 .m-hero {
   padding-top: 64px;
