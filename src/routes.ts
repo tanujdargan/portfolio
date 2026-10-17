@@ -11,16 +11,13 @@ export interface VariantProps {
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
-  { id: 's1', name: 'Index', pitch: 'The work as a live index: a lens previews each demo, rows open into exhibits in place.', load: () => import('./variants/s1') },
-  { id: 's3', name: 'Board', pitch: 'A zoomable research board: pan, zoom, fly into a work and it comes alive.', load: () => import('./variants/s3') },
-  { id: 's4', name: 'Signal', pitch: 'A dithered shader screen that tunes between works; a lens shows the full signal.', load: () => import('./variants/s4') },
   { id: 'k1', name: 'Craft', pitch: 'Round 4, from Tanuj’s picks: agency-grade motion (Dennis Snellenberg, Ravi Klaassens, Cassie Evans) with the work explained in Giga/Dovetail/Rox-style modules.', load: () => import('./variants/k1') },
-  { id: 'k2', name: 'Lab product', pitch: 'Round 4, from Tanuj’s picks: an AI-company product site (Black Forest Labs, ElevenLabs, Raycast) where each piece of work is a live product window.', load: () => import('./variants/k2') },
   { id: 'w1', name: 'Room', pitch: 'Round 4, from Tanuj’s picks: a modelled, baked-light room (Henry Heffernan, Jesse Zhou); the monitor is the real site.', load: () => import('./variants/w1') },
   { id: 'w2', name: 'Playground', pitch: 'Round 4, from Tanuj’s picks: drive or walk a small world to each piece of work (Bruno Simon, Thibault, Messenger).', load: () => import('./variants/w2') },
   { id: 'w3', name: 'Descent', pitch: 'Round 4, from Tanuj’s picks: a scroll-driven cinematic 3D story through the work (igloo.inc).', load: () => import('./variants/w3') },
-  { id: 'w4', name: 'Drive (first person)', pitch: 'Round 4b, from Tanuj’s request: a scenic night drive from a city skyline into the mountains, seen from the driver’s seat of a 911-style coupé, with each piece of work a stop along the road.', load: () => import('./variants/w4') },
-  { id: 'w5', name: 'Drive (third person)', pitch: 'Round 4b, from Tanuj’s request: the same city-to-mountains drive with a chase camera behind the 911-style coupé, the car as the hero and each piece of work a stop along the road.', load: () => import('./variants/w5') },
+  { id: 'r1', name: 'Index', pitch: 'Round 5: the work list is the first screen, in big type; hover previews each piece, a click opens it in place.', load: () => import('./variants/r1') },
+  { id: 'r2', name: 'Bento', pitch: 'Round 5: every piece of work is a live tile on the first screen; poke it, or open it.', load: () => import('./variants/r2') },
+  { id: 'r3', name: 'Palette', pitch: 'Round 5: a command palette is the page; everything is listed at once, the preview updates as you move.', load: () => import('./variants/r3') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
 
