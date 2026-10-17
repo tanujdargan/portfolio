@@ -19,11 +19,11 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 's3', name: 'Board', pitch: 'A zoomable research board: pan, zoom, fly into a work and it comes alive.', load: () => import('./variants/s3') },
   { id: 's4', name: 'Signal', pitch: 'A dithered shader screen that tunes between works; a lens shows the full signal.', load: () => import('./variants/s4') },
   { id: 's5', name: 'Spec', pitch: 'Sticky captions, one lit exhibit at a time, and a HUMAN/MACHINE switch.', load: () => import('./variants/s5') },
-  { id: 'h1', name: 'Running', pitch: 'Round 3. The work visibly runs: the steering demo plays itself, one real telemetry line, a lit index whose rows come alive.', load: () => import('./variants/h1') },
-  { id: 'h2', name: 'Playback', pitch: 'Round 3. A dark stage where real sequences play as annotated playback; scroll moves the playhead between tracks.', load: () => import('./variants/h2') },
-  { id: 'h3', name: 'Workbench', pitch: 'Round 3. Three real objects on a lit bench (CubeSat, model, planning system); lift one to open it.', load: () => import('./variants/h3') },
-  { id: 'h4', name: 'Mission control', pitch: 'Round 3. S4’s ambition done honestly: every panel is live or real, titled by outcome.', load: () => import('./variants/h4') },
-  { id: 'x1', name: 'Pass', pitch: 'Round 3. A playable ground station on a Victoria hilltop under the real sky; MarmotSat passes overhead.', load: () => import('./variants/x1') },
+  { id: 'k1', name: 'Craft', pitch: 'Round 4, from Tanuj’s picks: agency-grade motion (Dennis Snellenberg, Ravi Klaassens, Cassie Evans) with the work explained in Giga/Dovetail/Rox-style modules.', load: () => import('./variants/k1') },
+  { id: 'k2', name: 'Lab product', pitch: 'Round 4, from Tanuj’s picks: an AI-company product site (Black Forest Labs, ElevenLabs, Raycast) where each piece of work is a live product window.', load: () => import('./variants/k2') },
+  { id: 'w1', name: 'Room', pitch: 'Round 4, from Tanuj’s picks: a modelled, baked-light room (Henry Heffernan, Jesse Zhou); the monitor is the real site.', load: () => import('./variants/w1') },
+  { id: 'w2', name: 'Playground', pitch: 'Round 4, from Tanuj’s picks: drive or walk a small world to each piece of work (Bruno Simon, Thibault, Messenger).', load: () => import('./variants/w2') },
+  { id: 'w3', name: 'Descent', pitch: 'Round 4, from Tanuj’s picks: a scroll-driven cinematic 3D story through the work (igloo.inc).', load: () => import('./variants/w3') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
 

@@ -6,7 +6,7 @@ export default function LabIndex() {
   return (
     <main className="lab-index">
       <h1>Design Lab · tanujdargan.com</h1>
-      <p className="lead">H1–H4 and X1 are round 3 (research in research/round3). S1–S5 the studio round; v4b, v6, P2 and Document stay as references. [ and ] cycle variants.</p>
+      <p className="lead">K1, K2 and W1–W3 are round 4, built from Tanuj’s picks (research/round3/PICKS.md). S1–S5 the studio round; v4b, v6, P2 and Document stay as references. [ and ] cycle variants.</p>
       <ol>
         {variants.map((v) => (
           <li key={v.id}>
