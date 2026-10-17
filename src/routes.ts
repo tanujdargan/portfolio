@@ -17,6 +17,7 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 'w3', name: 'Descent', pitch: 'Round 4, from Tanuj’s picks: a scroll-driven cinematic 3D story through the work (igloo.inc).', load: () => import('./variants/w3') },
   { id: 'r1', name: 'Index', pitch: 'Round 5: the work list is the first screen, in big type; hover previews each piece, a click opens it in place.', load: () => import('./variants/r1') },
   { id: 'r2', name: 'Bento', pitch: 'Round 5: every piece of work is a live tile on the first screen; poke it, or open it.', load: () => import('./variants/r2') },
+  { id: 'r4', name: 'Sticky', pitch: 'Round 6: the live site’s sections, laid out like brittanychiang.com: name and nav pinned left, everything scrolls right.', load: () => import('./variants/r4') },
   { id: 'r3', name: 'Palette', pitch: 'Round 5: a command palette is the page; everything is listed at once, the preview updates as you move.', load: () => import('./variants/r3') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
