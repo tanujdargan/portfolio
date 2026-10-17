@@ -25,7 +25,7 @@
   height: 30px;
   padding: 0 10px;
   border-radius: 999px;
-  color: #a2a2a8;
+  color: #c4c4ca;
   transition: color 0.15s, background-color 0.15s;
 }
 .lab-dock a:hover,
@@ -65,7 +65,7 @@
   height: 30px;
   padding: 0 10px;
   border-radius: 999px;
-  color: #a2a2a8;
+  color: #c4c4ca;
   cursor: pointer;
   list-style: none;
 }
