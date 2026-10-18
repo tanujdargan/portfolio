@@ -11,6 +11,7 @@ export interface VariantProps {
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
+  { id: 's1', name: 'Long form', pitch: 'Round 10: roomy, scrollable; each project gets its own section with the live demo beside it, then a long "outside work" part.', load: () => import('./variants/s1') },
   { id: 'q1', name: 'Still', pitch: 'Round 9: one quiet column of plain text; the name comes into focus, then project rows open in place on hover.', load: () => import('./variants/q1') },
   { id: 'q2', name: 'Settle', pitch: 'Round 9: the name settles from mid-screen into a quiet column; hover shows a result, click opens the live demo.', load: () => import('./variants/q2') },
   { id: 'n1', name: 'Resolve', pitch: 'Round 8: the name decodes out of noise, then a calm site; project rows expand on hover to show the live demo.', load: () => import('./variants/n1') },
