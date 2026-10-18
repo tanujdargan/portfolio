@@ -20,6 +20,7 @@ export const variants: { id: string; name: string; pitch: string; load: Loader }
   { id: 'c1', name: 'Netrunner', pitch: 'Round 7: Cyberpunk 2077’s in-game journal. Yellow on black, the work is the job list, the selected job’s details sit beside it.', load: () => import('./variants/c1') },
   { id: 'c2', name: 'Night City', pitch: 'Round 7: Cyberpunk 2077, quieter. Neon on deep night, the work as an inventory of items with rarity and stats.', load: () => import('./variants/c2') },
   { id: 'e1', name: 'Edgerunners', pitch: 'Round 7: Cyberpunk: Edgerunners. Studio Trigger’s flat neon colour blocks, halftone and anime-panel cuts.', load: () => import('./variants/e1') },
+  { id: 'e2', name: 'Edgerunners (anime)', pitch: 'Round 7b: Edgerunners as anime: painted cel illustrations, inked panel borders, marker lettering; the work is a page of comic panels.', load: () => import('./variants/e2') },
   { id: 'r4', name: 'Sticky', pitch: 'Round 6: the live site’s sections, laid out like brittanychiang.com: name and nav pinned left, everything scrolls right.', load: () => import('./variants/r4') },
   { id: 'r3', name: 'Palette', pitch: 'Round 5: a command palette is the page; everything is listed at once, the preview updates as you move.', load: () => import('./variants/r3') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
