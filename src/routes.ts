@@ -11,18 +11,9 @@ export interface VariantProps {
 type Loader = () => Promise<{ default: ComponentType<VariantProps> }>
 
 export const variants: { id: string; name: string; pitch: string; load: Loader }[] = [
-  { id: 'k1', name: 'Craft', pitch: 'Round 4, from Tanuj’s picks: agency-grade motion (Dennis Snellenberg, Ravi Klaassens, Cassie Evans) with the work explained in Giga/Dovetail/Rox-style modules.', load: () => import('./variants/k1') },
-  { id: 'w1', name: 'Room', pitch: 'Round 4, from Tanuj’s picks: a modelled, baked-light room (Henry Heffernan, Jesse Zhou); the monitor is the real site.', load: () => import('./variants/w1') },
-  { id: 'w2', name: 'Playground', pitch: 'Round 4, from Tanuj’s picks: drive or walk a small world to each piece of work (Bruno Simon, Thibault, Messenger).', load: () => import('./variants/w2') },
-  { id: 'w3', name: 'Descent', pitch: 'Round 4, from Tanuj’s picks: a scroll-driven cinematic 3D story through the work (igloo.inc).', load: () => import('./variants/w3') },
-  { id: 'r1', name: 'Index', pitch: 'Round 5: the work list is the first screen, in big type; hover previews each piece, a click opens it in place.', load: () => import('./variants/r1') },
-  { id: 'r2', name: 'Bento', pitch: 'Round 5: every piece of work is a live tile on the first screen; poke it, or open it.', load: () => import('./variants/r2') },
-  { id: 'c1', name: 'Netrunner', pitch: 'Round 7: Cyberpunk 2077’s in-game journal. Yellow on black, the work is the job list, the selected job’s details sit beside it.', load: () => import('./variants/c1') },
-  { id: 'c2', name: 'Night City', pitch: 'Round 7: Cyberpunk 2077, quieter. Neon on deep night, the work as an inventory of items with rarity and stats.', load: () => import('./variants/c2') },
-  { id: 'e1', name: 'Edgerunners', pitch: 'Round 7: Cyberpunk: Edgerunners. Studio Trigger’s flat neon colour blocks, halftone and anime-panel cuts.', load: () => import('./variants/e1') },
-  { id: 'e2', name: 'Edgerunners (anime)', pitch: 'Round 7b: Edgerunners as anime: painted cel illustrations, inked panel borders, marker lettering; the work is a page of comic panels.', load: () => import('./variants/e2') },
-  { id: 'r4', name: 'Sticky', pitch: 'Round 6: the live site’s sections, laid out like brittanychiang.com: name and nav pinned left, everything scrolls right.', load: () => import('./variants/r4') },
-  { id: 'r3', name: 'Palette', pitch: 'Round 5: a command palette is the page; everything is listed at once, the preview updates as you move.', load: () => import('./variants/r3') },
+  { id: 'n1', name: 'Resolve', pitch: 'Round 8: the name decodes out of noise, then a calm site; project rows expand on hover to show the live demo.', load: () => import('./variants/n1') },
+  { id: 'n2', name: 'Lift', pitch: 'Round 8: the name fills the screen, then shrinks into the header; hovering a project floats its live demo beside the list.', load: () => import('./variants/n2') },
+  { id: 'n3', name: 'Reveal', pitch: 'Round 8: a short shutter-and-count opening, then large project cards whose picture turns into the live demo on hover.', load: () => import('./variants/n3') },
   { id: 'main', name: 'Document', pitch: 'Phase 3 baseline: proof line + live steering demo, previews that open in place, one typeface, light/dark.', load: () => import('./variants/main') },
 ]
 
