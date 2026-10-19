@@ -60,9 +60,12 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; position: relative; padding-bottom: 6vh; }
 .s2-name { width: fit-content; margin: 0 0 32px; color: var(--fg); font: 500 clamp(44px, 7vw, 88px)/1 var(--sans); letter-spacing: -0.035em; }
 .s2-lede { max-width: 36em; margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.6; }
-.s2-links { display: flex; flex-wrap: wrap; gap: 28px; margin: 32px 0 0; font-size: 15px; }
-.s2-links a { color: var(--fg); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: border-color 0.2s; }
-.s2-links a:hover { border-color: var(--accent); }
+.s2-hero .s2-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 0; }
+.s2-hero .s2-links a { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border: 1px solid rgb(239 238 236 / 0.18); border-radius: 999px;
+  color: var(--fg); font: 500 16px/1 var(--sans); transition: border-color 0.2s, background 0.2s, color 0.2s; }
+.s2-hero .s2-links a:hover { border-color: var(--accent); color: var(--accent); }
+.s2-hero .s2-links a:first-child { background: var(--accent); border-color: var(--accent); color: #0b0b0c; }
+.s2-hero .s2-links a:first-child:hover { background: #f5c78c; color: #0b0b0c; }
 .s2-down { position: absolute; bottom: 40px; left: 0; color: var(--fg-3); font-size: 20px; animation: s2-bob 2.4s ease-in-out infinite; }
 @keyframes s2-bob { 50% { transform: translateY(6px); } }
 
@@ -143,23 +146,32 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-part[data-kind='photo'] img:hover { filter: none; }
 .s2-part[data-kind='games'] .s2-items b { font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--fg-2); }
 
-/* homelab map: edge → two machines, automations underneath */
-.s2-lab { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+/* homelab: numbers, a grid of services, the two machines, then automations */
+.s2-lab { display: grid; gap: 28px; }
+.s2-lab .s2-nums { margin: 0 0 12px; }
 .s2-lab b { color: var(--fg); font-weight: 500; }
 .s2-ico { width: 20px; height: 20px; flex: none; opacity: 0.9; }
-.s2-lab__edge, .s2-lab__host { border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); padding: 24px; }
-.s2-lab__edge { position: relative; align-self: center; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
-.s2-lab__edge::after { content: ''; position: absolute; top: 50%; right: -17px; width: 17px; height: 1px; background: var(--accent); }
-.s2-lab__edge span { font-size: 15px; line-height: 1.5; }
-.s2-lab__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-.s2-lab__head span { flex-basis: 100%; font: 400 13px/1.4 var(--mono); color: var(--fg-3); }
-.s2-lab__host ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.s2-lab__host li { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; align-items: center; }
-.s2-lab__host li span { grid-column: 2; font-size: 14px; line-height: 1.4; color: var(--fg-3); }
-.s2-lab__auto { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.s2-lab__svc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.s2-lab__svc li { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; row-gap: 2px; align-items: center; padding: 16px 18px;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); }
+.s2-lab__svc li span, .s2-lab__hosts li span { grid-column: 2; font-size: 14px; line-height: 1.4; color: var(--fg-3); }
+.s2-lab__hosts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.s2-lab__hosts li { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; row-gap: 2px; align-items: center; padding: 18px 20px;
+  border: 1px solid rgb(240 180 106 / 0.25); border-radius: 14px; }
+.s2-lab__hosts li span { font-family: var(--mono); font-size: 13px; }
+.s2-lab__auto { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .s2-lab__auto li { display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; color: var(--fg-2); }
 .s2-lab__auto .s2-ico { width: 16px; height: 16px; }
-@media (max-width: 960px) { .s2-lab { grid-template-columns: 1fr; } .s2-lab__edge::after { display: none; } }
+@media (max-width: 860px) { .s2-lab__hosts { grid-template-columns: 1fr; } }
+
+/* clips: muted loops in a row */
+.s2-clips { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 16px; margin: 0 0 16px; }
+.s2-clips video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 14px; background: var(--bg-2); }
+.s2-clips video[data-shape='wide'] { aspect-ratio: 16 / 9; }
+.s2-clips video[data-shape='tall'] { aspect-ratio: 9 / 16; max-height: 640px; }
+.s2-part[data-kind='gigs'] .s2-clips { max-width: 900px; }
+@media (max-width: 860px) { .s2-part[data-kind='photo'] .s2-clips { grid-auto-flow: row; } }
+
 .s2-part[data-kind='campus'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
 .s2-part[data-kind='campus'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
 .s2-part[data-kind='campus'] .s2-items span { font-size: 15px; line-height: 1.55; }
@@ -194,6 +206,9 @@ html:has(.s2) { scroll-behavior: smooth; }
 /* contact */
 .s2-contact { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--line); padding: 120px 0; }
 .s2-contact h2 { margin: 0 0 16px; color: var(--fg); font: 500 clamp(44px, 7vw, 88px)/1 var(--sans); letter-spacing: -0.035em; }
+.s2-contact .s2-links { display: flex; flex-wrap: wrap; gap: 28px; margin: 32px 0 0; font-size: 15px; }
+.s2-contact .s2-links a { color: var(--fg); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.s2-contact .s2-links a:hover { border-color: var(--accent); }
 .s2-contact > p:first-of-type { margin: 0 0 32px; }
 .s2-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 720px; margin: 0 0 40px; }
 .s2-form label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--fg-3); }

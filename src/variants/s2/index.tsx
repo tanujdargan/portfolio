@@ -3,7 +3,7 @@
  * site flows: a short about, then one timeline with big app-icon logos (jobs, then research), each with its proof
  * inline (numbers, live demo, write-up). Opening: the same settle as S1. Pure CSS, once per session.
  */
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import type { VariantProps } from '../../routes'
 import { selected, amazonMetrics, more, roles, education, type Mark } from '../../content/curated'
 import { links } from '../../content/site'
@@ -43,33 +43,36 @@ const gate = `(function(){var d=document.documentElement,k='s2-seen';try{if(sess
 const ext = { target: '_blank', rel: 'noopener' } as const
 
 const icon = (n: string) => <img className="s2-ico" src={`/logos/lab/${n}.svg`} alt="" width={20} height={20} />
-/** The homelab as a map: the one way in on the left, then each machine and what runs on it. */
+/** The homelab: real numbers first, then what runs, then the two machines and what Home Assistant does with them. */
 function LabMap() {
   return (
     <div className="s2-lab">
-      <div className="s2-lab__edge">
-        {icon(lab.edge.icon)}
-        <b>{lab.edge.name}</b>
-        <span>{lab.edge.role}</span>
-      </div>
-      {lab.hosts.map((h) => (
-        <div key={h.name} className="s2-lab__host">
-          <p className="s2-lab__head">
+      <dl className="s2-nums">
+        {lab.numbers.map((m) => (
+          <div key={m.l}>
+            <dt>{m.n}</dt>
+            <dd>{m.l}</dd>
+          </div>
+        ))}
+      </dl>
+      <ul className="s2-lab__svc">
+        {lab.services.map((sv) => (
+          <li key={sv.name}>
+            {icon(sv.icon)}
+            <b>{sv.name}</b>
+            <span>{sv.role}</span>
+          </li>
+        ))}
+      </ul>
+      <ul className="s2-lab__hosts">
+        {lab.hosts.map((h) => (
+          <li key={h.name}>
             {icon(h.icon)}
             <b>{h.name}</b>
             <span>{h.meta}</span>
-          </p>
-          <ul>
-            {h.services.map((sv) => (
-              <li key={sv.name}>
-                {icon(sv.icon)}
-                <b>{sv.name}</b>
-                <span>{sv.role}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+          </li>
+        ))}
+      </ul>
       <ul className="s2-lab__auto" aria-label="Home Assistant automations">
         {lab.automations.map((a) => (
           <li key={a.name}>
@@ -78,37 +81,6 @@ function LabMap() {
           </li>
         ))}
       </ul>
-    </div>
-  )
-}
-
-interface Track { name: string; artists: string; url: string; art?: string }
-/** Live from /api/spotify; renders nothing until it loads, and nothing at all if the API isn't configured. */
-function OnRepeat() {
-  const [data, setData] = useState<{ recent: Track[]; top: Track[] } | null>(null)
-  useEffect(() => {
-    fetch('/api/spotify').then((r) => (r.ok ? r.json() : null)).then(setData, () => {})
-  }, [])
-  if (!data) return null
-  const list = (title: string, ts: Track[]) => (
-    <div className="s2-group">
-      <h4>{title}</h4>
-      <ol className="s2-tracks">
-        {ts.map((t) => (
-          <li key={t.url}>
-            <a href={t.url} {...ext}>
-              {t.art && <img src={t.art} alt="" width={48} height={48} loading="lazy" />}
-              <span><b>{t.name}</b>{t.artists}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </div>
-  )
-  return (
-    <div className="s2-music">
-      {list('Recently played', data.recent)}
-      {list('Top this month', data.top)}
     </div>
   )
 }
@@ -312,7 +284,7 @@ function Home({ base }: { base: string }) {
             <div key={part.id} className="s2-part" data-kind={part.id}>
               <div className="s2-part__text">
                 <h3>{part.title}</h3>
-                <p>{part.body}</p>
+                {part.body && <p>{part.body}</p>}
                 {part.links?.map((l) => (
                   <a key={l.href} className="s2-more" href={l.href} {...ext}>
                     {l.label} ↗
@@ -339,7 +311,13 @@ function Home({ base }: { base: string }) {
                   </ul>
                 </div>
               ))}
-              {part.id === 'music' && <OnRepeat />}
+              {part.clips && (
+                <div className="s2-clips">
+                  {part.clips.map((c) => (
+                    <video key={c.src} data-shape={c.shape} src={c.src} poster={c.poster} autoPlay muted loop playsInline preload="none" aria-hidden="true" />
+                  ))}
+                </div>
+              )}
               {part.items && (
                 <ul className="s2-items">
                   {part.items.map((it) => (

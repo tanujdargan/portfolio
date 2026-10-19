@@ -10,6 +10,8 @@ export interface LifePart {
   items?: LifeItem[]
   groups?: LifeGroup[]
   video?: { src: string; poster: string; caption: string }
+  /** Muted looping clips shown in a row: 'wide' for landscape, 'tall' for portrait. */
+  clips?: { src: string; poster: string; shape: 'wide' | 'tall' }[]
   links?: { label: string; href: string }[]
 }
 
@@ -29,34 +31,27 @@ export const life: { intro: string; parts: LifePart[] } = {
     {
       id: 'lab',
       title: 'The homelab',
-      body: 'Two machines at home. Nothing is port-forwarded: everything comes in through Cloudflare, and Home Assistant ties it all to the rest of the house.',
+      body: 'An i5 Proxmox box and a GPU tower at home. Everything public goes out through one Cloudflare Tunnel with a Zero Trust login in front; nothing is port-forwarded.',
     },
     {
       id: 'photo',
       title: 'Photography & timelapses',
       body: 'Night skies, fog, city lights and a lot of plane windows. Timelapses on a Canon EOS 1200D; most of the rest on my phone.',
       video: { src: '/life/tolmie.mp4', poster: '/life/tolmie.jpg', caption: 'Sunset over Victoria from Mount Tolmie, timelapse' },
+      clips: [
+        { src: '/life/v-toronto.mp4', poster: '/life/v-toronto.jpg', shape: 'wide' },
+        { src: '/life/v-landing.mp4', poster: '/life/v-landing.jpg', shape: 'wide' },
+      ],
       items: [
         { name: 'Bare tree on a hilltop under a night sky', img: '/life/p-img-2628.jpg' },
-        { name: 'Snow-capped peaks from a plane window, moon above', img: '/life/p-no-fusion-0430-047.jpg' },
         { name: 'City skyline at night across the water', img: '/life/p-img-0425.jpg' },
-        { name: 'Dusk over a ridge', img: '/life/DbFz9.jpg' },
-        { name: 'Foggy path under a street lamp, black and white', img: '/life/p-no-fusion-0206-020.jpg' },
         { name: 'Snowy volcano above the clouds', img: '/life/p-img-2255.jpg' },
-        { name: 'Long exposure of clouds over a harbour', img: '/life/p-img-3399.jpg' },
+        { name: 'Foggy path under a street lamp, black and white', img: '/life/p-no-fusion-0206-020.jpg' },
         { name: 'Blood moon during the March 2025 lunar eclipse', img: '/life/eclipse.jpg' },
         { name: 'Wing at twilight above the clouds', img: '/life/p-img-1588.jpg' },
-        { name: 'Picnic table under a tree at night', img: '/life/p-img-2623.jpg' },
-        { name: 'Neon theatre sign on a dark street', img: '/life/p-no-fusion-0320-001.jpg' },
         { name: 'Pink alpenglow on a peak across the water', img: '/life/p-img-0013.jpg' },
-        { name: 'Stars through bare branches', img: '/life/p-img-2551.jpg' },
+        { name: 'Snow-capped peaks from a plane window, moon above', img: '/life/p-no-fusion-0430-047.jpg' },
         { name: 'Harbour lights reflected at night', img: '/life/p-img-3425.jpg' },
-        { name: 'Trees in fog under lamplight', img: '/life/p-no-fusion-0206-024.jpg' },
-        { name: 'Wing over islands and low cloud', img: '/life/p-img-2237.jpg' },
-        { name: 'The moon', img: '/life/moon.jpg' },
-        { name: 'Sunset over the water', img: '/life/ocean.jpg' },
-        { name: 'Volcano and moon from a plane', img: '/life/p-no-fusion-0430-031.jpg' },
-        { name: 'Snowy peaks', img: '/life/peaks.jpg' },
       ],
       links: [
         { label: 'Timelapses on YouTube', href: 'https://www.youtube.com/@TANUJDARGAN' },
@@ -76,15 +71,19 @@ export const life: { intro: string; parts: LifePart[] } = {
       links: [{ label: 'getberi.com', href: 'https://getberi.com' }],
     },
     {
-      id: 'music',
-      title: 'On repeat',
-      body: 'What I’ve been listening to lately.',
-      links: [{ label: 'Spotify profile', href: 'https://open.spotify.com/user/cstd95' }],
+      id: 'gigs',
+      title: 'Live music',
+      body: 'Most of my favourite videos are from shows.',
+      clips: [
+        { src: '/life/v-gig1.mp4', poster: '/life/v-gig1.jpg', shape: 'tall' },
+        { src: '/life/v-gig2.mp4', poster: '/life/v-gig2.jpg', shape: 'tall' },
+        { src: '/life/v-gig3.mp4', poster: '/life/v-gig3.jpg', shape: 'tall' },
+      ],
     },
     {
       id: 'campus',
       title: 'Around campus',
-      body: 'Organising things people show up to.',
+      body: '',
       items: [
         { name: 'VikeLabs, Director of Events', note: 'UVic’s student club that builds software for local non-profits.' },
         { name: 'CDE 2026, VP Communications', note: 'The Conference on Diversity in Engineering (CFES), hosted at UVic.' },
@@ -130,29 +129,29 @@ export const life: { intro: string; parts: LifePart[] } = {
   ],
 }
 
-/** The homelab map in S2: services per machine, from the homelab notes. No hostnames, IPs or media-acquisition tools. */
+/** The homelab in S2. Numbers read off the Proxmox host on 2026-10-19 (pct/qm list, pvesm status, cloudflared's
+ *  tunnel config, Jellyfin playback reporting, Uptime Kuma). Media-acquisition containers left out on purpose. */
 export interface LabService { icon: string; name: string; role: string }
 export const lab = {
-  edge: { icon: 'cloudflare', name: 'Cloudflare', role: 'Tunnel in, Zero Trust login on every service. No open ports.' },
+  numbers: [
+    { n: '26', l: 'containers and VMs running' },
+    { n: '21', l: 'public hostnames through one tunnel' },
+    { n: '11 TB', l: 'of storage in use' },
+    { n: '421 h', l: 'streamed from Jellyfin since July' },
+  ],
+  services: [
+    { icon: 'homeassistant', name: 'Home Assistant', role: 'The house, as a VM' },
+    { icon: 'jellyfin', name: 'Jellyfin', role: 'Films, shows and music' },
+    { icon: 'paperlessngx', name: 'Paperless-ngx', role: 'Searchable documents' },
+    { icon: 'gitea', name: 'Gitea', role: 'Private Git' },
+    { icon: 'uptimekuma', name: 'Uptime Kuma', role: '25 monitors' },
+    { icon: 'cloudflare', name: 'cloudflared', role: 'The tunnel, Zero Trust in front' },
+    { icon: 'caddy', name: 'Caddy', role: 'Reverse proxy on the LAN' },
+    { icon: 'tailscale', name: 'Tailscale', role: 'Private network' },
+  ] as LabService[],
   hosts: [
-    {
-      icon: 'proxmox', name: 'Proxmox host', meta: '~20 LXC containers · NVMe + 16 TB',
-      services: [
-        { icon: 'homeassistant', name: 'Home Assistant', role: 'Runs the house (VM)' },
-        { icon: 'jellyfin', name: 'Jellyfin', role: 'Films and music' },
-        { icon: 'paperlessngx', name: 'Paperless-ngx', role: 'Searchable documents' },
-        { icon: 'plane', name: 'Plane', role: 'Project tracking' },
-        { icon: 'caddy', name: 'Caddy', role: 'Reverse proxy on the LAN' },
-      ] as LabService[],
-    },
-    {
-      icon: 'nvidia', name: 'GPU box', meta: 'RTX 4070 Ti · 12 GB',
-      services: [
-        { icon: 'ubuntu', name: 'Ubuntu, headless', role: 'CUDA and PyTorch for ML experiments' },
-        { icon: 'docker', name: 'Docker', role: 'GPU containers' },
-        { icon: 'cloudflare', name: 'SSH via Access', role: 'Reachable from anywhere, closed to everyone else' },
-      ] as LabService[],
-    },
+    { icon: 'proxmox', name: 'Proxmox VE 9', meta: 'i5-8500 · 32 GB · NVMe + 2 × 8 TB' },
+    { icon: 'nvidia', name: 'GPU box', meta: 'RTX 4070 Ti · CUDA, PyTorch, Docker · SSH via Cloudflare Access' },
   ],
   automations: [
     { icon: 'homeassistant', name: 'Wake, sleep and RGB for the GPU box' },
