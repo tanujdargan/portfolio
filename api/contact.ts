@@ -24,14 +24,14 @@ export async function POST(request: Request): Promise<Response> {
   if (!message || message.length > 5000) return Response.json({ error: 'Please write a message (under 5,000 characters).' }, { status: 400 })
 
   const key = process.env.RESEND_API_KEY
-  if (!key) return Response.json({ error: 'The form isn’t set up yet. Email tanujd@uvic.ca instead.' }, { status: 503 })
+  if (!key) return Response.json({ error: 'The form isn’t set up yet. Email dargantanuj@gmail.com instead.' }, { status: 503 })
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: process.env.CONTACT_FROM || 'Portfolio <onboarding@resend.dev>',
-      to: [process.env.CONTACT_TO || 'tanujd@uvic.ca'],
+      to: [process.env.CONTACT_TO || 'dargantanuj@gmail.com'],
       reply_to: email,
       subject: `Portfolio: message from ${name.replace(/[\r\n]+/g, ' ')}`,
       text: `${message}\n\n${name} <${email}>`,
@@ -39,7 +39,7 @@ export async function POST(request: Request): Promise<Response> {
   })
   if (!res.ok) {
     console.error('resend', res.status, await res.text())
-    return Response.json({ error: 'Couldn’t send just now. Email tanujd@uvic.ca instead.' }, { status: 502 })
+    return Response.json({ error: 'Couldn’t send just now. Email dargantanuj@gmail.com instead.' }, { status: 502 })
   }
   return Response.json({ ok: true })
 }

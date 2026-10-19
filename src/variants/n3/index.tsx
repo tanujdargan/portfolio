@@ -312,7 +312,7 @@ function Home({ base }: { base: string }) {
         <section id="contact" className="n3-sec n3-contact" aria-label="Contact">
           <h2 className="n3-h">Contact</h2>
           <a className="n3-email" href={links.email.href}>
-            tanujd@uvic.ca <span aria-hidden="true">↗</span>
+            dargantanuj@gmail.com <span aria-hidden="true">↗</span>
           </a>
         </section>
         <footer className="n3-foot">Victoria, BC · {new Date().getFullYear()}</footer>

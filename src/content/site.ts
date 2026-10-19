@@ -13,7 +13,7 @@ export const person = {
   grad: '2027',
   gradMonth: 'April 2027',
   location: 'Toronto · Victoria',
-  email: 'tanujd@uvic.ca',
+  email: 'dargantanuj@gmail.com',
   site: 'https://tanujdargan.com',
 }
 
@@ -21,7 +21,7 @@ export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x'
 export const links: Record<LinkKey, { label: string; href: string; short: string; unverified?: boolean }> = {
   // public/resume.pdf is byte-identical to Tanuj_Dargan_Resume_Aug19-2026.pdf
   resume: { label: 'Resume', short: 'CV', href: '/resume.pdf' },
-  email: { label: 'Email', short: 'Mail', href: 'mailto:tanujd@uvic.ca' },
+  email: { label: 'Email', short: 'Mail', href: 'mailto:dargantanuj@gmail.com' },
   github: { label: 'GitHub', short: 'GH', href: 'https://github.com/tanujdargan' },
   linkedin: { label: 'LinkedIn', short: 'In', href: 'https://www.linkedin.com/in/tanujdargan' },
   x: { label: 'X', short: 'X', href: 'https://x.com/DarganTanuj' },

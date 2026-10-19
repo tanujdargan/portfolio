@@ -225,7 +225,7 @@ function Home({ base }: { base: string }) {
           <h2>Say hello.</h2>
           <p>Research, roles, or a question about any of this. Write here, or email me directly.</p>
           <ContactForm />
-          <a href={links.email.href} className="s1-email">tanujd@uvic.ca</a>
+          <a href={links.email.href} className="s1-email">dargantanuj@gmail.com</a>
           <p className="s1-links">
             <a href={links.github.href} {...ext}>GitHub ↗</a>
             <a href={links.linkedin.href} {...ext}>LinkedIn ↗</a>

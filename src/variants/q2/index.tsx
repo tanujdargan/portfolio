@@ -138,7 +138,7 @@ function Home({ base }: { base: string }) {
       </section>
 
       <footer className="q2-sec q2-fade q2-foot">
-        <a href={links.email.href}>tanujd@uvic.ca</a>
+        <a href={links.email.href}>dargantanuj@gmail.com</a>
         <span>Victoria, BC</span>
       </footer>
     </main>

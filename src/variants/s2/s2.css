@@ -119,10 +119,11 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-items li { display: flex; flex-direction: column; gap: 4px; }
 .s2-items img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: var(--bg-2);
   border: 1px solid var(--line); margin-bottom: 10px; }
-.s2-part[data-kind='games'] .s2-items { grid-template-columns: repeat(6, 1fr); }
-@media (max-width: 1000px) { .s2-part[data-kind='games'] .s2-items { grid-template-columns: repeat(3, 1fr); } }
+.s2-part[data-kind='games'] .s2-items { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 20px 14px; }
+@media (max-width: 1000px) { .s2-part[data-kind='games'] .s2-items { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.s2-group + .s2-group { margin-top: 48px; }
+.s2-group h4 { margin: 0 0 16px; font: 400 13px/1 var(--mono); color: var(--fg-3); text-transform: uppercase; letter-spacing: 0.08em; }
 .s2-part[data-kind='games'] img { aspect-ratio: 2 / 3; }
-.s2-part[data-kind='photo'] img { aspect-ratio: 3 / 2; }
 .s2-items span { font-size: 14px; color: var(--fg-3); }
 
 .s2-items img[data-pixel] { image-rendering: pixelated; object-fit: contain; background: #000; }
@@ -133,17 +134,21 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-video { margin: 0 0 20px; }
 .s2-video video { display: block; width: 100%; aspect-ratio: 1600 / 666; object-fit: cover; border-radius: 14px; background: var(--bg-2); }
 .s2-video figcaption { margin-top: 10px; font-size: 14px; color: var(--fg-3); }
-.s2-part[data-kind='photo'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.s2-part[data-kind='photo'] .s2-items { display: block; columns: 3 280px; column-gap: 16px; }
+.s2-part[data-kind='photo'] .s2-items li { break-inside: avoid; margin-bottom: 16px; border-radius: 12px; }
+.s2-part[data-kind='photo'] .s2-items img { aspect-ratio: auto; height: auto; margin: 0; display: block; }
 .s2-part[data-kind='photo'] .s2-items b { font-weight: 400; font-size: 14px; color: var(--fg-3); }
 .s2-part[data-kind='photo'] img { transition: transform 0.6s var(--ease), filter 0.4s; filter: saturate(0.9); }
 .s2-part[data-kind='photo'] li { overflow: hidden; }
 .s2-part[data-kind='photo'] img:hover { filter: none; }
-.s2-part[data-kind='games'] .s2-items b { font-size: 15px; }
+.s2-part[data-kind='games'] .s2-items b { font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--fg-2); }
 
-/* homelab: text cards, no pictures */
-.s2-part[data-kind='lab'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.s2-part[data-kind='lab'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
-.s2-part[data-kind='lab'] .s2-items span { font-size: 15px; line-height: 1.55; }
+/* homelab: the stack as tags, then problems and fixes as wide cards */
+.s2-stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; padding: 0; }
+.s2-stack li { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font: 400 13px/1.4 var(--mono); color: var(--fg-2); }
+.s2-part[data-kind='lab'] .s2-items, .s2-part[data-kind='campus'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
+.s2-part[data-kind='lab'] li, .s2-part[data-kind='campus'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
+.s2-part[data-kind='lab'] .s2-items span, .s2-part[data-kind='campus'] .s2-items span { font-size: 15px; line-height: 1.55; }
 
 /* contact */
 .s2-contact { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--line); padding: 120px 0; }
@@ -171,8 +176,9 @@ html:has(.s2) { scroll-behavior: smooth; }
   .s2-entry { grid-template-columns: 1fr; gap: 20px; padding-bottom: 72px; }
   .s2-entry::before { display: none; }
   .s2-tile { width: 52px; height: 52px; border-radius: 12px; }
-  .s2-part[data-kind='photo'] .s2-items { grid-template-columns: 1fr; }
+  .s2-part[data-kind='photo'] .s2-items { columns: 2 140px; column-gap: 10px; }
   .s2-form { grid-template-columns: 1fr; }
+  .s2-part[data-kind='lab'] .s2-items, .s2-part[data-kind='campus'] .s2-items { grid-template-columns: 1fr; }
 }
 
 /* opening: the name alone mid-screen, then it settles into the hero while everything else fades in */

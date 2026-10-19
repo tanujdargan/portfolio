@@ -15,6 +15,11 @@ import { life } from './life'
 import './s2.css'
 
 const NAME = 'Tanuj Dargan'
+// Most impressive first, not chronological.
+const jobOrder = ['Amazon Robotics', 'UVic CfAR', 'DEIA Lab, UVic', 'Pear Care', 'RBC Borealis', 'MLH · Apache Airflow']
+const jobs = jobOrder.map((o) => roles.find((r) => r.org === o)!)
+const buildOrder = ['Optimate', 'AIMO', 'Fine-tuning', 'Beri']
+const builds = buildOrder.map((t) => more.find((m) => m.title.startsWith(t))!)
 const pick = (id: string) => selected.find((s) => s.id === id)!
 /** Proof shown under a job: big numbers, a live demo, or a link to the write-up. */
 const proof: Record<string, 'nums' | 'orbit' | 'vectors'> = { 'Amazon Robotics': 'nums', 'UVic CfAR': 'orbit', 'DEIA Lab, UVic': 'vectors' }
@@ -107,32 +112,13 @@ function Home({ base }: { base: string }) {
             <a href={links.linkedin.href} {...ext}>LinkedIn ↗</a>
             <a href={links.email.href}>Email</a>
           </p>
-          <a href="#about" className="s2-down s2-fade" aria-label="Scroll to about">↓</a>
+          <a href="#experience" className="s2-down s2-fade" aria-label="Scroll to experience">↓</a>
         </header>
-
-        <section className="s2-sec s2-about" id="about" aria-labelledby="s2-h-about">
-          <h2 className="s2-h" id="s2-h-about">The short version</h2>
-          <p>
-            I came to the University of Victoria on an international scholarship to study computer science. I'm in my
-            fourth year now, graduating in April 2027.
-          </p>
-          <p>
-            My first research job was flight firmware for <b>MarmotSat</b>, a CubeSat built at UVic's Centre for Aerospace
-            Research. It launched on a Falcon 9 in July 2026 and is in orbit. Along the way I scaled GPU search to a billion
-            vectors at the DEIA Lab, led AI development at a medical startup, and spent a summer on Apache Airflow with the
-            MLH Fellowship.
-          </p>
-          <p>
-            This summer I interned at <b>Amazon Robotics</b>, where I shipped an LLM planning assistant to production across
-            180+ fulfillment sites and came away with a return offer. On the side I do interpretability research: what
-            language models represent inside, and whether what they say matches it.
-          </p>
-        </section>
 
         <section className="s2-sec" id="experience" aria-labelledby="s2-h-exp">
           <h2 className="s2-h" id="s2-h-exp">Experience</h2>
           <ol className="s2-line">
-            {roles.map((r) => (
+            {jobs.map((r) => (
               <li key={r.org} className="s2-entry">
                 <Tile m={r.mark} />
                 <div className="s2-entry__body">
@@ -201,7 +187,7 @@ function Home({ base }: { base: string }) {
         <section className="s2-sec" aria-labelledby="s2-h-also">
           <h2 className="s2-h" id="s2-h-also">Other things I've built</h2>
           <ul className="s2-cards">
-            {more.filter((m) => !m.title.startsWith('Billion')).map((m) => {
+            {builds.map((m) => {
               const inner = (
                 <>
                   <b>{m.title}</b>
@@ -237,12 +223,30 @@ function Home({ base }: { base: string }) {
                   <figcaption>{part.video.caption}</figcaption>
                 </figure>
               )}
+              {part.stack && (
+                <ul className="s2-stack" aria-label="Stack">
+                  {part.stack.map((t) => <li key={t}>{t}</li>)}
+                </ul>
+              )}
+              {part.groups?.map((g) => (
+                <div key={g.title} className="s2-group">
+                  <h4>{g.title}</h4>
+                  <ul className="s2-items">
+                    {g.items.map((it) => (
+                      <li key={it.name}>
+                        <img src={it.img} alt="" loading="lazy" />
+                        <b>{it.name}</b>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
               {part.items && (
                 <ul className="s2-items">
                   {part.items.map((it) => (
                     <li key={it.name}>
                       {it.img && <img src={it.img} alt={it.name} loading="lazy" data-pixel={it.pixel || undefined} />}
-                      <b>{it.name}</b>
+                      {part.id !== 'photo' && <b>{it.name}</b>}
                       {it.note && <span>{it.note}</span>}
                     </li>
                   ))}
@@ -256,7 +260,7 @@ function Home({ base }: { base: string }) {
           <h2>Say hello.</h2>
           <p>Research, roles, or a question about any of this. Write here, or email me directly.</p>
           <ContactForm />
-          <a href={links.email.href} className="s2-email">tanujd@uvic.ca</a>
+          <a href={links.email.href} className="s2-email">dargantanuj@gmail.com</a>
           <p className="s2-links">
             <a href={links.github.href} {...ext}>GitHub ↗</a>
             <a href={links.linkedin.href} {...ext}>LinkedIn ↗</a>

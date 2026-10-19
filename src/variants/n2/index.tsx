@@ -338,7 +338,7 @@ function Home({ base }: { base: string }) {
           <section id="contact" className="n2-sec n2-contact" aria-label="Contact">
             <h2 className="n2-h">Contact</h2>
             <a className="n2-email" href={links.email.href}>
-              tanujd@uvic.ca
+              dargantanuj@gmail.com
             </a>
             <ul className="n2-socials">
               {socials.map((k) => {

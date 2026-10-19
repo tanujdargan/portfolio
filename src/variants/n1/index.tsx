@@ -414,7 +414,7 @@ function Home({ base }: { base: string }) {
           </h2>
           <p>Research, internships, or a question about the work. Email is fastest.</p>
           <a className="n1-email" href={links.email.href}>
-            tanujd@uvic.ca <span aria-hidden="true">↗</span>
+            dargantanuj@gmail.com <span aria-hidden="true">↗</span>
           </a>
         </section>
         <footer className="n1-foot">Victoria, BC · {new Date().getFullYear()}</footer>
