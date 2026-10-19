@@ -1,5 +1,5 @@
 // "Outside work" for S1. Sources: ~/satframe, ~/dev/flightportraitOSS, ~/dev/ledposter, Desktop BLE recorder notes,
-// Steam localconfig.vdf playtime (Oct 2026), YouTube @TANUJDARGAN, Unsplash @tanuj_dargan. Photos are Tanuj's own,
+// homelab notes (Proxmox host, GPU box; no hostnames, IPs or media-acquisition tools on purpose), Steam localconfig.vdf playtime (Oct 2026), YouTube @TANUJDARGAN, Unsplash @tanuj_dargan. Photos are Tanuj's own,
 // EXIF stripped. Swap in real build photos when he sends them.
 export interface LifeItem { name: string; note?: string; img?: string; pixel?: boolean }
 export interface LifePart {
@@ -12,7 +12,7 @@ export interface LifePart {
 }
 
 export const life: { intro: string; parts: LifePart[] } = {
-  intro: 'Away from the day job I build small gadgets, play too much Counter-Strike, and point cameras at the sky.',
+  intro: 'Away from the day job I build small gadgets, run too many servers at home, play too much Counter-Strike, and point cameras at the sky.',
   parts: [
     {
       id: 'electronics',
@@ -23,6 +23,19 @@ export const life: { intro: string; parts: LifePart[] } = {
         { name: 'Flight portrait', note: 'A colour e-ink poster of whichever plane is overhead right now, drawn in its airline’s livery from live ADS-B data.', img: '/life/flightportrait.png' },
         { name: 'LED wall', note: 'Six 64×64 panels on a Raspberry Pi: pixel scenes, music visualisers, and a flash when I get a kill in game.', img: '/life/ledwall.png', pixel: true },
         { name: 'Tiny BLE recorder', note: 'A coin-cell Bluetooth recorder that holds a day of audio. On the schematic stage.', img: '/life/ble.png' },
+      ],
+    },
+    {
+      id: 'lab',
+      title: 'The homelab',
+      body: 'A Proxmox server and a GPU tower at home, running things I would otherwise pay for. Nothing is port-forwarded: everything comes in through a Cloudflare Tunnel behind a Zero Trust login.',
+      items: [
+        { name: 'Proxmox host', note: 'Around twenty LXC containers and a Home Assistant VM on one box. NVMe for the containers, 16 TB of disks for media.' },
+        { name: 'GPU box', note: 'Headless Ubuntu with an RTX 4070 Ti, CUDA and Docker, for ML experiments. SSH through Cloudflare Access.' },
+        { name: 'Home Assistant', note: 'Runs the house, and the PC too: wake it, sleep it, change its RGB, from a dashboard or Google Home over a Matter bridge.' },
+        { name: 'Cooler screen', note: 'Reverse-engineered the USB protocol of my AIO’s 480×480 LCD, backlight included, and wrote a daemon for it. It shows what Claude Code is working on.' },
+        { name: 'Jellyfin', note: 'Films and music for everyone in the house.' },
+        { name: 'Paperless and Plane', note: 'Scanned documents I can search, and a self-hosted project tracker.' },
       ],
     },
     {

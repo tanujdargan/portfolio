@@ -3,6 +3,7 @@
  * roomy section with its live demo beside it; then a longer "away from the desk" part: electronics, games, photography.
  * Opening: Q2's settle (the name alone mid-screen, then it glides into the hero). Pure CSS, once per session.
  */
+import { useState, type FormEvent } from 'react'
 import type { VariantProps } from '../../routes'
 import { selected, amazonMetrics, more, roles, education } from '../../content/curated'
 import { links } from '../../content/site'
@@ -28,6 +29,50 @@ const gate = `(function(){var d=document.documentElement,k='s1-seen';try{if(sess
 
 const ext = { target: '_blank', rel: 'noopener' } as const
 
+function ContactForm() {
+  const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [error, setError] = useState('')
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setState('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(e.currentTarget))),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Couldn’t send just now. Email me instead.')
+      setState('sent')
+    } catch (err) {
+      setError((err as Error).message)
+      setState('error')
+    }
+  }
+  if (state === 'sent') return <p className="s1-form__done" role="status">Thanks, it’s in my inbox. I’ll reply by email.</p>
+  return (
+    <form className="s1-form" onSubmit={submit}>
+      <label>
+        <span>Name</span>
+        <input name="name" required maxLength={100} autoComplete="name" />
+      </label>
+      <label>
+        <span>Email</span>
+        <input name="email" type="email" required maxLength={200} autoComplete="email" />
+      </label>
+      <label className="s1-form__msg">
+        <span>Message</span>
+        <textarea name="message" required maxLength={5000} rows={5} />
+      </label>
+      <input name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="s1-form__hp" />
+      <div className="s1-form__row">
+        <button type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send'}</button>
+        {state === 'error' && <p role="alert">{error}</p>}
+      </div>
+    </form>
+  )
+}
+
 function Home({ base }: { base: string }) {
   return (
     <>
@@ -45,9 +90,9 @@ function Home({ base }: { base: string }) {
         <header className="s1-hero" id="top">
           <h1 className="s1-name">{NAME}</h1>
           <p className="s1-lede s1-fade">
-            I build production ML at <b>Amazon Robotics</b> and study what language models represent inside. Before that I
-            wrote flight firmware for a satellite that's now in orbit. CS at the University of Victoria, graduating April
-            2027.
+            I study what language models represent inside, and this summer I shipped production ML as an intern at{' '}
+            <b>Amazon Robotics</b>. Before that I wrote flight firmware for a satellite that's now in orbit. Fourth-year CS
+            at the University of Victoria, graduating April 2027.
           </p>
           <p className="s1-links s1-fade">
             <a href={links.resume.href} {...ext}>Resume ↗</a>
@@ -165,7 +210,7 @@ function Home({ base }: { base: string }) {
                 <ul className="s1-items">
                   {part.items.map((it) => (
                     <li key={it.name}>
-                      {it.img ? <img src={it.img} alt={it.name} loading="lazy" data-pixel={it.pixel || undefined} /> : <span className="s1-ph" aria-hidden="true" />}
+                      {it.img && <img src={it.img} alt={it.name} loading="lazy" data-pixel={it.pixel || undefined} />}
                       <b>{it.name}</b>
                       {it.note && <span>{it.note}</span>}
                     </li>
@@ -178,7 +223,8 @@ function Home({ base }: { base: string }) {
 
         <footer className="s1-contact" id="contact">
           <h2>Say hello.</h2>
-          <p>Research, internships, or a question about any of this. Email is fastest.</p>
+          <p>Research, roles, or a question about any of this. Write here, or email me directly.</p>
+          <ContactForm />
           <a href={links.email.href} className="s1-email">tanujd@uvic.ca</a>
           <p className="s1-links">
             <a href={links.github.href} {...ext}>GitHub ↗</a>

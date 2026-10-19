@@ -108,12 +108,12 @@ html:has(.s1) { scroll-behavior: smooth; }
 .s1-part .s1-more { margin-right: 24px; }
 .s1-items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 .s1-items li { display: flex; flex-direction: column; gap: 4px; }
-.s1-items img, .s1-ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: var(--bg-2);
+.s1-items img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; background: var(--bg-2);
   border: 1px solid var(--line); margin-bottom: 10px; }
 .s1-part[data-kind='games'] .s1-items { grid-template-columns: repeat(6, 1fr); }
 @media (max-width: 1000px) { .s1-part[data-kind='games'] .s1-items { grid-template-columns: repeat(3, 1fr); } }
-.s1-part[data-kind='games'] img, .s1-part[data-kind='games'] .s1-ph { aspect-ratio: 2 / 3; }
-.s1-part[data-kind='photo'] img, .s1-part[data-kind='photo'] .s1-ph { aspect-ratio: 3 / 2; }
+.s1-part[data-kind='games'] img { aspect-ratio: 2 / 3; }
+.s1-part[data-kind='photo'] img { aspect-ratio: 3 / 2; }
 .s1-items span { font-size: 14px; color: var(--fg-3); }
 
 .s1-items img[data-pixel] { image-rendering: pixelated; object-fit: contain; background: #000; }
@@ -131,10 +131,27 @@ html:has(.s1) { scroll-behavior: smooth; }
 .s1-part[data-kind='photo'] img:hover { filter: none; }
 .s1-part[data-kind='games'] .s1-items b { font-size: 15px; }
 
+/* homelab: text cards, no pictures */
+.s1-part[data-kind='lab'] .s1-items { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.s1-part[data-kind='lab'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
+.s1-part[data-kind='lab'] .s1-items span { font-size: 15px; line-height: 1.55; }
+
 /* contact */
 .s1-contact { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid var(--line); padding: 120px 0; }
 .s1-contact h2 { margin: 0 0 16px; color: var(--fg); font: 500 clamp(44px, 7vw, 88px)/1 var(--sans); letter-spacing: -0.035em; }
 .s1-contact > p:first-of-type { margin: 0 0 32px; }
+.s1-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 720px; margin: 0 0 40px; }
+.s1-form label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--fg-3); }
+.s1-form__msg { grid-column: 1 / -1; }
+.s1-form input, .s1-form textarea { font: inherit; font-size: 16px; color: var(--fg); background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px; resize: vertical; }
+.s1-form input:focus-visible, .s1-form textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+.s1-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.s1-form__row { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
+.s1-form__row p { margin: 0; color: #f08a7a; font-size: 15px; }
+.s1-form button { font: 500 16px var(--sans); color: #0b0b0c; background: var(--accent); border: 0; border-radius: 999px; padding: 12px 28px; cursor: pointer; }
+.s1-form button:disabled { opacity: 0.6; cursor: progress; }
+.s1-form__done { margin: 0 0 40px; font-size: 19px; color: var(--fg); }
 .s1-email { width: fit-content; color: var(--fg); font-size: clamp(22px, 2.4vw, 30px); border-bottom: 1px solid var(--accent); }
 
 @media (max-width: 860px) {
@@ -146,6 +163,7 @@ html:has(.s1) { scroll-behavior: smooth; }
   .s1-roles li { grid-template-columns: 1fr; gap: 4px; }
   .s1-role { display: block; margin: 0; }
   .s1-part[data-kind='photo'] .s1-items { grid-template-columns: 1fr; }
+  .s1-form { grid-template-columns: 1fr; }
 }
 
 /* opening: the name alone mid-screen, then it settles into the hero while everything else fades in */
