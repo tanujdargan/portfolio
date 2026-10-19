@@ -8,7 +8,6 @@ export interface LifePart {
   title: string
   body: string
   items?: LifeItem[]
-  stack?: string[]
   groups?: LifeGroup[]
   video?: { src: string; poster: string; caption: string }
   links?: { label: string; href: string }[]
@@ -30,14 +29,7 @@ export const life: { intro: string; parts: LifePart[] } = {
     {
       id: 'lab',
       title: 'The homelab',
-      body: 'A Proxmox server, a GPU tower and Home Assistant tying them to the house. Nothing is port-forwarded: it all comes in through a Cloudflare Tunnel behind a Zero Trust login.',
-      stack: ['Proxmox VE 9', '~20 LXC containers', 'Home Assistant OS', 'Cloudflare Tunnel + Access', 'UniFi', 'RTX 4070 Ti · CUDA', 'Jellyfin', 'Paperless-ngx', 'Plane'],
-      items: [
-        { name: 'A cooler screen with no Linux driver', note: 'The AIO’s 480×480 LCD only had a Windows app. I wrote a daemon from two community protocol ports, then found the undocumented backlight command by probing USB packets. It now shows what my coding agent is working on.' },
-        { name: 'A PC that woke itself up', note: 'Sleep from Home Assistant aborted instantly. The wake came from the chipset USB controller: the cooler’s panel re-enumerates as USB idles. Disabling wake on just that controller, with Wake-on-LAN kept over Wi-Fi, made sleep and wake work from Google Home.' },
-        { name: 'A server that fell off the network', note: 'The Proxmox host kept dropping off the LAN while running fine. The journal showed the Intel I219 NIC logging “Hardware Unit Hang”. Offload features off on that interface, persisted across reboots.' },
-        { name: '4 GB a week to GitHub', note: 'UniFi’s traffic API showed the host pulling 4.3 GB a week. A leftover monitoring agent’s self-heal timer was re-downloading a release every five minutes, failing, and trying again.' },
-      ],
+      body: 'Two machines at home. Nothing is port-forwarded: everything comes in through Cloudflare, and Home Assistant ties it all to the rest of the house.',
     },
     {
       id: 'photo',
@@ -135,5 +127,36 @@ export const life: { intro: string; parts: LifePart[] } = {
       ] },
       ],
     },
+  ],
+}
+
+/** The homelab map in S2: services per machine, from the homelab notes. No hostnames, IPs or media-acquisition tools. */
+export interface LabService { icon: string; name: string; role: string }
+export const lab = {
+  edge: { icon: 'cloudflare', name: 'Cloudflare', role: 'Tunnel in, Zero Trust login on every service. No open ports.' },
+  hosts: [
+    {
+      icon: 'proxmox', name: 'Proxmox host', meta: '~20 LXC containers · NVMe + 16 TB',
+      services: [
+        { icon: 'homeassistant', name: 'Home Assistant', role: 'Runs the house (VM)' },
+        { icon: 'jellyfin', name: 'Jellyfin', role: 'Films and music' },
+        { icon: 'paperlessngx', name: 'Paperless-ngx', role: 'Searchable documents' },
+        { icon: 'plane', name: 'Plane', role: 'Project tracking' },
+        { icon: 'caddy', name: 'Caddy', role: 'Reverse proxy on the LAN' },
+      ] as LabService[],
+    },
+    {
+      icon: 'nvidia', name: 'GPU box', meta: 'RTX 4070 Ti · 12 GB',
+      services: [
+        { icon: 'ubuntu', name: 'Ubuntu, headless', role: 'CUDA and PyTorch for ML experiments' },
+        { icon: 'docker', name: 'Docker', role: 'GPU containers' },
+        { icon: 'cloudflare', name: 'SSH via Access', role: 'Reachable from anywhere, closed to everyone else' },
+      ] as LabService[],
+    },
+  ],
+  automations: [
+    { icon: 'homeassistant', name: 'Wake, sleep and RGB for the GPU box' },
+    { icon: 'homeassistant', name: 'The cooler’s LCD, on a daemon I wrote' },
+    { icon: 'googlehome', name: 'All of it from Google Home, over a Matter bridge' },
   ],
 }

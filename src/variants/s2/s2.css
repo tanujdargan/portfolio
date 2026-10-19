@@ -143,12 +143,26 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-part[data-kind='photo'] img:hover { filter: none; }
 .s2-part[data-kind='games'] .s2-items b { font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--fg-2); }
 
-/* homelab: the stack as tags, then problems and fixes as wide cards */
-.s2-stack { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; padding: 0; }
-.s2-stack li { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font: 400 13px/1.4 var(--mono); color: var(--fg-2); }
-.s2-part[data-kind='lab'] .s2-items, .s2-part[data-kind='campus'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
-.s2-part[data-kind='lab'] li, .s2-part[data-kind='campus'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
-.s2-part[data-kind='lab'] .s2-items span, .s2-part[data-kind='campus'] .s2-items span { font-size: 15px; line-height: 1.55; }
+/* homelab map: edge → two machines, automations underneath */
+.s2-lab { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.s2-lab b { color: var(--fg); font-weight: 500; }
+.s2-ico { width: 20px; height: 20px; flex: none; opacity: 0.9; }
+.s2-lab__edge, .s2-lab__host { border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); padding: 24px; }
+.s2-lab__edge { position: relative; align-self: center; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.s2-lab__edge::after { content: ''; position: absolute; top: 50%; right: -17px; width: 17px; height: 1px; background: var(--accent); }
+.s2-lab__edge span { font-size: 15px; line-height: 1.5; }
+.s2-lab__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.s2-lab__head span { flex-basis: 100%; font: 400 13px/1.4 var(--mono); color: var(--fg-3); }
+.s2-lab__host ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.s2-lab__host li { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; align-items: center; }
+.s2-lab__host li span { grid-column: 2; font-size: 14px; line-height: 1.4; color: var(--fg-3); }
+.s2-lab__auto { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.s2-lab__auto li { display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; color: var(--fg-2); }
+.s2-lab__auto .s2-ico { width: 16px; height: 16px; }
+@media (max-width: 960px) { .s2-lab { grid-template-columns: 1fr; } .s2-lab__edge::after { display: none; } }
+.s2-part[data-kind='campus'] .s2-items { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
+.s2-part[data-kind='campus'] li { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-2); gap: 8px; }
+.s2-part[data-kind='campus'] .s2-items span { font-size: 15px; line-height: 1.55; }
 
 /* GitHub year: 53 week columns of 7 day cells, filled column-first */
 .s2-gh .s2-nums { margin: 0 0 40px; }
@@ -205,7 +219,7 @@ html:has(.s2) { scroll-behavior: smooth; }
   .s2-tile { width: 52px; height: 52px; border-radius: 12px; }
   .s2-part[data-kind='photo'] .s2-items { columns: 2 140px; column-gap: 10px; }
   .s2-form { grid-template-columns: 1fr; }
-  .s2-part[data-kind='lab'] .s2-items, .s2-part[data-kind='campus'] .s2-items { grid-template-columns: 1fr; }
+  .s2-part[data-kind='campus'] .s2-items { grid-template-columns: 1fr; }
 }
 
 /* opening: the name alone mid-screen, then it settles into the hero while everything else fades in */

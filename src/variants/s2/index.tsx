@@ -11,7 +11,7 @@ import { Demo } from '../../demos/Demo'
 import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Link } from '../../lib/router'
-import { life } from './life'
+import { life, lab } from './life'
 import gh from '../../data/github.json'
 import './s2.css'
 
@@ -41,6 +41,46 @@ function Tile({ m }: { m: Icon }) {
 const gate = `(function(){var d=document.documentElement,k='s2-seen';try{if(sessionStorage.getItem(k)||matchMedia('(prefers-reduced-motion: reduce)').matches)d.setAttribute('data-s2-skip','');sessionStorage.setItem(k,'1')}catch(e){}var s=function(){d.setAttribute('data-s2-skip','')};['pointerdown','keydown','wheel','touchmove'].forEach(function(e){addEventListener(e,s,{once:true,passive:true})})})()`
 
 const ext = { target: '_blank', rel: 'noopener' } as const
+
+const icon = (n: string) => <img className="s2-ico" src={`/logos/lab/${n}.svg`} alt="" width={20} height={20} />
+/** The homelab as a map: the one way in on the left, then each machine and what runs on it. */
+function LabMap() {
+  return (
+    <div className="s2-lab">
+      <div className="s2-lab__edge">
+        {icon(lab.edge.icon)}
+        <b>{lab.edge.name}</b>
+        <span>{lab.edge.role}</span>
+      </div>
+      {lab.hosts.map((h) => (
+        <div key={h.name} className="s2-lab__host">
+          <p className="s2-lab__head">
+            {icon(h.icon)}
+            <b>{h.name}</b>
+            <span>{h.meta}</span>
+          </p>
+          <ul>
+            {h.services.map((sv) => (
+              <li key={sv.name}>
+                {icon(sv.icon)}
+                <b>{sv.name}</b>
+                <span>{sv.role}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <ul className="s2-lab__auto" aria-label="Home Assistant automations">
+        {lab.automations.map((a) => (
+          <li key={a.name}>
+            {icon(a.icon)}
+            {a.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 interface Track { name: string; artists: string; url: string; art?: string }
 /** Live from /api/spotify; renders nothing until it loads, and nothing at all if the API isn't configured. */
@@ -285,11 +325,7 @@ function Home({ base }: { base: string }) {
                   <figcaption>{part.video.caption}</figcaption>
                 </figure>
               )}
-              {part.stack && (
-                <ul className="s2-stack" aria-label="Stack">
-                  {part.stack.map((t) => <li key={t}>{t}</li>)}
-                </ul>
-              )}
+              {part.id === 'lab' && <LabMap />}
               {part.groups?.map((g) => (
                 <div key={g.title} className="s2-group">
                   <h4>{g.title}</h4>
