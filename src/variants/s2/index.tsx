@@ -3,7 +3,7 @@
  * site flows: a short about, then one timeline with big app-icon logos (jobs, then research), each with its proof
  * inline (numbers, live demo, write-up). Opening: the same settle as S1. Pure CSS, once per session.
  */
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import type { VariantProps } from '../../routes'
 import { selected, amazonMetrics, more, roles, education, type Mark } from '../../content/curated'
 import { links } from '../../content/site'
@@ -12,6 +12,7 @@ import { ResearchArticle } from '../../shared/ResearchArticle'
 import { BeriCaseStudy } from '../../shared/BeriCaseStudy'
 import { Link } from '../../lib/router'
 import { life } from './life'
+import gh from '../../data/github.json'
 import './s2.css'
 
 const NAME = 'Tanuj Dargan'
@@ -40,6 +41,62 @@ function Tile({ m }: { m: Icon }) {
 const gate = `(function(){var d=document.documentElement,k='s2-seen';try{if(sessionStorage.getItem(k)||matchMedia('(prefers-reduced-motion: reduce)').matches)d.setAttribute('data-s2-skip','');sessionStorage.setItem(k,'1')}catch(e){}var s=function(){d.setAttribute('data-s2-skip','')};['pointerdown','keydown','wheel','touchmove'].forEach(function(e){addEventListener(e,s,{once:true,passive:true})})})()`
 
 const ext = { target: '_blank', rel: 'noopener' } as const
+
+interface Track { name: string; artists: string; url: string; art?: string }
+/** Live from /api/spotify; renders nothing until it loads, and nothing at all if the API isn't configured. */
+function OnRepeat() {
+  const [data, setData] = useState<{ recent: Track[]; top: Track[] } | null>(null)
+  useEffect(() => {
+    fetch('/api/spotify').then((r) => (r.ok ? r.json() : null)).then(setData, () => {})
+  }, [])
+  if (!data) return null
+  const list = (title: string, ts: Track[]) => (
+    <div className="s2-group">
+      <h4>{title}</h4>
+      <ol className="s2-tracks">
+        {ts.map((t) => (
+          <li key={t.url}>
+            <a href={t.url} {...ext}>
+              {t.art && <img src={t.art} alt="" width={48} height={48} loading="lazy" />}
+              <span><b>{t.name}</b>{t.artists}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+  return (
+    <div className="s2-music">
+      {list('Recently played', data.recent)}
+      {list('Top this month', data.top)}
+    </div>
+  )
+}
+
+/** Contribution calendar from the build-time snapshot (scripts/github.mjs): one column per week, Sunday on top. */
+function GitHubYear() {
+  const pad = new Date(gh.days[0][0] as string).getUTCDay()
+  const cells = [...Array(pad).fill(null), ...gh.days]
+  const fmt = (n: number) => n.toLocaleString('en-US')
+  return (
+    <div className="s2-gh">
+      <dl className="s2-nums">
+        <div><dt>{fmt(gh.total)}</dt><dd>contributions in the last year</dd></div>
+        <div><dt>{gh.longest}</dt><dd>day longest streak</dd></div>
+        <div><dt>{gh.repos}</dt><dd>public repositories</dd></div>
+      </dl>
+      <div className="s2-cal" role="img" aria-label={`${fmt(gh.total)} GitHub contributions in the last year`}>
+        {cells.map((d, i) => (
+          <i key={i} data-l={d ? d[2] : undefined} title={d ? `${d[1]} on ${d[0]}` : undefined} />
+        ))}
+      </div>
+      <p className="s2-langs">
+        Mostly {gh.languages.slice(0, 4).map((l) => l.name).join(', ')}.{' '}
+        <a className="s2-more" href={links.github.href} {...ext}>github.com/{gh.user} ↗</a>
+      </p>
+    </div>
+  )
+}
 
 function ContactForm() {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
@@ -203,6 +260,11 @@ function Home({ base }: { base: string }) {
           </ul>
         </section>
 
+        <section className="s2-sec" aria-labelledby="s2-h-gh">
+          <h2 className="s2-h" id="s2-h-gh">On GitHub</h2>
+          <GitHubYear />
+        </section>
+
         <section className="s2-life" id="life" aria-labelledby="s2-h-life">
           <h2 className="s2-h" id="s2-h-life">Outside work</h2>
           <p className="s2-life__intro">{life.intro}</p>
@@ -241,6 +303,7 @@ function Home({ base }: { base: string }) {
                   </ul>
                 </div>
               ))}
+              {part.id === 'music' && <OnRepeat />}
               {part.items && (
                 <ul className="s2-items">
                   {part.items.map((it) => (

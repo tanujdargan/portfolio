@@ -72,6 +72,24 @@ export const life: { intro: string; parts: LifePart[] } = {
       ],
     },
     {
+      id: 'baking',
+      title: 'Baking, and why Beri exists',
+      body: 'I mostly bake. My cousin and I kept running into the same two problems: recipes scattered across screenshots, bookmarks and notes, and the recipes we saved we never actually made. So we started building Beri, an iOS app for both.',
+      items: [
+        { name: 'Home', note: 'Stories, then rails you can reorder.', img: '/beri/shipped/home.jpg' },
+        { name: 'Library', note: 'Saved recipes, in folders.', img: '/beri/shipped/library.jpg' },
+        { name: 'Pantry', note: 'What you have, what expires soon.', img: '/beri/shipped/pantry.jpg' },
+        { name: 'Chat', note: 'Ask for a craving, get recipes back.', img: '/beri/shipped/chat.jpg' },
+      ],
+      links: [{ label: 'getberi.com', href: 'https://getberi.com' }],
+    },
+    {
+      id: 'music',
+      title: 'On repeat',
+      body: 'What I’ve been listening to lately.',
+      links: [{ label: 'Spotify profile', href: 'https://open.spotify.com/user/cstd95' }],
+    },
+    {
       id: 'campus',
       title: 'Around campus',
       body: 'Organising things people show up to.',
@@ -83,7 +101,7 @@ export const life: { intro: string; parts: LifePart[] } = {
     {
       id: 'games',
       title: 'PC gaming',
-      body: 'Story games first, then racing and sims, then shooters.',
+      body: 'Story games first, then sim racing and sim flying, then shooters.',
       groups: [
         { title: 'Story', items: [
           { name: 'Cyberpunk 2077', img: '/life/g-cp2077.jpg' },
@@ -99,7 +117,7 @@ export const life: { intro: string; parts: LifePart[] } = {
           { name: 'Split Fiction', img: '/life/g-splitfiction.jpg' },
           { name: 'Dispatch', img: '/life/g-dispatch.jpg' },
       ] },
-      { title: 'Racing and sims', items: [
+      { title: 'Sim racing and flying', items: [
           { name: 'Assetto Corsa EVO', img: '/life/g-acevo.jpg' },
           { name: 'Forza Horizon 6', img: '/life/g-fh6.jpg' },
           { name: 'F1 25', img: '/life/g-f125.jpg' },
