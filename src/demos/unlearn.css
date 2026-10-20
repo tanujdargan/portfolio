@@ -1,0 +1,20 @@
+.ul__chart { display: block; width: 100%; height: auto; overflow: visible; }
+.ul__grid { stroke: var(--line, rgb(255 255 255 / 0.08)); }
+.ul__tick { fill: var(--fg-3, #737378); font: 11px var(--font-mono, ui-monospace, monospace); }
+.ul__cursor { stroke: var(--fg-3, #737378); stroke-dasharray: 3 4; }
+.ul__series { --c: var(--fg-3, #737378); }
+.ul__series[data-m='deletion'], .ul__legend [data-m='deletion'] { --c: var(--accent, #f0b46a); }
+.ul__series[data-m='rmu'], .ul__legend [data-m='rmu'] { --c: #7fb4e8; }
+.ul__series[data-m='npo'], .ul__legend [data-m='npo'] { --c: #b59be0; }
+.ul__series polyline { fill: none; stroke: var(--c); stroke-width: 2.5; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: ul-draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+.ul__series[data-m='rmu'] polyline { animation-delay: 0.08s; }
+.ul__series[data-m='npo'] polyline { animation-delay: 0.16s; }
+.ul__series circle { fill: var(--c); stroke: var(--bg-2, #131315); stroke-width: 2; }
+@keyframes ul-draw { to { stroke-dashoffset: 0; } }
+.ul__legend { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.ul__legend li { display: flex; align-items: center; gap: 8px; }
+.ul__legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c, #737378); }
+.ul__finding { margin: 14px 0 0; padding-left: 12px; border-left: 2px solid var(--accent, #f0b46a); color: var(--fg, #efeeec); font-size: 14px; }
+.ul__finding[data-tone='full'] { border-color: var(--fg-3, #737378); }
+@media (prefers-reduced-motion: reduce) { .ul__series polyline { animation: none; stroke-dashoffset: 0; } }

@@ -36,7 +36,7 @@ export interface Head {
 
 export function resolve(pathname: string): Resolved {
   const path = pathname.replace(/\/+$/, '') || '/'
-  if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab — Tanuj Dargan', description: 'Variant switcher.', path } }
+  if (path === '/lab') return { kind: 'lab-index', head: { title: 'Design Lab · Tanuj Dargan', description: 'Variant switcher.', path } }
   const m = path.match(/^\/lab\/(main|[a-z]\d+[a-z]?)(\/.*)?$/)
   const id = m ? m[1] : PROD_VARIANT
   const rest = m ? m[2] || '/' : path
@@ -57,10 +57,10 @@ function pageFor(rest: string): Page {
 function headFor(page: Page, path: string): Head {
   if (page.kind === 'research') {
     const r = research.find((x) => x.slug === page.slug)!
-    return { title: `${r.title} — ${person.name}`, description: r.question, path }
+    return { title: `${r.title} · ${person.name}`, description: r.question, path }
   }
-  if (page.kind === 'beri') return { title: `Beri, a case study — ${person.name}`, description: 'Beri: a food app I’m building for iOS, and how its redesign was run.', path }
-  if (page.kind === 'notfound') return { title: `Not found — ${person.name}`, description: seo.description, path }
+  if (page.kind === 'beri') return { title: `Beri, a case study · ${person.name}`, description: 'Beri: a food app I’m building for iOS, and how its redesign was run.', path }
+  if (page.kind === 'notfound') return { title: `Not found · ${person.name}`, description: seo.description, path }
   return { title: seo.title, description: seo.description, path }
 }
 

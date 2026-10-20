@@ -400,7 +400,7 @@ export const milestonesAll: Milestone[] = [
 export const milestonesFor = (flags: Flags) => milestonesAll.filter((m) => !m.flag || flags[m.flag])
 
 export const seo = {
-  title: 'Tanuj Dargan — ML systems and interpretability',
+  title: 'Tanuj Dargan',
   description:
     'Tanuj Dargan: CS at UVic (2027). SDE intern at Amazon Robotics (LLM planning assistant in production, return offer), MarmotSat firmware lead, and interpretability research with live demos.',
 }

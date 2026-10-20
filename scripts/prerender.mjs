@@ -73,7 +73,7 @@ for (const p of allPaths()) {
   const { html, variant } = await render('/404')
   const key = Object.keys(manifest).find((k) => manifest[k].name === `variant-${variant}`)
   const css = [...new Set([...templateCss, ...(key ? collect(key).css : [])])].map((c) => readFileSync(path.join(dist, c), 'utf8')).join('\n')
-  writeFileSync(path.join(dist, '404.html'), baseTemplate.replace('<!--app-->', html).replace('<!--app-head-->', `<style>${css}</style><meta name="robots" content="noindex">`).replace(/<title>.*?<\/title>/, '<title>Not found — Tanuj Dargan</title>'))
+  writeFileSync(path.join(dist, '404.html'), baseTemplate.replace('<!--app-->', html).replace('<!--app-head-->', `<style>${css}</style><meta name="robots" content="noindex">`).replace(/<title>.*?<\/title>/, '<title>Not found · Tanuj Dargan</title>'))
 }
 const pub = allPaths().filter((p) => !p.startsWith('/lab'))
 writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pub.map((p) => `  <url><loc>https://tanujdargan.com${p}</loc></url>`).join('\n')}\n</urlset>\n`)
