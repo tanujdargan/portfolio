@@ -1,94 +1,16 @@
 {
-  "installCommand": "npm ci",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
+  "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
+      "source": "/api/github-stats",
+      "destination": "https://github-readme-stats.vercel.app/api"
     },
     {
-      "source": "/beri/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800"
-        }
-      ]
+      "source": "/api/github-stats/:path*",
+      "destination": "https://github-readme-stats.vercel.app/api/:path*"
     },
     {
-      "source": "/(.*)\\.md",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/markdown; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/index.md",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://tanujdargan.com/>; rel=\"canonical\""
-        }
-      ]
-    },
-    {
-      "source": "/research/:slug([a-z0-9-]+).md",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://tanujdargan.com/research/:slug>; rel=\"canonical\""
-        }
-      ]
-    },
-    {
-      "source": "/beri.md",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "<https://tanujdargan.com/beri>; rel=\"canonical\""
-        }
-      ]
-    },
-    {
-      "source": "/llms(-full)?.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "</index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
-        }
-      ]
-    },
-    {
-      "source": "/research/:slug([a-z0-9-]+)",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "</research/:slug.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
-        }
-      ]
+      "source": "/api/github-streak",
+      "destination": "https://github-readme-streak-stats.herokuapp.com/"
     }
   ]
 }

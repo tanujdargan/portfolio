@@ -23,12 +23,3 @@ npm-debug.log*
 
 # Claude
 .claude/
-dist-ssr/
-scripts/.og.html
-.vercel
-.env*
-.playwright-mcp/
-# Third-party studio captures stay local (see STUDIO_TASTE.md)
-research/**/*.mp4
-research/**/*.jpg
-research/**/*.png
