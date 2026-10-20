@@ -1,0 +1,548 @@
+{
+ "htmlClass": "lenis",
+ "bodyClass": "framer-cursor-none",
+ "libs": {
+  "gsap": false,
+  "ScrollTrigger": false,
+  "lenisClass": true,
+  "lenisGlobal": false,
+  "three": null,
+  "barba": false,
+  "swup": false,
+  "taxi": false,
+  "highway": false,
+  "locomotive": false,
+  "framer": true,
+  "webflow": false,
+  "next": false,
+  "nuxt": false,
+  "astro": false,
+  "generator": "Framer 9180a24",
+  "sveltekit": false
+ },
+ "canvases": [
+  {
+   "w": 1152,
+   "h": 720,
+   "pos": "static",
+   "z": "auto",
+   "ctx": "webgl",
+   "cls": ""
+  }
+ ],
+ "videos": 2,
+ "imgs": 8,
+ "body": {
+  "tag": "BODY",
+  "text": "WORK ABOUT Submit Industry insights, agency updates & Stor",
+  "ff": "sans-serif",
+  "fs": "12px",
+  "fw": "400",
+  "lh": "normal",
+  "ls": "normal",
+  "tt": "none",
+  "color": "rgb(0, 0, 0)",
+  "bg": "rgb(237, 237, 237)",
+  "htmlBg": "rgba(0, 0, 0, 0)"
+ },
+ "headings": [
+  {
+   "tag": "H1",
+   "text": "Analogue is a brand and digital design studio in Amsterdam, ",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "H2",
+   "text": "WORK",
+   "ff": "\"LCDDot TR Regular\", \"LCDDot TR Regular Placeholder\", sans-serif",
+   "fs": "20px",
+   "fw": "400",
+   "lh": "20px",
+   "ls": "0.5px",
+   "tt": "uppercase",
+   "color": "rgb(237, 237, 237)"
+  },
+  {
+   "tag": "H3",
+   "text": "Whether it\u2019s a product or a service, people choose with thei",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "40px",
+   "fw": "500",
+   "lh": "42px",
+   "ls": "-2px",
+   "tt": "none",
+   "color": "rgb(237, 237, 237)"
+  },
+  {
+   "tag": "P",
+   "text": "Submit",
+   "ff": "\"Graphik Semibold\", \"Graphik Semibold Placeholder\", sans-serif",
+   "fs": "12px",
+   "fw": "600",
+   "lh": "14.4px",
+   "ls": "-0.36px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "A",
+   "text": "WORK",
+   "ff": "\"LCDDot TR Regular\", \"LCDDot TR Regular Placeholder\", sans-serif",
+   "fs": "20px",
+   "fw": "400",
+   "lh": "20px",
+   "ls": "0.5px",
+   "tt": "uppercase",
+   "color": "rgb(237, 237, 237)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Submit",
+   "ff": "sans-serif",
+   "fs": "12px",
+   "fw": "400",
+   "lh": "normal",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  },
+  null
+ ],
+ "largest": [
+  {
+   "tag": "SPAN",
+   "text": "A",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "n",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "a",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "l",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "o",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "g",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "u",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  },
+  {
+   "tag": "SPAN",
+   "text": "e",
+   "ff": "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   "fs": "60px",
+   "fw": "500",
+   "lh": "60px",
+   "ls": "-3px",
+   "tt": "none",
+   "color": "rgb(28, 28, 28)"
+  }
+ ],
+ "fontFamilies": [
+  [
+   "\"Graphik Medium\", \"Graphik Medium Placeholder\", sans-serif",
+   291
+  ],
+  [
+   "sans-serif",
+   9
+  ],
+  [
+   "\"LCDDot TR Regular\", \"LCDDot TR Regular Placeholder\", sans-serif",
+   2
+  ],
+  [
+   "\"Graphik Semibold\", \"Graphik Semibold Placeholder\", sans-serif",
+   1
+  ]
+ ],
+ "typeScale": [
+  [
+   "60px 500 none ls:-3px",
+   199
+  ],
+  [
+   "40px 500 none ls:-2px",
+   56
+  ],
+  [
+   "60px 500 none ls:-2.4px",
+   16
+  ],
+  [
+   "12px 400 none ls:normal",
+   9
+  ],
+  [
+   "18px 500 none ls:-0.72px",
+   9
+  ],
+  [
+   "24px 500 none ls:-0.5px",
+   7
+  ],
+  [
+   "11px 400 none ls:-0.3px",
+   4
+  ],
+  [
+   "20px 400 uppercase ls:0.5px",
+   2
+  ],
+  [
+   "12px 600 none ls:-0.36px",
+   1
+  ]
+ ],
+ "colors": [
+  [
+   "rgb(28, 28, 28)",
+   163
+  ],
+  [
+   "rgb(122, 122, 122)",
+   66
+  ],
+  [
+   "rgb(237, 237, 237)",
+   65
+  ],
+  [
+   "rgb(0, 0, 0)",
+   9
+  ]
+ ],
+ "bgs": [
+  [
+   "rgb(255, 255, 255)",
+   13
+  ],
+  [
+   "rgb(237, 237, 237)",
+   11
+  ],
+  [
+   "rgb(184, 184, 184)",
+   5
+  ],
+  [
+   "rgb(0, 0, 0)",
+   2
+  ],
+  [
+   "rgb(0, 56, 255)",
+   1
+  ],
+  [
+   "rgba(187, 187, 187, 0.15)",
+   1
+  ],
+  [
+   "rgb(28, 28, 28)",
+   1
+  ],
+  [
+   "rgba(237, 237, 237, 0.1)",
+   1
+  ],
+  [
+   "rgba(0, 0, 0, 0.35)",
+   1
+  ]
+ ],
+ "fontFaces": [
+  "IBM Plex Mono 400 normal unloaded",
+  "DGTL STENCIL Regular 400 normal unloaded",
+  "Chocolateletter Regular normal normal unloaded",
+  "DGTL STENCIL Regular normal normal unloaded",
+  "ABC Favorit Unlicensed Trial Regular 400 normal unloaded",
+  "ABC Favorit Unlicensed Trial Bold 700 normal unloaded",
+  "ABC Favorit Unlicensed Trial Bold Italic 700 italic unloaded",
+  "Italian Old Style MT Std Regular 400 normal unloaded",
+  "Rhode MediumCondensed 500 normal unloaded",
+  "KH Teka Regular normal normal unloaded",
+  "GT Ultra Median Regular 400 normal unloaded",
+  "AS Therma Medium Condensed normal normal unloaded",
+  "pix M 8pt bold Regular 400 normal unloaded",
+  "AS Therma Medium Condensed 500 normal unloaded",
+  "Chocolateletter Regular 400 normal unloaded",
+  "American Typewriter BQ Regular 500 normal unloaded",
+  "ITC Garamond Std Light Condensed normal normal unloaded",
+  "Topol Bold 700 normal unloaded",
+  "ITC Garamond Std Light Condensed 300 normal unloaded",
+  "Topol Bold normal normal unloaded",
+  "Real Head Pro Demibold 600 normal unloaded",
+  "Graphik Medium 500 normal loaded",
+  "Graphik Medium normal normal loaded",
+  "LCDDot TR Regular normal normal loaded",
+  "LCDDot TR Regular 400 normal loaded",
+  "Graphik Semibold 600 normal loaded",
+  "Graphik Regular 400 normal unloaded",
+  "Graphik Regular normal normal unloaded",
+  "TT Hoves Regular 400 normal unloaded",
+  "Helvetica Neue LT Std 75 Bold 700 normal unloaded"
+ ],
+ "grids": [],
+ "rootVars": [],
+ "cubicBeziers": [],
+ "durations": [
+  [
+   "0.15s",
+   1
+  ],
+  [
+   "T:color 0.15s",
+   1
+  ],
+  [
+   "0.4s",
+   1
+  ],
+  [
+   "T:opacity 0.4s ease-out",
+   1
+  ],
+  [
+   "unset",
+   1
+  ],
+  [
+   "T:unset",
+   1
+  ]
+ ],
+ "keyframes": [],
+ "crossOriginSheets": 0,
+ "gsapTweens": null,
+ "totalWords": 133,
+ "links": [
+  {
+   "h": "./cases-overview",
+   "t": "WORK"
+  },
+  {
+   "h": "./about-us/expertise",
+   "t": "digital design studio"
+  },
+  {
+   "h": "./case/vitra",
+   "t": "Vitra"
+  },
+  {
+   "h": "./case/fty",
+   "t": "Nike"
+  },
+  {
+   "h": "./case/tonyschocolonely",
+   "t": "Tony's Chocolonely,"
+  },
+  {
+   "h": "https://www.youtube.com/watch?v=5aSgb8C9jqE&t=44s",
+   "t": "Website of the Year Our latest case for Vitra has "
+  },
+  {
+   "h": "./about-us/team",
+   "t": "Our team Small team, big results. Meet team"
+  },
+  {
+   "h": "./case/atomic",
+   "t": ""
+  },
+  {
+   "h": "./case/equip",
+   "t": ""
+  },
+  {
+   "h": "./case/ilgm",
+   "t": ""
+  },
+  {
+   "h": "./case/askphill",
+   "t": ""
+  },
+  {
+   "h": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0oQlhP2RONfxczVKzjtV_7nc4fBLgn-i87V5_rtvjMqLfZXBAHBk9nWf20c3HlmvgmOLJkpE4f",
+   "t": "Book call"
+  }
+ ],
+ "scrollHeight": 9770,
+ "scrollY": 8870,
+ "cursorEls": [
+  "framer-cursor-none"
+ ],
+ "cssCursor": "none",
+ "url": "https://analogueagency.com",
+ "final": "https://analogueagency.com/",
+ "firstScreenText": "Work About Expertise & Capabilities Process & Pricing Team Outcomes Careers Analogue Store +31 6 46 13 91 98 ralph@analogueagency.com Plan a Call general inquiries Visit Oudeschans 26-H 1011LB, Amsterdam The Netherlands E m o t i o n i s t h e h e a r t o f e v e r y d e c i s i o n",
+ "firstScreenWords": 62,
+ "initialScrollHeight": 9770,
+ "bundleSigs": {
+  "lenis": [
+   "shared.DUeyCENV.mjs",
+   "init.mjs"
+  ],
+  "lenisOpts": [
+   "smoothWheel"
+  ],
+  "hydra": [
+   "script_main.Cp3CIDZF.mjs",
+   "framer.BM8UNrMO.mjs",
+   "react.N0w1IT-y.mjs"
+  ],
+  "react": [
+   "script_main.Cp3CIDZF.mjs",
+   "react.N0w1IT-y.mjs",
+   "init.mjs"
+  ],
+  "glsl": [
+   "FfnNfpOjNzkb9SuNNehGRo6TLFc7k9CtW0lVkKIc"
+  ],
+  "astro": [
+   "framer.BM8UNrMO.mjs"
+  ],
+  "splitText": [
+   "MotionText.Cl2tiQ7D.mjs"
+  ],
+  "taxi": [
+   "motion.1k2a_roN.mjs"
+  ]
+ },
+ "bundleEases": [
+  [
+   "duration:.3",
+   22
+  ],
+  [
+   "duration:.5",
+   10
+  ],
+  [
+   "duration:.2",
+   10
+  ],
+  [
+   "duration:.4",
+   9
+  ],
+  [
+   "duration:1",
+   8
+  ],
+  [
+   "duration:0",
+   5
+  ],
+  [
+   "duration:.8",
+   3
+  ],
+  [
+   "duration:2",
+   3
+  ],
+  [
+   "duration:.001",
+   1
+  ],
+  [
+   "duration:1.5",
+   1
+  ],
+  [
+   "duration:.7",
+   1
+  ],
+  [
+   "duration:2.5",
+   1
+  ],
+  [
+   "duration:4",
+   1
+  ],
+  [
+   "cubic-bezier(${t.ease.join(`,`)",
+   1
+  ],
+  [
+   "cubic-bezier(${e}, ${t}, ${n}, ${r})",
+   1
+  ],
+  [
+   "duration:800",
+   1
+  ],
+  [
+   "duration:.45",
+   1
+  ]
+ ],
+ "scriptCount": 27,
+ "scriptBytes": 2095650
+}

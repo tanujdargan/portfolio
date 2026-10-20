@@ -1,0 +1,161 @@
+/* Global floor shared by every variant. Variants own fonts, colour and layout under their root class. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  position: relative;
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0;
+  background: #0b0b0c;
+  color: #ededee;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, figure, blockquote, ol, ul, dl, dd {
+  margin: 0;
+}
+ol, ul {
+  padding: 0;
+  list-style: none;
+}
+img, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--accent, #9ecbff);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: calc(220ms * var(--t, 1));
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lab-only "unverified" badge (src/shared/Flag.tsx). Global so every variant renders it the same. */
+.s-flag {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  margin-left: 6px;
+  padding: 0 5px;
+  vertical-align: 0.12em;
+  border-radius: 4px;
+  font: 600 9.5px/1 ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #000;
+  background: #ffd27a;
+  cursor: help;
+}
+.s-flag:focus-visible {
+  outline: 2px solid #f0c36a;
+  outline-offset: 2px;
+}
+
+/* Organisation marks and social icons (OrgLogo.tsx, Links.tsx): an SVG file as a CSS mask, filled with currentColor. */
+.s-logo {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--src) center / contain no-repeat;
+  mask: var(--src) center / contain no-repeat;
+}
+.s-logo {
+  height: var(--h, 18px);
+  vertical-align: middle;
+}
+/* Marks aren't needed for first paint: their files would queue ahead of the fonts (measured +0.4 s mobile LCP).
+   Attach the masks only after hydration (MotionProvider sets data-motion on <html>); until then the box is reserved. */
+html:not([data-motion]) .s-logo:not(.s-logo--type) {
+  -webkit-mask: none;
+  mask: none;
+  background-color: transparent;
+}
+.s-logo--type {
+  width: auto;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  font: 600 calc(var(--h, 18px) * 0.9) / 1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+  color: inherit;
+}
+.s-logo--type b {
+  font-weight: 400;
+}
+
+/* Full-colour org tiles (OrgTile). The SVG carries its own rounded background; the hairline keeps white tiles from
+   glowing against dark pages. */
+.s-tile {
+  display: inline-block;
+  flex: none;
+  width: var(--s, 40px);
+  height: var(--s, 40px);
+  border-radius: calc(var(--s, 40px) * 0.225);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08);
+  vertical-align: middle;
+}
+.s-tile--type {
+  display: inline-grid;
+  place-items: center;
+  background: #f4f4f2;
+  color: #1c1d1f;
+  font: 650 calc(var(--s, 40px) * 0.38) / 1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.04em;
+}
+
+/* Split text (src/shared/Split.tsx): each word is a clip mask so translated words read as a line reveal. */
+.s-split__w {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.s-split__i,
+.s-split__c {
+  display: inline-block;
+  white-space: pre;
+}
