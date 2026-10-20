@@ -1,0 +1,8 @@
+bun.lock
+.playwright-mcp
+/audit
+/references
+/dist
+dist-ssr
+/portfolio-design-board.html
+/research

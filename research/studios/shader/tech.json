@@ -1,0 +1,397 @@
+{
+ "htmlClass": "",
+ "bodyClass": "stix_two_text_a3385497-module__eDuTOG__variable font-stix bg-black overflow-hidden overscroll-none select-none",
+ "libs": {
+  "gsap": false,
+  "ScrollTrigger": false,
+  "lenisClass": false,
+  "lenisGlobal": false,
+  "three": "183",
+  "barba": false,
+  "swup": false,
+  "taxi": false,
+  "highway": false,
+  "locomotive": false,
+  "framer": false,
+  "webflow": false,
+  "next": true,
+  "nuxt": false,
+  "astro": false,
+  "generator": null,
+  "sveltekit": false
+ },
+ "canvases": [
+  {
+   "w": 1440,
+   "h": 900,
+   "pos": "static",
+   "z": "auto",
+   "ctx": "2d-or-other",
+   "cls": ""
+  }
+ ],
+ "videos": 0,
+ "imgs": 0,
+ "body": {
+  "tag": "BODY",
+  "text": "Skip to content Shader \u2014 Home Home Selected Work About Us Co",
+  "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+  "fs": "16px",
+  "fw": "400",
+  "lh": "24px",
+  "ls": "normal",
+  "tt": "none",
+  "color": "rgb(252, 249, 243)",
+  "bg": "rgb(0, 0, 0)",
+  "htmlBg": "rgba(0, 0, 0, 0)"
+ },
+ "headings": [
+  {
+   "tag": "H1",
+   "text": "A Creative Development Studio, Plugged into the Future",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "H2",
+   "text": "Selected Work",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  null,
+  {
+   "tag": "P",
+   "text": "Scroll to Inspect Our Closed Deals",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "A",
+   "text": "Book a call",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Skip to content",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "NAV",
+   "text": "Shader \u2014 Home Home Selected Work About Us Contact Book a cal",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  }
+ ],
+ "largest": [
+  {
+   "tag": "SCRIPT",
+   "text": "(self.__next_s=self.__next_s||[]).push([\"https://analytics.s",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Skip to content",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Shader \u2014 Home",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Home",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Selected Work",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "About Us",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "BUTTON",
+   "text": "Contact",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  },
+  {
+   "tag": "A",
+   "text": "Book a call",
+   "ff": "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   "fs": "16px",
+   "fw": "400",
+   "lh": "24px",
+   "ls": "normal",
+   "tt": "none",
+   "color": "rgb(252, 249, 243)"
+  }
+ ],
+ "fontFamilies": [
+  [
+   "\"STIX Two Text\", \"STIX Two Text Fallback\"",
+   58
+  ]
+ ],
+ "typeScale": [
+  [
+   "16px 400 none ls:normal",
+   58
+  ]
+ ],
+ "colors": [
+  [
+   "rgb(252, 249, 243)",
+   58
+  ]
+ ],
+ "bgs": [],
+ "fontFaces": [
+  "STIX Two Text 400 700 normal unloaded",
+  "STIX Two Text 400 700 normal loaded",
+  "STIX Two Text Fallback normal normal unloaded"
+ ],
+ "grids": [],
+ "rootVars": [
+  "--vh: 1svh",
+  "--vw: 1svw",
+  "--page-height: 3",
+  "--page-width: 1",
+  "--background: #fff",
+  "--foreground: #fcf9f3"
+ ],
+ "cubicBeziers": [
+  [
+   "cubic-bezier(0.4,0,0.2,1)",
+   1
+  ]
+ ],
+ "durations": [
+  [
+   "0.15s",
+   1
+  ]
+ ],
+ "keyframes": [],
+ "crossOriginSheets": 0,
+ "gsapTweens": null,
+ "totalWords": 515,
+ "links": [
+  {
+   "h": "https://cal.com/filip-kantedal-hd30xa/30min",
+   "t": "Book a call"
+  },
+  {
+   "h": "mailto:hello@shader.se",
+   "t": "hello@shader.se"
+  },
+  {
+   "h": "https://www.linkedin.com/company/shadersweden/",
+   "t": "LinkedIn"
+  },
+  {
+   "h": "https://www.instagram.com/shadersweden/",
+   "t": "Instagram"
+  },
+  {
+   "h": "https://x.com/shadersweden",
+   "t": "X (Twitter)"
+  },
+  {
+   "h": "mailto:ceo@shader.se",
+   "t": "Reach out today to our CEO for new business enquir"
+  },
+  {
+   "h": "/accessibility-statement",
+   "t": "Accessibility Statement"
+  }
+ ],
+ "scrollHeight": 900,
+ "scrollY": 0,
+ "cursorEls": [],
+ "cssCursor": "default",
+ "url": "https://www.shader.se",
+ "final": "https://www.shader.se/#contact",
+ "firstScreenText": "Shader \u2014 Home Home Selected Work About Us Contact Book a call Project carousel Previous project View project: eHealth Arena 3D Showroom, developed in collaboration with Markus Reklambyr\u00e5 Next project Book a Call Today General Enquiries hello@shader.se Book a call Visit us Laxholmstorget 3 602 21 Norrk\u00f6ping Sweden Social LinkedIn Instagram X (Twitter) New business Reach out today to our CEO for new business enquiries at ceo@shader.se Footer Accessibility Statement",
+ "firstScreenWords": 69,
+ "initialScrollHeight": 900,
+ "bundleSigs": {
+  "lenis": [
+   "03r54qy_a1k2c.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "12vmxu4i7-3qm.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0x4j-.xiizxj9.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "react": [
+   "07k6izpr80.um.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "01rpcm9oxyz4o.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "taxi": [
+   "0x4j-.xiizxj9.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "003qcun9_z40b.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "lenisOpts": [
+   "duration:.8,easing",
+   "wheelMultiplier:1",
+   "smoothWheel"
+  ],
+  "hydra": [
+   "17.79-onzp9ko.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "01rpcm9oxyz4o.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "three": [
+   "003qcun9_z40b.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "glsl": [
+   "003qcun9_z40b.js?dpl=dpl_FKkVtfbbNiFu5V5",
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ],
+  "r3f": [
+   "0-08uz4-c8z20.js?dpl=dpl_FKkVtfbbNiFu5V5"
+  ]
+ },
+ "bundleEases": [
+  [
+   "duration:0",
+   11
+  ],
+  [
+   "duration:1",
+   8
+  ],
+  [
+   "duration:.15",
+   7
+  ],
+  [
+   "duration:.5",
+   5
+  ],
+  [
+   "duration:.3",
+   4
+  ],
+  [
+   "duration:.1",
+   4
+  ],
+  [
+   "duration:.8",
+   3
+  ],
+  [
+   "duration:1.3",
+   2
+  ],
+  [
+   "duration:2",
+   2
+  ],
+  [
+   "duration:1.25",
+   1
+  ],
+  [
+   "cubic-bezier(${t}, ${e}, ${i}, ${s})",
+   1
+  ],
+  [
+   "duration:800",
+   1
+  ],
+  [
+   "duration:1.5",
+   1
+  ],
+  [
+   "duration:.4",
+   1
+  ],
+  [
+   "css cubic-bezier(.4,0,.2,1)",
+   1
+  ]
+ ],
+ "scriptCount": 15,
+ "scriptBytes": 3568201
+}
