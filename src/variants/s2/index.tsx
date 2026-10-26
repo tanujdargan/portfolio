@@ -179,13 +179,14 @@ const entries = (base: string): Entry[] => [
         <p className="s2-reads">
           <a className="s2-more" href="https://apartresearch.com/sprints/projects/cut-the-wire-collusionprobe-ablation-effects-shrink-or-relocate-under-format-dose-and-placement-controls-10ps" {...ext}>Read the paper ↗</a>
         </p>
-        <h4 className="s2-sub"><span>Digital Minds sprint · Aug 2026</span>{lossmask.title}</h4>
+        <h4 className="s2-sub"><span>Digital Minds sprint · Aug 2026 · with Adhish Chakravorty and Priyansh Bhatter</span>{lossmask.title}</h4>
         <p>{lossmask.finding}</p>
         <p className="s2-result">{lossmask.result}</p>
         <div className="s2-demo"><Demo kind="lossmask" compact finding /></div>
         <p>Part of the same project, steering a model along emotion directions. {steering.finding}</p>
         <div className="s2-demo"><Demo kind="steering" compact /></div>
         <p className="s2-reads">
+          <a className="s2-more" href="https://apartresearch.com/sprints/projects/trained-to-say-its-fine-990s" {...ext}>Read the paper ↗</a>
           <Link className="s2-more" to={`${base}/research/${lossmask.slug}`}>Loss masking write-up →</Link>
           <Link className="s2-more" to={`${base}/research/${steering.slug}`}>Steering write-up →</Link>
         </p>
