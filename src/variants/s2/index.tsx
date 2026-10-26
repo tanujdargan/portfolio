@@ -165,9 +165,21 @@ const entries = (base: string): Entry[] => [
     ),
   },
   {
-    when: lossmask.when, icon: 'apart', title: 'Apart Research', role: 'Digital Minds sprint · ' + lossmask.title,
+    when: 'Aug–Oct 2026', icon: 'apart', title: 'Apart Research', role: 'Two research sprints, two papers',
     body: (
       <>
+        <h4 className="s2-sub"><span>AI Collusion sprint · Oct 2026</span>Can you cut the wire between colluding AIs?</h4>
+        <p>
+          Probes that read collusion from a model's activations score near-perfect, and ablating their directions looks
+          devastating. I built Signal Table, a steganographic betting game where one model hides a signal in casino small
+          talk and another decodes it, then tested how much of that picture survives proper controls across four models.
+        </p>
+        <p className="s2-result">Most of the big effect was format damage and generic cost: 58 points shrinks to 8–15. And a published collusion benchmark's steganography tier is separable by context length alone (AUROC 1.000).</p>
+        <div className="s2-demo"><Demo kind="collusion" compact /></div>
+        <p className="s2-reads">
+          <a className="s2-more" href="https://apartresearch.com/sprints/projects/cut-the-wire-collusionprobe-ablation-effects-shrink-or-relocate-under-format-dose-and-placement-controls-10ps" {...ext}>Read the paper ↗</a>
+        </p>
+        <h4 className="s2-sub"><span>Digital Minds sprint · Aug 2026</span>{lossmask.title}</h4>
         <p>{lossmask.finding}</p>
         <p className="s2-result">{lossmask.result}</p>
         <div className="s2-demo"><Demo kind="lossmask" compact finding /></div>
@@ -339,8 +351,8 @@ function Home({ base }: { base: string }) {
           <p className="s2-title s2-in" style={{ '--d': 0 } as React.CSSProperties}>{TITLE}</p>
           <p className="s2-lede s2-in" style={{ '--d': 1 } as React.CSSProperties}>
             This summer I shipped an LLM planning assistant to production at <b>Amazon Robotics</b>. I study what language
-            models represent inside: with <b>Apart Research</b> I showed how fine-tuning decides whether a model voices
-            shutdown distress. Before that I led flight firmware for <b>MarmotSat</b>, now in orbit. Fourth-year CS at the University of Victoria, graduating April 2027.
+            models represent inside: two papers with <b>Apart Research</b>, on collusion probes and on how fine-tuning
+            decides whether a model voices shutdown distress. Before that I led flight firmware for <b>MarmotSat</b>, now in orbit. Fourth-year CS at the University of Victoria, graduating April 2027.
           </p>
           <p className="s2-links s2-in" style={{ '--d': 2 } as React.CSSProperties}>
             <a href={links.resume.href} {...ext}>Resume ↗</a>

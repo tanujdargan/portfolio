@@ -1,0 +1,23 @@
+.cw__steps { display: flex; flex-wrap: wrap; gap: 8px; }
+.cw__steps button { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line, rgb(255 255 255 / 0.08));
+  border-radius: 999px; background: none; color: var(--fg-2, #a2a2a6); font: 500 13px var(--font-body, sans-serif); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s; }
+.cw__steps button span { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+  background: rgb(255 255 255 / 0.06); font: 600 11px var(--font-mono, monospace); }
+.cw__steps button[aria-checked='true'] { border-color: var(--accent, #f0b46a); color: var(--fg, #efeeec); }
+.cw__steps button[aria-checked='true'] span { background: var(--accent, #f0b46a); color: #0b0b0c; }
+.cw__meter { position: relative; height: 56px; margin: 24px 0 0; border-radius: 10px; background: rgb(255 255 255 / 0.04); overflow: hidden; }
+.cw__meter span { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, rgb(240 180 106 / 0.35), var(--accent, #f0b46a));
+  border-radius: 10px; transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.cw__meter b { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--fg, #efeeec);
+  font: 500 22px var(--font-mono, monospace); letter-spacing: -0.02em; }
+.cw__note { margin: 16px 0 0; min-height: 3.2em; color: var(--fg, #efeeec); font-size: 14px; line-height: 1.6; }
+.cw__bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.cw__bars li { display: grid; grid-template-columns: 170px 1fr 52px; align-items: center; gap: 14px; font-size: 13px; }
+.cw__bars i { height: 14px; border-radius: 7px; background: rgb(255 255 255 / 0.04); overflow: hidden; }
+.cw__bars s { display: block; height: 100%; border-radius: 7px; background: #7fb4e8; transform-origin: left; animation: cw-grow 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.cw__bars li[data-k='len'] s { background: var(--accent, #f0b46a); }
+.cw__bars b { font: 500 13px var(--font-mono, monospace); color: var(--fg, #efeeec); text-align: right; }
+@keyframes cw-grow { from { transform: scaleX(0); } }
+@media (max-width: 560px) { .cw__bars li { grid-template-columns: 1fr 52px; } .cw__bars i { grid-column: 1 / -1; grid-row: 2; } }
+@media (prefers-reduced-motion: reduce) { .cw__meter span, .cw__bars s { transition: none; animation: none; } }
