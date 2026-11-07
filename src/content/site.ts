@@ -1,5 +1,5 @@
 // Single source of truth for every variant. Copy lives in the variants; facts live here.
-// Source of truth: ~/Desktop/Tanuj_Dargan_Resume_Aug19-2026.pdf (= public/resume.pdf). Where the resume is silent,
+// Source of truth: ~/Desktop/Tanuj_Dargan_Resume_Aug19-2026.pdf (not published; sent on request). Where the resume is silent,
 // facts come from the Sept 2026 brief, repos or the old site; RESEARCH_CLAIMS.md traces every claim.
 // `unverified` marks anything not confirmed by one of those sources; the lab renders it with an "unverified" badge.
 import type { FlagKey, Flags } from './flags'
@@ -19,8 +19,8 @@ export const person = {
 
 export type LinkKey = 'resume' | 'email' | 'github' | 'linkedin' | 'x'
 export const links: Record<LinkKey, { label: string; href: string; short: string; unverified?: boolean }> = {
-  // public/resume.pdf is byte-identical to Tanuj_Dargan_Resume_Aug19-2026.pdf
-  resume: { label: 'Resume', short: 'CV', href: '/resume.pdf' },
+  // The PDF isn't public: /#resume opens the request form (and /resume.pdf redirects there).
+  resume: { label: 'Resume', short: 'CV', href: '/#resume' },
   email: { label: 'Email', short: 'Mail', href: 'mailto:dargantanuj@gmail.com' },
   github: { label: 'GitHub', short: 'GH', href: 'https://github.com/tanujdargan' },
   linkedin: { label: 'LinkedIn', short: 'In', href: 'https://www.linkedin.com/in/tanujdargan' },

@@ -30,7 +30,8 @@ const { person, links, research, experience, beri, thesis, context, proofs, sele
 
 const SITE = person.site.replace(/\/$/, '')
 const abs = (href) => (href.startsWith('http') ? href : `${SITE}${href}`)
-const RESUME_URL = abs(links.resume.href)
+// The PDF isn't public; it's sent on request.
+const RESUME_URL = `on request (${abs(links.resume.href)} or dargantanuj@gmail.com)`
 
 // public/resume.pdf (Aug 19 2026): facts the site's content modules don't carry. Phone number deliberately omitted.
 const RESUME = {
@@ -52,7 +53,7 @@ const whereFix = { steering: 'Method replicated on Qwen2.5-1.5B-Instruct for thi
 const md = (s) => s.replace(/’/g, "'").replace('run for this page (the demo above)', 'run for this site (the live demo is on the web page)')
 const updated = new Date().toISOString().slice(0, 10)
 const front = (title, description, url) =>
-  `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\ncanonical: ${url}\nresume: ${RESUME_URL}\nupdated: ${updated}\n---\n\n`
+  `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\ncanonical: ${url}\nresume: on request\nupdated: ${updated}\n---\n\n`
 
 const contactLines = [
   `- Email: ${person.email}`,
@@ -163,12 +164,12 @@ function llmsTxt() {
     '',
     `> ${thesis} ${context} SDE intern at Amazon Robotics (LLM planning assistant in production across 180+ fulfillment sites, return offer), MarmotSat onboard-computer firmware lead (in orbit), and interpretability research.`,
     '',
-    `Every page on ${SITE} has a markdown twin: append .md (the home page is /index.md), or request the page with \`Accept: text/markdown\`. The resume PDF is the source of truth.`,
+    `Every page on ${SITE} has a markdown twin: append .md (the home page is /index.md), or request the page with \`Accept: text/markdown\`. The resume PDF (sent on request) is the source of truth.`,
     '',
     '## Profile',
     '',
     `- [Full profile](${SITE}/index.md): who he is, proof points, selected work with findings, experience, education, more work, contact`,
-    `- [Resume (PDF, ${RESUME.date})](${RESUME_URL}): one page, source of truth`,
+    `- [Resume (PDF, ${RESUME.date})](${abs(links.resume.href)}): one page, source of truth, sent on request`,
     '',
     '## Research write-ups',
     '',

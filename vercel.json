@@ -101,6 +101,11 @@
       "source": "/lab/:path*",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/resume.pdf",
+      "destination": "/#resume",
+      "permanent": false
     }
   ]
 }

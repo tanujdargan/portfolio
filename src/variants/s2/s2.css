@@ -62,11 +62,11 @@ html:has(.s2) { scroll-behavior: smooth; }
 .s2-title { margin: -16px 0 24px; font: 500 13px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 .s2-lede { max-width: 36em; margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.6; }
 .s2-hero .s2-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 0; }
-.s2-hero .s2-links a { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border: 1px solid rgb(239 238 236 / 0.18); border-radius: 999px;
-  color: var(--fg); font: 500 16px/1 var(--sans); transition: border-color 0.2s, background 0.2s, color 0.2s; }
-.s2-hero .s2-links a:hover { border-color: var(--accent); color: var(--accent); }
-.s2-hero .s2-links a:first-child { background: var(--accent); border-color: var(--accent); color: #0b0b0c; }
-.s2-hero .s2-links a:first-child:hover { background: #f5c78c; color: #0b0b0c; }
+.s2-hero .s2-links > a, .s2-hero .s2-links > button { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border: 1px solid rgb(239 238 236 / 0.18); border-radius: 999px;
+  color: var(--fg); font: 500 16px/1 var(--sans); transition: border-color 0.2s, background 0.2s, color 0.2s; cursor: pointer; }
+.s2-hero .s2-links > a:hover, .s2-hero .s2-links > button:hover { border-color: var(--accent); color: var(--accent); }
+.s2-hero .s2-links > :first-child { background: var(--accent); border-color: var(--accent); color: #0b0b0c; }
+.s2-hero .s2-links > :first-child:hover { background: #f5c78c; color: #0b0b0c; }
 .s2-down { position: absolute; bottom: 40px; left: 0; color: var(--fg-3); font-size: 20px; animation: s2-bob 2.4s ease-in-out infinite; }
 @keyframes s2-bob { 50% { transform: translateY(6px); } }
 
@@ -241,3 +241,16 @@ html.s2-entering .s2-down.s2-in { animation: s2-up 0.7s var(--ease) both calc(va
 .s2-sub span { display: block; margin-bottom: 6px; font: 400 12px/1.6 var(--mono); color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }
 .s2-entry__body > .s2-sub:first-child, .s2-role + .s2-sub { margin-top: 8px; }
 .s2-sub ~ .s2-sub { margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--line); }
+
+/* resume request: a native modal dialog */
+.s2-dialog { width: min(560px, calc(100vw - 32px)); padding: 40px; border: 1px solid var(--line); border-radius: 18px;
+  background: var(--bg-2); color: var(--fg-2); box-shadow: 0 30px 80px rgb(0 0 0 / 0.5); }
+.s2-dialog::backdrop { background: rgb(0 0 0 / 0.6); backdrop-filter: blur(6px); }
+.s2-dialog[open] { animation: s2-up 0.35s var(--ease); }
+.s2-dialog h2 { margin: 0 0 8px; color: var(--fg); font: 500 28px/1.15 var(--sans); letter-spacing: -0.02em; }
+.s2-dialog > p { margin: 0 0 28px; }
+.s2-dialog .s2-form { grid-template-columns: 1fr; margin: 0; }
+.s2-dialog .s2-form__done { margin: 0; }
+.s2-dialog__x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 0; border-radius: 50%;
+  background: none; color: var(--fg-3); font: 400 24px/1 var(--sans); cursor: pointer; }
+.s2-dialog__x:hover { color: var(--fg); background: rgb(255 255 255 / 0.06); }

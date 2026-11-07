@@ -280,7 +280,11 @@ function GitHubYear() {
   )
 }
 
-function ContactForm() {
+// ponytail: the Vercel env value ends in a stray quote; strip it here rather than edit project settings.
+const WEB3FORMS_KEY = String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY).replace(/['"]/g, '')
+
+/** `resume`: the same form, asking for the resume instead of a message (the PDF isn't public). */
+function ContactForm({ resume = false }: { resume?: boolean }) {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [error, setError] = useState('')
   async function submit(e: FormEvent<HTMLFormElement>) {
@@ -293,11 +297,10 @@ function ContactForm() {
       // Web3Forms only accepts browser-side submissions (the access key is public by design). FormData with no custom
       // headers keeps it a simple CORS request, so there's no preflight for their firewall to reject.
       const body = new FormData()
-      // ponytail: the Vercel env value ends in a stray quote; strip it here rather than edit project settings.
-      body.append('access_key', String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY).replace(/['"]/g, ''))
-      body.append('subject', `Portfolio: message from ${f.name}`)
+      body.append('access_key', WEB3FORMS_KEY)
+      body.append('subject', resume ? `Resume request from ${f.name}` : `Portfolio: message from ${f.name}`)
       body.append('from_name', 'tanujdargan.com')
-      for (const k of ['name', 'email', 'message']) body.append(k, f[k])
+      for (const k of ['name', 'email', 'message']) body.append(k, f[k] || '(no note)')
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body })
       const data = await res.json().catch(() => ({}))
       if (!data.success) throw new Error('Couldn’t send just now. Email me at dargantanuj@gmail.com instead.')
@@ -307,9 +310,14 @@ function ContactForm() {
       setState('error')
     }
   }
-  if (state === 'sent') return <p className="s2-form__done" role="status">Thanks, it’s in my inbox. I’ll reply by email.</p>
+  if (state === 'sent')
+    return <p className="s2-form__done" role="status">{resume ? 'Request sent. I’ll email you my resume shortly.' : 'Thanks, it’s in my inbox. I’ll reply by email.'}</p>
   return (
-    <form className="s2-form" onSubmit={submit}>
+    // action/method + hidden fields: a plain HTML post to Web3Forms if someone submits before the JS has loaded.
+    <form className="s2-form" onSubmit={submit} action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value={resume ? 'Resume request' : 'Portfolio: new message'} />
+      <input type="hidden" name="from_name" value="tanujdargan.com" />
       <label>
         <span>Name</span>
         <input name="name" required maxLength={100} autoComplete="name" />
@@ -319,15 +327,37 @@ function ContactForm() {
         <input name="email" type="email" required maxLength={200} autoComplete="email" />
       </label>
       <label className="s2-form__msg">
-        <span>Message</span>
-        <textarea name="message" required maxLength={5000} rows={5} />
+        <span>{resume ? 'What’s it for? (optional)' : 'Message'}</span>
+        <textarea name="message" required={!resume} maxLength={5000} rows={resume ? 3 : 5} />
       </label>
       <input name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="s2-form__hp" />
       <div className="s2-form__row">
-        <button type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send'}</button>
+        <button type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : resume ? 'Request resume' : 'Send'}</button>
         {state === 'error' && <p role="alert">{error}</p>}
       </div>
     </form>
+  )
+}
+
+function ResumeRequest() {
+  const ref = useRef<HTMLDialogElement>(null)
+  // Old /resume.pdf links redirect to /#resume (vercel.json), which opens this.
+  useEffect(() => {
+    if (location.hash === '#resume') ref.current?.showModal()
+  }, [])
+  return (
+    <>
+      {/* commandfor/command open the dialog natively, so it works before the deferred JS hydrates; onClick covers older browsers. */}
+      <button type="button" {...{ commandfor: 's2-resume', command: 'show-modal' }} onClick={() => ref.current?.open || ref.current?.showModal()}>
+        Request resume
+      </button>
+      <dialog ref={ref} id="s2-resume" className="s2-dialog" aria-labelledby="s2-h-resume" onClick={(e) => e.target === ref.current && ref.current.close()}>
+        <h2 id="s2-h-resume">Request my resume</h2>
+        <p>Tell me who you are and I’ll email you the latest PDF.</p>
+        <ContactForm resume />
+        <button type="button" className="s2-dialog__x" aria-label="Close" {...{ commandfor: 's2-resume', command: 'close' }} onClick={() => ref.current?.close()}>×</button>
+      </dialog>
+    </>
   )
 }
 
@@ -355,12 +385,12 @@ function Home({ base }: { base: string }) {
             models represent inside: two papers with <b>Apart Research</b>, on collusion probes and on how fine-tuning
             decides whether a model voices shutdown distress. Before that I led flight firmware for <b>MarmotSat</b>, now in orbit. Fourth-year CS at the University of Victoria, graduating April 2027.
           </p>
-          <p className="s2-links s2-in" style={{ '--d': 2 } as React.CSSProperties}>
-            <a href={links.resume.href} {...ext}>Resume ↗</a>
+          <div className="s2-links s2-in" style={{ '--d': 2 } as React.CSSProperties}>
+            <ResumeRequest />
             <a href={links.github.href} {...ext}>GitHub ↗</a>
             <a href={links.linkedin.href} {...ext}>LinkedIn ↗</a>
             <a href={links.email.href}>Email</a>
-          </p>
+          </div>
           <a href="#work" className="s2-down s2-in" style={{ '--d': 4 } as React.CSSProperties} aria-label="Scroll to work">↓</a>
         </header>
 
